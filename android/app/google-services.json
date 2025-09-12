@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "127097520088",
+    "project_id": "marketplacemusicalinstruments",
+    "storage_bucket": "marketplacemusicalinstruments.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:127097520088:android:fa5f9889069edd44adfcad",
+        "android_client_info": {
+          "package_name": "com.example.marketplace_musical_instruments_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6pbLDSQUFMJGOp0DPsn9EMoXMjNC9n4g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
