@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/firebase_options.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/splash/splash_page.dart';
 
 void main() async {
@@ -8,7 +10,14 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MarketplaceApp());
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => LoginBloc()),
+      ],
+      child: const MarketplaceApp(),
+    ),
+  );
 }
 
 class MarketplaceApp extends StatelessWidget {

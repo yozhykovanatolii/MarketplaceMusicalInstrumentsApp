@@ -1,7 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_button.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_text_field.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_bloc.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_event.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -32,14 +36,33 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 50),
-              const CommonTextField(
-                prefixIcon: Icons.email,
-                hintText: 'Enter your email',
+              BlocSelector<LoginBloc, LoginState, String?>(
+                selector: (state) => state.emailError,
+                builder: (context, emailError) {
+                  return CommonTextField(
+                    onChanged: (email) => context.read<LoginBloc>().add(
+                      LoginEmailChangeEvent(email),
+                    ),
+                    prefixIcon: Icons.email,
+                    hintText: 'Enter your email',
+                    errorText: emailError,
+                  );
+                },
               ),
               const SizedBox(height: 15),
-              const CommonTextField(
-                prefixIcon: Icons.lock,
-                hintText: 'Enter your password',
+              BlocSelector<LoginBloc, LoginState, String?>(
+                selector: (state) => state.passwordError,
+                builder: (context, passwordError) {
+                  return CommonTextField(
+                    onChanged: (password) => context.read<LoginBloc>().add(
+                      LoginPasswordChangeEvent(password),
+                    ),
+                    prefixIcon: Icons.lock,
+                    hintText: 'Enter your password',
+                    errorText: passwordError,
+                    obscureText: true,
+                  );
+                },
               ),
               const SizedBox(height: 30),
               CommonButton(
