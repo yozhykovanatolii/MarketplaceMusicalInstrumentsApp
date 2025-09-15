@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:marketplace_musical_instruments_app/core/exception/login_exception.dart';
 
 class UserAuth {
   final _firebaseAuth = FirebaseAuth.instance;
@@ -12,8 +13,10 @@ class UserAuth {
         email: email,
         password: password,
       );
-    } catch (exception) {
-      throw Exception(exception.toString());
+    } on FirebaseAuthException catch (exception) {
+      throw LoginException.convertFromCode(exception.code);
+    } catch (_) {
+      throw LoginException();
     }
   }
 }

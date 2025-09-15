@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:marketplace_musical_instruments_app/core/exception/login_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/util/user_validator_util.dart';
 import 'package:marketplace_musical_instruments_app/data/repository/auth_repository.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_event.dart';
@@ -52,10 +53,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     try {
       await _authRepository.signInUser(state.emailText, state.passwordText);
       emit(state.copyWith(formStatus: FormStatus.success));
-    } catch (exception) {
+    } on LoginException catch (exception) {
       emit(
         state.copyWith(
-          errorMessage: exception.toString(),
+          errorMessage: exception.message,
           formStatus: FormStatus.failure,
         ),
       );
