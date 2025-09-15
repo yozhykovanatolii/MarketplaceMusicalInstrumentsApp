@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:marketplace_musical_instruments_app/core/util/snack_bar_util.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_button.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_progress_indicator.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_text_field.dart';
@@ -18,10 +19,22 @@ class LoginPage extends StatelessWidget {
       body: BlocListener<LoginBloc, LoginState>(
         listener: (context, state) {
           if (state.formStatus == FormStatus.failure) {
-            print('Failure authorization');
+            SnackBarUtil.showSnackBar(
+              context,
+              state.errorMessage,
+              Icons.error,
+              0xFFFFEEEF,
+              0xFFE77282,
+            );
           }
           if (state.formStatus == FormStatus.success) {
-            print('Success authorization');
+            SnackBarUtil.showSnackBar(
+              context,
+              'Success authorization',
+              Icons.check_circle,
+              0xFFD4FFFE,
+              0xFF009688,
+            );
           }
         },
         child: SafeArea(
