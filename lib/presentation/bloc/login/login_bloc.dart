@@ -1,9 +1,12 @@
 import 'package:bloc/bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/util/user_validator_util.dart';
+import 'package:marketplace_musical_instruments_app/data/repository/auth_repository.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
+  final _authRepository = AuthRepository();
+
   LoginBloc() : super(LoginState.initial()) {
     on<LoginEmailChangeEvent>(_setLoginEmail);
     on<LoginPasswordChangeEvent>(_setLoginPassword);
@@ -45,5 +48,19 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     Emitter<LoginState> emit,
   ) async {
     if (state.emailError != null || state.passwordError != null) return;
+    emit(state.copyWith(formStatus: FormStatus.loading));
+    try {
+      await _authRepository.signInUser(state.emailText, state.passwordText);
+      emit(state.copyWith(formStatus: FormStatus.success));
+    } catch (exception) {
+      emit(
+        state.copyWith(
+          errorMessage: exception.toString(),
+          formStatus: FormStatus.failure,
+        ),
+      );
+    } finally {
+      emit(state.copyWith(formStatus: FormStatus.initial));
+    }
   }
 }
