@@ -1,10 +1,13 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/util/user_validator_util.dart';
+import 'package:marketplace_musical_instruments_app/data/repository/user_repository.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/register/register_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/register/register_state.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
+  final _userRepository = UserRepository();
+
   RegisterBloc() : super(RegisterState.initial()) {
     on<RegisterFullNameChangeEvent>(_setRegisterFullName);
     on<RegisterEmailChangeEvent>(_setRegisterEmail);
