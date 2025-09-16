@@ -8,6 +8,7 @@ import 'package:marketplace_musical_instruments_app/core/widget/common_text_fiel
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
+import 'package:marketplace_musical_instruments_app/presentation/page/register/register_page.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -151,7 +152,12 @@ class LoginPage extends StatelessWidget {
                         ),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            print('Hello, world');
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const RegisterPage(),
+                              ),
+                            );
                           },
                       ),
                     ],
