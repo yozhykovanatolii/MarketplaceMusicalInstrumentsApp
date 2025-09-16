@@ -79,7 +79,9 @@ class RegisterPage extends StatelessWidget {
               ),
               const SizedBox(height: 30),
               CommonButton(
-                onPressed: () {},
+                onPressed: () => context.read<RegisterBloc>().add(
+                  RegisterSubmitEvent(),
+                ),
                 child: const Text(
                   'Sign Up',
                   style: TextStyle(

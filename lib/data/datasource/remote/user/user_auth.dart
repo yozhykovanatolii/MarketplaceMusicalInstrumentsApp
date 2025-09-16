@@ -19,4 +19,23 @@ class UserAuth {
       throw LoginException();
     }
   }
+
+  Future<String> signUpWithEmailAndPassword(
+    String email,
+    String password,
+  ) async {
+    String userID = '';
+    try {
+      final credential = await _firebaseAuth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      userID = credential.user!.uid;
+    } on FirebaseAuthException catch (exception) {
+      throw Exception(exception.message);
+    } catch (exception) {
+      throw Exception(exception.toString());
+    }
+    return userID;
+  }
 }
