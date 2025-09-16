@@ -31,13 +31,21 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     );
   }
 
-  void _setRegisterEmail(
+  Future<void> _setRegisterEmail(
     RegisterEmailChangeEvent event,
     Emitter<RegisterState> emit,
-  ) {
-    final emailError = UserValidatorUtil.validateEmail(
+  ) async {
+    String? emailError = UserValidatorUtil.validateEmail(
       event.email,
     );
+    if (emailError == null) {
+      final isUserExist = await _userRepository.checkIfUserExistByEmail(
+        event.email,
+      );
+      emailError = isUserExist
+          ? 'This email is busy, please choose another one.'
+          : null;
+    }
     emit(
       state.copyWith(
         emailText: event.email,
