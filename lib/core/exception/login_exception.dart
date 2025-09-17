@@ -2,7 +2,7 @@ class LoginException implements Exception {
   final String message;
 
   LoginException([
-    this.message = 'An unknown auth exception occurred.',
+    this.message = 'An unknown authorization exception occurred.',
   ]);
 
   factory LoginException.convertFromCode(

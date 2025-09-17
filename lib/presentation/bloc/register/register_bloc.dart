@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:marketplace_musical_instruments_app/core/exception/register_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/util/user_validator_util.dart';
 import 'package:marketplace_musical_instruments_app/data/repository/auth_repository.dart';
 import 'package:marketplace_musical_instruments_app/data/repository/user_repository.dart';
@@ -89,8 +90,14 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
         state.passwordText,
         state.fullNameText,
       );
-    } catch (exception) {
-      print(exception.toString());
+      emit(state.copyWith(formStatus: FormStatus.success));
+    } on RegisterException catch (exception) {
+      emit(
+        state.copyWith(
+          formStatus: FormStatus.failure,
+          errorMessage: exception.message,
+        ),
+      );
     }
   }
 }

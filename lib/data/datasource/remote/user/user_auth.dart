@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/login_exception.dart';
+import 'package:marketplace_musical_instruments_app/core/exception/register_exception.dart';
 
 class UserAuth {
   final _firebaseAuth = FirebaseAuth.instance;
@@ -32,9 +33,9 @@ class UserAuth {
       );
       userID = credential.user!.uid;
     } on FirebaseAuthException catch (exception) {
-      throw Exception(exception.message);
-    } catch (exception) {
-      throw Exception(exception.toString());
+      throw RegisterException(exception.code);
+    } catch (_) {
+      throw RegisterException();
     }
     return userID;
   }
