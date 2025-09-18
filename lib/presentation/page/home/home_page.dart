@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:marketplace_musical_instruments_app/presentation/page/home/widget/advertisement_banners.dart';
+import 'package:marketplace_musical_instruments_app/presentation/page/home/widget/advertisement_banner.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/home/widget/filter_floating_action_button.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/home/widget/home_header.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/home/widget/text_search_bar.dart';
@@ -28,7 +28,7 @@ class HomePage extends StatelessWidget {
               ],
             ),
             SizedBox(height: 20),
-            AdvertisementBanners(),
+            AdvertisementBanner(),
             SizedBox(height: 30),
           ],
         ),
