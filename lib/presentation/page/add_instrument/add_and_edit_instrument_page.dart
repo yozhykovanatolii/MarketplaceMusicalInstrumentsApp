@@ -1,0 +1,54 @@
+import 'package:flutter/material.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:marketplace_musical_instruments_app/core/widget/common_button.dart';
+import 'package:marketplace_musical_instruments_app/core/widget/common_text_field.dart';
+import 'package:marketplace_musical_instruments_app/presentation/page/add_instrument/widget/category_dropdown_menu.dart';
+import 'package:marketplace_musical_instruments_app/presentation/page/add_instrument/widget/description_text_field.dart';
+
+class AddAndEditInstrumentPage extends StatelessWidget {
+  const AddAndEditInstrumentPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        minimum: const EdgeInsets.symmetric(horizontal: 30, vertical: 30),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Placeholder(
+                fallbackHeight: 150,
+              ),
+              const SizedBox(height: 20),
+              const CommonTextField(
+                prefixIcon: Iconsax.box,
+                hintText: 'Enter name of the instrument',
+              ),
+              const SizedBox(height: 20),
+              const DescriptionTextField(),
+              const SizedBox(height: 20),
+              const CommonTextField(
+                prefixIcon: Iconsax.tag,
+                hintText: 'Enter price of the rent by hours',
+              ),
+              const SizedBox(height: 20),
+              const CategoryDropdownMenu(),
+              const SizedBox(height: 30),
+              CommonButton(
+                onPressed: () {},
+                child: const Text(
+                  'Save',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
