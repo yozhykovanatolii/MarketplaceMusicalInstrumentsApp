@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 class HomeHeader extends StatelessWidget {
   const HomeHeader({super.key});
@@ -10,7 +11,7 @@ class HomeHeader extends StatelessWidget {
       children: [
         Icon(
           size: 60,
-          Icons.store,
+          Iconsax.shop,
         ),
         Text(
           'Rentify',
