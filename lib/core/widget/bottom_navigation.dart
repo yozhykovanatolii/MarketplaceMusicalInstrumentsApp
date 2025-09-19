@@ -21,9 +21,12 @@ class BottomNavigation extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        height: 60,
+        height: MediaQuery.of(context).size.height * 0.08,
         padding: const EdgeInsets.all(12),
-        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        margin: EdgeInsets.symmetric(
+          horizontal: MediaQuery.of(context).size.width * 0.05,
+          vertical: 8,
+        ),
         decoration: BoxDecoration(
           color: const Color(0xFF1E1E1E),
           borderRadius: BorderRadius.circular(24),
@@ -59,16 +62,29 @@ class _BottomNavigationItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        curve: Curves.easeOutBack,
-        width: 36,
-        height: 36,
-        child: Icon(
-          size: 30,
-          iconData,
-          color: isActive ? Colors.blue : Colors.grey[350],
-        ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            height: 4,
+            width: isActive ? 26 : 0,
+            decoration: BoxDecoration(
+              color: Colors.blue,
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            curve: Curves.easeOutBack,
+            width: 36,
+            height: 36,
+            child: Icon(
+              size: 27,
+              iconData,
+              color: Colors.white,
+            ),
+          ),
+        ],
       ),
     );
   }
