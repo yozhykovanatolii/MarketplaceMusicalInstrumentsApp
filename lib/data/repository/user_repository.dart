@@ -10,7 +10,7 @@ class UserRepository {
     return _userFirestore.checkUserByEmail(email);
   }
 
-  Stream<UserModel> getUserModelById() {
+  Stream<UserModel> getUserModelCurrentData() {
     final userStream = _userAuth.user;
     return userStream.asyncMap((user) async {
       print('[DEBUG] Firebase user: $user');
