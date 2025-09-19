@@ -8,7 +8,7 @@ import 'package:marketplace_musical_instruments_app/core/widget/common_text_fiel
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
-import 'package:marketplace_musical_instruments_app/presentation/page/home/home_page.dart';
+import 'package:marketplace_musical_instruments_app/presentation/page/main_page.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/register/register_page.dart';
 
 class LoginPage extends StatelessWidget {
@@ -39,7 +39,7 @@ class LoginPage extends StatelessWidget {
             );
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (_) => const HomePage()),
+              MaterialPageRoute(builder: (_) => const MainPage()),
             );
           }
         },

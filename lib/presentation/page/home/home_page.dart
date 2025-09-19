@@ -30,6 +30,9 @@ class HomePage extends StatelessWidget {
             SizedBox(height: 20),
             AdvertisementBanner(),
             SizedBox(height: 30),
+            Expanded(
+              child: Placeholder(),
+            ),
           ],
         ),
       ),
