@@ -39,4 +39,6 @@ class UserAuth {
     }
     return userID;
   }
+
+  Stream<User?> get user => _firebaseAuth.authStateChanges();
 }
