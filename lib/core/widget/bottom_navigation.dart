@@ -6,6 +6,7 @@ class BottomNavigation extends StatelessWidget {
   static const iconsData = [
     Iconsax.home,
     Iconsax.map,
+    Iconsax.add,
     Iconsax.heart,
     Iconsax.user,
   ];

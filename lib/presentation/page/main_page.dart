@@ -16,6 +16,7 @@ class _MainPageState extends State<MainPage> {
     HomePage(),
     HomePage(),
     HomePage(),
+    HomePage(),
   ];
 
   void _onItemTapped(int index) {
