@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/bottom_navigation.dart';
+import 'package:marketplace_musical_instruments_app/presentation/page/add_instrument/add_instrument_page.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/home/home_page.dart';
 
 class MainPage extends StatefulWidget {
@@ -14,7 +15,7 @@ class _MainPageState extends State<MainPage> {
   static const _pages = [
     HomePage(),
     HomePage(),
-    HomePage(),
+    AddInstrumentPage(),
     HomePage(),
     HomePage(),
   ];
