@@ -4,6 +4,7 @@ import 'package:marketplace_musical_instruments_app/core/widget/common_button.da
 import 'package:marketplace_musical_instruments_app/core/widget/common_text_field.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/add_instrument/widget/category_dropdown_menu.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/add_instrument/widget/description_text_field.dart';
+import 'package:marketplace_musical_instruments_app/presentation/page/add_instrument/widget/photo_list_view.dart';
 
 class AddAndEditInstrumentPage extends StatelessWidget {
   const AddAndEditInstrumentPage({super.key});
@@ -12,13 +13,14 @@ class AddAndEditInstrumentPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        minimum: const EdgeInsets.symmetric(horizontal: 30, vertical: 30),
+        minimum: const EdgeInsets.symmetric(horizontal: 30, vertical: 40),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Placeholder(
-                fallbackHeight: 150,
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.15,
+                child: const PhotoListView(),
               ),
               const SizedBox(height: 20),
               const CommonTextField(
