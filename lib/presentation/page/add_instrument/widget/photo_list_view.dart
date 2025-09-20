@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/add_and_edit_listing/add_and_edit_listing_bloc.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/add_and_edit_listing/add_and_edit_listing_event.dart';
 
 class PhotoListView extends StatelessWidget {
   static const photosLength = 4;
@@ -7,13 +10,16 @@ class PhotoListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final listingPhotos = context.select(
+      (AddAndEditListingBloc bloc) => bloc.state.photos,
+    );
     return ListView.separated(
       scrollDirection: Axis.horizontal,
-      itemCount: photosLength + 1,
+      itemCount: listingPhotos.length + 1,
       itemBuilder: (context, index) {
-        if (index < photosLength) {
-          return const _PhotoCardItem(
-            photoPath: 'assets/images/test.jpg',
+        if (index < listingPhotos.length) {
+          return _PhotoCardItem(
+            photoUrl: listingPhotos[index],
           );
         }
         return const _OpenGalleryButton();
@@ -24,11 +30,11 @@ class PhotoListView extends StatelessWidget {
 }
 
 class _PhotoCardItem extends StatelessWidget {
-  final String photoPath;
+  final String photoUrl;
 
   const _PhotoCardItem({
     super.key,
-    required this.photoPath,
+    required this.photoUrl,
   });
 
   @override
@@ -39,9 +45,9 @@ class _PhotoCardItem extends StatelessWidget {
           width: 120,
           child: ClipRRect(
             borderRadius: BorderRadiusGeometry.circular(12),
-            child: Image.asset(
+            child: Image.network(
               fit: BoxFit.cover,
-              photoPath,
+              photoUrl,
             ),
           ),
         ),
@@ -49,7 +55,9 @@ class _PhotoCardItem extends StatelessWidget {
           left: 75,
           child: IconButton(
             iconSize: 30,
-            onPressed: () {},
+            onPressed: () => context.read<AddAndEditListingBloc>().add(
+              DeleteListingPhotoEvent(photoUrl),
+            ),
             style: const ButtonStyle(
               foregroundColor: WidgetStatePropertyAll(Colors.white),
             ),
@@ -69,7 +77,9 @@ class _OpenGalleryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () => context.read<AddAndEditListingBloc>().add(
+        AddListingPhotoEvent(),
+      ),
       child: const SizedBox(
         width: 50,
         child: Icon(

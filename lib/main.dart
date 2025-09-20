@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/firebase_options.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/add_and_edit_listing/add_and_edit_listing_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/app/app_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/app/app_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_bloc.dart';
@@ -24,6 +25,7 @@ void main() async {
       providers: [
         BlocProvider(create: (_) => LoginBloc()),
         BlocProvider(create: (_) => RegisterBloc()),
+        BlocProvider(create: (_) => AddAndEditListingBloc()),
         BlocProvider(
           create: (_) => AppBloc()..add(AppUserSubscriptionRequested()),
         ),
