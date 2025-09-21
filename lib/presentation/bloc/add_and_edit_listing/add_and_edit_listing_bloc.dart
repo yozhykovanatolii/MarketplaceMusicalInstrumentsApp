@@ -1,4 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:marketplace_musical_instruments_app/core/exception/permission_denied_exception.dart';
+import 'package:marketplace_musical_instruments_app/core/exception/photo_not_selected_exception.dart';
 import 'package:marketplace_musical_instruments_app/data/repository/listing_repository.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/add_and_edit_listing/add_and_edit_listing_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/add_and_edit_listing/add_and_edit_listing_state.dart';
@@ -20,9 +22,12 @@ class AddAndEditListingBloc
       final photoUrl = await _listingRepository.getListingPhotoUrl();
       final updatedPhotos = List<String>.from(state.photos)..add(photoUrl);
       emit(state.copyWith(photos: updatedPhotos));
-    } catch (exception) {
-      print('Error');
-      emit(state.copyWith(errorMessage: exception.toString()));
+    } on PermissionDeniedException catch (exception) {
+      emit(state.copyWith(errorMessage: exception.errorMessage));
+    } on PhotoNotSelectedException catch (exception) {
+      emit(state.copyWith(errorMessage: exception.errorMessage));
+    } finally {
+      emit(state.copyWith(errorMessage: ''));
     }
   }
 
