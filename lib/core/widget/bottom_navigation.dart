@@ -22,15 +22,15 @@ class BottomNavigation extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.08,
-        padding: const EdgeInsets.all(12),
-        margin: EdgeInsets.symmetric(
-          horizontal: MediaQuery.of(context).size.width * 0.05,
+        height: 56,
+        margin: const EdgeInsets.symmetric(
+          horizontal: 16,
           vertical: 8,
         ),
+        padding: const EdgeInsets.symmetric(horizontal: 12),
         decoration: BoxDecoration(
           color: const Color(0xFF1E1E1E),
-          borderRadius: BorderRadius.circular(24),
+          borderRadius: BorderRadius.circular(20),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -66,21 +66,22 @@ class _BottomNavigationItem extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Container(
-            height: 4,
-            width: isActive ? 26 : 0,
+          AnimatedContainer(
+            duration: const Duration(milliseconds: 250),
+            height: 3,
+            width: isActive ? 24 : 0,
             decoration: BoxDecoration(
               color: Colors.blue,
               borderRadius: BorderRadius.circular(12),
             ),
           ),
           AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
+            duration: const Duration(milliseconds: 250),
             curve: Curves.easeOutBack,
             width: 36,
             height: 36,
             child: Icon(
-              size: 27,
+              size: 24,
               iconData,
               color: Colors.white,
             ),
