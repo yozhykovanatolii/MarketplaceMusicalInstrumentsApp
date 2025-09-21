@@ -4,6 +4,7 @@ import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:marketplace_musical_instruments_app/core/util/snack_bar_util.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_button.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_text_field.dart';
+import 'package:marketplace_musical_instruments_app/core/widget/listing_mini_google_map.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/add_and_edit_listing/add_and_edit_listing_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/add_and_edit_listing/add_and_edit_listing_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/add_instrument/widget/category_dropdown_menu.dart';
@@ -52,6 +53,8 @@ class AddAndEditInstrumentPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 const CategoryDropdownMenu(),
+                const SizedBox(height: 20),
+                const ListingMiniGoogleMap(),
                 const SizedBox(height: 30),
                 CommonButton(
                   onPressed: () {},
