@@ -7,3 +7,5 @@ final class DeleteListingPhotoEvent extends AddAndEditListingEvent {
 
   DeleteListingPhotoEvent(this.photoUrl);
 }
+
+final class GetUserCurrentLocationEvent extends AddAndEditListingEvent {}

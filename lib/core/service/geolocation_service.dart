@@ -2,7 +2,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/geolocation_exception.dart';
 
 class GeolocationService {
-  Future<Position> getCurrentLocation() async {
+  static Future<Position> getCurrentLocation() async {
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
       throw GeolocationException('Location services are disabled.');
