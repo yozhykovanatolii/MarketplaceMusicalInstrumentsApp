@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:marketplace_musical_instruments_app/core/exception/geolocation_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/permission_denied_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/photo_not_selected_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/service/geolocation_service.dart';
@@ -56,8 +57,10 @@ class AddAndEditListingBloc
         'longitude': location.longitude,
       });
       emit(state.copyWith(currentLocation: updatedUserLocation));
-    } catch (exception) {
-      emit(state.copyWith(errorMessage: exception.toString()));
+    } on PermissionDeniedException catch (exception) {
+      emit(state.copyWith(errorMessage: exception.errorMessage));
+    } on GeolocationException catch (exception) {
+      emit(state.copyWith(errorMessage: exception.errorMessage));
     } finally {
       emit(state.copyWith(errorMessage: ''));
     }
