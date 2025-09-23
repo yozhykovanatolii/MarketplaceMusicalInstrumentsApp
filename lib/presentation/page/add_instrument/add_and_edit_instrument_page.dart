@@ -5,6 +5,7 @@ import 'package:marketplace_musical_instruments_app/core/util/snack_bar_util.dar
 import 'package:marketplace_musical_instruments_app/core/widget/common_button.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_text_field.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/add_and_edit_listing/add_and_edit_listing_bloc.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/add_and_edit_listing/add_and_edit_listing_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/add_and_edit_listing/add_and_edit_listing_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/add_instrument/widget/category_dropdown_menu.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/add_instrument/widget/description_text_field.dart';
@@ -16,6 +17,7 @@ class AddAndEditInstrumentPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bloc = context.read<AddAndEditListingBloc>();
     return Scaffold(
       body: BlocListener<AddAndEditListingBloc, AddAndEditListingState>(
         listener: (context, state) {
@@ -40,31 +42,82 @@ class AddAndEditInstrumentPage extends StatelessWidget {
                   child: const PhotoListView(),
                 ),
                 const SizedBox(height: 20),
-                const CommonTextField(
-                  prefixIcon: Iconsax.box,
-                  hintText: 'Enter name of the instrument',
+                BlocBuilder<AddAndEditListingBloc, AddAndEditListingState>(
+                  builder: (context, state) {
+                    return CommonTextField(
+                      onChanged: (title) => bloc.add(
+                        ListingTitleChangeEvent(title),
+                      ),
+                      prefixIcon: Iconsax.box,
+                      hintText: 'Enter name of the instrument',
+                      errorText: state.titleError,
+                      counterText: state.titleCounterText,
+                    );
+                  },
                 ),
                 const SizedBox(height: 20),
-                const DescriptionTextField(),
+                BlocBuilder<AddAndEditListingBloc, AddAndEditListingState>(
+                  builder: (context, state) {
+                    return DescriptionTextField(
+                      onChanged: (description) => bloc.add(
+                        ListingDecriptionChangeEvent(description),
+                      ),
+                      errorText: state.descriptionError,
+                      counterText: state.descriptionCounterText,
+                    );
+                  },
+                ),
                 const SizedBox(height: 20),
-                const CommonTextField(
-                  prefixIcon: Iconsax.tag,
-                  hintText: 'Enter price of the rent by hours',
+                BlocSelector<
+                  AddAndEditListingBloc,
+                  AddAndEditListingState,
+                  String?
+                >(
+                  selector: (state) => state.priceError,
+                  builder: (context, priceError) {
+                    return CommonTextField(
+                      onChanged: (priceText) => bloc.add(
+                        ListingPriceChangeEvent(priceText),
+                      ),
+                      prefixIcon: Iconsax.tag,
+                      hintText: 'Enter price of the rent by hours',
+                      errorText: priceError,
+                    );
+                  },
                 ),
                 const SizedBox(height: 20),
                 const CategoryDropdownMenu(),
                 const SizedBox(height: 20),
                 const MiniGoogleMap(),
                 const SizedBox(height: 30),
-                CommonButton(
-                  onPressed: () {},
-                  child: const Text(
-                    'Save',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                    ),
-                  ),
+                BlocSelector<
+                  AddAndEditListingBloc,
+                  AddAndEditListingState,
+                  ButtonStatus
+                >(
+                  selector: (state) => state.buttonStatus,
+                  builder: (context, buttonStatus) {
+                    final color = buttonStatus == ButtonStatus.disabled
+                        ? Colors.grey
+                        : Colors.blue;
+                    final textColor = buttonStatus == ButtonStatus.disabled
+                        ? Colors.black
+                        : Colors.white;
+                    final onPressed = buttonStatus == ButtonStatus.disabled
+                        ? null
+                        : () {};
+                    return CommonButton(
+                      onPressed: onPressed,
+                      color: color,
+                      child: Text(
+                        'Save',
+                        style: TextStyle(
+                          color: textColor,
+                          fontSize: 18,
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ],
             ),

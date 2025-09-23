@@ -9,3 +9,21 @@ final class DeleteListingPhotoEvent extends AddAndEditListingEvent {
 }
 
 final class GetUserCurrentLocationEvent extends AddAndEditListingEvent {}
+
+final class ListingTitleChangeEvent extends AddAndEditListingEvent {
+  final String title;
+
+  ListingTitleChangeEvent(this.title);
+}
+
+final class ListingDecriptionChangeEvent extends AddAndEditListingEvent {
+  final String description;
+
+  ListingDecriptionChangeEvent(this.description);
+}
+
+final class ListingPriceChangeEvent extends AddAndEditListingEvent {
+  final String priceText;
+
+  ListingPriceChangeEvent(this.priceText);
+}

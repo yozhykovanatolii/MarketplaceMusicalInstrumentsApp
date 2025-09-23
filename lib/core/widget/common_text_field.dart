@@ -5,6 +5,7 @@ class CommonTextField extends StatelessWidget {
   final IconData prefixIcon;
   final String hintText;
   final String? errorText;
+  final String? counterText;
   final bool obscureText;
   final bool readOnly;
   final Function(String)? onChanged;
@@ -16,6 +17,7 @@ class CommonTextField extends StatelessWidget {
     required this.prefixIcon,
     required this.hintText,
     this.errorText,
+    this.counterText,
     this.onChanged,
     this.controller,
     this.onTap,
@@ -63,6 +65,7 @@ class CommonTextField extends StatelessWidget {
         ),
         contentPadding: const EdgeInsets.all(10),
         errorText: errorText,
+        counterText: counterText,
         prefixIcon: Icon(prefixIcon),
         hintText: hintText,
       ),

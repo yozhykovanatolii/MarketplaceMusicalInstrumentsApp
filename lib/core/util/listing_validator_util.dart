@@ -7,8 +7,8 @@ class ListingValidatorUtil {
 
   static String? validateDescription(String description) {
     if (description.isEmpty) return "The description must not be empty.";
-    if (description.length > 70) {
-      return "The description must not exceed 70 characters";
+    if (description.length > 9000) {
+      return "The description must not exceed 9000 characters";
     }
     return null;
   }

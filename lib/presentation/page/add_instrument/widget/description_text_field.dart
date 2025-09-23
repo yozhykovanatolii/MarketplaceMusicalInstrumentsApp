@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 
 class DescriptionTextField extends StatelessWidget {
-  const DescriptionTextField({super.key});
+  final String? errorText;
+  final String? counterText;
+  final Function(String)? onChanged;
+
+  const DescriptionTextField({
+    super.key,
+    this.errorText,
+    this.counterText,
+    this.onChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -10,6 +19,7 @@ class DescriptionTextField extends StatelessWidget {
       child: TextField(
         maxLines: null,
         minLines: 5,
+        onChanged: onChanged,
         decoration: InputDecoration(
           filled: true,
           fillColor: const Color(0xFFFAFAFA),
@@ -40,6 +50,8 @@ class DescriptionTextField extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
           ),
           contentPadding: const EdgeInsets.all(10),
+          errorText: errorText,
+          counterText: counterText,
         ),
       ),
     );
