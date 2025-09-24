@@ -6,6 +6,7 @@ class ListingModel {
   final String description;
   final String category;
   final int priceByHour;
+  final List<String> photos;
   final Map<String, double> location;
   final String authorId;
   final String authorFullName;
@@ -16,10 +17,25 @@ class ListingModel {
     required this.description,
     required this.category,
     required this.priceByHour,
+    required this.photos,
     required this.location,
     required this.authorId,
     required this.authorFullName,
   });
+
+  factory ListingModel.initial() {
+    return ListingModel(
+      id: '',
+      title: '',
+      description: '',
+      category: '',
+      priceByHour: 0,
+      photos: [],
+      location: {},
+      authorId: '',
+      authorFullName: '',
+    );
+  }
 
   ListingModel copyWith({
     String? id,
@@ -27,6 +43,7 @@ class ListingModel {
     String? description,
     String? category,
     int? priceByHour,
+    List<String>? photos,
     Map<String, double>? location,
     String? authorId,
     String? authorFullName,
@@ -37,26 +54,28 @@ class ListingModel {
       description: description ?? this.description,
       category: category ?? this.category,
       priceByHour: priceByHour ?? this.priceByHour,
+      photos: photos ?? this.photos,
       location: location ?? this.location,
       authorId: authorId ?? this.authorId,
       authorFullName: authorFullName ?? this.authorFullName,
     );
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toFirestore() {
     return <String, dynamic>{
       'id': id,
       'title': title,
       'description': description,
       'category': category,
       'priceByHour': priceByHour,
+      'photos': photos,
       'location': location,
       'authorId': authorId,
       'authorFullName': authorFullName,
     };
   }
 
-  factory ListingModel.fromMap(
+  factory ListingModel.fromFirestore(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
     SnapshotOptions? options,
   ) {
@@ -67,6 +86,7 @@ class ListingModel {
       description: data?['description'] as String,
       category: data?['category'] as String,
       priceByHour: data?['priceByHour'] as int,
+      photos: data?['photos'] as List<String>,
       location: Map<String, double>.from(
         (data?['location'] as Map<String, double>),
       ),

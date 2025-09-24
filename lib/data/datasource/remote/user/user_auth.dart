@@ -40,5 +40,11 @@ class UserAuth {
     return userID;
   }
 
+  String get userId {
+    final currentUser = _firebaseAuth.currentUser;
+    if (currentUser == null) throw Exception('User didn\'t find');
+    return currentUser.uid;
+  }
+
   Stream<User?> get user => _firebaseAuth.authStateChanges();
 }

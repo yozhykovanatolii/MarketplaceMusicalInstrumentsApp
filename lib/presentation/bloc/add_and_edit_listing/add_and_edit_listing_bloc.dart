@@ -123,5 +123,13 @@ class AddAndEditListingBloc
     Emitter<AddAndEditListingState> emit,
   ) async {
     print('Hello, listing');
+    await _listingRepository.saveListing(
+      state.currentLocation,
+      state.photos,
+      state.title,
+      state.description,
+      state.category,
+      state.price,
+    );
   }
 }
