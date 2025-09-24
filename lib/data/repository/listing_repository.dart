@@ -4,6 +4,7 @@ import 'package:marketplace_musical_instruments_app/data/datasource/remote/listi
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/user/user_auth.dart';
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/user/user_firestore.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
+import 'package:uuid/uuid.dart';
 
 class ListingRepository {
   final _cameraPicker = CameraPicker();
@@ -29,11 +30,13 @@ class ListingRepository {
     final userId = _userAuth.userId;
     final userModel = await _userFirestore.getUserModelById(userId);
     ListingModel listingModel = ListingModel.initial().copyWith(
+      id: const Uuid().v1(),
       location: location,
       photos: photos,
       title: title,
       description: description,
       priceByHour: price,
+      category: category,
       authorId: userId,
       authorFullName: userModel.fullName,
     );

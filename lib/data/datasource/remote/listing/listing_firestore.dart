@@ -11,7 +11,7 @@ class ListingFirestore {
 
   DocumentReference<ListingModel> getListingDocumentReference(String id) {
     return _firestore
-        .collection('users')
+        .collection('listings')
         .doc(id)
         .withConverter(
           fromFirestore: ListingModel.fromFirestore,

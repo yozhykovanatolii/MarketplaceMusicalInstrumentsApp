@@ -28,4 +28,10 @@ final class ListingPriceChangeEvent extends AddAndEditListingEvent {
   ListingPriceChangeEvent(this.priceText);
 }
 
+final class ListingCategoryChangeEvent extends AddAndEditListingEvent {
+  final String category;
+
+  ListingCategoryChangeEvent(this.category);
+}
+
 final class ListingSaveEvent extends AddAndEditListingEvent {}

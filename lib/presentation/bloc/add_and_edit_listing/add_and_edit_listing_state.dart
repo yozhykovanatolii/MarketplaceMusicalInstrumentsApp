@@ -36,7 +36,7 @@ class AddAndEditListingState {
       title: '',
       description: '',
       price: 0,
-      category: '',
+      category: 'Guitar',
       errorMessage: '',
       formStatus: FormStatus.initial,
     );

@@ -19,6 +19,7 @@ class AddAndEditListingBloc
     on<ListingTitleChangeEvent>(_onTitleChanged);
     on<ListingDecriptionChangeEvent>(_onDescriptionChanged);
     on<ListingPriceChangeEvent>(_onPriceChanged);
+    on<ListingCategoryChangeEvent>(_onCategoryChanged);
     on<ListingSaveEvent>(_onSaveListing);
   }
 
@@ -118,18 +119,29 @@ class AddAndEditListingBloc
     );
   }
 
+  void _onCategoryChanged(
+    ListingCategoryChangeEvent event,
+    Emitter<AddAndEditListingState> emit,
+  ) {
+    emit(state.copyWith(category: event.category));
+  }
+
   Future<void> _onSaveListing(
     ListingSaveEvent event,
     Emitter<AddAndEditListingState> emit,
   ) async {
     print('Hello, listing');
-    await _listingRepository.saveListing(
-      state.currentLocation,
-      state.photos,
-      state.title,
-      state.description,
-      state.category,
-      state.price,
-    );
+    try {
+      await _listingRepository.saveListing(
+        state.currentLocation,
+        state.photos,
+        state.title,
+        state.description,
+        state.category,
+        state.price,
+      );
+    } catch (exception) {
+      emit(state.copyWith(errorMessage: exception.toString()));
+    }
   }
 }
