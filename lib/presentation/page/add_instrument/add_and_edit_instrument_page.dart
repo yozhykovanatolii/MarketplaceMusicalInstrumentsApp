@@ -105,7 +105,7 @@ class AddAndEditInstrumentPage extends StatelessWidget {
                         : Colors.white;
                     final onPressed = buttonStatus == ButtonStatus.disabled
                         ? null
-                        : () {};
+                        : () => bloc.add(ListingSaveEvent());
                     return CommonButton(
                       onPressed: onPressed,
                       color: color,

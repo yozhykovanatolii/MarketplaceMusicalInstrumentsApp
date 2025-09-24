@@ -1,3 +1,5 @@
+import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
+
 enum ButtonStatus { enabled, disabled }
 
 class AddAndEditListingState {
@@ -6,9 +8,11 @@ class AddAndEditListingState {
   final String title;
   final String description;
   final int price;
+  final String category;
   final String? titleError;
   final String? descriptionError;
   final String? priceError;
+  final FormStatus formStatus;
   final String errorMessage;
 
   AddAndEditListingState({
@@ -17,9 +21,11 @@ class AddAndEditListingState {
     required this.title,
     required this.description,
     required this.price,
+    required this.category,
     this.titleError,
     this.descriptionError,
     this.priceError,
+    required this.formStatus,
     required this.currentLocation,
   });
 
@@ -30,7 +36,9 @@ class AddAndEditListingState {
       title: '',
       description: '',
       price: 0,
+      category: '',
       errorMessage: '',
+      formStatus: FormStatus.initial,
     );
   }
 
@@ -40,10 +48,12 @@ class AddAndEditListingState {
     String? title,
     String? description,
     int? price,
+    String? category,
     String? errorMessage,
     String? titleError,
     String? descriptionError,
     String? priceError,
+    FormStatus? formStatus,
     bool clearTitleError = false,
     bool clearDecriptionError = false,
     bool clearPriceError = false,
@@ -54,6 +64,8 @@ class AddAndEditListingState {
       title: title ?? this.title,
       description: description ?? this.description,
       price: price ?? this.price,
+      category: category ?? this.category,
+      formStatus: formStatus ?? this.formStatus,
       errorMessage: errorMessage ?? this.errorMessage,
       titleError: clearTitleError ? null : (titleError ?? this.titleError),
       priceError: clearPriceError ? null : (priceError ?? this.priceError),

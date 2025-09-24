@@ -19,6 +19,7 @@ class AddAndEditListingBloc
     on<ListingTitleChangeEvent>(_onTitleChanged);
     on<ListingDecriptionChangeEvent>(_onDescriptionChanged);
     on<ListingPriceChangeEvent>(_onPriceChanged);
+    on<ListingSaveEvent>(_onSaveListing);
   }
 
   Future<void> _onAddListingPhotoInList(
@@ -115,5 +116,12 @@ class AddAndEditListingBloc
         clearPriceError: priceError == null,
       ),
     );
+  }
+
+  Future<void> _onSaveListing(
+    ListingSaveEvent event,
+    Emitter<AddAndEditListingState> emit,
+  ) async {
+    print('Hello, listing');
   }
 }

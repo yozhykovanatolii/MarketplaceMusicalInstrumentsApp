@@ -27,3 +27,5 @@ final class ListingPriceChangeEvent extends AddAndEditListingEvent {
 
   ListingPriceChangeEvent(this.priceText);
 }
+
+final class ListingSaveEvent extends AddAndEditListingEvent {}
