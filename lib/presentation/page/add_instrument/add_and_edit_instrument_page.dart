@@ -21,6 +21,15 @@ class AddAndEditInstrumentPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final bloc = context.read<AddAndEditListingBloc>();
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Create your listing',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        centerTitle: true,
+      ),
       body: BlocListener<AddAndEditListingBloc, AddAndEditListingState>(
         listener: (context, state) {
           if (state.errorMessage.isNotEmpty) {
@@ -43,16 +52,39 @@ class AddAndEditInstrumentPage extends StatelessWidget {
           }
         },
         child: SafeArea(
-          minimum: const EdgeInsets.symmetric(horizontal: 30, vertical: 40),
+          minimum: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const Text(
+                  'Add photo of instrument',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  'Select several photos of the tool. The first photo will be on the listing cover.',
+                  style: TextStyle(
+                    color: Colors.grey[600],
+                    fontSize: 15,
+                  ),
+                ),
+                const SizedBox(height: 10),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.15,
                   child: const PhotoListView(),
                 ),
                 const SizedBox(height: 20),
+                const Text(
+                  'Title',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 5),
                 BlocBuilder<AddAndEditListingBloc, AddAndEditListingState>(
                   builder: (context, state) {
                     return CommonTextField(
@@ -67,6 +99,14 @@ class AddAndEditInstrumentPage extends StatelessWidget {
                   },
                 ),
                 const SizedBox(height: 20),
+                const Text(
+                  'Description',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 5),
                 BlocBuilder<AddAndEditListingBloc, AddAndEditListingState>(
                   builder: (context, state) {
                     return DescriptionTextField(
@@ -79,6 +119,14 @@ class AddAndEditInstrumentPage extends StatelessWidget {
                   },
                 ),
                 const SizedBox(height: 20),
+                const Text(
+                  'Price',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 5),
                 BlocSelector<
                   AddAndEditListingBloc,
                   AddAndEditListingState,
@@ -97,8 +145,38 @@ class AddAndEditInstrumentPage extends StatelessWidget {
                   },
                 ),
                 const SizedBox(height: 20),
+                const Text(
+                  'Category',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  'Select the category to which the musical instrument will belong.',
+                  style: TextStyle(
+                    color: Colors.grey[600],
+                    fontSize: 15,
+                  ),
+                ),
+                const SizedBox(height: 10),
                 const CategoryDropdownMenu(),
                 const SizedBox(height: 20),
+                const Text(
+                  'Location',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  'Click the button to get your current location.',
+                  style: TextStyle(
+                    color: Colors.grey[600],
+                    fontSize: 15,
+                  ),
+                ),
+                const SizedBox(height: 10),
                 const MiniGoogleMap(),
                 const SizedBox(height: 30),
                 BlocBuilder<AddAndEditListingBloc, AddAndEditListingState>(

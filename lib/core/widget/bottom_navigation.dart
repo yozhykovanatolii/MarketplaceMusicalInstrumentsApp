@@ -83,7 +83,7 @@ class _BottomNavigationItem extends StatelessWidget {
             child: Icon(
               size: 24,
               iconData,
-              color: Colors.white,
+              color: isActive ? Colors.blue : Colors.grey[400],
             ),
           ),
         ],
