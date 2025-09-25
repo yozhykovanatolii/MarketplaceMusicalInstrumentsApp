@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:marketplace_musical_instruments_app/core/widget/dashed_border.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/add_and_edit_listing/add_and_edit_listing_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/add_and_edit_listing/add_and_edit_listing_event.dart';
 
@@ -80,11 +81,15 @@ class _OpenGalleryButton extends StatelessWidget {
       onTap: () => context.read<AddAndEditListingBloc>().add(
         AddListingPhotoEvent(),
       ),
-      child: const SizedBox(
-        width: 50,
-        child: Icon(
-          size: 30,
-          Iconsax.add_circle,
+      child: CustomPaint(
+        painter: DashedBorder(),
+        child: Container(
+          width: 120,
+          alignment: Alignment.center,
+          child: const Icon(
+            size: 30,
+            Iconsax.add_circle,
+          ),
         ),
       ),
     );
