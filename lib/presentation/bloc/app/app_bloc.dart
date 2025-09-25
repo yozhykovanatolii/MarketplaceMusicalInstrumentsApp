@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:marketplace_musical_instruments_app/core/exception/user_not_found_exception.dart';
 import 'package:marketplace_musical_instruments_app/data/model/user_model.dart';
 import 'package:marketplace_musical_instruments_app/data/repository/user_repository.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/app/app_event.dart';
@@ -31,9 +32,10 @@ class AppBloc extends Bloc<AppEvent, AppState> {
       (user) => add(
         AppUserChanged(user),
       ),
-      onError: (error) => add(
-        AppUserUnauthenticated(error.message),
-      ),
+      onError: (error) {
+        final exception = error as UserNotFoundException;
+        add(AppUserUnauthenticated(exception.errorMessage));
+      },
     );
   }
 
