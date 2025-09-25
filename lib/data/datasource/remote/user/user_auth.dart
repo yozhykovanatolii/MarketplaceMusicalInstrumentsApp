@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/login_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/register_exception.dart';
+import 'package:marketplace_musical_instruments_app/core/exception/user_not_found_exception.dart';
 
 class UserAuth {
   final _firebaseAuth = FirebaseAuth.instance;
@@ -42,7 +43,7 @@ class UserAuth {
 
   String get userId {
     final currentUser = _firebaseAuth.currentUser;
-    if (currentUser == null) throw Exception('User didn\'t find');
+    if (currentUser == null) throw UserNotFoundException('User didn\'t find');
     return currentUser.uid;
   }
 

@@ -2,11 +2,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/geolocation_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/permission_denied_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/photo_not_selected_exception.dart';
+import 'package:marketplace_musical_instruments_app/core/exception/user_not_found_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/service/geolocation_service.dart';
 import 'package:marketplace_musical_instruments_app/core/util/listing_validator_util.dart';
 import 'package:marketplace_musical_instruments_app/data/repository/listing_repository.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/add_and_edit_listing/add_and_edit_listing_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/add_and_edit_listing/add_and_edit_listing_state.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
 
 class AddAndEditListingBloc
     extends Bloc<AddAndEditListingEvent, AddAndEditListingState> {
@@ -131,6 +133,7 @@ class AddAndEditListingBloc
     Emitter<AddAndEditListingState> emit,
   ) async {
     print('Hello, listing');
+    emit(state.copyWith(formStatus: FormStatus.loading));
     try {
       await _listingRepository.saveListing(
         state.currentLocation,
@@ -140,8 +143,9 @@ class AddAndEditListingBloc
         state.category,
         state.price,
       );
-    } catch (exception) {
-      emit(state.copyWith(errorMessage: exception.toString()));
+      emit(state.copyWith(formStatus: FormStatus.success));
+    } on UserNotFoundException catch (exception) {
+      emit(state.copyWith(errorMessage: exception.errorMessage));
     }
   }
 }

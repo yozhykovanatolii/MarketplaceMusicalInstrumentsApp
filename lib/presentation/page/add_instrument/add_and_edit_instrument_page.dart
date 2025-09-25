@@ -3,10 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:marketplace_musical_instruments_app/core/util/snack_bar_util.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_button.dart';
+import 'package:marketplace_musical_instruments_app/core/widget/common_progress_indicator.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_text_field.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/add_and_edit_listing/add_and_edit_listing_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/add_and_edit_listing/add_and_edit_listing_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/add_and_edit_listing/add_and_edit_listing_state.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/add_instrument/widget/category_dropdown_menu.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/add_instrument/widget/description_text_field.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/add_instrument/widget/mini_google_map.dart';
@@ -28,6 +30,15 @@ class AddAndEditInstrumentPage extends StatelessWidget {
               Icons.error,
               0xFFFFEEEF,
               0xFFE77282,
+            );
+          }
+          if (state.formStatus == FormStatus.success) {
+            SnackBarUtil.showSnackBar(
+              context,
+              'Successful save listing',
+              Icons.check_circle,
+              0xFFD4FFFE,
+              0xFF009688,
             );
           }
         },
@@ -90,32 +101,32 @@ class AddAndEditInstrumentPage extends StatelessWidget {
                 const SizedBox(height: 20),
                 const MiniGoogleMap(),
                 const SizedBox(height: 30),
-                BlocSelector<
-                  AddAndEditListingBloc,
-                  AddAndEditListingState,
-                  ButtonStatus
-                >(
-                  selector: (state) => state.buttonStatus,
-                  builder: (context, buttonStatus) {
+                BlocBuilder<AddAndEditListingBloc, AddAndEditListingState>(
+                  builder: (context, state) {
+                    final buttonStatus = state.buttonStatus;
+                    final formStatus = state.formStatus;
                     final color = buttonStatus == ButtonStatus.disabled
                         ? Colors.grey
                         : Colors.blue;
                     final textColor = buttonStatus == ButtonStatus.disabled
                         ? Colors.black
                         : Colors.white;
+                    final child = formStatus == FormStatus.loading
+                        ? const CommonProgressIndicator(scale: 0.8)
+                        : Text(
+                            'Save',
+                            style: TextStyle(
+                              color: textColor,
+                              fontSize: 18,
+                            ),
+                          );
                     final onPressed = buttonStatus == ButtonStatus.disabled
                         ? null
                         : () => bloc.add(ListingSaveEvent());
                     return CommonButton(
                       onPressed: onPressed,
                       color: color,
-                      child: Text(
-                        'Save',
-                        style: TextStyle(
-                          color: textColor,
-                          fontSize: 18,
-                        ),
-                      ),
+                      child: child,
                     );
                   },
                 ),
