@@ -21,7 +21,7 @@ class DashedBorder extends CustomPainter {
       ..strokeWidth = strokeWidth
       ..style = PaintingStyle.stroke;
     var rectangle = RRect.fromRectAndRadius(
-      Rect.fromLTWH(1, 1, size.width, size.height),
+      Rect.fromLTWH(1, 1, size.width - strokeWidth, size.height - strokeWidth),
       const Radius.circular(12),
     );
     final path = Path()..addRRect(rectangle);
