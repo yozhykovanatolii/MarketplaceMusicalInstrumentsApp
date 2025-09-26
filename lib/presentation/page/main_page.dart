@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/bottom_navigation.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/add_instrument/add_and_edit_instrument_page.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/home/home_page.dart';
+import 'package:marketplace_musical_instruments_app/presentation/page/profile/profile_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -17,7 +18,7 @@ class _MainPageState extends State<MainPage> {
     HomePage(),
     AddAndEditInstrumentPage(),
     HomePage(),
-    HomePage(),
+    ProfilePage(),
   ];
 
   void _onItemTapped(int index) {
