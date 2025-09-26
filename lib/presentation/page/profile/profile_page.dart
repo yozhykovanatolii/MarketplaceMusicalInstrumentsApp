@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:marketplace_musical_instruments_app/presentation/page/my_listings/my_listings_page.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/profile/widget/section_list_tile.dart';
 
 class ProfilePage extends StatelessWidget {
-  static const sections = [
-    SectionListTile(leadingIcon: Iconsax.user, title: 'Your profile'),
-    SectionListTile(leadingIcon: Iconsax.note, title: 'My Listings'),
-    SectionListTile(leadingIcon: Iconsax.document_text_1, title: 'My Rents'),
-    SectionListTile(leadingIcon: Iconsax.setting_2, title: 'Settings'),
-  ];
   const ProfilePage({super.key});
 
   @override
@@ -49,7 +44,34 @@ class ProfilePage extends StatelessWidget {
             ),
             const SizedBox(height: 30),
             Expanded(
-              child: ListView(children: sections),
+              child: ListView(
+                children: [
+                  const SectionListTile(
+                    leadingIcon: Iconsax.user,
+                    title: 'Your profile',
+                  ),
+                  SectionListTile(
+                    leadingIcon: Iconsax.note,
+                    title: 'My Listings',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const MyListingsPage(),
+                        ),
+                      );
+                    },
+                  ),
+                  const SectionListTile(
+                    leadingIcon: Iconsax.document_text_1,
+                    title: 'My Rents',
+                  ),
+                  const SectionListTile(
+                    leadingIcon: Iconsax.setting_2,
+                    title: 'Settings',
+                  ),
+                ],
+              ),
             ),
           ],
         ),
