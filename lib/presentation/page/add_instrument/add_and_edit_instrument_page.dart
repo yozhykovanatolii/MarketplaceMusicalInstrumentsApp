@@ -52,7 +52,7 @@ class AddAndEditInstrumentPage extends StatelessWidget {
           }
         },
         child: SafeArea(
-          minimum: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+          minimum: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
