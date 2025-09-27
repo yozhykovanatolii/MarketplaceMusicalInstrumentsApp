@@ -1,19 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
 
 class ListingCard extends StatelessWidget {
-  const ListingCard({super.key});
+  final ListingModel listing;
+
+  const ListingCard({
+    super.key,
+    required this.listing,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return const Card(
+    return Card(
       elevation: 7,
       child: Column(
         spacing: 5,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _PhotoSectionCard(),
-          _ShortDescriptionSection(),
+          _PhotoSectionCard(
+            imageUrl: listing.photos.first,
+          ),
+          _ShortDescriptionSection(
+            title: listing.title,
+            price: listing.priceByHour,
+          ),
         ],
       ),
     );
@@ -21,7 +32,12 @@ class ListingCard extends StatelessWidget {
 }
 
 class _PhotoSectionCard extends StatelessWidget {
-  const _PhotoSectionCard({super.key});
+  final String imageUrl;
+
+  const _PhotoSectionCard({
+    super.key,
+    required this.imageUrl,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +48,8 @@ class _PhotoSectionCard extends StatelessWidget {
           width: double.infinity,
           child: ClipRRect(
             borderRadius: BorderRadiusDirectional.circular(15),
-            child: Image.asset(
-              'assets/images/test.jpg',
+            child: Image.network(
+              imageUrl,
               fit: BoxFit.fill,
             ),
           ),
@@ -57,7 +73,14 @@ class _PhotoSectionCard extends StatelessWidget {
 }
 
 class _ShortDescriptionSection extends StatelessWidget {
-  const _ShortDescriptionSection({super.key});
+  final String title;
+  final int price;
+
+  const _ShortDescriptionSection({
+    super.key,
+    required this.title,
+    required this.price,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -67,25 +90,25 @@ class _ShortDescriptionSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         spacing: 5,
         children: [
-          const Text(
-            'Mouse Logitech M102',
+          Text(
+            title,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
           ),
           RichText(
-            text: const TextSpan(
-              text: '\$25.00',
-              style: TextStyle(
+            text: TextSpan(
+              text: '\$$price',
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
                 color: Colors.blue,
               ),
               children: [
-                TextSpan(
+                const TextSpan(
                   text: '/hr',
                   style: TextStyle(
                     fontSize: 18,

@@ -47,4 +47,8 @@ class ListingRepository {
     final authorId = _userAuth.userId;
     return await _listingFirestore.getUserListings(authorId);
   }
+
+  Future<void> deleteAuthorListing(String listingId) async {
+    await _listingFirestore.deleteListing(listingId);
+  }
 }

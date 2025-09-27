@@ -86,10 +86,16 @@ class ListingModel {
       description: data?['description'] as String,
       category: data?['category'] as String,
       priceByHour: data?['priceByHour'] as int,
-      photos: data?['photos'] as List<String>,
-      location: Map<String, double>.from(
-        (data?['location'] as Map<String, double>),
-      ),
+      photos:
+          (data?['photos'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          [],
+      location:
+          (data?['location'] as Map<String, dynamic>?)?.map(
+            (key, value) => MapEntry(key, (value as num).toDouble()),
+          ) ??
+          {},
       authorId: data?['authorId'] as String,
       authorFullName: data?['authorFullName'] as String,
     );

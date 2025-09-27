@@ -25,6 +25,10 @@ class ListingFirestore {
     return querySnapshot.docs.map((document) => document.data()).toList();
   }
 
+  Future<void> deleteListing(String listingId) async {
+    await _firestore.collection('listings').doc(listingId).delete();
+  }
+
   DocumentReference<ListingModel> getListingDocumentReference(String id) {
     return _firestore
         .collection('listings')
