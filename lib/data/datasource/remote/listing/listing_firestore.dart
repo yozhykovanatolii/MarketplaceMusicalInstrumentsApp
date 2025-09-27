@@ -9,6 +9,22 @@ class ListingFirestore {
     await docReference.set(listingModel);
   }
 
+  Future<List<ListingModel>> getUserListings(String userId) async {
+    final query = _firestore
+        .collection('listings')
+        .where('authorId', isEqualTo: userId)
+        .withConverter(
+          fromFirestore: ListingModel.fromFirestore,
+          toFirestore: (ListingModel listingModel, options) =>
+              listingModel.toFirestore(),
+        );
+    final querySnapshot = await query.get();
+    if (querySnapshot.docs.isEmpty) {
+      throw Exception('User listings weren\'t found');
+    }
+    return querySnapshot.docs.map((document) => document.data()).toList();
+  }
+
   DocumentReference<ListingModel> getListingDocumentReference(String id) {
     return _firestore
         .collection('listings')

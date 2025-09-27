@@ -42,4 +42,9 @@ class ListingRepository {
     );
     await _listingFirestore.saveListingModel(listingModel);
   }
+
+  Future<List<ListingModel>> getUserListings() async {
+    final authorId = _userAuth.userId;
+    return await _listingFirestore.getUserListings(authorId);
+  }
 }
