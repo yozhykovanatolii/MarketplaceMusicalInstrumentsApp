@@ -8,6 +8,7 @@ class AuthorListingBloc extends Bloc<AuthorListingEvent, AuthorListingState> {
 
   AuthorListingBloc() : super(AuthorListingInitialState()) {
     on<AuthorListingsFetchEvent>(_fetchAuthorListings);
+    on<AuthorListingDeleteEvent>(_deleteAuthorListing);
   }
 
   Future<void> _fetchAuthorListings(
@@ -21,5 +22,12 @@ class AuthorListingBloc extends Bloc<AuthorListingEvent, AuthorListingState> {
     } catch (exception) {
       emit(AuthorListingFailureState(exception.toString()));
     }
+  }
+
+  Future<void> _deleteAuthorListing(
+    AuthorListingDeleteEvent event,
+    Emitter<AuthorListingState> emit,
+  ) async {
+    await _listingRepository.deleteAuthorListing(event.listingId);
   }
 }

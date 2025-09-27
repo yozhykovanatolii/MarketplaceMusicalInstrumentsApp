@@ -1,11 +1,9 @@
-import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
-
 sealed class AuthorListingEvent {}
 
 final class AuthorListingsFetchEvent extends AuthorListingEvent {}
 
 final class AuthorListingDeleteEvent extends AuthorListingEvent {
-  final ListingModel listing;
+  final String listingId;
 
-  AuthorListingDeleteEvent(this.listing);
+  AuthorListingDeleteEvent(this.listingId);
 }

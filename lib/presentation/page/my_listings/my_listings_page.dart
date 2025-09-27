@@ -52,7 +52,7 @@ class _MyListingsPageState extends State<MyListingsPage> {
                 itemCount: authorListings.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  childAspectRatio: 0.65,
+                  childAspectRatio: 0.57,
                   crossAxisSpacing: 5,
                   mainAxisSpacing: 10,
                 ),
@@ -66,6 +66,7 @@ class _MyListingsPageState extends State<MyListingsPage> {
             return const Center(
               child: CommonProgressIndicator(
                 scale: 1.2,
+                color: Colors.blue,
               ),
             );
           },
