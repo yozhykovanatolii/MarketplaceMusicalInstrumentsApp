@@ -43,9 +43,9 @@ class ListingRepository {
     await _listingFirestore.saveListingModel(listingModel);
   }
 
-  Future<List<ListingModel>> getUserListings() async {
+  Stream<List<ListingModel>> getUserListings() {
     final authorId = _userAuth.userId;
-    return await _listingFirestore.getUserListings(authorId);
+    return _listingFirestore.getUserListings(authorId);
   }
 
   Future<void> deleteAuthorListing(String listingId) async {
