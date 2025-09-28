@@ -1,3 +1,5 @@
+import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
+
 sealed class AddAndEditListingEvent {}
 
 final class AddListingPhotoEvent extends AddAndEditListingEvent {}
@@ -34,4 +36,14 @@ final class ListingCategoryChangeEvent extends AddAndEditListingEvent {
   ListingCategoryChangeEvent(this.category);
 }
 
-final class ListingSaveEvent extends AddAndEditListingEvent {}
+final class ListingEditEvent extends AddAndEditListingEvent {
+  final ListingModel? listing;
+
+  ListingEditEvent(this.listing);
+}
+
+final class ListingSaveEvent extends AddAndEditListingEvent {
+  final ListingModel? listing;
+
+  ListingSaveEvent(this.listing);
+}

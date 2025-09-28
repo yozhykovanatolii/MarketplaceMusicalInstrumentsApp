@@ -25,12 +25,14 @@ class ListingRepository {
     String title,
     String description,
     String category,
-    int price,
-  ) async {
+    int price, {
+    ListingModel? currentListing,
+  }) async {
     final userId = _userAuth.userId;
     final userModel = await _userFirestore.getUserModelById(userId);
-    ListingModel listingModel = ListingModel.initial().copyWith(
-      id: const Uuid().v1(),
+    ListingModel listingModel = currentListing ?? ListingModel.initial();
+    listingModel = listingModel.copyWith(
+      id: currentListing?.id ?? const Uuid().v1(),
       location: location,
       photos: photos,
       title: title,

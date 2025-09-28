@@ -22,6 +22,7 @@ class AddAndEditListingBloc
     on<ListingDecriptionChangeEvent>(_onDescriptionChanged);
     on<ListingPriceChangeEvent>(_onPriceChanged);
     on<ListingCategoryChangeEvent>(_onCategoryChanged);
+    on<ListingEditEvent>(_onEditListing);
     on<ListingSaveEvent>(_onSaveListing);
   }
 
@@ -128,6 +129,25 @@ class AddAndEditListingBloc
     emit(state.copyWith(category: event.category));
   }
 
+  void _onEditListing(
+    ListingEditEvent event,
+    Emitter<AddAndEditListingState> emit,
+  ) {
+    final listing = event.listing;
+    if (listing != null) {
+      emit(
+        state.copyWith(
+          photos: listing.photos,
+          currentLocation: listing.location,
+          title: listing.title,
+          description: listing.description,
+          price: listing.priceByHour,
+          category: listing.category,
+        ),
+      );
+    }
+  }
+
   Future<void> _onSaveListing(
     ListingSaveEvent event,
     Emitter<AddAndEditListingState> emit,
@@ -142,10 +162,13 @@ class AddAndEditListingBloc
         state.description,
         state.category,
         state.price,
+        currentListing: event.listing,
       );
       emit(state.copyWith(formStatus: FormStatus.success));
     } on UserNotFoundException catch (exception) {
       emit(state.copyWith(errorMessage: exception.errorMessage));
+    } finally {
+      emit(state.copyWith(formStatus: FormStatus.initial));
     }
   }
 }

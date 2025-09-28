@@ -2,32 +2,49 @@ import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/delete_dialog_box.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
+import 'package:marketplace_musical_instruments_app/presentation/page/add_instrument/add_and_edit_instrument_page.dart';
 
 class ListingCard extends StatelessWidget {
   final ListingModel listing;
+  final bool isEditing;
 
   const ListingCard({
     super.key,
     required this.listing,
+    this.isEditing = true,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 7,
-      child: Column(
-        spacing: 5,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _PhotoSectionCard(
-            imageUrl: listing.photos.first,
-            listingId: listing.id,
-          ),
-          _ShortDescriptionSection(
-            title: listing.title,
-            price: listing.priceByHour,
-          ),
-        ],
+    return GestureDetector(
+      onTap: () {
+        if (isEditing) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => AddAndEditInstrumentPage(
+                listing: listing,
+              ),
+            ),
+          );
+        }
+      },
+      child: Card(
+        elevation: 7,
+        child: Column(
+          spacing: 5,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _PhotoSectionCard(
+              imageUrl: listing.photos.first,
+              listingId: listing.id,
+            ),
+            _ShortDescriptionSection(
+              title: listing.title,
+              price: listing.priceByHour,
+            ),
+          ],
+        ),
       ),
     );
   }

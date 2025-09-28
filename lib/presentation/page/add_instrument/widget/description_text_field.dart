@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
 class DescriptionTextField extends StatelessWidget {
+  final TextEditingController? controller;
   final String? errorText;
   final String? counterText;
   final Function(String)? onChanged;
 
   const DescriptionTextField({
     super.key,
+    this.controller,
     this.errorText,
     this.counterText,
     this.onChanged,
@@ -17,6 +19,7 @@ class DescriptionTextField extends StatelessWidget {
     return SizedBox(
       height: 100,
       child: TextField(
+        controller: controller,
         maxLines: null,
         minLines: 5,
         onChanged: onChanged,

@@ -5,6 +5,7 @@ import 'package:marketplace_musical_instruments_app/core/util/snack_bar_util.dar
 import 'package:marketplace_musical_instruments_app/core/widget/common_button.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_progress_indicator.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_text_field.dart';
+import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/add_and_edit_listing/add_and_edit_listing_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/add_and_edit_listing/add_and_edit_listing_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/add_and_edit_listing/add_and_edit_listing_state.dart';
@@ -14,12 +15,39 @@ import 'package:marketplace_musical_instruments_app/presentation/page/add_instru
 import 'package:marketplace_musical_instruments_app/presentation/page/add_instrument/widget/mini_google_map.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/add_instrument/widget/photo_list_view.dart';
 
-class AddAndEditInstrumentPage extends StatelessWidget {
-  const AddAndEditInstrumentPage({super.key});
+class AddAndEditInstrumentPage extends StatefulWidget {
+  final ListingModel? listing;
+
+  const AddAndEditInstrumentPage({
+    super.key,
+    this.listing,
+  });
+
+  @override
+  State<AddAndEditInstrumentPage> createState() =>
+      _AddAndEditInstrumentPageState();
+}
+
+class _AddAndEditInstrumentPageState extends State<AddAndEditInstrumentPage> {
+  late final AddAndEditListingBloc bloc;
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _priceTextController = TextEditingController();
+
+  @override
+  void initState() {
+    bloc = context.read<AddAndEditListingBloc>();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      bloc.add(ListingEditEvent(widget.listing));
+      _titleController.text = widget.listing?.title ?? '';
+      _descriptionController.text = widget.listing?.description ?? '';
+      _priceTextController.text = widget.listing?.priceByHour.toString() ?? '';
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final bloc = context.read<AddAndEditListingBloc>();
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -49,6 +77,7 @@ class AddAndEditInstrumentPage extends StatelessWidget {
               0xFFD4FFFE,
               0xFF009688,
             );
+            if (widget.listing != null) Navigator.pop(context);
           }
         },
         child: SafeArea(
@@ -88,6 +117,7 @@ class AddAndEditInstrumentPage extends StatelessWidget {
                 BlocBuilder<AddAndEditListingBloc, AddAndEditListingState>(
                   builder: (context, state) {
                     return CommonTextField(
+                      controller: _titleController,
                       onChanged: (title) => bloc.add(
                         ListingTitleChangeEvent(title),
                       ),
@@ -110,6 +140,7 @@ class AddAndEditInstrumentPage extends StatelessWidget {
                 BlocBuilder<AddAndEditListingBloc, AddAndEditListingState>(
                   builder: (context, state) {
                     return DescriptionTextField(
+                      controller: _descriptionController,
                       onChanged: (description) => bloc.add(
                         ListingDecriptionChangeEvent(description),
                       ),
@@ -135,6 +166,7 @@ class AddAndEditInstrumentPage extends StatelessWidget {
                   selector: (state) => state.priceError,
                   builder: (context, priceError) {
                     return CommonTextField(
+                      controller: _priceTextController,
                       onChanged: (priceText) => bloc.add(
                         ListingPriceChangeEvent(priceText),
                       ),
@@ -200,7 +232,7 @@ class AddAndEditInstrumentPage extends StatelessWidget {
                           );
                     final onPressed = buttonStatus == ButtonStatus.disabled
                         ? null
-                        : () => bloc.add(ListingSaveEvent());
+                        : () => bloc.add(ListingSaveEvent(widget.listing));
                     return CommonButton(
                       onPressed: onPressed,
                       color: color,
