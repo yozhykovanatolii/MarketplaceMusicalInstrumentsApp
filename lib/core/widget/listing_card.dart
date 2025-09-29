@@ -39,9 +39,11 @@ class ListingCard extends StatelessWidget {
               imageUrl: listing.photos.first,
               listingId: listing.id,
             ),
-            _ShortDescriptionSection(
-              title: listing.title,
-              price: listing.priceByHour,
+            Flexible(
+              child: _ShortDescriptionSection(
+                title: listing.title,
+                price: listing.priceByHour,
+              ),
             ),
           ],
         ),
@@ -64,9 +66,8 @@ class _PhotoSectionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        SizedBox(
-          height: 170,
-          width: double.infinity,
+        AspectRatio(
+          aspectRatio: 1.12,
           child: ClipRRect(
             borderRadius: BorderRadiusDirectional.circular(15),
             child: Image.network(
@@ -116,35 +117,22 @@ class _ShortDescriptionSection extends StatelessWidget {
       padding: const EdgeInsetsGeometry.symmetric(horizontal: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        spacing: 5,
+        spacing: 2,
         children: [
           Text(
-            title,
-            maxLines: 1,
+            'Prepared Hero Emergency Fire Blanket 303',
+            maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
-              fontSize: 18,
+            style: TextStyle(
+              fontSize: MediaQuery.textScalerOf(context).scale(15),
               fontWeight: FontWeight.bold,
             ),
           ),
-          RichText(
-            text: TextSpan(
-              text: '\$$price',
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.blue,
-              ),
-              children: [
-                const TextSpan(
-                  text: '/hr',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey,
-                  ),
-                ),
-              ],
+          Text(
+            '\$$price',
+            style: TextStyle(
+              fontSize: MediaQuery.textScalerOf(context).scale(23),
+              fontWeight: FontWeight.bold,
             ),
           ),
           const _AverageRatingSection(),
@@ -159,21 +147,29 @@ class _AverageRatingSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
-      spacing: 2,
-      crossAxisAlignment: CrossAxisAlignment.end,
+    return Row(
       children: [
-        Icon(
+        const Icon(
           Icons.star,
           size: 27,
           color: Colors.amber,
         ),
-        Text(
-          '4.9',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.grey,
+        RichText(
+          text: TextSpan(
+            text: '4.9 ',
+            style: TextStyle(
+              fontSize: MediaQuery.textScalerOf(context).scale(17),
+              fontWeight: FontWeight.w500,
+              color: Colors.black,
+            ),
+            children: [
+              const TextSpan(
+                text: '(2152)',
+                style: TextStyle(
+                  color: Colors.grey,
+                ),
+              ),
+            ],
           ),
         ),
       ],

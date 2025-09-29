@@ -50,11 +50,11 @@ class _MyListingsPageState extends State<MyListingsPage> {
               final authorListings = state.authorListings;
               return GridView.builder(
                 itemCount: authorListings.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 0.57,
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 250,
+                  childAspectRatio: 0.615,
                   crossAxisSpacing: 5,
-                  mainAxisSpacing: 10,
+                  mainAxisSpacing: 5,
                 ),
                 itemBuilder: (_, index) {
                   return ListingCard(
