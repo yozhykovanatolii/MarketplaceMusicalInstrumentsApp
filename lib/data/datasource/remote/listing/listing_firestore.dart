@@ -12,7 +12,7 @@ class ListingFirestore {
   Stream<List<ListingModel>> getUserListings(String userId) {
     return _firestore
         .collection('listings')
-        .where('authorId', isEqualTo: userId)
+        .where('authorId', isNotEqualTo: userId)
         .withConverter(
           fromFirestore: ListingModel.fromFirestore,
           toFirestore: (ListingModel userModel, options) =>
@@ -25,6 +25,22 @@ class ListingFirestore {
           }
           return snapshot.docs.map((document) => document.data()).toList();
         });
+  }
+
+  Future<List<ListingModel>> getAllListingExceptUsers(String userId) async {
+    final query = _firestore
+        .collection('listings')
+        .where('authorId', isEqualTo: userId)
+        .withConverter(
+          fromFirestore: ListingModel.fromFirestore,
+          toFirestore: (ListingModel userModel, options) =>
+              userModel.toFirestore(),
+        );
+    final querySnapshot = await query.get();
+    if (querySnapshot.docs.isEmpty) {
+      throw Exception('Listings weren\'t found');
+    }
+    return querySnapshot.docs.map((document) => document.data()).toList();
   }
 
   Future<void> deleteListing(String listingId) async {

@@ -7,7 +7,7 @@ class AdvertisementBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 400,
-      height: 170,
+      height: 150,
       child: ClipRRect(
         borderRadius: BorderRadiusGeometry.circular(15),
         child: const Image(
