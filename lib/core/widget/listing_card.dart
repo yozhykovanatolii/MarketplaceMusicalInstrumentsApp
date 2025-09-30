@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/favourite_button.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/add_instrument/add_and_edit_instrument_page.dart';
+import 'package:marketplace_musical_instruments_app/presentation/page/listing_detail/listing_detail_page.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/my_listings/widget/delete_listing_button.dart';
 
 class ListingCard extends StatelessWidget {
@@ -26,6 +27,11 @@ class ListingCard extends StatelessWidget {
                 listing: listing,
               ),
             ),
+          );
+        } else {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const ListingDetailPage()),
           );
         }
       },
