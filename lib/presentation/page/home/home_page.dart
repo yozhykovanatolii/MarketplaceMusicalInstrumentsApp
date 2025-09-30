@@ -71,6 +71,7 @@ class HomePage extends StatelessWidget {
                       itemBuilder: (_, index) {
                         return ListingCard(
                           listing: listings[index],
+                          isEditing: false,
                         );
                       },
                     );

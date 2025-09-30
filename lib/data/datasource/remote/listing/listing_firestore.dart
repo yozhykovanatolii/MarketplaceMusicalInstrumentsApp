@@ -12,7 +12,7 @@ class ListingFirestore {
   Stream<List<ListingModel>> getUserListings(String userId) {
     return _firestore
         .collection('listings')
-        .where('authorId', isNotEqualTo: userId)
+        .where('authorId', isEqualTo: userId)
         .withConverter(
           fromFirestore: ListingModel.fromFirestore,
           toFirestore: (ListingModel userModel, options) =>

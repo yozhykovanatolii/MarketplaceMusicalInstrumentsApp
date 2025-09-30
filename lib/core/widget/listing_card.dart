@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax_flutter/iconsax_flutter.dart';
-import 'package:marketplace_musical_instruments_app/core/widget/delete_dialog_box.dart';
+import 'package:marketplace_musical_instruments_app/core/widget/favourite_button.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/add_instrument/add_and_edit_instrument_page.dart';
+import 'package:marketplace_musical_instruments_app/presentation/page/my_listings/widget/delete_listing_button.dart';
 
 class ListingCard extends StatelessWidget {
   final ListingModel listing;
@@ -38,6 +38,7 @@ class ListingCard extends StatelessWidget {
             _PhotoSectionCard(
               imageUrl: listing.photos.first,
               listingId: listing.id,
+              isEditing: isEditing,
             ),
             Flexible(
               child: _ShortDescriptionSection(
@@ -55,11 +56,13 @@ class ListingCard extends StatelessWidget {
 class _PhotoSectionCard extends StatelessWidget {
   final String imageUrl;
   final String listingId;
+  final bool isEditing;
 
   const _PhotoSectionCard({
     super.key,
     required this.imageUrl,
     required this.listingId,
+    required this.isEditing,
   });
 
   @override
@@ -78,23 +81,9 @@ class _PhotoSectionCard extends StatelessWidget {
         ),
         Positioned(
           right: 3,
-          child: IconButton.filled(
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (context) => DeleteDialogBox(
-                  listingId: listingId,
-                ),
-              );
-            },
-            style: const ButtonStyle(
-              backgroundColor: WidgetStatePropertyAll(Colors.white),
-            ),
-            icon: const Icon(
-              Iconsax.trash,
-              color: Colors.red,
-            ),
-          ),
+          child: isEditing
+              ? DeleteListingButton(listingId: listingId)
+              : const FavouriteButton(),
         ),
       ],
     );
