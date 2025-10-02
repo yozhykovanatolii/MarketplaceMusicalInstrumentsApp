@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:marketplace_musical_instruments_app/core/widget/average_rating_section.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/favourite_button.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/add_instrument/add_and_edit_instrument_page.dart';
@@ -31,7 +32,11 @@ class ListingCard extends StatelessWidget {
         } else {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (_) => const ListingDetailPage()),
+            MaterialPageRoute(
+              builder: (_) => ListingDetailPage(
+                listing: listing,
+              ),
+            ),
           );
         }
       },
@@ -130,44 +135,9 @@ class _ShortDescriptionSection extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          const _AverageRatingSection(),
+          const AverageRatingSection(),
         ],
       ),
-    );
-  }
-}
-
-class _AverageRatingSection extends StatelessWidget {
-  const _AverageRatingSection({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        const Icon(
-          Icons.star,
-          size: 27,
-          color: Colors.amber,
-        ),
-        RichText(
-          text: TextSpan(
-            text: '4.9 ',
-            style: TextStyle(
-              fontSize: MediaQuery.textScalerOf(context).scale(17),
-              fontWeight: FontWeight.w500,
-              color: Colors.black,
-            ),
-            children: [
-              const TextSpan(
-                text: '(2152)',
-                style: TextStyle(
-                  color: Colors.grey,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
     );
   }
 }
