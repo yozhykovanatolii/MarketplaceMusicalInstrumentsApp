@@ -14,8 +14,7 @@ class ImageGalleryDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dialog(
       child: SizedBox(
-        width: double.infinity,
-        height: MediaQuery.of(context).size.height * 0.45,
+        height: MediaQuery.of(context).size.height * 0.5,
         child: PageView.builder(
           itemCount: photos.length,
           controller: PageController(initialPage: currentPhotoIndex),
