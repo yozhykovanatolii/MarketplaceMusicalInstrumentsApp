@@ -47,6 +47,14 @@ class _AddAndEditInstrumentPageState extends State<AddAndEditInstrumentPage> {
   }
 
   @override
+  void dispose() {
+    _titleController.dispose();
+    _descriptionController.dispose();
+    _priceTextController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
