@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/favourite_button.dart';
+import 'package:marketplace_musical_instruments_app/presentation/page/listing_detail/widget/image_gallery_dialog.dart';
 
 class PhotoListingSection extends StatelessWidget {
   final List<String> photos;
@@ -20,8 +21,9 @@ class PhotoListingSection extends StatelessWidget {
         itemBuilder: (_, index) {
           return _ImageItem(
             photoUrl: photos[index],
-            currentPhotoIndex: index + 1,
+            currentPhotoIndex: index,
             photoCount: photos.length,
+            photos: photos,
           );
         },
       ),
@@ -33,22 +35,36 @@ class _ImageItem extends StatelessWidget {
   final String photoUrl;
   final int currentPhotoIndex;
   final int photoCount;
+  final List<String> photos;
 
   const _ImageItem({
     super.key,
     required this.photoUrl,
     required this.currentPhotoIndex,
     required this.photoCount,
+    required this.photos,
   });
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Image.network(
-          photoUrl,
-          width: MediaQuery.of(context).size.width,
-          fit: BoxFit.fill,
+        GestureDetector(
+          onTap: () {
+            showDialog(
+              context: context,
+              barrierDismissible: true,
+              builder: (context) => ImageGalleryDialog(
+                photos: photos,
+                currentPhotoIndex: currentPhotoIndex,
+              ),
+            );
+          },
+          child: Image.network(
+            photoUrl,
+            width: MediaQuery.of(context).size.width,
+            fit: BoxFit.fill,
+          ),
         ),
         const Positioned(
           top: 10,
@@ -73,7 +89,7 @@ class _ImageItem extends StatelessWidget {
           bottom: 10,
           right: 8,
           child: _PhotoCounterSection(
-            currentPhotoIndex: currentPhotoIndex,
+            currentPhotoIndex: currentPhotoIndex + 1,
             photoCount: photoCount,
           ),
         ),

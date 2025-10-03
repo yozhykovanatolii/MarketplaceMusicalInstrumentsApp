@@ -18,7 +18,6 @@ class ListingDetailPage extends StatelessWidget {
       length: 3,
       child: Scaffold(
         body: SafeArea(
-          minimum: const EdgeInsets.symmetric(vertical: 40),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
