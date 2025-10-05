@@ -31,6 +31,7 @@ class _ReadMoreTextState extends State<ReadMoreText> {
   }
 
   void _checkIfTextOverflow() {
+    print('It is work');
     final textSpan = TextSpan(
       text: widget.text,
       style: DefaultTextStyle.of(context).style,
@@ -55,7 +56,7 @@ class _ReadMoreTextState extends State<ReadMoreText> {
         Text(
           widget.text,
           maxLines: _isReadMore ? widget.maxLines : null,
-          overflow: _isReadMore ? TextOverflow.ellipsis : null,
+          overflow: _isReadMore ? TextOverflow.ellipsis : TextOverflow.fade,
           style: TextStyle(
             color: Colors.grey[600],
             fontSize: MediaQuery.textScalerOf(context).scale(17),

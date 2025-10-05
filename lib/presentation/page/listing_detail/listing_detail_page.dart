@@ -5,6 +5,7 @@ import 'package:marketplace_musical_instruments_app/presentation/page/listing_de
 import 'package:marketplace_musical_instruments_app/presentation/page/listing_detail/widget/category_and_average_rating_section.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/listing_detail/widget/photo_listing_section.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/listing_detail/widget/price_listing_section.dart';
+import 'package:marketplace_musical_instruments_app/presentation/page/listing_detail/widget/review_section.dart';
 
 class ListingDetailPage extends StatelessWidget {
   final ListingModel listing;
@@ -58,7 +59,7 @@ class ListingDetailPage extends StatelessWidget {
                   tabs: const [
                     Tab(text: 'About'),
                     Tab(text: 'Calendar'),
-                    Tab(text: 'Reviews'),
+                    Tab(text: 'Review'),
                   ],
                 ),
                 SizedBox(
@@ -69,7 +70,7 @@ class ListingDetailPage extends StatelessWidget {
                         location: listing.location,
                       ),
                       const CalendarSection(),
-                      const Icon(Icons.directions_bike),
+                      const ReviewSection(),
                     ],
                   ),
                 ),
