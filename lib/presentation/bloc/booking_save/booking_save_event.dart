@@ -1,3 +1,5 @@
+import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
+
 sealed class BookingSaveEvent {}
 
 final class BookingTotalCalculateEvent extends BookingSaveEvent {
@@ -12,4 +14,8 @@ final class BookingTotalCalculateEvent extends BookingSaveEvent {
   );
 }
 
-final class BookingCreateEvent extends BookingSaveEvent {}
+final class BookingCreateEvent extends BookingSaveEvent {
+  final ListingModel listingModel;
+
+  BookingCreateEvent(this.listingModel);
+}
