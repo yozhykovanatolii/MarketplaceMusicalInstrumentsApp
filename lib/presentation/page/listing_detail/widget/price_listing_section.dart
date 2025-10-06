@@ -78,8 +78,7 @@ class _BookingButton extends StatelessWidget {
           builder: (context) => InformationDialogBox(
             isDeleting: false,
             title: 'Confirm Booking',
-            description:
-                'You\'re going to book this instrument. The total price is \$300. Are you sure?',
+            description: 'You\'re going to book this instrument. Are you sure?',
             onClickActionButton: () {
               Navigator.of(context).pop();
             },

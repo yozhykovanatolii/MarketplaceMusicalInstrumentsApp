@@ -103,8 +103,37 @@ class _CalendarSectionState extends State<CalendarSection> {
               ),
             ),
           ),
+          const SizedBox(height: 25),
+          const _TotalBookingPriceSubSection(),
         ],
       ),
+    );
+  }
+}
+
+class _TotalBookingPriceSubSection extends StatelessWidget {
+  const _TotalBookingPriceSubSection({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          'Total price',
+          style: TextStyle(
+            fontSize: MediaQuery.textScalerOf(context).scale(18),
+            color: Colors.grey[600],
+          ),
+        ),
+        Text(
+          '\$300',
+          style: TextStyle(
+            fontSize: MediaQuery.textScalerOf(context).scale(23),
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
     );
   }
 }
