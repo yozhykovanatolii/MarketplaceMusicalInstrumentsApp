@@ -6,6 +6,7 @@ import 'package:marketplace_musical_instruments_app/presentation/bloc/add_and_ed
 import 'package:marketplace_musical_instruments_app/presentation/bloc/app/app_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/app/app_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/author_listing/author_listing_bloc.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_bloc.dart';
@@ -36,6 +37,7 @@ void main() async {
           create: (_) => ListingBloc()..add(ListingInitializeEvent()),
         ),
         BlocProvider(create: (_) => AuthorListingBloc()),
+        BlocProvider(create: (_) => BookingSaveBloc()),
       ],
       child: const MarketplaceApp(),
     ),

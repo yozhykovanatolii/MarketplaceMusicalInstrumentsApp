@@ -69,7 +69,9 @@ class ListingDetailPage extends StatelessWidget {
                       AboutSection(
                         location: listing.location,
                       ),
-                      const CalendarSection(),
+                      CalendarSection(
+                        startingPrice: listing.priceByHour,
+                      ),
                       const ReviewSection(),
                     ],
                   ),
