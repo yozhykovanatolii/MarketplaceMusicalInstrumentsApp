@@ -80,7 +80,9 @@ class ListingDetailPage extends StatelessWidget {
             ),
           ),
         ),
-        bottomNavigationBar: const PriceListingSection(),
+        bottomNavigationBar: PriceListingSection(
+          listing: listing,
+        ),
       ),
     );
   }

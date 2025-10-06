@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_button.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/information_dialog_box.dart';
+import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_bloc.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_event.dart';
 
 class PriceListingSection extends StatelessWidget {
-  const PriceListingSection({super.key});
+  final ListingModel listing;
+
+  const PriceListingSection({
+    super.key,
+    required this.listing,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +67,9 @@ class PriceListingSection extends StatelessWidget {
                 ),
               ],
             ),
-            const _BookingButton(),
+            _BookingButton(
+              listing: listing,
+            ),
           ],
         ),
       ),
@@ -67,7 +78,12 @@ class PriceListingSection extends StatelessWidget {
 }
 
 class _BookingButton extends StatelessWidget {
-  const _BookingButton({super.key});
+  final ListingModel listing;
+
+  const _BookingButton({
+    super.key,
+    required this.listing,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +96,9 @@ class _BookingButton extends StatelessWidget {
             title: 'Confirm Booking',
             description: 'You\'re going to book this instrument. Are you sure?',
             onClickActionButton: () {
+              context.read<BookingSaveBloc>().add(
+                BookingCreateEvent(listing),
+              );
               Navigator.of(context).pop();
             },
           ),
