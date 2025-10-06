@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_button.dart';
+import 'package:marketplace_musical_instruments_app/core/widget/information_dialog_box.dart';
 
 class PriceListingSection extends StatelessWidget {
   const PriceListingSection({super.key});
@@ -57,18 +58,40 @@ class PriceListingSection extends StatelessWidget {
                 ),
               ],
             ),
-            CommonButton(
-              onPressed: () {},
-              width: MediaQuery.of(context).size.width / 2,
-              child: const Text(
-                'Book Now',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                ),
-              ),
-            ),
+            const _BookingButton(),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class _BookingButton extends StatelessWidget {
+  const _BookingButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return CommonButton(
+      onPressed: () {
+        showDialog(
+          context: context,
+          builder: (context) => InformationDialogBox(
+            isDeleting: false,
+            title: 'Confirm Booking',
+            description:
+                'You\'re going to book this instrument. The total price is \$300. Are you sure?',
+            onClickActionButton: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        );
+      },
+      width: MediaQuery.of(context).size.width / 2,
+      child: const Text(
+        'Book Now',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 18,
         ),
       ),
     );

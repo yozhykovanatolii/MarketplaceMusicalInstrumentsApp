@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/author_listing/author_listing_bloc.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/author_listing/author_listing_event.dart';
 
-class DeleteDialogBox extends StatelessWidget {
-  final String listingId;
+class InformationDialogBox extends StatelessWidget {
+  final String title;
+  final String description;
+  final bool isDeleting;
+  final Function()? onClickActionButton;
 
-  const DeleteDialogBox({
+  const InformationDialogBox({
     super.key,
-    required this.listingId,
+    required this.title,
+    required this.description,
+    required this.onClickActionButton,
+    this.isDeleting = true,
   });
 
   @override
@@ -20,24 +23,24 @@ class DeleteDialogBox extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(
-              Iconsax.danger,
+            Icon(
+              isDeleting ? Iconsax.danger : Iconsax.tick_circle,
               size: 65,
-              color: Colors.red,
+              color: isDeleting ? Colors.red : Colors.green,
             ),
             const SizedBox(height: 10),
-            const Text(
-              'Delete Listing',
-              style: TextStyle(
+            Text(
+              title,
+              style: const TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.bold,
               ),
             ),
             const SizedBox(height: 20),
-            const Text(
-              'You\'re going to delete your listing. Are you sure?',
+            Text(
+              description,
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 18,
                 fontFamily: 'sans-serif',
                 fontWeight: FontWeight.w500,
@@ -49,7 +52,7 @@ class DeleteDialogBox extends StatelessWidget {
               children: [
                 Expanded(
                   child: _DialogActionButton(
-                    text: 'No, Keep It.',
+                    text: isDeleting ? 'No, Keep It.' : 'No, Cancel It.',
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
@@ -57,15 +60,10 @@ class DeleteDialogBox extends StatelessWidget {
                 ),
                 Expanded(
                   child: _DialogActionButton(
-                    text: 'Yes, Delete It!',
+                    text: isDeleting ? 'Yes, Delete It!' : 'Yes, Confirm It!',
                     textColor: Colors.white,
-                    color: Colors.red,
-                    onPressed: () {
-                      context.read<AuthorListingBloc>().add(
-                        AuthorListingDeleteEvent(listingId),
-                      );
-                      Navigator.of(context).pop();
-                    },
+                    color: isDeleting ? Colors.red : Colors.blue,
+                    onPressed: onClickActionButton,
                   ),
                 ),
               ],

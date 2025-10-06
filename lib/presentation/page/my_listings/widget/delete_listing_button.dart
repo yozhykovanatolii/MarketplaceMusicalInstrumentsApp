@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
-import 'package:marketplace_musical_instruments_app/core/widget/delete_dialog_box.dart';
+import 'package:marketplace_musical_instruments_app/core/widget/information_dialog_box.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/author_listing/author_listing_bloc.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/author_listing/author_listing_event.dart';
 
 class DeleteListingButton extends StatelessWidget {
   final String listingId;
@@ -16,8 +19,15 @@ class DeleteListingButton extends StatelessWidget {
       onPressed: () {
         showDialog(
           context: context,
-          builder: (context) => DeleteDialogBox(
-            listingId: listingId,
+          builder: (context) => InformationDialogBox(
+            title: 'Delete Listing',
+            description: 'You\'re going to delete your listing. Are you sure?',
+            onClickActionButton: () {
+              context.read<AuthorListingBloc>().add(
+                AuthorListingDeleteEvent(listingId),
+              );
+              Navigator.of(context).pop();
+            },
           ),
         );
       },
