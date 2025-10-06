@@ -39,15 +39,19 @@ class BookingSaveBloc extends Bloc<BookingSaveEvent, BookingSaveState> {
   ) async {
     final startBookingDate = state.startBookingDate;
     final endBookingDate = state.endBookingDate;
+    final totalPriceText = state.totalPriceText.replaceAll('\$', '');
+    print(totalPriceText);
     if (startBookingDate == null || endBookingDate == null) return;
     try {
       await _bookingRepository.createBooking(
         event.listingModel,
         startBookingDate,
         endBookingDate,
-        int.parse(state.totalPriceText),
+        int.parse(totalPriceText),
       );
+      print('✅ Booking saved');
     } catch (exception) {
+      print('❌ Firestore error: $exception');
       emit(state.copyWith(errorMessage: exception.toString()));
     }
   }

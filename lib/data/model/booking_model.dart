@@ -40,8 +40,8 @@ class BookingModel {
       'renterId': renterId,
       'authorId': authorId,
       'listingId': listingId,
-      'startDate': startDate.millisecondsSinceEpoch,
-      'endDate': endDate.millisecondsSinceEpoch,
+      'startDate': Timestamp.fromDate(startDate),
+      'endDate': Timestamp.fromDate(endDate),
       'totalPrice': totalPrice,
       'status': status,
     };
@@ -57,8 +57,8 @@ class BookingModel {
       renterId: data?['renterId'] as String,
       authorId: data?['authorId'] as String,
       listingId: data?['listingId'] as String,
-      startDate: DateTime.fromMillisecondsSinceEpoch(data?['startDate'] as int),
-      endDate: DateTime.fromMillisecondsSinceEpoch(data?['endDate'] as int),
+      startDate: (data?['startDate'] as Timestamp).toDate(),
+      endDate: (data?['endDate'] as Timestamp).toDate(),
       totalPrice: data?['totalPrice'] as int,
       status: data?['status'] as String,
     );

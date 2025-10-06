@@ -5,11 +5,11 @@ class BookingFirestore {
   final _firestore = FirebaseFirestore.instance;
 
   Future<void> saveBooking(BookingModel bookingModel) async {
-    final docReference = getUserDocumentReference(bookingModel.id);
+    final docReference = getBookingDocumentReference(bookingModel.id);
     await docReference.set(bookingModel);
   }
 
-  DocumentReference<BookingModel> getUserDocumentReference(String id) {
+  DocumentReference<BookingModel> getBookingDocumentReference(String id) {
     return _firestore
         .collection('bookings')
         .doc(id)

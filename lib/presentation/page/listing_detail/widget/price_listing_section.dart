@@ -99,7 +99,7 @@ class _BookingButton extends StatelessWidget {
               context.read<BookingSaveBloc>().add(
                 BookingCreateEvent(listing),
               );
-              Navigator.of(context).pop();
+              print('Success booking');
             },
           ),
         );

@@ -20,6 +20,7 @@ class BookingRepository {
       id: const Uuid().v1(),
       renterId: renterId,
       authorId: listingModel.authorId,
+      listingId: listingModel.id,
       startDate: startDate,
       endDate: endDate,
       totalPrice: totalPrice,
