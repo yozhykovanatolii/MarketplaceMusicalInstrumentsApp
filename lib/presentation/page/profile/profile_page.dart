@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:marketplace_musical_instruments_app/presentation/page/my_bookings/my_bookings_page.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/my_listings/my_listings_page.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/profile/widget/section_list_tile.dart';
 
@@ -62,9 +63,17 @@ class ProfilePage extends StatelessWidget {
                       );
                     },
                   ),
-                  const SectionListTile(
+                  SectionListTile(
                     leadingIcon: Iconsax.document_text_1,
-                    title: 'My Rents',
+                    title: 'My Bookings',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const MyBookingsPage(),
+                        ),
+                      );
+                    },
                   ),
                   const SectionListTile(
                     leadingIcon: Iconsax.setting_2,
