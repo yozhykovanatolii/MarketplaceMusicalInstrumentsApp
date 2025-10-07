@@ -5,6 +5,9 @@ class BookingModel {
   final String renterId;
   final String authorId;
   final String listingId;
+  final String listingTitle;
+  final String listingPhoto;
+  final String listingCategory;
   final DateTime startDate;
   final DateTime endDate;
   final int totalPrice;
@@ -19,6 +22,9 @@ class BookingModel {
     required this.endDate,
     required this.totalPrice,
     required this.status,
+    required this.listingTitle,
+    required this.listingPhoto,
+    required this.listingCategory,
   });
 
   factory BookingModel.initial() {
@@ -30,6 +36,9 @@ class BookingModel {
       startDate: DateTime.now(),
       endDate: DateTime.now(),
       totalPrice: 0,
+      listingPhoto: '',
+      listingTitle: '',
+      listingCategory: '',
       status: 'Unconfirmed',
     );
   }
@@ -40,6 +49,9 @@ class BookingModel {
       'renterId': renterId,
       'authorId': authorId,
       'listingId': listingId,
+      'listingTitle': listingTitle,
+      'listingPhoto': listingPhoto,
+      'listingCategory': listingCategory,
       'startDate': Timestamp.fromDate(startDate),
       'endDate': Timestamp.fromDate(endDate),
       'totalPrice': totalPrice,
@@ -57,6 +69,9 @@ class BookingModel {
       renterId: data?['renterId'] as String,
       authorId: data?['authorId'] as String,
       listingId: data?['listingId'] as String,
+      listingTitle: data?['listingTitle'] as String,
+      listingPhoto: data?['listingPhoto'] as String,
+      listingCategory: data?['listingCategory'] as String,
       startDate: (data?['startDate'] as Timestamp).toDate(),
       endDate: (data?['endDate'] as Timestamp).toDate(),
       totalPrice: data?['totalPrice'] as int,
@@ -69,6 +84,9 @@ class BookingModel {
     String? renterId,
     String? authorId,
     String? listingId,
+    String? listingTitle,
+    String? listingPhoto,
+    String? listingCategory,
     DateTime? startDate,
     DateTime? endDate,
     int? totalPrice,
@@ -79,6 +97,9 @@ class BookingModel {
       renterId: renterId ?? this.renterId,
       authorId: authorId ?? this.authorId,
       listingId: listingId ?? this.listingId,
+      listingTitle: listingTitle ?? this.listingTitle,
+      listingPhoto: listingPhoto ?? this.listingPhoto,
+      listingCategory: listingCategory ?? this.listingCategory,
       startDate: startDate ?? this.startDate,
       endDate: endDate ?? this.endDate,
       totalPrice: totalPrice ?? this.totalPrice,

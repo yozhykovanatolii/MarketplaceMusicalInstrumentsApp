@@ -21,6 +21,9 @@ class BookingRepository {
       renterId: renterId,
       authorId: listingModel.authorId,
       listingId: listingModel.id,
+      listingTitle: listingModel.title,
+      listingPhoto: listingModel.photos.first,
+      listingCategory: listingModel.category,
       startDate: startDate,
       endDate: endDate,
       totalPrice: totalPrice,
@@ -38,5 +41,10 @@ class BookingRepository {
       startDate,
       endDate,
     );
+  }
+
+  Future<List<BookingModel>> getAllUserBookings() async {
+    final renterId = _userAuth.userId;
+    return await _bookingFirestore.getAllUserBookings(renterId);
   }
 }

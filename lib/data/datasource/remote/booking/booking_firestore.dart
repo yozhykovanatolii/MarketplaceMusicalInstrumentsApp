@@ -9,6 +9,22 @@ class BookingFirestore {
     await docReference.set(bookingModel);
   }
 
+  Future<List<BookingModel>> getAllUserBookings(String userId) async {
+    final query = _firestore
+        .collection('bookings')
+        .where('renterId', isEqualTo: userId)
+        .withConverter(
+          fromFirestore: BookingModel.fromFirestore,
+          toFirestore: (BookingModel bookingModel, options) =>
+              bookingModel.toFirestore(),
+        );
+    final querySnapshot = await query.get();
+    if (querySnapshot.docs.isEmpty) {
+      throw Exception('Bookings weren\'t found');
+    }
+    return querySnapshot.docs.map((document) => document.data()).toList();
+  }
+
   Future<bool> checkIfInstrumentBooked(
     String listingId,
     DateTime startDate,
