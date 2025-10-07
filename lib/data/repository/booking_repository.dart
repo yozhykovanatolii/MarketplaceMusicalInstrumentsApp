@@ -27,4 +27,16 @@ class BookingRepository {
     );
     await _bookingFirestore.saveBooking(bookingModel);
   }
+
+  Future<bool> checkIfInstrumentBooked(
+    String listingId,
+    DateTime startDate,
+    DateTime endDate,
+  ) async {
+    return await _bookingFirestore.checkIfInstrumentBooked(
+      listingId,
+      startDate,
+      endDate,
+    );
+  }
 }

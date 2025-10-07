@@ -3,11 +3,13 @@ import 'package:marketplace_musical_instruments_app/data/model/listing_model.dar
 sealed class BookingSaveEvent {}
 
 final class BookingTotalCalculateEvent extends BookingSaveEvent {
+  final String listingId;
   final DateTime? startDate;
   final DateTime? endDate;
   final int startingPrice;
 
   BookingTotalCalculateEvent(
+    this.listingId,
     this.startDate,
     this.endDate,
     this.startingPrice,

@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/util/calculation_booking_price_util.dart';
 import 'package:marketplace_musical_instruments_app/data/repository/booking_repository.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/add_and_edit_listing/add_and_edit_listing_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_state.dart';
 
@@ -12,13 +13,28 @@ class BookingSaveBloc extends Bloc<BookingSaveEvent, BookingSaveState> {
     on<BookingCreateEvent>(_createBooking);
   }
 
-  void _calculateBookingTotalPrice(
+  Future<void> _calculateBookingTotalPrice(
     BookingTotalCalculateEvent event,
     Emitter<BookingSaveState> emit,
-  ) {
+  ) async {
     final startDate = event.startDate;
     final endDate = event.endDate;
     if (startDate == null || endDate == null) return;
+    final isInstrumentBooked = await _bookingRepository.checkIfInstrumentBooked(
+      event.listingId,
+      startDate,
+      endDate,
+    );
+    if (isInstrumentBooked) {
+      emit(
+        state.copyWith(
+          buttonStatus: ButtonStatus.disabled,
+          errorMessage:
+              'This instrument is already booked for the selected dates.',
+        ),
+      );
+      return;
+    }
     final totalPrice = CalculationBookingPriceUtil.calculateTotalPrice(
       startDate,
       endDate,
@@ -26,6 +42,8 @@ class BookingSaveBloc extends Bloc<BookingSaveEvent, BookingSaveState> {
     );
     emit(
       state.copyWith(
+        errorMessage: '',
+        buttonStatus: ButtonStatus.enabled,
         startBookingDate: startDate,
         endBookingDate: endDate,
         totalPriceText: '\$${totalPrice.toString()}',
@@ -40,7 +58,6 @@ class BookingSaveBloc extends Bloc<BookingSaveEvent, BookingSaveState> {
     final startBookingDate = state.startBookingDate;
     final endBookingDate = state.endBookingDate;
     final totalPriceText = state.totalPriceText.replaceAll('\$', '');
-    print(totalPriceText);
     if (startBookingDate == null || endBookingDate == null) return;
     try {
       await _bookingRepository.createBooking(
@@ -49,9 +66,7 @@ class BookingSaveBloc extends Bloc<BookingSaveEvent, BookingSaveState> {
         endBookingDate,
         int.parse(totalPriceText),
       );
-      print('✅ Booking saved');
     } catch (exception) {
-      print('❌ Firestore error: $exception');
       emit(state.copyWith(errorMessage: exception.toString()));
     }
   }

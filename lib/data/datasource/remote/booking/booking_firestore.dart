@@ -9,6 +9,21 @@ class BookingFirestore {
     await docReference.set(bookingModel);
   }
 
+  Future<bool> checkIfInstrumentBooked(
+    String listingId,
+    DateTime startDate,
+    DateTime endDate,
+  ) async {
+    final querySnapshot = await _firestore
+        .collection('bookings')
+        .where('listingId', isEqualTo: listingId)
+        .where('startDate', isEqualTo: Timestamp.fromDate(startDate))
+        .where('endDate', isEqualTo: Timestamp.fromDate(endDate))
+        .limit(1)
+        .get();
+    return querySnapshot.docs.isNotEmpty;
+  }
+
   DocumentReference<BookingModel> getBookingDocumentReference(String id) {
     return _firestore
         .collection('bookings')

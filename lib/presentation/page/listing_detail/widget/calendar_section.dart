@@ -6,10 +6,12 @@ import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_sa
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarSection extends StatelessWidget {
+  final String listingId;
   final int startingPrice;
 
   const CalendarSection({
     super.key,
+    required this.listingId,
     required this.startingPrice,
   });
 
@@ -37,6 +39,7 @@ class CalendarSection extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           _BookingCalendar(
+            listingId: listingId,
             startingPrice: startingPrice,
           ),
           const SizedBox(height: 25),
@@ -48,10 +51,12 @@ class CalendarSection extends StatelessWidget {
 }
 
 class _BookingCalendar extends StatelessWidget {
+  final String listingId;
   final int startingPrice;
 
   const _BookingCalendar({
     super.key,
+    required this.listingId,
     required this.startingPrice,
   });
 
@@ -69,7 +74,7 @@ class _BookingCalendar extends StatelessWidget {
       rangeEndDay: bookingSaveState.endBookingDate,
       onRangeSelected: (start, end, focusedDay) {
         context.read<BookingSaveBloc>().add(
-          BookingTotalCalculateEvent(start, end, startingPrice),
+          BookingTotalCalculateEvent(listingId, start, end, startingPrice),
         );
       },
       headerStyle: HeaderStyle(

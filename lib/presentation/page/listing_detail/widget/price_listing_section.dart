@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_button.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/information_dialog_box.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/add_and_edit_listing/add_and_edit_listing_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_event.dart';
 
@@ -87,29 +88,43 @@ class _BookingButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final buttonStatus = context.select(
+      (BookingSaveBloc bloc) => bloc.state.buttonStatus,
+    );
+    final color = buttonStatus == ButtonStatus.disabled
+        ? Colors.grey
+        : Colors.blue;
+    final textColor = buttonStatus == ButtonStatus.disabled
+        ? Colors.black
+        : Colors.white;
+    final onPressed = buttonStatus == ButtonStatus.disabled
+        ? null
+        : () {
+            showDialog(
+              context: context,
+              builder: (context) => InformationDialogBox(
+                isDeleting: false,
+                title: 'Confirm Booking',
+                description:
+                    'You\'re going to book this instrument. Are you sure?',
+                onClickActionButton: () {
+                  context.read<BookingSaveBloc>().add(
+                    BookingCreateEvent(listing),
+                  );
+                  print('Success booking');
+                },
+              ),
+            );
+          };
     return CommonButton(
-      onPressed: () {
-        showDialog(
-          context: context,
-          builder: (context) => InformationDialogBox(
-            isDeleting: false,
-            title: 'Confirm Booking',
-            description: 'You\'re going to book this instrument. Are you sure?',
-            onClickActionButton: () {
-              context.read<BookingSaveBloc>().add(
-                BookingCreateEvent(listing),
-              );
-              print('Success booking');
-            },
-          ),
-        );
-      },
+      onPressed: onPressed,
       width: MediaQuery.of(context).size.width / 2,
-      child: const Text(
+      color: color,
+      child: Text(
         'Book Now',
         style: TextStyle(
-          color: Colors.white,
           fontSize: 18,
+          color: textColor,
         ),
       ),
     );
