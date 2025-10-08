@@ -43,7 +43,7 @@ class BookingCard extends StatelessWidget {
                         category: booking.listingCategory,
                       ),
                       Text(
-                        booking.listingTitle,
+                        'Prepared Hero Emergency Fire Blanket 303',
                         style: TextStyle(
                           fontSize: MediaQuery.textScalerOf(
                             context,

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:marketplace_musical_instruments_app/core/widget/common_progress_indicator.dart';
-import 'package:marketplace_musical_instruments_app/core/widget/listing_card.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/author_listing/author_listing_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/author_listing/author_listing_event.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/author_listing/author_listing_state.dart';
+import 'package:marketplace_musical_instruments_app/presentation/page/my_listings/widget/listings_section.dart';
 
 class MyListingsPage extends StatefulWidget {
   const MyListingsPage({super.key});
@@ -24,52 +22,42 @@ class _MyListingsPageState extends State<MyListingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'My Listings',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            'My Listings',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          centerTitle: true,
+          bottom: TabBar(
+            indicatorColor: Colors.blue,
+            labelColor: Colors.blue,
+            indicatorWeight: 4,
+            labelStyle: TextStyle(
+              fontSize: MediaQuery.textScalerOf(context).scale(17),
+              fontWeight: FontWeight.w500,
+            ),
+            tabs: const [
+              Tab(text: 'Listings'),
+              Tab(text: 'Requests'),
+            ],
           ),
         ),
-        centerTitle: true,
-      ),
-      body: SafeArea(
-        minimum: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 10,
-        ),
-        child: BlocBuilder<AuthorListingBloc, AuthorListingState>(
-          builder: (context, state) {
-            if (state is AuthorListingFailureState) {
-              return Center(
-                child: Text(state.errorMessage),
-              );
-            }
-            if (state is AuthorListingSuccessState) {
-              final authorListings = state.authorListings;
-              return GridView.builder(
-                itemCount: authorListings.length,
-                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 250,
-                  childAspectRatio: 0.615,
-                  crossAxisSpacing: 5,
-                  mainAxisSpacing: 5,
-                ),
-                itemBuilder: (_, index) {
-                  return ListingCard(
-                    listing: authorListings[index],
-                  );
-                },
-              );
-            }
-            return const Center(
-              child: CommonProgressIndicator(
-                scale: 1.2,
-                color: Colors.blue,
-              ),
-            );
-          },
+        body: const SafeArea(
+          minimum: EdgeInsets.symmetric(
+            horizontal: 20,
+            vertical: 10,
+          ),
+          child: TabBarView(
+            children: [
+              ListingsSection(),
+              Placeholder(),
+            ],
+          ),
         ),
       ),
     );
