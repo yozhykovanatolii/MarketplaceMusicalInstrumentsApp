@@ -9,6 +9,11 @@ class BookingFirestore {
     await docReference.set(bookingModel);
   }
 
+  Future<void> changeBookingStatus(String newStatus, String bookingId) async {
+    final docReference = getBookingDocumentReference(bookingId);
+    await docReference.update({'status': newStatus});
+  }
+
   Future<List<BookingModel>> getAllUserBookings(String userId) async {
     final query = _firestore
         .collection('bookings')
@@ -23,6 +28,25 @@ class BookingFirestore {
       throw Exception('Bookings weren\'t found');
     }
     return querySnapshot.docs.map((document) => document.data()).toList();
+  }
+
+  Stream<List<BookingModel>> getAllUserBookingRequests(String authorId) {
+    return _firestore
+        .collection('bookings')
+        .where('authorId', isEqualTo: authorId)
+        .where('status', isEqualTo: 'Unconfirmed')
+        .withConverter(
+          fromFirestore: BookingModel.fromFirestore,
+          toFirestore: (BookingModel userModel, options) =>
+              userModel.toFirestore(),
+        )
+        .snapshots()
+        .map((snapshot) {
+          if (snapshot.docs.isEmpty) {
+            throw Exception('There are no requests yet');
+          }
+          return snapshot.docs.map((document) => document.data()).toList();
+        });
   }
 
   Future<bool> checkIfInstrumentBooked(

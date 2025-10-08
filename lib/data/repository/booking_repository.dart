@@ -47,4 +47,16 @@ class BookingRepository {
     final renterId = _userAuth.userId;
     return await _bookingFirestore.getAllUserBookings(renterId);
   }
+
+  Stream<List<BookingModel>> getAllUserBookingRequests() {
+    final authorId = _userAuth.userId;
+    return _bookingFirestore.getAllUserBookingRequests(authorId);
+  }
+
+  Future<void> changeBookingStatus(
+    String newStatus,
+    String bookingId,
+  ) async {
+    await _bookingFirestore.changeBookingStatus(newStatus, bookingId);
+  }
 }
