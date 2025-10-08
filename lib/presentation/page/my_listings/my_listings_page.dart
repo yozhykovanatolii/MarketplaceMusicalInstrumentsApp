@@ -1,24 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/author_listing/author_listing_bloc.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/author_listing/author_listing_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/my_listings/widget/listings_section.dart';
+import 'package:marketplace_musical_instruments_app/presentation/page/my_listings/widget/requests_section.dart';
 
-class MyListingsPage extends StatefulWidget {
+class MyListingsPage extends StatelessWidget {
   const MyListingsPage({super.key});
-
-  @override
-  State<MyListingsPage> createState() => _MyListingsPageState();
-}
-
-class _MyListingsPageState extends State<MyListingsPage> {
-  @override
-  void initState() {
-    context.read<AuthorListingBloc>().add(
-      AuthorListingsFetchEvent(),
-    );
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +40,7 @@ class _MyListingsPageState extends State<MyListingsPage> {
           child: TabBarView(
             children: [
               ListingsSection(),
-              Placeholder(),
+              RequestsSection(),
             ],
           ),
         ),
