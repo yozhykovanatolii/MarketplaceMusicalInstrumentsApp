@@ -43,6 +43,39 @@ class ListingFirestore {
     return querySnapshot.docs.map((document) => document.data()).toList();
   }
 
+  Future<List<ListingModel>> searchListings(String searchText) async {
+    final titleQuery = _firestore
+        .collection('listings')
+        .orderBy('title')
+        .startAt([searchText])
+        .endAt(['$searchText\uf8ff'])
+        .withConverter(
+          fromFirestore: ListingModel.fromFirestore,
+          toFirestore: (ListingModel userModel, options) =>
+              userModel.toFirestore(),
+        )
+        .get();
+    final categoryQuery = _firestore
+        .collection('listings')
+        .orderBy('category')
+        .startAt([searchText])
+        .endAt(['$searchText\uf8ff'])
+        .withConverter(
+          fromFirestore: ListingModel.fromFirestore,
+          toFirestore: (ListingModel userModel, options) =>
+              userModel.toFirestore(),
+        )
+        .get();
+    final results = await Future.wait([titleQuery, categoryQuery]);
+    final allDocs = results.expand((s) => s.docs).toList();
+    if (allDocs.isEmpty) throw Exception('Listings weren\'t found');
+    final Map<String, ListingModel> uniqueListings = {};
+    for (var doc in allDocs) {
+      uniqueListings[doc.id] = doc.data();
+    }
+    return uniqueListings.values.toList();
+  }
+
   Future<void> deleteListing(String listingId) async {
     await _firestore.collection('listings').doc(listingId).delete();
   }

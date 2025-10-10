@@ -55,6 +55,10 @@ class ListingRepository {
     return await _listingFirestore.getAllListingExceptUsers(authorId);
   }
 
+  Future<List<ListingModel>> searchListings(String searchText) async {
+    return await _listingFirestore.searchListings(searchText);
+  }
+
   Future<void> deleteAuthorListing(String listingId) async {
     await _listingFirestore.deleteListing(listingId);
   }

@@ -8,6 +8,7 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
 
   ListingBloc() : super(ListingInitial()) {
     on<ListingInitializeEvent>(_initializeListings);
+    on<ListingSearchEvent>(_searchListings);
   }
 
   Future<void> _initializeListings(
@@ -18,6 +19,21 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
     try {
       final listings = await _listingRepository.getAllListingExceptUsers();
       emit(ListingSuccess(listings));
+    } catch (exception) {
+      emit(ListingFailure(exception.toString()));
+    }
+  }
+
+  Future<void> _searchListings(
+    ListingSearchEvent event,
+    Emitter<ListingState> emit,
+  ) async {
+    final searchText = event.searchText;
+    if (searchText == null) return;
+    emit(ListingLoading());
+    try {
+      final foundListings = await _listingRepository.searchListings(searchText);
+      emit(ListingSuccess(foundListings));
     } catch (exception) {
       emit(ListingFailure(exception.toString()));
     }
