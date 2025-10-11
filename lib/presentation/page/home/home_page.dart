@@ -46,7 +46,7 @@ class HomePage extends StatelessWidget {
             Expanded(
               child: BlocBuilder<ListingBloc, ListingState>(
                 builder: (context, state) {
-                  if (state is ListingFailure) {
+                  if (state.status == ListingStatus.loading) {
                     return Center(
                       child: Text(
                         state.errorMessage,
@@ -57,7 +57,7 @@ class HomePage extends StatelessWidget {
                       ),
                     );
                   }
-                  if (state is ListingSuccess) {
+                  if (state.status == ListingStatus.success) {
                     final listings = state.listings;
                     return GridView.builder(
                       itemCount: listings.length,

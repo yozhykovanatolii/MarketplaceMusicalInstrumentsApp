@@ -7,3 +7,9 @@ final class ListingSearchEvent extends ListingEvent {
 
   ListingSearchEvent(this.searchText);
 }
+
+final class AverageRatingListingClickedEvent extends ListingEvent {
+  final int? value;
+
+  AverageRatingListingClickedEvent(this.value);
+}

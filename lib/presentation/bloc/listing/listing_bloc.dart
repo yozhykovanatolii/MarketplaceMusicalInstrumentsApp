@@ -6,21 +6,27 @@ import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/li
 class ListingBloc extends Bloc<ListingEvent, ListingState> {
   final _listingRepository = ListingRepository();
 
-  ListingBloc() : super(ListingInitial()) {
+  ListingBloc() : super(ListingState.initial()) {
     on<ListingInitializeEvent>(_initializeListings);
     on<ListingSearchEvent>(_searchListings);
+    on<AverageRatingListingClickedEvent>(_chooseAverageRating);
   }
 
   Future<void> _initializeListings(
     ListingInitializeEvent event,
     Emitter<ListingState> emit,
   ) async {
-    emit(ListingLoading());
+    emit(state.copyWith(status: ListingStatus.loading));
     try {
       final listings = await _listingRepository.getAllListingExceptUsers();
-      emit(ListingSuccess(listings));
+      emit(state.copyWith(listings: listings, status: ListingStatus.success));
     } catch (exception) {
-      emit(ListingFailure(exception.toString()));
+      emit(
+        state.copyWith(
+          errorMessage: exception.toString(),
+          status: ListingStatus.failure,
+        ),
+      );
     }
   }
 
@@ -30,12 +36,32 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
   ) async {
     final searchText = event.searchText;
     if (searchText == null) return;
-    emit(ListingLoading());
+    emit(state.copyWith(status: ListingStatus.loading));
     try {
       final foundListings = await _listingRepository.searchListings(searchText);
-      emit(ListingSuccess(foundListings));
+      emit(
+        state.copyWith(listings: foundListings, status: ListingStatus.loading),
+      );
     } catch (exception) {
-      emit(ListingFailure(exception.toString()));
+      emit(
+        state.copyWith(
+          errorMessage: exception.toString(),
+          status: ListingStatus.failure,
+        ),
+      );
     }
+  }
+
+  void _chooseAverageRating(
+    AverageRatingListingClickedEvent event,
+    Emitter<ListingState> emit,
+  ) {
+    final currentSelectedAverageRating = event.value;
+    final previousSelectedAverageRating = state.selectedAverageRating;
+    if (previousSelectedAverageRating == currentSelectedAverageRating ||
+        currentSelectedAverageRating == null) {
+      return;
+    }
+    emit(state.copyWith(selectedAverageRating: currentSelectedAverageRating));
   }
 }
