@@ -10,6 +10,7 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
     on<ListingInitializeEvent>(_initializeListings);
     on<ListingSearchEvent>(_searchListings);
     on<AverageRatingListingClickedEvent>(_chooseAverageRating);
+    on<PriceRangeSelectedEvent>(_choosePriceRange);
   }
 
   Future<void> _initializeListings(
@@ -63,5 +64,14 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
       return;
     }
     emit(state.copyWith(selectedAverageRating: currentSelectedAverageRating));
+  }
+
+  void _choosePriceRange(
+    PriceRangeSelectedEvent event,
+    Emitter<ListingState> emit,
+  ) {
+    final int startPrice = event.start.toInt();
+    final int endPrice = event.end.toInt();
+    emit(state.copyWith(startPrice: startPrice, endPrice: endPrice));
   }
 }

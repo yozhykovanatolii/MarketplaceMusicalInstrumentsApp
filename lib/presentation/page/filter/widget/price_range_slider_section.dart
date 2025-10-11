@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_bloc.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_event.dart';
 
-class PriceRangeSliderSection extends StatefulWidget {
+class PriceRangeSliderSection extends StatelessWidget {
   const PriceRangeSliderSection({super.key});
 
   @override
-  State<PriceRangeSliderSection> createState() =>
-      _PriceRangeSliderSectionState();
-}
-
-class _PriceRangeSliderSectionState extends State<PriceRangeSliderSection> {
-  RangeValues _currentRangeValues = const RangeValues(40, 80);
-
-  @override
   Widget build(BuildContext context) {
+    final startPrice = context.select(
+      (ListingBloc bloc) => bloc.state.startPrice,
+    );
+    final endPrice = context.select(
+      (ListingBloc bloc) => bloc.state.endPrice,
+    );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: 10,
       children: [
         Text(
-          '\$${_currentRangeValues.start} - \$${_currentRangeValues.end}',
+          '\$$startPrice - \$$endPrice',
           style: TextStyle(
             fontSize: MediaQuery.textScalerOf(context).scale(18),
             fontWeight: FontWeight.w500,
@@ -33,17 +34,14 @@ class _PriceRangeSliderSectionState extends State<PriceRangeSliderSection> {
             trackHeight: 6,
           ),
           child: RangeSlider(
-            values: _currentRangeValues,
-            max: 200,
-            labels: RangeLabels(
-              _currentRangeValues.start.round().toString(),
-              _currentRangeValues.end.round().toString(),
+            values: RangeValues(
+              startPrice.toDouble(),
+              endPrice.toDouble(),
             ),
-            onChanged: (values) {
-              setState(() {
-                _currentRangeValues = values;
-              });
-            },
+            max: 200,
+            onChanged: (values) => context.read<ListingBloc>().add(
+              PriceRangeSelectedEvent(values.start, values.end),
+            ),
           ),
         ),
       ],

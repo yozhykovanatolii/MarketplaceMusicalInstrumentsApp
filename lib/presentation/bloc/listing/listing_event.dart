@@ -13,3 +13,10 @@ final class AverageRatingListingClickedEvent extends ListingEvent {
 
   AverageRatingListingClickedEvent(this.value);
 }
+
+final class PriceRangeSelectedEvent extends ListingEvent {
+  final double start;
+  final double end;
+
+  PriceRangeSelectedEvent(this.start, this.end);
+}
