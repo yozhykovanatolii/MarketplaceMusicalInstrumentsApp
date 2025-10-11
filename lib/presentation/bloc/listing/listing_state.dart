@@ -8,6 +8,7 @@ class ListingState {
   final int selectedAverageRating;
   final int startPrice;
   final int endPrice;
+  final List<String> selectedCategories;
   final ListingStatus status;
 
   ListingState({
@@ -16,6 +17,7 @@ class ListingState {
     required this.selectedAverageRating,
     required this.startPrice,
     required this.endPrice,
+    required this.selectedCategories,
     required this.status,
   });
 
@@ -26,6 +28,7 @@ class ListingState {
       selectedAverageRating: 5,
       startPrice: 0,
       endPrice: 20,
+      selectedCategories: [],
       status: ListingStatus.initial,
     );
   }
@@ -36,6 +39,7 @@ class ListingState {
     int? selectedAverageRating,
     int? startPrice,
     int? endPrice,
+    List<String>? selectedCategories,
     ListingStatus? status,
   }) {
     return ListingState(
@@ -45,6 +49,7 @@ class ListingState {
           selectedAverageRating ?? this.selectedAverageRating,
       startPrice: startPrice ?? this.startPrice,
       endPrice: endPrice ?? this.endPrice,
+      selectedCategories: selectedCategories ?? this.selectedCategories,
       status: status ?? this.status,
     );
   }

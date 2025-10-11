@@ -20,3 +20,9 @@ final class PriceRangeSelectedEvent extends ListingEvent {
 
   PriceRangeSelectedEvent(this.start, this.end);
 }
+
+final class ListingCategorySelectedEvent extends ListingEvent {
+  final String category;
+
+  ListingCategorySelectedEvent(this.category);
+}
