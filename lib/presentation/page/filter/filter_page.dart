@@ -9,46 +9,59 @@ class FilterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Filter',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 10),
+      margin: const EdgeInsets.only(top: 60),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(30),
         ),
-        centerTitle: true,
       ),
-      body: SafeArea(
-        minimum: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      child: SafeArea(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const SizedBox(height: 5),
+            Center(
+              child: Text(
+                'Filter by',
+                style: TextStyle(
+                  fontSize: MediaQuery.textScalerOf(context).scale(24),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            const SizedBox(height: 15),
             Text(
               'Category',
               style: TextStyle(
-                fontSize: MediaQuery.textScalerOf(context).scale(22),
-                fontWeight: FontWeight.bold,
+                fontSize: MediaQuery.textScalerOf(context).scale(20),
+                fontWeight: FontWeight.w600,
               ),
             ),
             const SizedBox(height: 10),
             const CategoryListFilterChip(),
-            const SizedBox(height: 20),
+            const SizedBox(height: 15),
+            const Divider(),
+            const SizedBox(height: 15),
             Text(
               'Price Range (Daily)',
               style: TextStyle(
-                fontSize: MediaQuery.textScalerOf(context).scale(22),
-                fontWeight: FontWeight.bold,
+                fontSize: MediaQuery.textScalerOf(context).scale(20),
+                fontWeight: FontWeight.w600,
               ),
             ),
             const SizedBox(height: 10),
             const PriceRangeSliderSection(),
             const SizedBox(height: 10),
+            const Divider(),
+            const SizedBox(height: 10),
             Text(
               'Rating',
               style: TextStyle(
-                fontSize: MediaQuery.textScalerOf(context).scale(22),
-                fontWeight: FontWeight.bold,
+                fontSize: MediaQuery.textScalerOf(context).scale(20),
+                fontWeight: FontWeight.w600,
               ),
             ),
             const SizedBox(height: 10),

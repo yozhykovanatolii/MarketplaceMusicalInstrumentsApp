@@ -12,9 +12,12 @@ class FilterFloatingActionButton extends StatelessWidget {
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => const FilterPage()),
+          showModalBottomSheet(
+            isScrollControlled: true,
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            context: context,
+            builder: (_) => FilterPage(),
           );
         },
         child: const Icon(Icons.tune),

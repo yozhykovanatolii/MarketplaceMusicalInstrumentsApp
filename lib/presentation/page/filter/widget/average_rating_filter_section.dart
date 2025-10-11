@@ -43,6 +43,10 @@ class _RatingRadioButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       contentPadding: const EdgeInsets.all(0),
+      visualDensity: const VisualDensity(
+        horizontal: VisualDensity.minimumDensity,
+        vertical: VisualDensity.minimumDensity,
+      ),
       leading: Radio<int>(
         value: value,
         visualDensity: const VisualDensity(
