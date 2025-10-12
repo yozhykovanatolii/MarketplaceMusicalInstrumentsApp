@@ -10,8 +10,8 @@ class FilterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 10),
-      margin: const EdgeInsets.only(top: 60),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      margin: const EdgeInsets.only(top: 196),
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.vertical(
@@ -42,7 +42,7 @@ class FilterPage extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             const CategoryListFilterChip(),
-            const SizedBox(height: 15),
+            const SizedBox(height: 10),
             const Divider(),
             const SizedBox(height: 15),
             Text(

@@ -6,18 +6,23 @@ import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/li
 class CategoryListFilterChip extends StatelessWidget {
   static const List<String> categories = [
     'Guitar',
-    'Microphone',
+    'Micro',
     'CAD',
-    'Multi-Effect Unit',
+    'MultiFx',
   ];
   const CategoryListFilterChip({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 50,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
+      height: 100,
+      child: GridView.count(
+        crossAxisCount: 3,
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        childAspectRatio: 2.6,
+        mainAxisSpacing: 8,
+        crossAxisSpacing: 8,
         children: List<_CategoryFilterChip>.generate(
           categories.length,
           (index) => _CategoryFilterChip(
@@ -48,7 +53,6 @@ class _CategoryFilterChip extends StatelessWidget {
       ),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-        margin: const EdgeInsets.symmetric(horizontal: 3),
         decoration: BoxDecoration(
           color: isCategorySelected
               ? const Color(0xFF007DFC)
