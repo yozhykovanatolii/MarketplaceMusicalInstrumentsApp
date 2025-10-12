@@ -32,12 +32,19 @@ class _RatingCardButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isRatingCardSelected = context.select(
+      (ListingBloc bloc) => bloc.state.selectedAverageRating == rating,
+    );
     return GestureDetector(
-      onTap: () {},
+      onTap: () => context.read<ListingBloc>().add(
+        AverageRatingListingClickedEvent(rating),
+      ),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 13),
         decoration: BoxDecoration(
-          color: const Color(0xFF007DFC),
+          color: isRatingCardSelected
+              ? const Color(0xFF007DFC)
+              : Colors.grey[200],
           borderRadius: BorderRadius.circular(15),
         ),
         child: Center(
@@ -48,13 +55,13 @@ class _RatingCardButton extends StatelessWidget {
                 '$rating',
                 style: TextStyle(
                   fontSize: MediaQuery.textScalerOf(context).scale(17),
-                  color: Colors.white,
+                  color: isRatingCardSelected ? Colors.white : Colors.grey,
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              const Icon(
+              Icon(
                 Icons.star,
-                color: Colors.amber,
+                color: isRatingCardSelected ? Colors.amber : Colors.grey,
               ),
             ],
           ),

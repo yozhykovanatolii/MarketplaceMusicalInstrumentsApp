@@ -58,10 +58,9 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
     AverageRatingListingClickedEvent event,
     Emitter<ListingState> emit,
   ) {
-    final currentSelectedAverageRating = event.value;
+    final currentSelectedAverageRating = event.rating;
     final previousSelectedAverageRating = state.selectedAverageRating;
-    if (previousSelectedAverageRating == currentSelectedAverageRating ||
-        currentSelectedAverageRating == null) {
+    if (previousSelectedAverageRating == currentSelectedAverageRating) {
       return;
     }
     emit(state.copyWith(selectedAverageRating: currentSelectedAverageRating));

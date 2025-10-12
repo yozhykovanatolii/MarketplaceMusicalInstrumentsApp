@@ -9,9 +9,9 @@ final class ListingSearchEvent extends ListingEvent {
 }
 
 final class AverageRatingListingClickedEvent extends ListingEvent {
-  final int? value;
+  final int rating;
 
-  AverageRatingListingClickedEvent(this.value);
+  AverageRatingListingClickedEvent(this.rating);
 }
 
 final class PriceRangeSelectedEvent extends ListingEvent {
