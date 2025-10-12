@@ -25,7 +25,7 @@ class ListingState {
     return ListingState(
       listings: [],
       errorMessage: '',
-      selectedAverageRating: 5,
+      selectedAverageRating: 0,
       startPrice: 0,
       endPrice: 20,
       selectedCategories: [],

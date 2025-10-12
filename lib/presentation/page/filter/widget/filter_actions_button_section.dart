@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_button.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_bloc.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_event.dart';
 
 class FilterActionsButtonSection extends StatelessWidget {
   const FilterActionsButtonSection({super.key});
@@ -14,9 +17,11 @@ class FilterActionsButtonSection extends StatelessWidget {
           children: [
             Flexible(
               child: _FilterActionButton(
-                text: 'Reset Filter',
-                onPressed: () {},
-                isResetButton: true,
+                text: 'Clear Filter',
+                onPressed: () => context.read<ListingBloc>().add(
+                  ClearFilterEvent(),
+                ),
+                isClearButton: true,
               ),
             ),
             Flexible(
@@ -35,13 +40,13 @@ class FilterActionsButtonSection extends StatelessWidget {
 class _FilterActionButton extends StatelessWidget {
   final String text;
   final Function()? onPressed;
-  final bool isResetButton;
+  final bool isClearButton;
 
   const _FilterActionButton({
     super.key,
     required this.text,
     required this.onPressed,
-    this.isResetButton = false,
+    this.isClearButton = false,
   });
 
   @override
@@ -49,12 +54,12 @@ class _FilterActionButton extends StatelessWidget {
     return CommonButton(
       width: MediaQuery.of(context).size.width / 2,
       onPressed: onPressed,
-      color: isResetButton ? Colors.grey[300]! : const Color(0xFF007DFC),
+      color: isClearButton ? Colors.grey[300]! : const Color(0xFF007DFC),
       child: Text(
         text,
         style: TextStyle(
           fontSize: 17,
-          color: isResetButton ? const Color(0xFF007DFC) : Colors.white,
+          color: isClearButton ? const Color(0xFF007DFC) : Colors.white,
         ),
       ),
     );

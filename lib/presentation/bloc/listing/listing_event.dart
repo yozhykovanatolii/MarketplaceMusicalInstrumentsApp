@@ -26,3 +26,5 @@ final class ListingCategorySelectedEvent extends ListingEvent {
 
   ListingCategorySelectedEvent(this.category);
 }
+
+final class ClearFilterEvent extends ListingEvent {}
