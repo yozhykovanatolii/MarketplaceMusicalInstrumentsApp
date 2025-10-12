@@ -13,6 +13,7 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
     on<PriceRangeSelectedEvent>(_choosePriceRange);
     on<ListingCategorySelectedEvent>(_chooseListingCategory);
     on<ClearFilterEvent>(_clearFilter);
+    on<ListingFilterEvent>(_filterListings);
   }
 
   Future<void> _initializeListings(
@@ -102,5 +103,27 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
         selectedCategories: [],
       ),
     );
+  }
+
+  Future<void> _filterListings(
+    ListingFilterEvent event,
+    Emitter<ListingState> emit,
+  ) async {
+    emit(state.copyWith(status: ListingStatus.loading));
+    try {
+      final listings = await _listingRepository.filterListings(
+        state.selectedCategories,
+        state.startPrice,
+        state.endPrice,
+      );
+      emit(state.copyWith(listings: listings, status: ListingStatus.success));
+    } catch (exception) {
+      emit(
+        state.copyWith(
+          errorMessage: exception.toString(),
+          status: ListingStatus.failure,
+        ),
+      );
+    }
   }
 }

@@ -55,6 +55,18 @@ class ListingRepository {
     return await _listingFirestore.getAllListingExceptUsers(authorId);
   }
 
+  Future<List<ListingModel>> filterListings(
+    List<String> categories,
+    int startPrice,
+    int endPrice,
+  ) async {
+    return await _listingFirestore.filterListings(
+      categories,
+      startPrice,
+      endPrice,
+    );
+  }
+
   Future<List<ListingModel>> searchListings(String searchText) async {
     return await _listingFirestore.searchListings(searchText);
   }

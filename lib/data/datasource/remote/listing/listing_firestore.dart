@@ -43,6 +43,30 @@ class ListingFirestore {
     return querySnapshot.docs.map((document) => document.data()).toList();
   }
 
+  Future<List<ListingModel>> filterListings(
+    List<String> categories,
+    int startPrice,
+    int endPrice,
+  ) async {
+    final query = _firestore
+        .collection('listings')
+        .where('category', whereIn: categories)
+        .where('priceByHour', isGreaterThanOrEqualTo: startPrice)
+        .where('priceByHour', isLessThanOrEqualTo: endPrice)
+        .withConverter(
+          fromFirestore: ListingModel.fromFirestore,
+          toFirestore: (ListingModel userModel, options) =>
+              userModel.toFirestore(),
+        );
+    final querySnapshot = await query.get();
+    if (querySnapshot.docs.isEmpty) {
+      throw Exception(
+        'Listings weren\'t found matching the selected criteria',
+      );
+    }
+    return querySnapshot.docs.map((document) => document.data()).toList();
+  }
+
   Future<List<ListingModel>> searchListings(String searchText) async {
     final titleQuery = _firestore
         .collection('listings')

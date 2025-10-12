@@ -27,7 +27,12 @@ class FilterActionsButtonSection extends StatelessWidget {
             Flexible(
               child: _FilterActionButton(
                 text: 'Apply',
-                onPressed: () {},
+                onPressed: () {
+                  context.read<ListingBloc>().add(
+                    ListingFilterEvent(),
+                  );
+                  Navigator.pop(context);
+                },
               ),
             ),
           ],
