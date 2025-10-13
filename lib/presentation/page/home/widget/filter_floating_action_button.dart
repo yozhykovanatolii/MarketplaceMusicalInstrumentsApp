@@ -17,7 +17,7 @@ class FilterFloatingActionButton extends StatelessWidget {
             backgroundColor: Colors.transparent,
             elevation: 0,
             context: context,
-            builder: (_) => FilterPage(),
+            builder: (_) => const FilterPage(),
           );
         },
         child: const Icon(Icons.tune),

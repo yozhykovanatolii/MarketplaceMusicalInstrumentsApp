@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:marketplace_musical_instruments_app/presentation/page/add_review/add_review_page.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/listing_detail/widget/read_more_text.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/listing_detail/widget/user_avatar_and_full_name.dart';
 
@@ -73,7 +74,15 @@ class _ReviewAndRatingHeader extends StatelessWidget {
           ),
         ),
         GestureDetector(
-          onTap: () => print('Default message.'),
+          onTap: () {
+            showModalBottomSheet(
+              isScrollControlled: true,
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              context: context,
+              builder: (_) => const AddReviewPage(),
+            );
+          },
           child: Row(
             spacing: 5,
             children: [

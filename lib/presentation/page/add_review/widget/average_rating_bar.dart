@@ -7,10 +7,10 @@ class AverageRatingBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RatingBar(
-      initialRating: 4.9,
+      initialRating: 0,
       minRating: 1,
       maxRating: 5,
-      itemSize: 30,
+      itemSize: 36,
       ratingWidget: RatingWidget(
         full: const Icon(
           Icons.star,
