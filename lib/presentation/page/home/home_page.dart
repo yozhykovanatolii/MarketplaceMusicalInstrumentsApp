@@ -46,7 +46,7 @@ class HomePage extends StatelessWidget {
             Expanded(
               child: BlocBuilder<ListingBloc, ListingState>(
                 builder: (context, state) {
-                  if (state.status == ListingStatus.loading) {
+                  if (state.status == ListingStatus.failure) {
                     return Center(
                       child: Text(
                         state.errorMessage,
