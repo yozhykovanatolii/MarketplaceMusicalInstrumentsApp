@@ -48,9 +48,8 @@ class ListingFirestore {
     int startPrice,
     int endPrice,
   ) async {
-    final query = _firestore
+    var query = _firestore
         .collection('listings')
-        .where('category', whereIn: categories)
         .where('priceByHour', isGreaterThanOrEqualTo: startPrice)
         .where('priceByHour', isLessThanOrEqualTo: endPrice)
         .withConverter(
@@ -58,6 +57,9 @@ class ListingFirestore {
           toFirestore: (ListingModel userModel, options) =>
               userModel.toFirestore(),
         );
+    if (categories.isNotEmpty) {
+      query = query.where('category', whereIn: categories);
+    }
     final querySnapshot = await query.get();
     if (querySnapshot.docs.isEmpty) {
       throw Exception(
