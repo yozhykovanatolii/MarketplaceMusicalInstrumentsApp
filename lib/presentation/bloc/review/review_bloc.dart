@@ -1,11 +1,15 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:marketplace_musical_instruments_app/data/repository/review_repository.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/review/review_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/review/review_state.dart';
 
 class ReviewBloc extends Bloc<ReviewEvent, ReviewState> {
+  final _reviewRepository = ReviewRepository();
+
   ReviewBloc() : super(ReviewState.initial()) {
     on<AverageRatingChangeEvent>(_changeAverageRatingBar);
     on<ReviewTextChangeEvent>(_changeReviewText);
+    on<AddReviewEvent>(_addUserReview);
   }
 
   void _changeAverageRatingBar(
@@ -22,5 +26,21 @@ class ReviewBloc extends Bloc<ReviewEvent, ReviewState> {
     final reviewText = event.reviewText;
     if (reviewText == null) return;
     emit(state.copyWith(reviewText: reviewText));
+  }
+
+  Future<void> _addUserReview(
+    AddReviewEvent event,
+    Emitter<ReviewState> emit,
+  ) async {
+    try {
+      await _reviewRepository.saveReview(
+        state.rating.toInt(),
+        state.reviewText,
+        event.reviews,
+        event.listingId,
+      );
+    } catch (exception) {
+      print(exception.toString());
+    }
   }
 }
