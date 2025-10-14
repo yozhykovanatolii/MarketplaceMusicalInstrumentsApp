@@ -35,6 +35,8 @@ class ListingRepository {
       id: currentListing?.id ?? const Uuid().v1(),
       location: location,
       photos: photos,
+      averageRating: listingModel.averageRating,
+      reviewerCount: listingModel.reviewerCount,
       reviews: listingModel.reviews,
       title: title,
       description: description,

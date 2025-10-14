@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
-import 'package:marketplace_musical_instruments_app/data/model/review_model.dart';
 
 class ListingFirestore {
   final _firestore = FirebaseFirestore.instance;
@@ -10,12 +9,17 @@ class ListingFirestore {
     await docReference.set(listingModel);
   }
 
-  Future<void> updateListingReviews(
-    List<ReviewModel> updatedReviews,
+  Future<Map<String, dynamic>> getListingRatingAndReviewerCount(
     String listingId,
   ) async {
     final docReference = getListingDocumentReference(listingId);
-    await docReference.update({'reviews': updatedReviews});
+    final docSnapshot = await docReference.get();
+    if (!docSnapshot.exists) return {};
+    final listingModel = docSnapshot.data();
+    return {
+      'averageRating': listingModel?.averageRating ?? 0.0,
+      'reviewerCount': listingModel?.reviewerCount ?? 0,
+    };
   }
 
   Stream<List<ListingModel>> getUserListings(String userId) {

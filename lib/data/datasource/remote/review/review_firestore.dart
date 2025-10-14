@@ -12,6 +12,23 @@ class ReviewFirestore {
     await docReference.set(reviewModel);
   }
 
+  Stream<List<ReviewModel>> getAllListingReviews(String listingId) {
+    return _firestore
+        .collection('listings')
+        .doc(listingId)
+        .collection('reviews')
+        .withConverter(
+          fromFirestore: ReviewModel.fromFirestore,
+          toFirestore: (ReviewModel userModel, options) =>
+              userModel.toFirestore(),
+        )
+        .snapshots()
+        .map((snapshot) {
+          if (snapshot.docs.isEmpty) return [];
+          return snapshot.docs.map((document) => document.data()).toList();
+        });
+  }
+
   DocumentReference<ReviewModel> getReviewDocumentReference(
     String reviewId,
     String listingId,

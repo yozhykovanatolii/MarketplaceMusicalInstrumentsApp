@@ -8,6 +8,8 @@ class ListingModel {
   final String category;
   final int priceByHour;
   final List<String> photos;
+  final double averageRating;
+  final int reviewerCount;
   final List<ReviewModel> reviews;
   final Map<String, double> location;
   final String authorId;
@@ -20,6 +22,8 @@ class ListingModel {
     required this.category,
     required this.priceByHour,
     required this.photos,
+    required this.averageRating,
+    required this.reviewerCount,
     required this.reviews,
     required this.location,
     required this.authorId,
@@ -33,6 +37,8 @@ class ListingModel {
       description: '',
       category: '',
       priceByHour: 0,
+      averageRating: 0.0,
+      reviewerCount: 0,
       photos: [],
       reviews: [],
       location: {},
@@ -48,6 +54,8 @@ class ListingModel {
     String? category,
     int? priceByHour,
     List<String>? photos,
+    double? averageRating,
+    int? reviewerCount,
     List<ReviewModel>? reviews,
     Map<String, double>? location,
     String? authorId,
@@ -60,6 +68,8 @@ class ListingModel {
       category: category ?? this.category,
       priceByHour: priceByHour ?? this.priceByHour,
       photos: photos ?? this.photos,
+      averageRating: averageRating ?? this.averageRating,
+      reviewerCount: reviewerCount ?? this.reviewerCount,
       reviews: reviews ?? this.reviews,
       location: location ?? this.location,
       authorId: authorId ?? this.authorId,
@@ -75,6 +85,8 @@ class ListingModel {
       'category': category,
       'priceByHour': priceByHour,
       'photos': photos,
+      'averageRating': averageRating,
+      'reviewerCount': reviewerCount,
       'reviews': reviews,
       'location': location,
       'authorId': authorId,
@@ -93,6 +105,8 @@ class ListingModel {
       description: data?['description'] as String,
       category: data?['category'] as String,
       priceByHour: data?['priceByHour'] as int,
+      averageRating: data?['averageRating'] as double,
+      reviewerCount: data?['reviewerCount'] as int,
       photos:
           (data?['photos'] as List<dynamic>?)
               ?.map((e) => e as String)
