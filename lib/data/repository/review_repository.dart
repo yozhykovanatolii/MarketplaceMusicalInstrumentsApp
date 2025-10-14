@@ -1,4 +1,4 @@
-import 'package:marketplace_musical_instruments_app/data/datasource/remote/listing/listing_firestore.dart';
+import 'package:marketplace_musical_instruments_app/data/datasource/remote/review/review_firestore.dart';
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/user/user_auth.dart';
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/user/user_firestore.dart';
 import 'package:marketplace_musical_instruments_app/data/model/review_model.dart';
@@ -6,7 +6,7 @@ import 'package:marketplace_musical_instruments_app/data/model/review_model.dart
 class ReviewRepository {
   final _userAuth = UserAuth();
   final _userFirestore = UserFirestore();
-  final _listingFirestore = ListingFirestore();
+  final _reviewFirestore = ReviewFirestore();
 
   Future<void> saveReview(
     int rating,
@@ -24,8 +24,6 @@ class ReviewRepository {
       rating: rating,
       reviewText: reviewText,
     );
-    reviews.add(reviewModel);
-    List<ReviewModel> updatedReviews = List.from(reviews);
-    await _listingFirestore.updateListingReviews(updatedReviews, listingId);
+    await _reviewFirestore.saveReviewModel(reviewModel, listingId);
   }
 }

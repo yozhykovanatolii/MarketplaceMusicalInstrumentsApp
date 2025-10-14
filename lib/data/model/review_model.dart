@@ -52,7 +52,7 @@ class ReviewModel {
     };
   }
 
-  factory ReviewModel.fromMap(
+  factory ReviewModel.fromFirestore(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
     SnapshotOptions? options,
   ) {

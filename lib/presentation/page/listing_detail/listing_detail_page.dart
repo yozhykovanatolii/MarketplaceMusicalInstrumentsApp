@@ -94,7 +94,10 @@ class ListingDetailPage extends StatelessWidget {
                           listingId: listing.id,
                           startingPrice: listing.priceByHour,
                         ),
-                        const ReviewSection(),
+                        ReviewSection(
+                          listingId: listing.id,
+                          reviews: listing.reviews,
+                        ),
                       ],
                     ),
                   ),

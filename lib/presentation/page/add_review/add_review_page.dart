@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:marketplace_musical_instruments_app/data/model/review_model.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/add_review/widget/add_review_action_button.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/add_review/widget/average_rating_bar.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/add_review/widget/review_text_field.dart';
 
 class AddReviewPage extends StatelessWidget {
-  const AddReviewPage({super.key});
+  final String listingId;
+  final List<ReviewModel> reviews;
+
+  const AddReviewPage({
+    super.key,
+    required this.listingId,
+    required this.reviews,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +62,10 @@ class AddReviewPage extends StatelessWidget {
             const SizedBox(height: 10),
             const ReviewTextField(),
             const SizedBox(height: 10),
-            const AddReviewActionButton(),
+            AddReviewActionButton(
+              listingId: listingId,
+              reviews: reviews,
+            ),
           ],
         ),
       ),

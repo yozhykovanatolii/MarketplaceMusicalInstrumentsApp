@@ -1,23 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:marketplace_musical_instruments_app/data/model/review_model.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/add_review/add_review_page.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/listing_detail/widget/read_more_text.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/listing_detail/widget/user_avatar_and_full_name.dart';
 
 class ReviewSection extends StatelessWidget {
-  const ReviewSection({super.key});
+  final String listingId;
+  final List<ReviewModel> reviews;
+
+  const ReviewSection({
+    super.key,
+    required this.listingId,
+    required this.reviews,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _ReviewAndRatingHeader(),
-          SizedBox(height: 10),
-          Row(
+          _ReviewAndRatingHeader(
+            listingId: listingId,
+            reviews: reviews,
+          ),
+          const SizedBox(height: 10),
+          const Row(
             spacing: 17,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -50,8 +61,8 @@ class ReviewSection extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 20),
-          _ListingReviews(),
+          const SizedBox(height: 20),
+          const _ListingReviews(),
         ],
       ),
     );
@@ -59,7 +70,14 @@ class ReviewSection extends StatelessWidget {
 }
 
 class _ReviewAndRatingHeader extends StatelessWidget {
-  const _ReviewAndRatingHeader({super.key});
+  final String listingId;
+  final List<ReviewModel> reviews;
+
+  const _ReviewAndRatingHeader({
+    super.key,
+    required this.listingId,
+    required this.reviews,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +98,10 @@ class _ReviewAndRatingHeader extends StatelessWidget {
               backgroundColor: Colors.transparent,
               elevation: 0,
               context: context,
-              builder: (_) => const AddReviewPage(),
+              builder: (_) => AddReviewPage(
+                listingId: listingId,
+                reviews: reviews,
+              ),
             );
           },
           child: Row(
