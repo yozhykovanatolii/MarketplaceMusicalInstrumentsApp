@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:marketplace_musical_instruments_app/data/model/review_model.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/review/review_bloc.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/review/review_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/add_review/add_review_page.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/listing_detail/widget/read_more_text.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/listing_detail/widget/user_avatar_and_full_name.dart';
 
-class ReviewSection extends StatelessWidget {
+class ReviewSection extends StatefulWidget {
   final String listingId;
   final List<ReviewModel> reviews;
 
@@ -17,23 +20,44 @@ class ReviewSection extends StatelessWidget {
   });
 
   @override
+  State<ReviewSection> createState() => _ReviewSectionState();
+}
+
+class _ReviewSectionState extends State<ReviewSection> {
+  @override
+  void initState() {
+    context.read<ReviewBloc>().add(ReviewAndRatingFetchEvent(widget.listingId));
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final listingReviewersAndRating = context.select(
+      (ReviewBloc bloc) => bloc.state.reviewsAndRating,
+    );
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _ReviewAndRatingHeader(
-            listingId: listingId,
-            reviews: reviews,
+            listingId: widget.listingId,
+            reviews: widget.reviews,
           ),
           const SizedBox(height: 10),
-          const Row(
+          Row(
             spacing: 17,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _RatingSection(),
-              Expanded(
+              _RatingSection(
+                rating:
+                    listingReviewersAndRating['ratingAndReviewerCount']?['averageRating'] ??
+                    0,
+                reviewerCounter:
+                    listingReviewersAndRating['ratingAndReviewerCount']?['reviewerCount'] ??
+                    0,
+              ),
+              const Expanded(
                 child: Column(
                   children: [
                     _RatingSummaryProgressIndicator(
@@ -62,7 +86,9 @@ class ReviewSection extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 20),
-          const _ListingReviews(),
+          _ListingReviews(
+            reviews: listingReviewersAndRating['reviews'] ?? [],
+          ),
         ],
       ),
     );
@@ -128,28 +154,35 @@ class _ReviewAndRatingHeader extends StatelessWidget {
 }
 
 class _RatingSection extends StatelessWidget {
-  const _RatingSection({super.key});
+  final double rating;
+  final int reviewerCounter;
+
+  const _RatingSection({
+    super.key,
+    required this.rating,
+    required this.reviewerCounter,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Text(
-          '4.9',
+          '$rating',
           style: TextStyle(
             fontSize: MediaQuery.textScalerOf(context).scale(40),
             fontWeight: FontWeight.bold,
           ),
         ),
         Text(
-          '2152 reviews',
+          '$reviewerCounter reviews',
           style: TextStyle(
             fontSize: MediaQuery.textScalerOf(context).scale(18),
             color: Colors.grey[600],
           ),
         ),
         RatingBarIndicator(
-          rating: 4.9,
+          rating: rating,
           itemSize: 30,
           itemBuilder: (BuildContext context, int index) {
             return const Icon(
@@ -205,18 +238,22 @@ class _RatingSummaryProgressIndicator extends StatelessWidget {
 }
 
 class _ListingReviews extends StatelessWidget {
+  final List<ReviewModel> reviews;
   static const reviewsText = [
     'This electric keyboard is perfect for beginners or adults who’ve never played before but want to give it a try without spending a lot. It’s easy to use, has all the basic features you need to start learning, and feels surprisingly good for the price. A great choice for anyone testing the waters before investing in a more expensive model.',
     'I played piano a little as a kid and have been wanting to get back into it. A year ago when I purchased this, I wasn\'t sure how serious I\'d be about practicing.',
     'My son loves this piano set! It comes with a stool, the actual piano, a stand, and earphones to plug in',
   ];
-  const _ListingReviews({super.key});
+  const _ListingReviews({
+    super.key,
+    required this.reviews,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView.separated(
-        itemCount: reviewsText.length,
+        itemCount: reviews.length,
         itemBuilder: (context, index) {
           return SizedBox(
             child: Column(
@@ -228,7 +265,7 @@ class _ListingReviews extends StatelessWidget {
                   spacing: 16,
                   children: [
                     RatingBarIndicator(
-                      rating: 4.9,
+                      rating: reviews[index].rating.toDouble(),
                       itemSize: 20,
                       itemBuilder: (BuildContext context, int index) {
                         return const Icon(
@@ -248,7 +285,7 @@ class _ListingReviews extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 ReadMoreText(
-                  text: reviewsText[index],
+                  text: reviews[index].reviewText,
                 ),
               ],
             ),

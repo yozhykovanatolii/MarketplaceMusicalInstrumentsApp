@@ -17,7 +17,7 @@ class ListingFirestore {
     if (!docSnapshot.exists) return {};
     final listingModel = docSnapshot.data();
     return {
-      'averageRating': listingModel?.averageRating ?? 0.0,
+      'averageRating': listingModel?.averageRating ?? 0,
       'reviewerCount': listingModel?.reviewerCount ?? 0,
     };
   }
