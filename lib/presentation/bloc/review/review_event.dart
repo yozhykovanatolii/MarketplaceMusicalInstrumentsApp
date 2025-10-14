@@ -1,3 +1,5 @@
+import 'package:marketplace_musical_instruments_app/data/model/review_model.dart';
+
 sealed class ReviewEvent {}
 
 final class AverageRatingChangeEvent extends ReviewEvent {
@@ -10,4 +12,11 @@ final class ReviewTextChangeEvent extends ReviewEvent {
   final String? reviewText;
 
   ReviewTextChangeEvent(this.reviewText);
+}
+
+final class AddReviewEvent extends ReviewEvent {
+  final String listingId;
+  final List<ReviewModel> reviews;
+
+  AddReviewEvent(this.listingId, this.reviews);
 }

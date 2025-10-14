@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:marketplace_musical_instruments_app/data/model/review_model.dart';
 
 class ListingModel {
   final String id;
@@ -7,6 +8,7 @@ class ListingModel {
   final String category;
   final int priceByHour;
   final List<String> photos;
+  final List<ReviewModel> reviews;
   final Map<String, double> location;
   final String authorId;
   final String authorFullName;
@@ -18,6 +20,7 @@ class ListingModel {
     required this.category,
     required this.priceByHour,
     required this.photos,
+    required this.reviews,
     required this.location,
     required this.authorId,
     required this.authorFullName,
@@ -31,6 +34,7 @@ class ListingModel {
       category: '',
       priceByHour: 0,
       photos: [],
+      reviews: [],
       location: {},
       authorId: '',
       authorFullName: '',
@@ -44,6 +48,7 @@ class ListingModel {
     String? category,
     int? priceByHour,
     List<String>? photos,
+    List<ReviewModel>? reviews,
     Map<String, double>? location,
     String? authorId,
     String? authorFullName,
@@ -55,6 +60,7 @@ class ListingModel {
       category: category ?? this.category,
       priceByHour: priceByHour ?? this.priceByHour,
       photos: photos ?? this.photos,
+      reviews: reviews ?? this.reviews,
       location: location ?? this.location,
       authorId: authorId ?? this.authorId,
       authorFullName: authorFullName ?? this.authorFullName,
@@ -69,6 +75,7 @@ class ListingModel {
       'category': category,
       'priceByHour': priceByHour,
       'photos': photos,
+      'reviews': reviews,
       'location': location,
       'authorId': authorId,
       'authorFullName': authorFullName,
@@ -89,6 +96,11 @@ class ListingModel {
       photos:
           (data?['photos'] as List<dynamic>?)
               ?.map((e) => e as String)
+              .toList() ??
+          [],
+      reviews:
+          (data?['reviews'] as List<dynamic>?)
+              ?.map((e) => e as ReviewModel)
               .toList() ??
           [],
       location:
