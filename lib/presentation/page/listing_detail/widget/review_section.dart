@@ -57,30 +57,17 @@ class _ReviewSectionState extends State<ReviewSection> {
                     listingReviewersAndRating['ratingAndReviewerCount']?['reviewerCount'] ??
                     0,
               ),
-              const Expanded(
+              Expanded(
                 child: Column(
-                  children: [
-                    _RatingSummaryProgressIndicator(
-                      text: '5',
-                      value: 1,
+                  children: List.generate(
+                    5,
+                    (index) => _RatingSummaryProgressIndicator(
+                      text: '${5 - index}',
+                      value:
+                          listingReviewersAndRating['ratingsProcent']?['${5 - index}'] ??
+                          0,
                     ),
-                    _RatingSummaryProgressIndicator(
-                      text: '4',
-                      value: 0.8,
-                    ),
-                    _RatingSummaryProgressIndicator(
-                      text: '3',
-                      value: 0.6,
-                    ),
-                    _RatingSummaryProgressIndicator(
-                      text: '2',
-                      value: 0.4,
-                    ),
-                    _RatingSummaryProgressIndicator(
-                      text: '1',
-                      value: 0.2,
-                    ),
-                  ],
+                  ),
                 ),
               ),
             ],
@@ -239,11 +226,7 @@ class _RatingSummaryProgressIndicator extends StatelessWidget {
 
 class _ListingReviews extends StatelessWidget {
   final List<ReviewModel> reviews;
-  static const reviewsText = [
-    'This electric keyboard is perfect for beginners or adults who’ve never played before but want to give it a try without spending a lot. It’s easy to use, has all the basic features you need to start learning, and feels surprisingly good for the price. A great choice for anyone testing the waters before investing in a more expensive model.',
-    'I played piano a little as a kid and have been wanting to get back into it. A year ago when I purchased this, I wasn\'t sure how serious I\'d be about practicing.',
-    'My son loves this piano set! It comes with a stool, the actual piano, a stand, and earphones to plug in',
-  ];
+
   const _ListingReviews({
     super.key,
     required this.reviews,
