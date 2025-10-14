@@ -15,17 +15,40 @@ class PhotoListingSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 300,
-      child: PageView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: photos.length,
-        itemBuilder: (_, index) {
-          return _ImageItem(
-            photoUrl: photos[index],
-            currentPhotoIndex: index,
-            photoCount: photos.length,
-            photos: photos,
-          );
-        },
+      child: Stack(
+        children: [
+          PageView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: photos.length,
+            itemBuilder: (_, index) {
+              return _ImageItem(
+                photoUrl: photos[index],
+                currentPhotoIndex: index,
+                photoCount: photos.length,
+                photos: photos,
+              );
+            },
+          ),
+          const Positioned(
+            top: 10,
+            right: 8,
+            child: FavouriteButton(),
+          ),
+          Positioned(
+            top: 10,
+            left: 8,
+            child: IconButton.filled(
+              onPressed: () {},
+              style: const ButtonStyle(
+                backgroundColor: WidgetStatePropertyAll(Colors.white),
+              ),
+              icon: const Icon(
+                Iconsax.arrow_left_copy,
+                color: Colors.black,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -64,25 +87,6 @@ class _ImageItem extends StatelessWidget {
             photoUrl,
             width: MediaQuery.of(context).size.width,
             fit: BoxFit.fill,
-          ),
-        ),
-        const Positioned(
-          top: 10,
-          right: 8,
-          child: FavouriteButton(),
-        ),
-        Positioned(
-          top: 10,
-          left: 8,
-          child: IconButton.filled(
-            onPressed: () {},
-            style: const ButtonStyle(
-              backgroundColor: WidgetStatePropertyAll(Colors.white),
-            ),
-            icon: const Icon(
-              Iconsax.arrow_left_copy,
-              color: Colors.black,
-            ),
           ),
         ),
         Positioned(
