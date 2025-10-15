@@ -1,6 +1,6 @@
 import 'package:marketplace_musical_instruments_app/data/model/review_model.dart';
 
-class CalculationRatingProcentUtil {
+class CalculationRatingUtil {
   static Map<String, double> calculateProcentForEachRatings(
     List<ReviewModel> reviews,
     int reviewerCount,
@@ -18,5 +18,15 @@ class CalculationRatingProcentUtil {
       ratingsProcent['$index'] = count / reviewerCount;
     }
     return ratingsProcent;
+  }
+
+  static double calculateNewAverageRating(
+    double currentAverage,
+    int currentCount,
+    int reviewRating,
+  ) {
+    double newAverage =
+        (currentAverage * currentCount + reviewRating) / (currentCount + 1);
+    return (newAverage * 10).roundToDouble() / 10;
   }
 }

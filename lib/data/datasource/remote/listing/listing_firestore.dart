@@ -9,17 +9,30 @@ class ListingFirestore {
     await docReference.set(listingModel);
   }
 
-  Future<Map<String, dynamic>> getListingRatingAndReviewerCount(
+  Stream<Map<String, dynamic>> getListingRatingAndReviewerCount(
     String listingId,
+  ) {
+    final docReference = getListingDocumentReference(listingId);
+    return docReference.snapshots().map((snapshot) {
+      if (!snapshot.exists) return {};
+      final listingModel = snapshot.data();
+      return {
+        'averageRating': listingModel?.averageRating ?? 0,
+        'reviewerCount': listingModel?.reviewerCount ?? 0,
+      };
+    });
+  }
+
+  Future<void> updateListingAverageRatingAndCounter(
+    String listingId,
+    double newAverageRating,
+    int newReviewerCounter,
   ) async {
     final docReference = getListingDocumentReference(listingId);
-    final docSnapshot = await docReference.get();
-    if (!docSnapshot.exists) return {};
-    final listingModel = docSnapshot.data();
-    return {
-      'averageRating': listingModel?.averageRating ?? 0,
-      'reviewerCount': listingModel?.reviewerCount ?? 0,
-    };
+    await docReference.update({
+      'averageRating': newAverageRating,
+      'reviewerCount': newReviewerCounter,
+    });
   }
 
   Stream<List<ListingModel>> getUserListings(String userId) {

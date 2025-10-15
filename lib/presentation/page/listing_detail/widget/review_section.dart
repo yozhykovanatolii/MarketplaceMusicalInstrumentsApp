@@ -11,12 +11,10 @@ import 'package:marketplace_musical_instruments_app/presentation/page/listing_de
 
 class ReviewSection extends StatefulWidget {
   final String listingId;
-  final List<ReviewModel> reviews;
 
   const ReviewSection({
     super.key,
     required this.listingId,
-    required this.reviews,
   });
 
   @override
@@ -42,7 +40,12 @@ class _ReviewSectionState extends State<ReviewSection> {
         children: [
           _ReviewAndRatingHeader(
             listingId: widget.listingId,
-            reviews: widget.reviews,
+            rating:
+                listingReviewersAndRating['ratingAndReviewerCount']?['averageRating'] ??
+                0,
+            reviewerCounter:
+                listingReviewersAndRating['ratingAndReviewerCount']?['reviewerCount'] ??
+                0,
           ),
           const SizedBox(height: 10),
           Row(
@@ -84,12 +87,14 @@ class _ReviewSectionState extends State<ReviewSection> {
 
 class _ReviewAndRatingHeader extends StatelessWidget {
   final String listingId;
-  final List<ReviewModel> reviews;
+  final double rating;
+  final int reviewerCounter;
 
   const _ReviewAndRatingHeader({
     super.key,
     required this.listingId,
-    required this.reviews,
+    required this.rating,
+    required this.reviewerCounter,
   });
 
   @override
@@ -113,7 +118,8 @@ class _ReviewAndRatingHeader extends StatelessWidget {
               context: context,
               builder: (_) => AddReviewPage(
                 listingId: listingId,
-                reviews: reviews,
+                rating: rating,
+                reviewerCounter: reviewerCounter,
               ),
             );
           },

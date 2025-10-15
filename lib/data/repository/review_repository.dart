@@ -1,3 +1,4 @@
+import 'package:marketplace_musical_instruments_app/core/util/calculation_rating_util.dart';
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/listing/listing_firestore.dart';
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/review/review_firestore.dart';
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/user/user_auth.dart';
@@ -13,7 +14,8 @@ class ReviewRepository {
   Future<void> saveReview(
     int rating,
     String reviewText,
-    List<ReviewModel> reviews,
+    double currentAverage,
+    int reviewerCount,
     String listingId,
   ) async {
     final viewerId = _userAuth.userId;
@@ -26,6 +28,16 @@ class ReviewRepository {
       rating: rating,
       reviewText: reviewText,
     );
+    final newAverageRating = CalculationRatingUtil.calculateNewAverageRating(
+      currentAverage,
+      reviewerCount,
+      rating,
+    );
+    await _listingFirestore.updateListingAverageRatingAndCounter(
+      listingId,
+      newAverageRating,
+      reviewerCount + 1,
+    );
     await _reviewFirestore.saveReviewModel(reviewModel, listingId);
   }
 
@@ -34,8 +46,9 @@ class ReviewRepository {
   ) {
     final reviewsStream = _reviewFirestore.getAllListingReviews(listingId);
     return reviewsStream.asyncMap((reviews) async {
-      final ratingAndReviewerCount = await _listingFirestore
+      final ratingAndReviewerCountStream = _listingFirestore
           .getListingRatingAndReviewerCount(listingId);
+      final ratingAndReviewerCount = await ratingAndReviewerCountStream.first;
       return {
         'ratingAndReviewerCount': ratingAndReviewerCount,
         'reviews': reviews,

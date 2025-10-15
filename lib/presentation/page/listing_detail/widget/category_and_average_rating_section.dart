@@ -4,10 +4,14 @@ import 'package:marketplace_musical_instruments_app/core/widget/category_listing
 
 class CategoryAndAverageRatingSection extends StatelessWidget {
   final String listingCategory;
+  final double averageRating;
+  final int reviewerCounter;
 
   const CategoryAndAverageRatingSection({
     super.key,
     required this.listingCategory,
+    required this.averageRating,
+    required this.reviewerCounter,
   });
 
   @override
@@ -18,7 +22,10 @@ class CategoryAndAverageRatingSection extends StatelessWidget {
         CategoryListingSection(
           category: listingCategory,
         ),
-        const AverageRatingSection(),
+        AverageRatingSection(
+          averageRating: averageRating,
+          reviewerCounter: reviewerCounter,
+        ),
       ],
     );
   }

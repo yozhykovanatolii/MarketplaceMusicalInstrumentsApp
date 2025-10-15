@@ -55,6 +55,8 @@ class ListingCard extends StatelessWidget {
               child: _ShortDescriptionSection(
                 title: listing.title,
                 price: listing.priceByHour,
+                averageRating: listing.averageRating,
+                reviewerCounter: listing.reviewerCount,
               ),
             ),
           ],
@@ -104,11 +106,15 @@ class _PhotoSectionCard extends StatelessWidget {
 class _ShortDescriptionSection extends StatelessWidget {
   final String title;
   final int price;
+  final double averageRating;
+  final int reviewerCounter;
 
   const _ShortDescriptionSection({
     super.key,
     required this.title,
     required this.price,
+    required this.averageRating,
+    required this.reviewerCounter,
   });
 
   @override
@@ -135,7 +141,10 @@ class _ShortDescriptionSection extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          const AverageRatingSection(),
+          AverageRatingSection(
+            averageRating: averageRating,
+            reviewerCounter: reviewerCounter,
+          ),
         ],
       ),
     );

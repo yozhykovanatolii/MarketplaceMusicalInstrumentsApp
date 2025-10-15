@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
 class AverageRatingSection extends StatelessWidget {
-  const AverageRatingSection({super.key});
+  final double averageRating;
+  final int reviewerCounter;
+
+  const AverageRatingSection({
+    super.key,
+    required this.averageRating,
+    required this.reviewerCounter,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -14,16 +21,16 @@ class AverageRatingSection extends StatelessWidget {
         ),
         RichText(
           text: TextSpan(
-            text: '4.9 ',
+            text: '$averageRating ',
             style: TextStyle(
               fontSize: MediaQuery.textScalerOf(context).scale(17),
               fontWeight: FontWeight.w500,
               color: Colors.black,
             ),
             children: [
-              const TextSpan(
-                text: '(2152)',
-                style: TextStyle(
+              TextSpan(
+                text: '($reviewerCounter)',
+                style: const TextStyle(
                   color: Colors.grey,
                 ),
               ),

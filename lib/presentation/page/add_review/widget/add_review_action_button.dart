@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_button.dart';
-import 'package:marketplace_musical_instruments_app/data/model/review_model.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/add_and_edit_listing/add_and_edit_listing_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/review/review_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/review/review_event.dart';
 
 class AddReviewActionButton extends StatelessWidget {
   final String listingId;
-  final List<ReviewModel> reviews;
+  final double rating;
+  final int reviewerCounter;
 
   const AddReviewActionButton({
     super.key,
     required this.listingId,
-    required this.reviews,
+    required this.rating,
+    required this.reviewerCounter,
   });
 
   @override
@@ -34,7 +35,11 @@ class AddReviewActionButton extends StatelessWidget {
           width: double.infinity,
           onPressed: () {
             context.read<ReviewBloc>().add(
-              AddReviewEvent(listingId, reviews),
+              AddReviewEvent(
+                listingId: listingId,
+                rating: rating,
+                reviewerCounter: reviewerCounter,
+              ),
             );
             Navigator.pop(context);
           },

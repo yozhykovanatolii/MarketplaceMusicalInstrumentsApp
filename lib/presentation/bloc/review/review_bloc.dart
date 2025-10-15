@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:marketplace_musical_instruments_app/core/util/calculation_rating_procent_util.dart';
+import 'package:marketplace_musical_instruments_app/core/util/calculation_rating_util.dart';
 import 'package:marketplace_musical_instruments_app/data/repository/review_repository.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/review/review_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/review/review_state.dart';
@@ -38,7 +38,7 @@ class ReviewBloc extends Bloc<ReviewEvent, ReviewState> {
       _reviewRepository.getListingRatingAndAllReviews(event.listingId),
       onData: (data) {
         data['ratingsProcent'] =
-            CalculationRatingProcentUtil.calculateProcentForEachRatings(
+            CalculationRatingUtil.calculateProcentForEachRatings(
               data['reviews'] ?? [],
               data['ratingAndReviewerCount']?['reviewerCount'] ?? 0,
             );
@@ -55,7 +55,8 @@ class ReviewBloc extends Bloc<ReviewEvent, ReviewState> {
       await _reviewRepository.saveReview(
         state.rating.toInt(),
         state.reviewText,
-        event.reviews,
+        event.rating,
+        event.reviewerCounter,
         event.listingId,
       );
     } catch (exception) {

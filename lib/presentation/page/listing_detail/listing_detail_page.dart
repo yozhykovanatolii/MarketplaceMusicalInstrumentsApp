@@ -55,6 +55,8 @@ class ListingDetailPage extends StatelessWidget {
                       children: [
                         CategoryAndAverageRatingSection(
                           listingCategory: listing.category,
+                          averageRating: listing.averageRating,
+                          reviewerCounter: listing.reviewerCount,
                         ),
                         Text(
                           'Prepared Hero Emergency Fire Blanket 303',
@@ -94,10 +96,7 @@ class ListingDetailPage extends StatelessWidget {
                           listingId: listing.id,
                           startingPrice: listing.priceByHour,
                         ),
-                        ReviewSection(
-                          listingId: listing.id,
-                          reviews: listing.reviews,
-                        ),
+                        ReviewSection(listingId: listing.id),
                       ],
                     ),
                   ),

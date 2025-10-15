@@ -22,7 +22,12 @@ final class ReviewTextChangeEvent extends ReviewEvent {
 
 final class AddReviewEvent extends ReviewEvent {
   final String listingId;
-  final List<ReviewModel> reviews;
+  final double rating;
+  final int reviewerCounter;
 
-  AddReviewEvent(this.listingId, this.reviews);
+  AddReviewEvent({
+    required this.listingId,
+    required this.rating,
+    required this.reviewerCounter,
+  });
 }
