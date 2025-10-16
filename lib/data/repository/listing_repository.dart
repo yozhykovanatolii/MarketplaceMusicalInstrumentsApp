@@ -62,11 +62,13 @@ class ListingRepository {
     List<String> categories,
     int startPrice,
     int endPrice,
+    int averageRating,
   ) async {
     return await _listingFirestore.filterListings(
       categories,
       startPrice,
       endPrice,
+      averageRating,
     );
   }
 

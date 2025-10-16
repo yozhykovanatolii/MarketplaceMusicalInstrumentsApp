@@ -73,6 +73,7 @@ class ListingFirestore {
     List<String> categories,
     int startPrice,
     int endPrice,
+    int averageRating,
   ) async {
     var query = _firestore
         .collection('listings')
@@ -85,6 +86,12 @@ class ListingFirestore {
         );
     if (categories.isNotEmpty) {
       query = query.where('category', whereIn: categories);
+    }
+    if (averageRating != 0) {
+      query = query.where(
+        'averageRating',
+        isGreaterThanOrEqualTo: averageRating,
+      );
     }
     final querySnapshot = await query.get();
     if (querySnapshot.docs.isEmpty) {

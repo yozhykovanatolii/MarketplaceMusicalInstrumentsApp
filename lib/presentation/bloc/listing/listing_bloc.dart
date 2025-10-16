@@ -115,6 +115,7 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
         state.selectedCategories,
         state.startPrice,
         state.endPrice,
+        state.selectedAverageRating,
       );
       emit(state.copyWith(listings: listings, status: ListingStatus.success));
     } catch (exception) {
