@@ -79,6 +79,12 @@ class ProfilePage extends StatelessWidget {
                     leadingIcon: Iconsax.setting_2,
                     title: 'Settings',
                   ),
+                  SectionListTile(
+                    leadingIcon: Iconsax.logout,
+                    title: 'Logout',
+                    isLogOut: true,
+                    onTap: () {},
+                  ),
                 ],
               ),
             ),

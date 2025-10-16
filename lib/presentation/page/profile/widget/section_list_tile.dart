@@ -5,11 +5,13 @@ class SectionListTile extends StatelessWidget {
   final IconData leadingIcon;
   final String title;
   final Function()? onTap;
+  final bool isLogOut;
 
   const SectionListTile({
     super.key,
     required this.leadingIcon,
     required this.title,
+    this.isLogOut = false,
     this.onTap,
   });
 
@@ -20,11 +22,12 @@ class SectionListTile extends StatelessWidget {
       leading: Icon(
         leadingIcon,
         size: 30,
-        color: Colors.blue,
+        color: isLogOut ? Colors.red : Colors.blue,
       ),
       title: Text(
         title,
-        style: const TextStyle(
+        style: TextStyle(
+          color: isLogOut ? Colors.red : Colors.black,
           fontSize: 20,
           fontWeight: FontWeight.w500,
         ),
