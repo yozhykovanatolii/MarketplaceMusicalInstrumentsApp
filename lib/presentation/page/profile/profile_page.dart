@@ -3,6 +3,7 @@ import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/edit_profile/edit_profile_page.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/my_bookings/my_bookings_page.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/my_listings/my_listings_page.dart';
+import 'package:marketplace_musical_instruments_app/presentation/page/profile/widget/logout_modal_sheet.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/profile/widget/section_list_tile.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -92,7 +93,15 @@ class ProfilePage extends StatelessWidget {
                     leadingIcon: Iconsax.logout,
                     title: 'Logout',
                     isLogOut: true,
-                    onTap: () {},
+                    onTap: () {
+                      showModalBottomSheet(
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
+                        elevation: 0,
+                        context: context,
+                        builder: (_) => const LogoutModalSheet(),
+                      );
+                    },
                   ),
                 ],
               ),

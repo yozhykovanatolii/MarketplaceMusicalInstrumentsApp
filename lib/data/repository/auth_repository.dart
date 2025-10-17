@@ -27,4 +27,6 @@ class AuthRepository {
     );
     await _userFirestore.saveUser(userModel);
   }
+
+  Future<void> signOut() async => _userAuth.signOut();
 }

@@ -1,12 +1,14 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/permission_denied_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/photo_not_selected_exception.dart';
+import 'package:marketplace_musical_instruments_app/data/repository/auth_repository.dart';
 import 'package:marketplace_musical_instruments_app/data/repository/user_repository.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profile/edit_profile_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profile/edit_profile_state.dart';
 
 class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
   final _userRepository = UserRepository();
+  final _authRepository = AuthRepository();
 
   EditProfileBloc() : super(EditProfileState.initial()) {
     on<ProfileAvatarChangeEvent>(_editUserAvatar);
@@ -14,6 +16,7 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
     on<ProfileAboutChangeEvent>(_editAbout);
     on<ProfilePhoneNumberChangeEvent>(_editUserPhoneNumber);
     on<UserProfileFetchEvent>(_fetchUserProfile);
+    on<ProfileLogoutEvent>(_logOut);
   }
 
   Future<void> _editUserAvatar(
@@ -65,5 +68,12 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
         avatarUrl: event.user.avatar,
       ),
     );
+  }
+
+  Future<void> _logOut(
+    ProfileLogoutEvent event,
+    Emitter<EditProfileState> emit,
+  ) async {
+    await _authRepository.signOut();
   }
 }
