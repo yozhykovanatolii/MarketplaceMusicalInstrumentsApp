@@ -1,14 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profile/edit_profile_bloc.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profile/edit_profile_event.dart';
 
 class AboutYourselfTextField extends StatelessWidget {
   const AboutYourselfTextField({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final aboutError = context.select(
+      (EditProfileBloc bloc) => bloc.state.aboutError,
+    );
+    final counterAbout = context.select(
+      (EditProfileBloc bloc) => bloc.state.counterAbout,
+    );
     return SizedBox(
       height: 200,
       child: TextField(
-        onChanged: (about) {},
+        onChanged: (about) {
+          context.read<EditProfileBloc>().add(
+            ProfileAboutChangeEvent(about),
+          );
+        },
         maxLines: null,
         minLines: 5,
         decoration: InputDecoration(
@@ -41,8 +54,8 @@ class AboutYourselfTextField extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
           ),
           contentPadding: const EdgeInsets.all(10),
-          //errorText: reviewTextError,
-          //counterText: conterReviewText,
+          errorText: aboutError,
+          counterText: counterAbout,
         ),
       ),
     );

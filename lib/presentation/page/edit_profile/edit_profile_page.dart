@@ -21,43 +21,45 @@ class EditProfilePage extends StatelessWidget {
         centerTitle: true,
       ),
       body: SafeArea(
-        minimum: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const EditProfileUserAvatarSection(),
-            const SizedBox(height: 20),
-            Text(
-              'Full Name',
-              style: TextStyle(
-                fontSize: MediaQuery.textScalerOf(context).scale(18),
-                fontWeight: FontWeight.w600,
+        minimum: const EdgeInsets.symmetric(horizontal: 20),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const EditProfileUserAvatarSection(),
+              const SizedBox(height: 20),
+              Text(
+                'Full Name',
+                style: TextStyle(
+                  fontSize: MediaQuery.textScalerOf(context).scale(18),
+                  fontWeight: FontWeight.w600,
+                ),
               ),
-            ),
-            const SizedBox(height: 10),
-            const ProfileFullNameTextField(),
-            const SizedBox(height: 20),
-            Text(
-              'Phone Number',
-              style: TextStyle(
-                fontSize: MediaQuery.textScalerOf(context).scale(18),
-                fontWeight: FontWeight.w600,
+              const SizedBox(height: 10),
+              const ProfileFullNameTextField(),
+              const SizedBox(height: 20),
+              Text(
+                'Phone Number',
+                style: TextStyle(
+                  fontSize: MediaQuery.textScalerOf(context).scale(18),
+                  fontWeight: FontWeight.w600,
+                ),
               ),
-            ),
-            const SizedBox(height: 10),
-            const ProfilePhoneNumberTextField(),
-            const SizedBox(height: 20),
-            Text(
-              'About Yourself',
-              style: TextStyle(
-                fontSize: MediaQuery.textScalerOf(context).scale(18),
-                fontWeight: FontWeight.w600,
+              const SizedBox(height: 10),
+              const ProfilePhoneNumberTextField(),
+              const SizedBox(height: 20),
+              Text(
+                'About Yourself',
+                style: TextStyle(
+                  fontSize: MediaQuery.textScalerOf(context).scale(18),
+                  fontWeight: FontWeight.w600,
+                ),
               ),
-            ),
-            const SizedBox(height: 10),
-            const AboutYourselfTextField(),
-            const EditProfileButton(),
-          ],
+              const SizedBox(height: 10),
+              const AboutYourselfTextField(),
+              const EditProfileButton(),
+            ],
+          ),
         ),
       ),
     );

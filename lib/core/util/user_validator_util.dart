@@ -23,7 +23,7 @@ class UserValidatorUtil {
   static String? validatePhoneNumber(String phoneNumber) {
     if (phoneNumber.isEmpty) return 'Phone number must not be empty';
     final cleaned = phoneNumber.replaceAll(RegExp(r'[\s\-\(\)]'), '');
-    final reInternational = RegExp(r'^\+380\d{9}$');
+    final reInternational = RegExp(r'^\+380\d{10}$');
     if (reInternational.hasMatch(cleaned)) {
       return 'Enter a valid phone number (e.g. +380671234567)';
     }
