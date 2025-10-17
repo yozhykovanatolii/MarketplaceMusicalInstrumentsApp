@@ -12,6 +12,24 @@ class UserValidatorUtil {
     return null;
   }
 
+  static String? validateAboutYourself(String about) {
+    if (about.isEmpty) return 'Information about yourself must not be empty';
+    if (about.length > 115) {
+      return 'The information about yourself must not exceed 115 characters';
+    }
+    return null;
+  }
+
+  static String? validatePhoneNumber(String phoneNumber) {
+    if (phoneNumber.isEmpty) return 'Phone number must not be empty';
+    final cleaned = phoneNumber.replaceAll(RegExp(r'[\s\-\(\)]'), '');
+    final reInternational = RegExp(r'^\+380\d{9}$');
+    if (reInternational.hasMatch(cleaned)) {
+      return 'Enter a valid phone number (e.g. +380671234567)';
+    }
+    return null;
+  }
+
   static String? validatePassword(String password) {
     if (password.isEmpty) return 'Password must not be empty';
     if (password.length < 8) {
