@@ -1,3 +1,5 @@
+import 'package:marketplace_musical_instruments_app/data/model/user_model.dart';
+
 sealed class EditProfileEvent {}
 
 final class ProfileAvatarChangeEvent extends EditProfileEvent {}
@@ -18,4 +20,10 @@ final class ProfileAboutChangeEvent extends EditProfileEvent {
   final String about;
 
   ProfileAboutChangeEvent(this.about);
+}
+
+final class UserProfileFetchEvent extends EditProfileEvent {
+  final UserModel user;
+
+  UserProfileFetchEvent(this.user);
 }

@@ -13,6 +13,7 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
     on<ProfileFullNameChangeEvent>(_editUserFullName);
     on<ProfileAboutChangeEvent>(_editAbout);
     on<ProfilePhoneNumberChangeEvent>(_editUserPhoneNumber);
+    on<UserProfileFetchEvent>(_fetchUserProfile);
   }
 
   Future<void> _editUserAvatar(
@@ -50,5 +51,19 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
     Emitter<EditProfileState> emit,
   ) {
     emit(state.copyWith(phoneNumber: event.phoneNumber));
+  }
+
+  void _fetchUserProfile(
+    UserProfileFetchEvent event,
+    Emitter<EditProfileState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        fullName: event.user.fullName,
+        phoneNumber: event.user.phoneNumber,
+        about: event.user.about,
+        avatarUrl: event.user.avatar,
+      ),
+    );
   }
 }

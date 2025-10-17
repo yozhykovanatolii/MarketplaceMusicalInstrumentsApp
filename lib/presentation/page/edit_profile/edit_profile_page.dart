@@ -1,16 +1,53 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/util/snack_bar_util.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/app/app_bloc.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/app/app_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profile/edit_profile_bloc.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profile/edit_profile_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profile/edit_profile_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/edit_profile/widget/about_yourself_text_field.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/edit_profile/widget/edit_profile_button.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/edit_profile/widget/edit_profile_user_avatar_section.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/edit_profile/widget/profile_full_name_text_field.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/edit_profile/widget/profile_phone_number_text_field.dart';
+import 'package:marketplace_musical_instruments_app/presentation/page/login/login_page.dart';
 
-class EditProfilePage extends StatelessWidget {
+class EditProfilePage extends StatefulWidget {
   const EditProfilePage({super.key});
+
+  @override
+  State<EditProfilePage> createState() => _EditProfilePageState();
+}
+
+class _EditProfilePageState extends State<EditProfilePage> {
+  final _fullNameController = TextEditingController();
+  final _phoneNumberController = TextEditingController();
+  final _aboutController = TextEditingController();
+
+  @override
+  void initState() {
+    final appState = context.read<AppBloc>().state;
+    if (appState is UserAuthenticatedState) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        context.read<EditProfileBloc>().add(
+          UserProfileFetchEvent(appState.userModel),
+        );
+        _fullNameController.text = appState.userModel.fullName;
+        _phoneNumberController.text = appState.userModel.phoneNumber;
+        _aboutController.text = appState.userModel.about;
+      });
+    }
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _fullNameController.dispose();
+    _phoneNumberController.dispose();
+    _aboutController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,18 +61,39 @@ class EditProfilePage extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: BlocListener<EditProfileBloc, EditProfileState>(
-        listener: (context, state) {
-          if (state.errorMessage.isNotEmpty) {
-            SnackBarUtil.showSnackBar(
-              context,
-              state.errorMessage,
-              Icons.error,
-              0xFFFFEEEF,
-              0xFFE77282,
-            );
-          }
-        },
+      body: MultiBlocListener(
+        listeners: [
+          BlocListener<AppBloc, AppState>(
+            listener: (context, state) {
+              if (state is UserUnauthenticatedState) {
+                SnackBarUtil.showSnackBar(
+                  context,
+                  state.errorMessage,
+                  Icons.error,
+                  0xFFFFEEEF,
+                  0xFFE77282,
+                );
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                );
+              }
+            },
+          ),
+          BlocListener<EditProfileBloc, EditProfileState>(
+            listener: (context, state) {
+              if (state.errorMessage.isNotEmpty) {
+                SnackBarUtil.showSnackBar(
+                  context,
+                  state.errorMessage,
+                  Icons.error,
+                  0xFFFFEEEF,
+                  0xFFE77282,
+                );
+              }
+            },
+          ),
+        ],
         child: SafeArea(
           minimum: const EdgeInsets.symmetric(horizontal: 20),
           child: SingleChildScrollView(
@@ -52,7 +110,9 @@ class EditProfilePage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 10),
-                const ProfileFullNameTextField(),
+                ProfileFullNameTextField(
+                  controller: _fullNameController,
+                ),
                 const SizedBox(height: 20),
                 Text(
                   'Phone Number',
@@ -62,7 +122,9 @@ class EditProfilePage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 10),
-                const ProfilePhoneNumberTextField(),
+                ProfilePhoneNumberTextField(
+                  controller: _phoneNumberController,
+                ),
                 const SizedBox(height: 20),
                 Text(
                   'About Yourself',
@@ -72,7 +134,9 @@ class EditProfilePage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 10),
-                const AboutYourselfTextField(),
+                AboutYourselfTextField(
+                  controller: _aboutController,
+                ),
                 const EditProfileButton(),
               ],
             ),

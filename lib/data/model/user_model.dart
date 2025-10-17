@@ -5,12 +5,18 @@ class UserModel {
   final String fullName;
   final String email;
   final String password;
+  final String about;
+  final String phoneNumber;
+  final String avatar;
 
   UserModel({
     required this.id,
     required this.fullName,
     required this.email,
     required this.password,
+    required this.about,
+    required this.phoneNumber,
+    required this.avatar,
   });
 
   UserModel copyWith({
@@ -18,12 +24,18 @@ class UserModel {
     String? fullName,
     String? email,
     String? password,
+    String? about,
+    String? phoneNumber,
+    String? avatar,
   }) {
     return UserModel(
       id: id ?? this.id,
       fullName: fullName ?? this.fullName,
       email: email ?? this.email,
       password: password ?? this.password,
+      about: about ?? this.about,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+      avatar: avatar ?? this.avatar,
     );
   }
 
@@ -33,6 +45,9 @@ class UserModel {
       'fullName': fullName,
       'email': email,
       'password': password,
+      'phoneNumber': phoneNumber,
+      'about': about,
+      'avatar': avatar,
     };
   }
 
@@ -46,6 +61,9 @@ class UserModel {
       fullName: data?['fullName'] as String,
       email: data?['email'] as String,
       password: data?['password'] as String,
+      phoneNumber: data?['phoneNumber'] as String,
+      about: data?['about'] as String,
+      avatar: data?['avatar'] as String,
     );
   }
 }

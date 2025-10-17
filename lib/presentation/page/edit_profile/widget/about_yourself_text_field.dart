@@ -4,7 +4,12 @@ import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profi
 import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profile/edit_profile_event.dart';
 
 class AboutYourselfTextField extends StatelessWidget {
-  const AboutYourselfTextField({super.key});
+  final TextEditingController? controller;
+
+  const AboutYourselfTextField({
+    super.key,
+    this.controller,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +22,7 @@ class AboutYourselfTextField extends StatelessWidget {
     return SizedBox(
       height: 200,
       child: TextField(
+        controller: controller,
         onChanged: (about) {
           context.read<EditProfileBloc>().add(
             ProfileAboutChangeEvent(about),

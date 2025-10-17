@@ -5,7 +5,12 @@ import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profi
 import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profile/edit_profile_event.dart';
 
 class ProfileFullNameTextField extends StatelessWidget {
-  const ProfileFullNameTextField({super.key});
+  final TextEditingController? controller;
+
+  const ProfileFullNameTextField({
+    super.key,
+    this.controller,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -13,6 +18,7 @@ class ProfileFullNameTextField extends StatelessWidget {
       (EditProfileBloc bloc) => bloc.state.fullNameError,
     );
     return CommonTextField(
+      controller: controller,
       onChanged: (fullName) {
         context.read<EditProfileBloc>().add(
           ProfileFullNameChangeEvent(fullName),

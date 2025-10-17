@@ -6,7 +6,12 @@ import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profi
 import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profile/edit_profile_event.dart';
 
 class ProfilePhoneNumberTextField extends StatelessWidget {
-  const ProfilePhoneNumberTextField({super.key});
+  final TextEditingController? controller;
+
+  const ProfilePhoneNumberTextField({
+    super.key,
+    this.controller,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +19,7 @@ class ProfilePhoneNumberTextField extends StatelessWidget {
       (EditProfileBloc bloc) => bloc.state.phoneNumberError,
     );
     return CommonTextField(
+      controller: controller,
       onChanged: (phoneNumber) {
         context.read<EditProfileBloc>().add(
           ProfilePhoneNumberChangeEvent(phoneNumber),

@@ -21,6 +21,9 @@ class AuthRepository {
       fullName: fullName,
       email: email,
       password: password,
+      phoneNumber: '+380955040255',
+      about: '',
+      avatar: '',
     );
     await _userFirestore.saveUser(userModel);
   }
