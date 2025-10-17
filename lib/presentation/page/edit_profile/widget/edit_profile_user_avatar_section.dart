@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profile/edit_profile_bloc.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profile/edit_profile_event.dart';
 
 class EditProfileUserAvatarSection extends StatelessWidget {
   const EditProfileUserAvatarSection({super.key});
@@ -26,13 +29,18 @@ class _EditProfileAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SizedBox(
+    final userAvatarUrl = context.select(
+      (EditProfileBloc bloc) => bloc.state.avatarUrl,
+    );
+    return SizedBox(
       height: 120,
       width: 120,
       child: CircleAvatar(
-        backgroundImage: AssetImage(
-          'assets/images/test.jpg',
-        ),
+        backgroundImage: userAvatarUrl.isEmpty
+            ? const AssetImage(
+                'assets/images/test.jpg',
+              )
+            : NetworkImage(userAvatarUrl),
       ),
     );
   }
@@ -44,7 +52,11 @@ class _EditAvatarButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton.filled(
-      onPressed: () {},
+      onPressed: () {
+        context.read<EditProfileBloc>().add(
+          ProfileAvatarChangeEvent(),
+        );
+      },
       style: const ButtonStyle(
         backgroundColor: WidgetStatePropertyAll(Colors.blue),
       ),

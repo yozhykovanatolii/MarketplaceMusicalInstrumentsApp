@@ -1,5 +1,7 @@
 sealed class EditProfileEvent {}
 
+final class ProfileAvatarChangeEvent extends EditProfileEvent {}
+
 final class ProfileFullNameChangeEvent extends EditProfileEvent {
   final String fullName;
 
