@@ -28,4 +28,6 @@ final class UserProfileFetchEvent extends EditProfileEvent {
   UserProfileFetchEvent(this.user);
 }
 
+final class ProfileUpdateEvent extends EditProfileEvent {}
+
 final class ProfileLogoutEvent extends EditProfileEvent {}

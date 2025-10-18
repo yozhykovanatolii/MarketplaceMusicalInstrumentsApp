@@ -5,6 +5,7 @@ import 'package:marketplace_musical_instruments_app/data/repository/auth_reposit
 import 'package:marketplace_musical_instruments_app/data/repository/user_repository.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profile/edit_profile_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profile/edit_profile_state.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
 
 class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
   final _userRepository = UserRepository();
@@ -16,6 +17,7 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
     on<ProfileAboutChangeEvent>(_editAbout);
     on<ProfilePhoneNumberChangeEvent>(_editUserPhoneNumber);
     on<UserProfileFetchEvent>(_fetchUserProfile);
+    on<ProfileUpdateEvent>(_updateProfile);
     on<ProfileLogoutEvent>(_logOut);
   }
 
@@ -68,6 +70,31 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
         avatarUrl: event.user.avatar,
       ),
     );
+  }
+
+  Future<void> _updateProfile(
+    ProfileUpdateEvent event,
+    Emitter<EditProfileState> emit,
+  ) async {
+    emit(state.copyWith(formStatus: FormStatus.loading));
+    try {
+      await _userRepository.updateUserData(
+        state.avatarUrl,
+        state.fullName,
+        state.phoneNumber,
+        state.about,
+      );
+      emit(state.copyWith(formStatus: FormStatus.success));
+    } catch (exception) {
+      emit(state.copyWith(errorMessage: exception.toString()));
+    } finally {
+      emit(
+        state.copyWith(
+          errorMessage: '',
+          formStatus: FormStatus.initial,
+        ),
+      );
+    }
   }
 
   Future<void> _logOut(

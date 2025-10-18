@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/util/snack_bar_util.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/app/app_bloc.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/app/app_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/app/app_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profile/edit_profile_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profile/edit_profile_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profile/edit_profile_state.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/edit_profile/widget/about_yourself_text_field.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/edit_profile/widget/edit_profile_button.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/edit_profile/widget/edit_profile_user_avatar_section.dart';
@@ -27,17 +29,17 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   @override
   void initState() {
-    final appState = context.read<AppBloc>().state;
-    if (appState is UserAuthenticatedState) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final appState = context.read<AppBloc>().state;
+      if (appState is UserAuthenticatedState) {
         context.read<EditProfileBloc>().add(
           UserProfileFetchEvent(appState.userModel),
         );
         _fullNameController.text = appState.userModel.fullName;
         _phoneNumberController.text = appState.userModel.phoneNumber;
         _aboutController.text = appState.userModel.about;
-      });
-    }
+      }
+    });
     super.initState();
   }
 
@@ -65,6 +67,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
         listeners: [
           BlocListener<AppBloc, AppState>(
             listener: (context, state) {
+              if (state is UserAuthenticatedState) {
+                context.read<EditProfileBloc>().add(
+                  UserProfileFetchEvent(state.userModel),
+                );
+                _fullNameController.text = state.userModel.fullName;
+                _phoneNumberController.text = state.userModel.phoneNumber;
+                _aboutController.text = state.userModel.about;
+              }
               if (state is UserUnauthenticatedState) {
                 SnackBarUtil.showSnackBar(
                   context,
@@ -82,6 +92,16 @@ class _EditProfilePageState extends State<EditProfilePage> {
           ),
           BlocListener<EditProfileBloc, EditProfileState>(
             listener: (context, state) {
+              if (state.formStatus == FormStatus.success) {
+                SnackBarUtil.showSnackBar(
+                  context,
+                  'Success updating profile',
+                  Icons.check_circle,
+                  0xFFD4FFFE,
+                  0xFF009688,
+                );
+                context.read<AppBloc>().add(AppUserSubscriptionRequested());
+              }
               if (state.errorMessage.isNotEmpty) {
                 SnackBarUtil.showSnackBar(
                   context,

@@ -15,6 +15,25 @@ class UserRepository {
     return _userFirestore.checkUserByEmail(email);
   }
 
+  Future<void> updateUserData(
+    String avatarUrl,
+    String fullName,
+    String phoneNumber,
+    String about,
+  ) async {
+    final userId = _userAuth.userId;
+    UserModel user = await _userFirestore.getUserModelById(userId);
+    user = user.copyWith(
+      id: user.id,
+      email: user.email,
+      password: user.password,
+      phoneNumber: phoneNumber,
+      about: about,
+      avatar: avatarUrl,
+    );
+    await _userFirestore.saveUser(user);
+  }
+
   Future<String> getUserImage() async {
     final userImageFile = await _cameraPicker.pickImageFileFromGallery();
     final userImageUrl = await _userStorage.saveUserImage(userImageFile);
