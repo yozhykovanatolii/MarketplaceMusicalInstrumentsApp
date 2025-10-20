@@ -1,5 +1,6 @@
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/booking/booking_firestore.dart';
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/user/user_auth.dart';
+import 'package:marketplace_musical_instruments_app/data/datasource/remote/user/user_firestore.dart';
 import 'package:marketplace_musical_instruments_app/data/model/booking_model.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
 import 'package:uuid/uuid.dart';
@@ -7,6 +8,7 @@ import 'package:uuid/uuid.dart';
 class BookingRepository {
   final _bookingFirestore = BookingFirestore();
   final _userAuth = UserAuth();
+  final _userFirestore = UserFirestore();
 
   Future<void> createBooking(
     ListingModel listingModel,
@@ -15,10 +17,13 @@ class BookingRepository {
     int totalPrice,
   ) async {
     final renterId = _userAuth.userId;
+    final renter = await _userFirestore.getUserModelById(renterId);
     BookingModel bookingModel = BookingModel.initial();
     bookingModel = bookingModel.copyWith(
       id: const Uuid().v1(),
       renterId: renterId,
+      renterFullName: renter.fullName,
+      renterAvatar: renter.avatar,
       authorId: listingModel.authorId,
       listingId: listingModel.id,
       listingTitle: listingModel.title,

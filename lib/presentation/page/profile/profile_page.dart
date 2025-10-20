@@ -5,6 +5,8 @@ import 'package:marketplace_musical_instruments_app/presentation/page/my_booking
 import 'package:marketplace_musical_instruments_app/presentation/page/my_listings/my_listings_page.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/profile/widget/logout_modal_sheet.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/profile/widget/section_list_tile.dart';
+import 'package:marketplace_musical_instruments_app/presentation/page/profile/widget/user_avatar_section.dart';
+import 'package:marketplace_musical_instruments_app/presentation/page/profile/widget/user_full_name_section.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -28,23 +30,9 @@ class ProfilePage extends StatelessWidget {
         ),
         child: Column(
           children: [
-            const SizedBox(
-              height: 120,
-              width: 120,
-              child: CircleAvatar(
-                backgroundImage: AssetImage(
-                  'assets/images/test.jpg',
-                ),
-              ),
-            ),
+            const UserAvatarSection(),
             const SizedBox(height: 10),
-            const Text(
-              'Yozhykov Andrey',
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
+            const UserFullNameSection(),
             const SizedBox(height: 30),
             Expanded(
               child: ListView(

@@ -97,7 +97,10 @@ class _RequestCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const UserAvatarAndFullName(),
+            UserAvatarAndFullName(
+              authorAvatar: request.renterAvatar,
+              authorFullName: request.renterFullName,
+            ),
             const SizedBox(height: 10),
             Text(
               'Listing',

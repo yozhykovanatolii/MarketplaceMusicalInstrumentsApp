@@ -3,6 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class BookingModel {
   final String id;
   final String renterId;
+  final String renterAvatar;
+  final String renterFullName;
   final String authorId;
   final String listingId;
   final String listingTitle;
@@ -16,21 +18,25 @@ class BookingModel {
   BookingModel({
     required this.id,
     required this.renterId,
+    required this.renterAvatar,
+    required this.renterFullName,
     required this.authorId,
     required this.listingId,
+    required this.listingTitle,
+    required this.listingPhoto,
+    required this.listingCategory,
     required this.startDate,
     required this.endDate,
     required this.totalPrice,
     required this.status,
-    required this.listingTitle,
-    required this.listingPhoto,
-    required this.listingCategory,
   });
 
   factory BookingModel.initial() {
     return BookingModel(
       id: '',
       renterId: '',
+      renterFullName: '',
+      renterAvatar: '',
       authorId: '',
       listingId: '',
       startDate: DateTime.now(),
@@ -47,6 +53,8 @@ class BookingModel {
     return <String, dynamic>{
       'id': id,
       'renterId': renterId,
+      'renterFullName': renterFullName,
+      'renterAvatar': renterAvatar,
       'authorId': authorId,
       'listingId': listingId,
       'listingTitle': listingTitle,
@@ -67,6 +75,8 @@ class BookingModel {
     return BookingModel(
       id: data?['id'] as String,
       renterId: data?['renterId'] as String,
+      renterFullName: data?['renterFullName'] as String,
+      renterAvatar: data?['renterAvatar'] as String,
       authorId: data?['authorId'] as String,
       listingId: data?['listingId'] as String,
       listingTitle: data?['listingTitle'] as String,
@@ -82,6 +92,8 @@ class BookingModel {
   BookingModel copyWith({
     String? id,
     String? renterId,
+    String? renterAvatar,
+    String? renterFullName,
     String? authorId,
     String? listingId,
     String? listingTitle,
@@ -95,6 +107,8 @@ class BookingModel {
     return BookingModel(
       id: id ?? this.id,
       renterId: renterId ?? this.renterId,
+      renterAvatar: renterAvatar ?? this.renterAvatar,
+      renterFullName: renterFullName ?? this.renterFullName,
       authorId: authorId ?? this.authorId,
       listingId: listingId ?? this.listingId,
       listingTitle: listingTitle ?? this.listingTitle,

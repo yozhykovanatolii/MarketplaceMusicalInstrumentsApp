@@ -25,6 +25,7 @@ class ReviewRepository {
       id: reviewModel.id,
       viewerId: viewerId,
       viewerFullName: userModel.fullName,
+      viewerAvatar: userModel.avatar,
       rating: rating,
       reviewText: reviewText,
     );

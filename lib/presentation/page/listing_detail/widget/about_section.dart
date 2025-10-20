@@ -103,7 +103,10 @@ class _AuthorSubSection extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const UserAvatarAndFullName(),
+        UserAvatarAndFullName(
+          authorAvatar: authorAvatar,
+          authorFullName: authorFullName,
+        ),
         IconButton.filled(
           onPressed: () {
             context.read<BookingSaveBloc>().add(

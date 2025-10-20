@@ -248,7 +248,10 @@ class _ListingReviews extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const UserAvatarAndFullName(),
+                UserAvatarAndFullName(
+                  authorAvatar: reviews[index].viewerAvatar,
+                  authorFullName: reviews[index].viewerFullName,
+                ),
                 const SizedBox(height: 10),
                 Row(
                   spacing: 16,

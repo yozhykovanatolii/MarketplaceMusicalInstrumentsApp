@@ -27,6 +27,7 @@ class UserRepository {
       id: user.id,
       email: user.email,
       password: user.password,
+      fullName: fullName,
       phoneNumber: phoneNumber,
       about: about,
       avatar: avatarUrl,
