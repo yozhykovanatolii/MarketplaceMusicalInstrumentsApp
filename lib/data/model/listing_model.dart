@@ -14,6 +14,8 @@ class ListingModel {
   final Map<String, double> location;
   final String authorId;
   final String authorFullName;
+  final String authorPhoneNumber;
+  final String authorAvatar;
 
   ListingModel({
     required this.id,
@@ -28,6 +30,8 @@ class ListingModel {
     required this.location,
     required this.authorId,
     required this.authorFullName,
+    required this.authorPhoneNumber,
+    required this.authorAvatar,
   });
 
   factory ListingModel.initial() {
@@ -44,6 +48,8 @@ class ListingModel {
       location: {},
       authorId: '',
       authorFullName: '',
+      authorAvatar: '',
+      authorPhoneNumber: '',
     );
   }
 
@@ -60,6 +66,8 @@ class ListingModel {
     Map<String, double>? location,
     String? authorId,
     String? authorFullName,
+    String? authorPhoneNumber,
+    String? authorAvatar,
   }) {
     return ListingModel(
       id: id ?? this.id,
@@ -74,6 +82,8 @@ class ListingModel {
       location: location ?? this.location,
       authorId: authorId ?? this.authorId,
       authorFullName: authorFullName ?? this.authorFullName,
+      authorPhoneNumber: authorPhoneNumber ?? this.authorPhoneNumber,
+      authorAvatar: authorAvatar ?? this.authorAvatar,
     );
   }
 
@@ -91,6 +101,8 @@ class ListingModel {
       'location': location,
       'authorId': authorId,
       'authorFullName': authorFullName,
+      'authorAvatar': authorAvatar,
+      'authorPhoneNumber': authorPhoneNumber,
     };
   }
 
@@ -124,6 +136,8 @@ class ListingModel {
           {},
       authorId: data?['authorId'] as String,
       authorFullName: data?['authorFullName'] as String,
+      authorAvatar: data?['authorAvatar'] as String,
+      authorPhoneNumber: data?['authorPhoneNumber'] as String,
     );
   }
 }

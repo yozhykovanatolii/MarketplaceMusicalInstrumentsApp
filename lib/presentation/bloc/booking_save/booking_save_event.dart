@@ -21,3 +21,9 @@ final class BookingCreateEvent extends BookingSaveEvent {
 
   BookingCreateEvent(this.listingModel);
 }
+
+final class OpenCallDialerEvent extends BookingSaveEvent {
+  final String authorPhoneNumber;
+
+  OpenCallDialerEvent(this.authorPhoneNumber);
+}

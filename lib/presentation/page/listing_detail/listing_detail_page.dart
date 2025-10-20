@@ -91,6 +91,9 @@ class ListingDetailPage extends StatelessWidget {
                       children: [
                         AboutSection(
                           location: listing.location,
+                          authorAvatar: listing.authorAvatar,
+                          authorFullName: listing.authorFullName,
+                          authorPhoneNumber: listing.authorPhoneNumber,
                         ),
                         CalendarSection(
                           listingId: listing.id,

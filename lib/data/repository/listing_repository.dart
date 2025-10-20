@@ -44,6 +44,8 @@ class ListingRepository {
       category: category,
       authorId: userId,
       authorFullName: userModel.fullName,
+      authorAvatar: userModel.avatar,
+      authorPhoneNumber: userModel.phoneNumber,
     );
     await _listingFirestore.saveListingModel(listingModel);
   }

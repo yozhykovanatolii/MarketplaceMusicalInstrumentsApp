@@ -1,4 +1,6 @@
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:marketplace_musical_instruments_app/core/service/dialer_service.dart';
 import 'package:marketplace_musical_instruments_app/core/util/calculation_booking_price_util.dart';
 import 'package:marketplace_musical_instruments_app/data/repository/booking_repository.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/add_and_edit_listing/add_and_edit_listing_state.dart';
@@ -10,6 +12,7 @@ class BookingSaveBloc extends Bloc<BookingSaveEvent, BookingSaveState> {
 
   BookingSaveBloc() : super(BookingSaveState.initial()) {
     on<BookingTotalCalculateEvent>(_calculateBookingTotalPrice);
+    on<OpenCallDialerEvent>(_openCallDialer);
     on<BookingCreateEvent>(_createBooking);
   }
 
@@ -49,6 +52,19 @@ class BookingSaveBloc extends Bloc<BookingSaveEvent, BookingSaveState> {
         totalPriceText: '\$${totalPrice.toString()}',
       ),
     );
+  }
+
+  Future<void> _openCallDialer(
+    OpenCallDialerEvent event,
+    Emitter<BookingSaveState> emit,
+  ) async {
+    try {
+      await DialerService.openDialer(event.authorPhoneNumber);
+    } catch (exception) {
+      emit(state.copyWith(errorMessage: exception.toString()));
+    } finally {
+      emit(state.copyWith(errorMessage: ''));
+    }
   }
 
   Future<void> _createBooking(

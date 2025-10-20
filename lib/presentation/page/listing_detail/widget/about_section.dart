@@ -1,16 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/listing_mini_google_map.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_bloc.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/listing_detail/widget/read_more_text.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/listing_detail/widget/user_avatar_and_full_name.dart';
 
 class AboutSection extends StatelessWidget {
   final Map<String, double> location;
+  final String authorFullName;
+  final String authorAvatar;
+  final String authorPhoneNumber;
 
   const AboutSection({
     super.key,
     required this.location,
+    required this.authorAvatar,
+    required this.authorFullName,
+    required this.authorPhoneNumber,
   });
 
   @override
@@ -28,7 +37,11 @@ class AboutSection extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 10),
-          const _AuthorSubSection(),
+          _AuthorSubSection(
+            authorAvatar: authorAvatar,
+            authorFullName: authorFullName,
+            authorPhoneNumber: authorPhoneNumber,
+          ),
           const SizedBox(height: 20),
           Text(
             'Description',
@@ -74,7 +87,16 @@ class AboutSection extends StatelessWidget {
 }
 
 class _AuthorSubSection extends StatelessWidget {
-  const _AuthorSubSection({super.key});
+  final String authorFullName;
+  final String authorAvatar;
+  final String authorPhoneNumber;
+
+  const _AuthorSubSection({
+    super.key,
+    required this.authorAvatar,
+    required this.authorFullName,
+    required this.authorPhoneNumber,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +105,11 @@ class _AuthorSubSection extends StatelessWidget {
       children: [
         const UserAvatarAndFullName(),
         IconButton.filled(
-          onPressed: () {},
+          onPressed: () {
+            context.read<BookingSaveBloc>().add(
+              OpenCallDialerEvent(authorPhoneNumber),
+            );
+          },
           style: ButtonStyle(
             backgroundColor: WidgetStatePropertyAll(Colors.grey[200]),
           ),
