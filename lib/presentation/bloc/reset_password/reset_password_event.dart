@@ -5,3 +5,5 @@ final class UserEmailChangeEvent extends ResetPasswordEvent {
 
   UserEmailChangeEvent(this.email);
 }
+
+final class EmailLetterSendEvent extends ResetPasswordEvent {}

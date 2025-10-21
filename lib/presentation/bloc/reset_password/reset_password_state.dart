@@ -4,26 +4,31 @@ import 'package:marketplace_musical_instruments_app/presentation/bloc/login/logi
 class ResetPasswordState {
   final String email;
   final FormStatus formStatus;
+  final String errorMessage;
 
   ResetPasswordState({
     required this.email,
     required this.formStatus,
+    required this.errorMessage,
   });
 
   factory ResetPasswordState.initial() {
     return ResetPasswordState(
       email: '',
       formStatus: FormStatus.initial,
+      errorMessage: '',
     );
   }
 
   ResetPasswordState copyWith({
     String? email,
     FormStatus? formStatus,
+    String? errorMessage,
   }) {
     return ResetPasswordState(
       email: email ?? this.email,
       formStatus: formStatus ?? this.formStatus,
+      errorMessage: errorMessage ?? this.errorMessage,
     );
   }
 

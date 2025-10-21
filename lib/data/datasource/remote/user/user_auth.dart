@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/login_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/register_exception.dart';
+import 'package:marketplace_musical_instruments_app/core/exception/reset_password_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/user_not_found_exception.dart';
 
 class UserAuth {
@@ -39,6 +40,16 @@ class UserAuth {
       throw RegisterException();
     }
     return userID;
+  }
+
+  Future<void> resetPassword(String email) async {
+    try {
+      await _firebaseAuth.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (exception) {
+      throw ResetPasswordException(exception.code);
+    } catch (_) {
+      throw ResetPasswordException();
+    }
   }
 
   String get userId {

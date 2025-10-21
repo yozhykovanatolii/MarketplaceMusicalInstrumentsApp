@@ -28,5 +28,9 @@ class AuthRepository {
     await _userFirestore.saveUser(userModel);
   }
 
+  Future<void> resetPassword(String email) async {
+    return await _userAuth.resetPassword(email);
+  }
+
   Future<void> signOut() async => _userAuth.signOut();
 }
