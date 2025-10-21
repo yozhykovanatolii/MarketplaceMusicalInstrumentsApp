@@ -24,6 +24,7 @@ class AuthRepository {
       phoneNumber: '+380955040255',
       about: '',
       avatar: '',
+      favouriteListings: [],
     );
     await _userFirestore.saveUser(userModel);
   }

@@ -9,6 +9,26 @@ class ListingFirestore {
     await docReference.set(listingModel);
   }
 
+  Stream<List<ListingModel>> getUserFavouriteListings(
+    List<String> favouriteListingsId,
+  ) {
+    if (favouriteListingsId.isEmpty) {
+      throw Exception('You don\'t have favourite listings');
+    }
+    return _firestore
+        .collection('listings')
+        .where('id', whereIn: favouriteListingsId)
+        .withConverter(
+          fromFirestore: ListingModel.fromFirestore,
+          toFirestore: (ListingModel userModel, options) =>
+              userModel.toFirestore(),
+        )
+        .snapshots()
+        .map((snapshot) {
+          return snapshot.docs.map((document) => document.data()).toList();
+        });
+  }
+
   Stream<Map<String, dynamic>> getListingRatingAndReviewerCount(
     String listingId,
   ) {

@@ -45,6 +45,7 @@ class ListingDetailPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   PhotoListingSection(
+                    listingId: listing.id,
                     photos: listing.photos,
                   ),
                   const SizedBox(height: 20),

@@ -8,6 +8,7 @@ class UserModel {
   final String about;
   final String phoneNumber;
   final String avatar;
+  final List<String> favouriteListings;
 
   UserModel({
     required this.id,
@@ -17,6 +18,7 @@ class UserModel {
     required this.about,
     required this.phoneNumber,
     required this.avatar,
+    required this.favouriteListings,
   });
 
   UserModel copyWith({
@@ -27,6 +29,7 @@ class UserModel {
     String? about,
     String? phoneNumber,
     String? avatar,
+    List<String>? favouriteListings,
   }) {
     return UserModel(
       id: id ?? this.id,
@@ -36,6 +39,7 @@ class UserModel {
       about: about ?? this.about,
       phoneNumber: phoneNumber ?? this.phoneNumber,
       avatar: avatar ?? this.avatar,
+      favouriteListings: favouriteListings ?? this.favouriteListings,
     );
   }
 
@@ -48,6 +52,7 @@ class UserModel {
       'phoneNumber': phoneNumber,
       'about': about,
       'avatar': avatar,
+      'favouriteListings': favouriteListings,
     };
   }
 
@@ -64,6 +69,11 @@ class UserModel {
       phoneNumber: data?['phoneNumber'] as String,
       about: data?['about'] as String,
       avatar: data?['avatar'] as String,
+      favouriteListings:
+          (data?['favouriteListings'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          [],
     );
   }
 }

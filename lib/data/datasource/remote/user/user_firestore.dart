@@ -27,6 +27,21 @@ class UserFirestore {
     return userModel;
   }
 
+  Future<List<String>> getUserFavourites(String id) async {
+    final docRef = getUserDocumentReference(id);
+    final snapshot = await docRef.get();
+    final data = snapshot.data();
+    return data?.favouriteListings ?? [];
+  }
+
+  Future<void> updateUserFavourites(
+    String id,
+    List<String> updatedFavourites,
+  ) async {
+    final docRef = getUserDocumentReference(id);
+    await docRef.update({'favouriteListings': updatedFavourites});
+  }
+
   DocumentReference<UserModel> getUserDocumentReference(String id) {
     return _firestore
         .collection('users')

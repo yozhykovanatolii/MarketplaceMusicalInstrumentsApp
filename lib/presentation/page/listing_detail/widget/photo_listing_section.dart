@@ -4,10 +4,12 @@ import 'package:marketplace_musical_instruments_app/core/widget/favourite_button
 import 'package:marketplace_musical_instruments_app/presentation/page/listing_detail/widget/image_gallery_dialog.dart';
 
 class PhotoListingSection extends StatelessWidget {
+  final String listingId;
   final List<String> photos;
 
   const PhotoListingSection({
     super.key,
+    required this.listingId,
     required this.photos,
   });
 
@@ -29,10 +31,12 @@ class PhotoListingSection extends StatelessWidget {
               );
             },
           ),
-          const Positioned(
+          Positioned(
             top: 10,
             right: 8,
-            child: FavouriteButton(),
+            child: FavouriteButton(
+              listingId: listingId,
+            ),
           ),
           Positioned(
             top: 10,

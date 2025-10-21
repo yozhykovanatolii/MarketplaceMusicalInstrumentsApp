@@ -96,7 +96,7 @@ class _PhotoSectionCard extends StatelessWidget {
           right: 3,
           child: isEditing
               ? DeleteListingButton(listingId: listingId)
-              : const FavouriteButton(),
+              : FavouriteButton(listingId: listingId),
         ),
       ],
     );
