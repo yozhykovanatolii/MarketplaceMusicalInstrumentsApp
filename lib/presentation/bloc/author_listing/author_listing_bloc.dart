@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
 import 'package:marketplace_musical_instruments_app/data/repository/listing_repository.dart';
@@ -8,19 +6,12 @@ import 'package:marketplace_musical_instruments_app/presentation/bloc/author_lis
 
 class AuthorListingBloc extends Bloc<AuthorListingEvent, AuthorListingState> {
   final _listingRepository = ListingRepository();
-  StreamSubscription<List<ListingModel>>? _authorListingsSubscription;
 
   AuthorListingBloc() : super(AuthorListingInitialState()) {
     on<AuthorListingsFetchEvent>(_fetchAuthorListings);
     on<AuthorListingDeleteEvent>(_deleteAuthorListing);
     on<AuthorListingsSucceedEvent>(_downloadAuthorListingsSuccess);
     on<AuthorListingsFailedEvent>(_getFailureErrorMessage);
-  }
-
-  @override
-  Future<void> close() {
-    _authorListingsSubscription?.cancel();
-    return super.close();
   }
 
   Future<void> _fetchAuthorListings(
