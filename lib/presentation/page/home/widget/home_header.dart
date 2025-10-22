@@ -1,26 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:marketplace_musical_instruments_app/presentation/page/home/widget/notification_button.dart';
 
 class HomeHeader extends StatelessWidget {
   const HomeHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
-      crossAxisAlignment: CrossAxisAlignment.end,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Icon(
-          size: 60,
-          Iconsax.shop,
-        ),
         Text(
           'Rentify',
-          style: TextStyle(
-            fontFamily: 'Times New Roman',
-            fontSize: 32,
+          style: GoogleFonts.pacifico(
+            fontSize: 35,
             fontWeight: FontWeight.w600,
           ),
         ),
+        const NotificationButton(),
       ],
     );
   }

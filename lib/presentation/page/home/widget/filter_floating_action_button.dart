@@ -9,7 +9,7 @@ class FilterFloatingActionButton extends StatelessWidget {
     return SizedBox(
       height: 50,
       child: FloatingActionButton(
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color(0xFF007DFC),
         foregroundColor: Colors.white,
         onPressed: () {
           showModalBottomSheet(

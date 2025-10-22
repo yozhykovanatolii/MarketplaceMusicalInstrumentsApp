@@ -128,14 +128,14 @@ class _ReviewAndRatingHeader extends StatelessWidget {
             children: [
               const Icon(
                 Iconsax.edit_2,
-                color: Colors.blue,
+                color: Color(0xFF007DFC),
               ),
               Text(
                 'add review',
                 style: TextStyle(
                   fontSize: MediaQuery.textScalerOf(context).scale(17),
                   fontWeight: FontWeight.w500,
-                  color: Colors.blue,
+                  color: const Color(0xFF007DFC),
                 ),
               ),
             ],
@@ -221,7 +221,7 @@ class _RatingSummaryProgressIndicator extends StatelessWidget {
             value: value,
             minHeight: 10,
             backgroundColor: Colors.grey[300],
-            color: Colors.blue,
+            color: const Color(0xFF007DFC),
             borderRadius: BorderRadius.circular(12),
           ),
         ),

@@ -21,7 +21,7 @@ class CategoryListingSection extends StatelessWidget {
           category,
           style: TextStyle(
             fontSize: MediaQuery.textScalerOf(context).scale(17),
-            color: Colors.blue,
+            color: const Color(0xFF007DFC),
             fontWeight: FontWeight.w500,
           ),
         ),

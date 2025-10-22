@@ -71,7 +71,7 @@ class _BottomNavigationItem extends StatelessWidget {
             height: 3,
             width: isActive ? 24 : 0,
             decoration: BoxDecoration(
-              color: Colors.blue,
+              color: const Color(0xFF007DFC),
               borderRadius: BorderRadius.circular(12),
             ),
           ),
@@ -83,7 +83,7 @@ class _BottomNavigationItem extends StatelessWidget {
             child: Icon(
               size: 24,
               iconData,
-              color: isActive ? Colors.blue : Colors.grey[400],
+              color: isActive ? const Color(0xFF007DFC) : Colors.grey[400],
             ),
           ),
         ],

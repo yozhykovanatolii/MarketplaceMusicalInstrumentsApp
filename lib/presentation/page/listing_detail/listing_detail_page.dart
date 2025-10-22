@@ -73,8 +73,8 @@ class ListingDetailPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
                   TabBar(
-                    indicatorColor: Colors.blue,
-                    labelColor: Colors.blue,
+                    indicatorColor: const Color(0xFF007DFC),
+                    labelColor: const Color(0xFF007DFC),
                     indicatorWeight: 4,
                     labelStyle: TextStyle(
                       fontSize: MediaQuery.textScalerOf(context).scale(17),

@@ -22,7 +22,7 @@ class SectionListTile extends StatelessWidget {
       leading: Icon(
         leadingIcon,
         size: 30,
-        color: isLogOut ? Colors.red : Colors.blue,
+        color: isLogOut ? Colors.red : const Color(0xFF007DFC),
       ),
       title: Text(
         title,
@@ -35,7 +35,7 @@ class SectionListTile extends StatelessWidget {
       trailing: const Icon(
         Iconsax.arrow_right_3_copy,
         size: 30,
-        color: Colors.blue,
+        color: Color(0xFF007DFC),
       ),
     );
   }

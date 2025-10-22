@@ -119,7 +119,7 @@ class _AuthorSubSection extends StatelessWidget {
           icon: const Icon(
             Iconsax.call,
             size: 30,
-            color: Colors.blue,
+            color: Color(0xFF007DFC),
           ),
         ),
       ],

@@ -68,7 +68,7 @@ class _ReadMoreTextState extends State<ReadMoreText> {
             child: Text(
               _isReadMore ? 'Read more ' : 'Read less',
               style: TextStyle(
-                color: Colors.blue,
+                color: const Color(0xFF007DFC),
                 fontWeight: FontWeight.w500,
                 fontSize: MediaQuery.textScalerOf(context).scale(17),
               ),
