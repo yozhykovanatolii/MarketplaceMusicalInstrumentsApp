@@ -25,7 +25,6 @@ class ProfilePhoneNumberTextField extends StatelessWidget {
           ProfilePhoneNumberChangeEvent(phoneNumber),
         );
       },
-      prefixIcon: Iconsax.call,
       hintText: 'Enter your phone number',
       errorText: phoneNumberError,
     );

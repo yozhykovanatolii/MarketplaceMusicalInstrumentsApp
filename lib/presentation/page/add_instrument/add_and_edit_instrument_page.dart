@@ -129,7 +129,6 @@ class _AddAndEditInstrumentPageState extends State<AddAndEditInstrumentPage> {
                       onChanged: (title) => bloc.add(
                         ListingTitleChangeEvent(title),
                       ),
-                      prefixIcon: Iconsax.box,
                       hintText: 'Enter name of the instrument',
                       errorText: state.titleError,
                       counterText: state.titleCounterText,
@@ -178,7 +177,6 @@ class _AddAndEditInstrumentPageState extends State<AddAndEditInstrumentPage> {
                       onChanged: (priceText) => bloc.add(
                         ListingPriceChangeEvent(priceText),
                       ),
-                      prefixIcon: Iconsax.tag,
                       hintText: 'Enter price of the rent by hours',
                       errorText: priceError,
                     );
@@ -242,6 +240,7 @@ class _AddAndEditInstrumentPageState extends State<AddAndEditInstrumentPage> {
                         ? null
                         : () => bloc.add(ListingSaveEvent(widget.listing));
                     return CommonButton(
+                      width: MediaQuery.of(context).size.width,
                       onPressed: onPressed,
                       color: color,
                       child: child,

@@ -74,7 +74,6 @@ class LoginPage extends StatelessWidget {
                       onChanged: (email) => context.read<LoginBloc>().add(
                         LoginEmailChangeEvent(email),
                       ),
-                      prefixIcon: Icons.email,
                       hintText: 'Enter your email',
                       errorText: emailError,
                     );
@@ -88,7 +87,6 @@ class LoginPage extends StatelessWidget {
                       onChanged: (password) => context.read<LoginBloc>().add(
                         LoginPasswordChangeEvent(password),
                       ),
-                      prefixIcon: Icons.lock,
                       hintText: 'Enter your password',
                       errorText: passwordError,
                       obscureText: true,
@@ -111,6 +109,7 @@ class LoginPage extends StatelessWidget {
                             ),
                           );
                     return CommonButton(
+                      width: MediaQuery.of(context).size.width,
                       onPressed: () => context.read<LoginBloc>().add(
                         LoginSubmitEvent(),
                       ),
@@ -128,8 +127,9 @@ class LoginPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 15),
                 CommonButton(
+                  width: MediaQuery.of(context).size.width,
                   onPressed: () {},
-                  color: Colors.white,
+                  color: const Color(0xFFF6F6F6),
                   child: const Text(
                     'Sign In with Google',
                     style: TextStyle(

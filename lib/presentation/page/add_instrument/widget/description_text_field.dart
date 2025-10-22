@@ -25,7 +25,7 @@ class DescriptionTextField extends StatelessWidget {
         onChanged: onChanged,
         decoration: InputDecoration(
           filled: true,
-          fillColor: const Color(0xFFFAFAFA),
+          fillColor: const Color(0xFFF6F6F6),
           hintText: 'Enter description...',
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),

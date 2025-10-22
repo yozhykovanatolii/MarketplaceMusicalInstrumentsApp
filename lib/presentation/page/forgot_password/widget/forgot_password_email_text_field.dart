@@ -17,7 +17,6 @@ class ForgotPasswordEmailTextField extends StatelessWidget {
       onChanged: (email) => context.read<ResetPasswordBloc>().add(
         UserEmailChangeEvent(email),
       ),
-      prefixIcon: Iconsax.directbox_default,
       hintText: 'Enter your email',
       errorText: emailErrorMessage,
     );

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 class CommonTextField extends StatelessWidget {
   final TextEditingController? controller;
-  final IconData prefixIcon;
   final String hintText;
   final String? errorText;
   final String? counterText;
@@ -14,7 +13,6 @@ class CommonTextField extends StatelessWidget {
 
   const CommonTextField({
     super.key,
-    required this.prefixIcon,
     required this.hintText,
     this.errorText,
     this.counterText,
@@ -37,7 +35,7 @@ class CommonTextField extends StatelessWidget {
       keyboardType: keyboardType,
       decoration: InputDecoration(
         filled: true,
-        fillColor: const Color(0xFFFAFAFA),
+        fillColor: const Color(0xFFF6F6F6),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(color: Colors.grey.shade300),
@@ -63,10 +61,9 @@ class CommonTextField extends StatelessWidget {
           ),
           borderRadius: BorderRadius.circular(12),
         ),
-        contentPadding: const EdgeInsets.all(10),
+        contentPadding: const EdgeInsets.all(14),
         errorText: errorText,
         counterText: counterText,
-        prefixIcon: Icon(prefixIcon),
         hintText: hintText,
       ),
     );

@@ -59,6 +59,14 @@ class RegisterPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 50),
+                const Text(
+                  'FullName',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 10),
                 BlocSelector<RegisterBloc, RegisterState, String?>(
                   selector: (state) => state.fullNameError,
                   builder: (context, fullNameError) {
@@ -66,13 +74,20 @@ class RegisterPage extends StatelessWidget {
                       onChanged: (fullName) => context.read<RegisterBloc>().add(
                         RegisterFullNameChangeEvent(fullName),
                       ),
-                      prefixIcon: Icons.person,
                       hintText: 'Enter your full name',
                       errorText: fullNameError,
                     );
                   },
                 ),
                 const SizedBox(height: 15),
+                const Text(
+                  'Email',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 10),
                 BlocSelector<RegisterBloc, RegisterState, String?>(
                   selector: (state) => state.emailError,
                   builder: (context, emailError) {
@@ -80,13 +95,20 @@ class RegisterPage extends StatelessWidget {
                       onChanged: (email) => context.read<RegisterBloc>().add(
                         RegisterEmailChangeEvent(email),
                       ),
-                      prefixIcon: Icons.email,
                       hintText: 'Enter your email',
                       errorText: emailError,
                     );
                   },
                 ),
                 const SizedBox(height: 15),
+                const Text(
+                  'Password',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 10),
                 BlocSelector<RegisterBloc, RegisterState, String?>(
                   selector: (state) => state.passwordError,
                   builder: (context, passwordError) {
@@ -94,7 +116,6 @@ class RegisterPage extends StatelessWidget {
                       onChanged: (password) => context.read<RegisterBloc>().add(
                         RegisterPasswordChangeEvent(password),
                       ),
-                      prefixIcon: Icons.lock,
                       hintText: 'Enter your password',
                       obscureText: true,
                       errorText: passwordError,

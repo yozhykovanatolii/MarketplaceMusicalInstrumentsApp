@@ -24,7 +24,6 @@ class ProfileFullNameTextField extends StatelessWidget {
           ProfileFullNameChangeEvent(fullName),
         );
       },
-      prefixIcon: Icons.person,
       hintText: 'Enter your full name',
       errorText: fullNameError,
     );

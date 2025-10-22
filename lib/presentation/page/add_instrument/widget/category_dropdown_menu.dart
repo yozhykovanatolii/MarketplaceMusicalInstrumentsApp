@@ -21,7 +21,7 @@ class CategoryDropdownMenu extends StatelessWidget {
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: const Color(0xFFFAFAFA),
+        fillColor: const Color(0xFFF6F6F6),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(color: Colors.grey.shade300),
