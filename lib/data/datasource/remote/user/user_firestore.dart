@@ -27,11 +27,12 @@ class UserFirestore {
     return userModel;
   }
 
-  Future<List<String>> getUserFavourites(String id) async {
+  Stream<List<String>> getUserFavourites(String id) {
     final docRef = getUserDocumentReference(id);
-    final snapshot = await docRef.get();
-    final data = snapshot.data();
-    return data?.favouriteListings ?? [];
+    return docRef.snapshots().map((snapshot) {
+      final data = snapshot.data();
+      return data?.favouriteListingsId ?? [];
+    });
   }
 
   Future<void> updateUserFavourites(
@@ -39,7 +40,7 @@ class UserFirestore {
     List<String> updatedFavourites,
   ) async {
     final docRef = getUserDocumentReference(id);
-    await docRef.update({'favouriteListings': updatedFavourites});
+    await docRef.update({'favouriteListingsId': updatedFavourites});
   }
 
   DocumentReference<UserModel> getUserDocumentReference(String id) {

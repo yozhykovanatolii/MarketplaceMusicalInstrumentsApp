@@ -19,9 +19,14 @@ class FavouriteButton extends StatelessWidget {
           bloc.state.favouriteListingsId.contains(listingId),
     );
     return IconButton.filled(
-      onPressed: () => context.read<FavouriteListingsBloc>().add(
-        FavouriteListingAddEvent(listingId),
-      ),
+      onPressed: () {
+        context.read<FavouriteListingsBloc>().add(
+          FavouriteListingAddEvent(listingId),
+        );
+        context.read<FavouriteListingsBloc>().add(
+          FavouriteListingsFetchEvent(),
+        );
+      },
       style: const ButtonStyle(
         backgroundColor: WidgetStatePropertyAll(Colors.white),
       ),

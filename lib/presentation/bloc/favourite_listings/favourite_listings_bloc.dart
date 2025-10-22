@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
 import 'package:marketplace_musical_instruments_app/data/repository/user_repository.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/favourite_listings/favourite_listings_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/favourite_listings/favourite_listings_state.dart';
@@ -17,9 +18,11 @@ class FavouriteListingsBloc
     UserFavouriteListingsIdFetchEvent event,
     Emitter<FavouriteListingsState> emit,
   ) async {
-    final favouriteListingsId = await _userRepository.getFavouriteListingsId();
-    emit(
-      state.copyWith(favouriteListingsId: favouriteListingsId),
+    await emit.forEach<List<String>>(
+      _userRepository.getFavouriteListingsId(),
+      onData: (favouriteListingsId) => state.copyWith(
+        favouriteListingsId: favouriteListingsId,
+      ),
     );
   }
 
@@ -30,7 +33,7 @@ class FavouriteListingsBloc
     emit(
       state.copyWith(status: FavouriteListingsStatus.loading),
     );
-    await emit.forEach(
+    await emit.forEach<List<ListingModel>>(
       _userRepository.getUserFavouriteListings(),
       onData: (data) {
         return state.copyWith(

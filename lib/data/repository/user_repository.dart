@@ -58,15 +58,14 @@ class UserRepository {
     await _userFirestore.updateUserFavourites(userId, updatedFavourites);
   }
 
-  Future<List<String>> getFavouriteListingsId() async {
+  Stream<List<String>> getFavouriteListingsId() {
     final userId = _userAuth.userId;
-    return await _userFirestore.getUserFavourites(userId);
+    return _userFirestore.getUserFavourites(userId);
   }
 
   Stream<List<ListingModel>> getUserFavouriteListings() async* {
-    final favouriteListingsId = await getFavouriteListingsId();
-    yield* _listingFirestore.getUserFavouriteListings(
-      favouriteListingsId,
-    );
+    await for (final favouriteListingsId in getFavouriteListingsId()) {
+      yield* _listingFirestore.getUserFavouriteListings(favouriteListingsId);
+    }
   }
 }
