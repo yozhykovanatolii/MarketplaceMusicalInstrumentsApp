@@ -11,14 +11,14 @@ class RegisterPhoneNumberTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocSelector<RegisterBloc, RegisterState, String?>(
-      selector: (state) => state.emailError,
-      builder: (context, emailError) {
+      selector: (state) => state.phoneNumberError,
+      builder: (context, phoneNumberError) {
         return CommonTextField(
-          onChanged: (email) => context.read<RegisterBloc>().add(
-            RegisterEmailChangeEvent(email),
+          onChanged: (phoneNumber) => context.read<RegisterBloc>().add(
+            RegisterPhoneNumberChangeEvent(phoneNumber),
           ),
           hintText: 'Enter your phone number',
-          errorText: emailError,
+          errorText: phoneNumberError,
         );
       },
     );

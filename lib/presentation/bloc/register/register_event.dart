@@ -18,4 +18,10 @@ class RegisterPasswordChangeEvent extends RegisterEvent {
   RegisterPasswordChangeEvent(this.password);
 }
 
+class RegisterPhoneNumberChangeEvent extends RegisterEvent {
+  final String phoneNumber;
+
+  RegisterPhoneNumberChangeEvent(this.phoneNumber);
+}
+
 class RegisterSubmitEvent extends RegisterEvent {}

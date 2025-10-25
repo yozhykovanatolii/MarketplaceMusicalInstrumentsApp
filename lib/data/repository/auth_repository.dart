@@ -13,6 +13,7 @@ class AuthRepository {
     String email,
     String password,
     String fullName,
+    String phoneNumber,
   ) async {
     final userID = await UserAuthService.signUpWithEmailAndPassword(
       email,
@@ -23,9 +24,10 @@ class AuthRepository {
       fullName: fullName,
       email: email,
       password: password,
-      phoneNumber: '+380955040255',
+      phoneNumber: phoneNumber,
       about: '',
-      avatar: '',
+      avatar:
+          'https://xwgraskemxbhjtgqrjxn.supabase.co/storage/v1/object/public/images/uploads/1758373217886',
       favouriteListingsId: [],
     );
     await _userFirestore.saveUser(userModel);

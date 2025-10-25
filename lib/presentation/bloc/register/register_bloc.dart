@@ -10,11 +10,16 @@ import 'package:marketplace_musical_instruments_app/presentation/bloc/register/r
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   final _userRepository = UserRepository();
   final _authRepository = AuthRepository();
+  String _fullNameText = '';
+  String _emailText = '';
+  String _passwordText = '';
+  String _phoneNumberText = '';
 
   RegisterBloc() : super(RegisterState.initial()) {
     on<RegisterFullNameChangeEvent>(_setRegisterFullName);
     on<RegisterEmailChangeEvent>(_setRegisterEmail);
     on<RegisterPasswordChangeEvent>(_setRegisterPassword);
+    on<RegisterPhoneNumberChangeEvent>(_setRegisterPhoneNumber);
     on<RegisterSubmitEvent>(_signUpUser);
   }
 
@@ -25,9 +30,9 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     final fullNameError = UserValidatorUtil.validateFullName(
       event.fullName,
     );
+    _fullNameText = event.fullName;
     emit(
       state.copyWith(
-        fullNameText: event.fullName,
         fullNameError: fullNameError,
         clearFullNameError: fullNameError == null,
       ),
@@ -41,6 +46,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     String? emailError = UserValidatorUtil.validateEmail(
       event.email,
     );
+    _emailText = event.email;
     if (emailError == null) {
       final isUserExist = await _userRepository.checkIfUserExistByEmail(
         event.email,
@@ -51,7 +57,6 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     }
     emit(
       state.copyWith(
-        emailText: event.email,
         emailError: emailError,
         clearEmailError: emailError == null,
       ),
@@ -65,11 +70,27 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     final passwordError = UserValidatorUtil.validatePassword(
       event.password,
     );
+    _passwordText = event.password;
     emit(
       state.copyWith(
-        passwordText: event.password,
         passwordError: passwordError,
         clearPasswordError: passwordError == null,
+      ),
+    );
+  }
+
+  void _setRegisterPhoneNumber(
+    RegisterPhoneNumberChangeEvent event,
+    Emitter<RegisterState> emit,
+  ) {
+    final phoneNumberError = UserValidatorUtil.validatePhoneNumber(
+      event.phoneNumber,
+    );
+    _phoneNumberText = event.phoneNumber;
+    emit(
+      state.copyWith(
+        phoneNumberError: phoneNumberError,
+        clearPhoneNumberError: phoneNumberError == null,
       ),
     );
   }
@@ -86,9 +107,10 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     emit(state.copyWith(formStatus: FormStatus.loading));
     try {
       await _authRepository.signUpUser(
-        state.emailText,
-        state.passwordText,
-        state.fullNameText,
+        _emailText,
+        _passwordText,
+        _fullNameText,
+        _phoneNumberText,
       );
       emit(state.copyWith(formStatus: FormStatus.success));
     } on RegisterException catch (exception) {
@@ -98,6 +120,8 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
           errorMessage: exception.message,
         ),
       );
+    } finally {
+      emit(state.copyWith(formStatus: FormStatus.initial));
     }
   }
 }
