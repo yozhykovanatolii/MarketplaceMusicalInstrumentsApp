@@ -4,10 +4,10 @@ import 'package:marketplace_musical_instruments_app/core/exception/register_exce
 import 'package:marketplace_musical_instruments_app/core/exception/reset_password_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/user_not_found_exception.dart';
 
-class UserAuth {
-  final _firebaseAuth = FirebaseAuth.instance;
+class UserAuthService {
+  static final _firebaseAuth = FirebaseAuth.instance;
 
-  Future<void> signInWithEmailAndPassword(
+  static Future<void> signInWithEmailAndPassword(
     String email,
     String password,
   ) async {
@@ -23,7 +23,7 @@ class UserAuth {
     }
   }
 
-  Future<String> signUpWithEmailAndPassword(
+  static Future<String> signUpWithEmailAndPassword(
     String email,
     String password,
   ) async {
@@ -42,7 +42,7 @@ class UserAuth {
     return userID;
   }
 
-  Future<void> resetPassword(String email) async {
+  static Future<void> resetPassword(String email) async {
     try {
       await _firebaseAuth.sendPasswordResetEmail(email: email);
     } on FirebaseAuthException catch (exception) {
@@ -52,13 +52,13 @@ class UserAuth {
     }
   }
 
-  String get userId {
+  static String get userId {
     final currentUser = _firebaseAuth.currentUser;
     if (currentUser == null) throw UserNotFoundException('User didn\'t find');
     return currentUser.uid;
   }
 
-  Stream<User?> get user => _firebaseAuth.authStateChanges();
+  static Stream<User?> get user => _firebaseAuth.authStateChanges();
 
-  Future<void> signOut() async => _firebaseAuth.signOut();
+  static Future<void> signOut() async => _firebaseAuth.signOut();
 }

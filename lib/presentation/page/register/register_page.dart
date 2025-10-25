@@ -59,14 +59,6 @@ class RegisterPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 50),
-                const Text(
-                  'FullName',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 10),
                 BlocSelector<RegisterBloc, RegisterState, String?>(
                   selector: (state) => state.fullNameError,
                   builder: (context, fullNameError) {
@@ -80,14 +72,6 @@ class RegisterPage extends StatelessWidget {
                   },
                 ),
                 const SizedBox(height: 15),
-                const Text(
-                  'Email',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 10),
                 BlocSelector<RegisterBloc, RegisterState, String?>(
                   selector: (state) => state.emailError,
                   builder: (context, emailError) {
@@ -101,14 +85,6 @@ class RegisterPage extends StatelessWidget {
                   },
                 ),
                 const SizedBox(height: 15),
-                const Text(
-                  'Password',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 10),
                 BlocSelector<RegisterBloc, RegisterState, String?>(
                   selector: (state) => state.passwordError,
                   builder: (context, passwordError) {

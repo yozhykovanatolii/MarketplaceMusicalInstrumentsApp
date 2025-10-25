@@ -7,6 +7,8 @@ import 'package:marketplace_musical_instruments_app/presentation/bloc/login/logi
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final _authRepository = AuthRepository();
+  String _emailText = '';
+  String _passwordText = '';
 
   LoginBloc() : super(LoginState.initial()) {
     on<LoginEmailChangeEvent>(_setLoginEmail);
@@ -19,10 +21,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     Emitter<LoginState> emit,
   ) {
     final emailError = UserValidatorUtil.validateEmail(event.email);
+    _emailText = event.email;
     emit(
       state.copyWith(
         emailError: emailError,
-        emailText: event.email,
         clearEmailError: emailError == null,
       ),
     );
@@ -35,10 +37,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     final passwordError = UserValidatorUtil.validatePassword(
       event.password,
     );
+    _passwordText = event.password;
     emit(
       state.copyWith(
         passwordError: passwordError,
-        passwordText: event.password,
         clearPasswordError: passwordError == null,
       ),
     );
@@ -51,7 +53,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     if (state.emailError != null || state.passwordError != null) return;
     emit(state.copyWith(formStatus: FormStatus.loading));
     try {
-      await _authRepository.signInUser(state.emailText, state.passwordText);
+      await _authRepository.signInUser(_emailText, _passwordText);
       emit(state.copyWith(formStatus: FormStatus.success));
     } on LoginException catch (exception) {
       emit(

@@ -1,13 +1,12 @@
-import 'package:marketplace_musical_instruments_app/data/datasource/remote/user/user_auth.dart';
+import 'package:marketplace_musical_instruments_app/core/service/user_auth_service.dart';
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/user/user_firestore.dart';
 import 'package:marketplace_musical_instruments_app/data/model/user_model.dart';
 
 class AuthRepository {
-  final _userAuth = UserAuth();
   final _userFirestore = UserFirestore();
 
   Future<void> signInUser(String email, String password) async {
-    await _userAuth.signInWithEmailAndPassword(email, password);
+    await UserAuthService.signInWithEmailAndPassword(email, password);
   }
 
   Future<void> signUpUser(
@@ -15,7 +14,10 @@ class AuthRepository {
     String password,
     String fullName,
   ) async {
-    final userID = await _userAuth.signUpWithEmailAndPassword(email, password);
+    final userID = await UserAuthService.signUpWithEmailAndPassword(
+      email,
+      password,
+    );
     UserModel userModel = UserModel(
       id: userID,
       fullName: fullName,
@@ -30,8 +32,8 @@ class AuthRepository {
   }
 
   Future<void> resetPassword(String email) async {
-    return await _userAuth.resetPassword(email);
+    return await UserAuthService.resetPassword(email);
   }
 
-  Future<void> signOut() async => _userAuth.signOut();
+  Future<void> signOut() async => UserAuthService.signOut();
 }

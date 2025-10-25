@@ -1,15 +1,13 @@
 import 'package:marketplace_musical_instruments_app/core/exception/user_not_found_exception.dart';
-import 'package:marketplace_musical_instruments_app/data/datasource/local/camera/camera_picker.dart';
+import 'package:marketplace_musical_instruments_app/core/service/camera_picker_service.dart';
+import 'package:marketplace_musical_instruments_app/core/service/user_auth_service.dart';
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/listing/listing_firestore.dart';
-import 'package:marketplace_musical_instruments_app/data/datasource/remote/user/user_auth.dart';
+import 'package:marketplace_musical_instruments_app/data/datasource/remote/storage/user_storage.dart';
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/user/user_firestore.dart';
-import 'package:marketplace_musical_instruments_app/data/datasource/remote/user/user_storage.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
 import 'package:marketplace_musical_instruments_app/data/model/user_model.dart';
 
 class UserRepository {
-  final _cameraPicker = CameraPicker();
-  final _userAuth = UserAuth();
   final _userStorage = UserStorage();
   final _userFirestore = UserFirestore();
   final _listingFirestore = ListingFirestore();
@@ -24,7 +22,7 @@ class UserRepository {
     String phoneNumber,
     String about,
   ) async {
-    final userId = _userAuth.userId;
+    final userId = UserAuthService.userId;
     UserModel user = await _userFirestore.getUserModelById(userId);
     user = user.copyWith(
       id: user.id,
@@ -39,13 +37,13 @@ class UserRepository {
   }
 
   Future<String> getUserImage() async {
-    final userImageFile = await _cameraPicker.pickImageFileFromGallery();
-    final userImageUrl = await _userStorage.saveUserImage(userImageFile);
+    final userImageFile = await CameraPickerService.pickImageFileFromGallery();
+    final userImageUrl = await _userStorage.saveImage(userImageFile);
     return userImageUrl;
   }
 
   Stream<UserModel> getUserModelCurrentData() {
-    final userStream = _userAuth.user;
+    final userStream = UserAuthService.user;
     return userStream.asyncMap((user) async {
       print('[DEBUG] Firebase user: $user');
       if (user == null) throw UserNotFoundException('User didn\'t find');
@@ -54,12 +52,12 @@ class UserRepository {
   }
 
   Future<void> updateUserFavourites(List<String> updatedFavourites) async {
-    final userId = _userAuth.userId;
+    final userId = UserAuthService.userId;
     await _userFirestore.updateUserFavourites(userId, updatedFavourites);
   }
 
   Stream<List<String>> getFavouriteListingsId() {
-    final userId = _userAuth.userId;
+    final userId = UserAuthService.userId;
     return _userFirestore.getUserFavourites(userId);
   }
 

@@ -1,21 +1,19 @@
-import 'package:marketplace_musical_instruments_app/data/datasource/local/camera/camera_picker.dart';
+import 'package:marketplace_musical_instruments_app/core/service/camera_picker_service.dart';
+import 'package:marketplace_musical_instruments_app/core/service/user_auth_service.dart';
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/listing/listing_firestore.dart';
-import 'package:marketplace_musical_instruments_app/data/datasource/remote/listing/listing_storage.dart';
-import 'package:marketplace_musical_instruments_app/data/datasource/remote/user/user_auth.dart';
+import 'package:marketplace_musical_instruments_app/data/datasource/remote/storage/listing_storage.dart';
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/user/user_firestore.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
 import 'package:uuid/uuid.dart';
 
 class ListingRepository {
-  final _cameraPicker = CameraPicker();
   final _listingStorage = ListingStorage();
   final _listingFirestore = ListingFirestore();
-  final _userAuth = UserAuth();
   final _userFirestore = UserFirestore();
 
   Future<String> getListingPhotoUrl() async {
-    final imageFile = await _cameraPicker.pickImageFileFromGallery();
-    final imageUrl = await _listingStorage.saveListingImage(imageFile);
+    final imageFile = await CameraPickerService.pickImageFileFromGallery();
+    final imageUrl = await _listingStorage.saveImage(imageFile);
     return imageUrl;
   }
 
@@ -28,7 +26,7 @@ class ListingRepository {
     int price, {
     ListingModel? currentListing,
   }) async {
-    final userId = _userAuth.userId;
+    final userId = UserAuthService.userId;
     final userModel = await _userFirestore.getUserModelById(userId);
     ListingModel listingModel = currentListing ?? ListingModel.initial();
     listingModel = listingModel.copyWith(
@@ -51,12 +49,12 @@ class ListingRepository {
   }
 
   Stream<List<ListingModel>> getUserListings() {
-    final authorId = _userAuth.userId;
+    final authorId = UserAuthService.userId;
     return _listingFirestore.getUserListings(authorId);
   }
 
   Future<List<ListingModel>> getAllListingExceptUsers() async {
-    final authorId = _userAuth.userId;
+    final authorId = UserAuthService.userId;
     return await _listingFirestore.getAllListingExceptUsers(authorId);
   }
 
