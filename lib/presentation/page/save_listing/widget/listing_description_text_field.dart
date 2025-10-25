@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_description_text_field.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/add_and_edit_listing/add_and_edit_listing_bloc.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/add_and_edit_listing/add_and_edit_listing_event.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/add_and_edit_listing/add_and_edit_listing_state.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_bloc.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_event.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_state.dart';
 
 class ListingDescriptionTextField extends StatelessWidget {
   final TextEditingController? controller;
@@ -15,12 +15,12 @@ class ListingDescriptionTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AddAndEditListingBloc, AddAndEditListingState>(
+    return BlocBuilder<SaveListingBloc, SaveListingState>(
       builder: (context, state) {
         return CommonDescriptionTextField(
           controller: controller,
           hintText: 'Enter description here...',
-          onChanged: (description) => context.read<AddAndEditListingBloc>().add(
+          onChanged: (description) => context.read<SaveListingBloc>().add(
             ListingDecriptionChangeEvent(description),
           ),
           errorText: state.descriptionError,

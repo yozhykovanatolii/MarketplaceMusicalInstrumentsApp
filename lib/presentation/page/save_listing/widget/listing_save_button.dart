@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_button.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_progress_indicator.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/add_and_edit_listing/add_and_edit_listing_bloc.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/add_and_edit_listing/add_and_edit_listing_event.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/add_and_edit_listing/add_and_edit_listing_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_bloc.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_event.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_state.dart';
 
 class ListingSaveButton extends StatelessWidget {
   final ListingModel? listing;
@@ -18,7 +18,7 @@ class ListingSaveButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AddAndEditListingBloc, AddAndEditListingState>(
+    return BlocBuilder<SaveListingBloc, SaveListingState>(
       builder: (context, state) {
         final buttonStatus = state.buttonStatus;
         final formStatus = state.formStatus;
@@ -39,7 +39,7 @@ class ListingSaveButton extends StatelessWidget {
               );
         final onPressed = buttonStatus == ButtonStatus.disabled
             ? null
-            : () => context.read<AddAndEditListingBloc>().add(
+            : () => context.read<SaveListingBloc>().add(
                 ListingSaveEvent(listing),
               );
         return CommonButton(

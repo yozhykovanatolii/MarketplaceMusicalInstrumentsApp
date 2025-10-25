@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/util/snack_bar_util.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/add_and_edit_listing/add_and_edit_listing_bloc.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/add_and_edit_listing/add_and_edit_listing_event.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/add_and_edit_listing/add_and_edit_listing_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
-import 'package:marketplace_musical_instruments_app/presentation/page/add_instrument/widget/category_dropdown_menu.dart';
-import 'package:marketplace_musical_instruments_app/presentation/page/add_instrument/widget/mini_google_map.dart';
-import 'package:marketplace_musical_instruments_app/presentation/page/add_instrument/widget/photo_list_view.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_bloc.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_event.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_state.dart';
+import 'package:marketplace_musical_instruments_app/presentation/page/save_listing/widget/category_dropdown_menu.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/save_listing/widget/listing_description_text_field.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/save_listing/widget/listing_price_text_field.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/save_listing/widget/listing_save_button.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/save_listing/widget/listing_title_text_field.dart';
+import 'package:marketplace_musical_instruments_app/presentation/page/save_listing/widget/mini_google_map.dart';
+import 'package:marketplace_musical_instruments_app/presentation/page/save_listing/widget/photo_list_view.dart';
 
 class AddAndEditInstrumentPage extends StatefulWidget {
   final ListingModel? listing;
@@ -28,14 +28,14 @@ class AddAndEditInstrumentPage extends StatefulWidget {
 }
 
 class _AddAndEditInstrumentPageState extends State<AddAndEditInstrumentPage> {
-  late final AddAndEditListingBloc bloc;
+  late final SaveListingBloc bloc;
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _priceTextController = TextEditingController();
 
   @override
   void initState() {
-    bloc = context.read<AddAndEditListingBloc>();
+    bloc = context.read<SaveListingBloc>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       bloc.add(ListingEditEvent(widget.listing));
       _titleController.text = widget.listing?.title ?? '';
@@ -65,7 +65,7 @@ class _AddAndEditInstrumentPageState extends State<AddAndEditInstrumentPage> {
         ),
         centerTitle: true,
       ),
-      body: BlocListener<AddAndEditListingBloc, AddAndEditListingState>(
+      body: BlocListener<SaveListingBloc, SaveListingState>(
         listener: (context, state) {
           if (state.errorMessage.isNotEmpty) {
             SnackBarUtil.showSnackBar(

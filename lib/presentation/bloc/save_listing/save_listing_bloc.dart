@@ -6,15 +6,14 @@ import 'package:marketplace_musical_instruments_app/core/exception/user_not_foun
 import 'package:marketplace_musical_instruments_app/core/service/geolocation_service.dart';
 import 'package:marketplace_musical_instruments_app/core/util/listing_validator_util.dart';
 import 'package:marketplace_musical_instruments_app/data/repository/listing_repository.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/add_and_edit_listing/add_and_edit_listing_event.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/add_and_edit_listing/add_and_edit_listing_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_event.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_state.dart';
 
-class AddAndEditListingBloc
-    extends Bloc<AddAndEditListingEvent, AddAndEditListingState> {
+class SaveListingBloc extends Bloc<SaveListingEvent, SaveListingState> {
   final _listingRepository = ListingRepository();
 
-  AddAndEditListingBloc() : super(AddAndEditListingState.initial()) {
+  SaveListingBloc() : super(SaveListingState.initial()) {
     on<AddListingPhotoEvent>(_onAddListingPhotoInList);
     on<DeleteListingPhotoEvent>(_onDeleteListingPhotoFromList);
     on<GetUserCurrentLocationEvent>(_onGetUserLocation);
@@ -28,7 +27,7 @@ class AddAndEditListingBloc
 
   Future<void> _onAddListingPhotoInList(
     AddListingPhotoEvent event,
-    Emitter<AddAndEditListingState> emit,
+    Emitter<SaveListingState> emit,
   ) async {
     try {
       final photoUrl = await _listingRepository.getListingPhotoUrl();
@@ -45,7 +44,7 @@ class AddAndEditListingBloc
 
   void _onDeleteListingPhotoFromList(
     DeleteListingPhotoEvent event,
-    Emitter<AddAndEditListingState> emit,
+    Emitter<SaveListingState> emit,
   ) {
     String photoUrl = event.photoUrl;
     final updatedList = List<String>.from(state.photos)..remove(photoUrl);
@@ -54,7 +53,7 @@ class AddAndEditListingBloc
 
   Future<void> _onGetUserLocation(
     GetUserCurrentLocationEvent event,
-    Emitter<AddAndEditListingState> emit,
+    Emitter<SaveListingState> emit,
   ) async {
     try {
       final location = await GeolocationService.getCurrentLocation();
@@ -77,7 +76,7 @@ class AddAndEditListingBloc
 
   void _onTitleChanged(
     ListingTitleChangeEvent event,
-    Emitter<AddAndEditListingState> emit,
+    Emitter<SaveListingState> emit,
   ) {
     final title = event.title;
     final titleError = ListingValidatorUtil.validateTitle(title);
@@ -92,7 +91,7 @@ class AddAndEditListingBloc
 
   void _onDescriptionChanged(
     ListingDecriptionChangeEvent event,
-    Emitter<AddAndEditListingState> emit,
+    Emitter<SaveListingState> emit,
   ) {
     final description = event.description;
     final descriptionError = ListingValidatorUtil.validateDescription(
@@ -109,7 +108,7 @@ class AddAndEditListingBloc
 
   void _onPriceChanged(
     ListingPriceChangeEvent event,
-    Emitter<AddAndEditListingState> emit,
+    Emitter<SaveListingState> emit,
   ) {
     final priceText = event.priceText;
     final priceError = ListingValidatorUtil.validateListingPrice(priceText);
@@ -124,14 +123,14 @@ class AddAndEditListingBloc
 
   void _onCategoryChanged(
     ListingCategoryChangeEvent event,
-    Emitter<AddAndEditListingState> emit,
+    Emitter<SaveListingState> emit,
   ) {
     emit(state.copyWith(category: event.category));
   }
 
   void _onEditListing(
     ListingEditEvent event,
-    Emitter<AddAndEditListingState> emit,
+    Emitter<SaveListingState> emit,
   ) {
     final listing = event.listing;
     if (listing != null) {
@@ -150,7 +149,7 @@ class AddAndEditListingBloc
 
   Future<void> _onSaveListing(
     ListingSaveEvent event,
-    Emitter<AddAndEditListingState> emit,
+    Emitter<SaveListingState> emit,
   ) async {
     print('Hello, listing');
     emit(state.copyWith(formStatus: FormStatus.loading));

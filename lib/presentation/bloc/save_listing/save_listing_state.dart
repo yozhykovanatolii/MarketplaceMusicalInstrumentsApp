@@ -2,7 +2,7 @@ import 'package:marketplace_musical_instruments_app/presentation/bloc/login/logi
 
 enum ButtonStatus { enabled, disabled }
 
-class AddAndEditListingState {
+class SaveListingState {
   final List<String> photos;
   final Map<String, double> currentLocation;
   final String title;
@@ -15,7 +15,7 @@ class AddAndEditListingState {
   final FormStatus formStatus;
   final String errorMessage;
 
-  AddAndEditListingState({
+  SaveListingState({
     required this.photos,
     required this.errorMessage,
     required this.title,
@@ -29,8 +29,8 @@ class AddAndEditListingState {
     required this.currentLocation,
   });
 
-  factory AddAndEditListingState.initial() {
-    return AddAndEditListingState(
+  factory SaveListingState.initial() {
+    return SaveListingState(
       photos: [],
       currentLocation: {},
       title: '',
@@ -42,7 +42,7 @@ class AddAndEditListingState {
     );
   }
 
-  AddAndEditListingState copyWith({
+  SaveListingState copyWith({
     List<String>? photos,
     Map<String, double>? currentLocation,
     String? title,
@@ -58,7 +58,7 @@ class AddAndEditListingState {
     bool clearDecriptionError = false,
     bool clearPriceError = false,
   }) {
-    return AddAndEditListingState(
+    return SaveListingState(
       photos: photos ?? this.photos,
       currentLocation: currentLocation ?? this.currentLocation,
       title: title ?? this.title,

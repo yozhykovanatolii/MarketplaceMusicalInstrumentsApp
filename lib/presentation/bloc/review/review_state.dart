@@ -1,5 +1,5 @@
 import 'package:marketplace_musical_instruments_app/core/util/review_validator_util.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/add_and_edit_listing/add_and_edit_listing_state.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_state.dart';
 
 class ReviewState {
   final Map<String, dynamic> reviewsAndRating;

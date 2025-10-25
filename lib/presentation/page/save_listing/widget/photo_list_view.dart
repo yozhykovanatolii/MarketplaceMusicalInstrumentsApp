@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/dashed_border.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/add_and_edit_listing/add_and_edit_listing_bloc.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/add_and_edit_listing/add_and_edit_listing_event.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_bloc.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_event.dart';
 
 class PhotoListView extends StatelessWidget {
   const PhotoListView({super.key});
@@ -11,7 +11,7 @@ class PhotoListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final listingPhotos = context.select(
-      (AddAndEditListingBloc bloc) => bloc.state.photos,
+      (SaveListingBloc bloc) => bloc.state.photos,
     );
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.15,
@@ -58,7 +58,7 @@ class _PhotoCardItem extends StatelessWidget {
           left: 75,
           child: IconButton(
             iconSize: 30,
-            onPressed: () => context.read<AddAndEditListingBloc>().add(
+            onPressed: () => context.read<SaveListingBloc>().add(
               DeleteListingPhotoEvent(photoUrl),
             ),
             style: const ButtonStyle(
@@ -80,7 +80,7 @@ class _OpenGalleryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => context.read<AddAndEditListingBloc>().add(
+      onTap: () => context.read<SaveListingBloc>().add(
         AddListingPhotoEvent(),
       ),
       child: CustomPaint(
