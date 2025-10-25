@@ -24,7 +24,7 @@ class ListingCard extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (_) => AddAndEditInstrumentPage(
+              builder: (_) => SaveListingPage(
                 listing: listing,
               ),
             ),

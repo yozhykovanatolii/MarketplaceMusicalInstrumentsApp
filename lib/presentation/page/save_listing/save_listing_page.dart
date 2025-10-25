@@ -14,20 +14,19 @@ import 'package:marketplace_musical_instruments_app/presentation/page/save_listi
 import 'package:marketplace_musical_instruments_app/presentation/page/save_listing/widget/mini_google_map.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/save_listing/widget/photo_list_view.dart';
 
-class AddAndEditInstrumentPage extends StatefulWidget {
+class SaveListingPage extends StatefulWidget {
   final ListingModel? listing;
 
-  const AddAndEditInstrumentPage({
+  const SaveListingPage({
     super.key,
     this.listing,
   });
 
   @override
-  State<AddAndEditInstrumentPage> createState() =>
-      _AddAndEditInstrumentPageState();
+  State<SaveListingPage> createState() => _SaveListingPageState();
 }
 
-class _AddAndEditInstrumentPageState extends State<AddAndEditInstrumentPage> {
+class _SaveListingPageState extends State<SaveListingPage> {
   late final SaveListingBloc bloc;
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();

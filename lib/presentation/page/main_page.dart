@@ -17,7 +17,7 @@ class _MainPageState extends State<MainPage> {
   static const _pages = [
     HomePage(),
     HomePage(),
-    AddAndEditInstrumentPage(),
+    SaveListingPage(),
     FavouriteListingsPage(),
     ProfilePage(),
   ];
