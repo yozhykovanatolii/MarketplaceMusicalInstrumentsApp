@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
-class DescriptionTextField extends StatelessWidget {
+class CommonDescriptionTextField extends StatelessWidget {
+  final String hintText;
   final TextEditingController? controller;
   final String? errorText;
   final String? counterText;
   final Function(String)? onChanged;
 
-  const DescriptionTextField({
+  const CommonDescriptionTextField({
     super.key,
+    required this.hintText,
     this.controller,
     this.errorText,
     this.counterText,

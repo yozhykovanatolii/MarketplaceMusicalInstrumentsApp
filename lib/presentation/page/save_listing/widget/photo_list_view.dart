@@ -6,7 +6,6 @@ import 'package:marketplace_musical_instruments_app/presentation/bloc/add_and_ed
 import 'package:marketplace_musical_instruments_app/presentation/bloc/add_and_edit_listing/add_and_edit_listing_event.dart';
 
 class PhotoListView extends StatelessWidget {
-  static const photosLength = 4;
   const PhotoListView({super.key});
 
   @override
@@ -14,18 +13,21 @@ class PhotoListView extends StatelessWidget {
     final listingPhotos = context.select(
       (AddAndEditListingBloc bloc) => bloc.state.photos,
     );
-    return ListView.separated(
-      scrollDirection: Axis.horizontal,
-      itemCount: listingPhotos.length + 1,
-      itemBuilder: (context, index) {
-        if (index < listingPhotos.length) {
-          return _PhotoCardItem(
-            photoUrl: listingPhotos[index],
-          );
-        }
-        return const _OpenGalleryButton();
-      },
-      separatorBuilder: (_, __) => const SizedBox(width: 10),
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.15,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        itemCount: listingPhotos.length + 1,
+        itemBuilder: (context, index) {
+          if (index < listingPhotos.length) {
+            return _PhotoCardItem(
+              photoUrl: listingPhotos[index],
+            );
+          }
+          return const _OpenGalleryButton();
+        },
+        separatorBuilder: (_, __) => const SizedBox(width: 10),
+      ),
     );
   }
 }

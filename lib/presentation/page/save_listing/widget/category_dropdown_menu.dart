@@ -6,9 +6,9 @@ import 'package:marketplace_musical_instruments_app/presentation/bloc/add_and_ed
 class CategoryDropdownMenu extends StatelessWidget {
   static const List<String> categories = [
     'Guitar',
-    'Microphone',
+    'Micro',
     'CAD',
-    'Multi-Effect Unit',
+    'MultiFx',
   ];
   const CategoryDropdownMenu({super.key});
 
