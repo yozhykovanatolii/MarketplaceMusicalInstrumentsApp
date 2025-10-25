@@ -1,8 +1,8 @@
 import 'package:marketplace_musical_instruments_app/core/service/camera_picker_service.dart';
 import 'package:marketplace_musical_instruments_app/core/service/user_auth_service.dart';
-import 'package:marketplace_musical_instruments_app/data/datasource/remote/listing/listing_firestore.dart';
+import 'package:marketplace_musical_instruments_app/data/datasource/remote/firestore/listing_firestore.dart';
+import 'package:marketplace_musical_instruments_app/data/datasource/remote/firestore/user_firestore.dart';
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/storage/listing_storage.dart';
-import 'package:marketplace_musical_instruments_app/data/datasource/remote/user/user_firestore.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
 import 'package:uuid/uuid.dart';
 

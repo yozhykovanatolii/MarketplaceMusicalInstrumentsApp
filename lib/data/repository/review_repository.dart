@@ -1,8 +1,8 @@
 import 'package:marketplace_musical_instruments_app/core/service/user_auth_service.dart';
 import 'package:marketplace_musical_instruments_app/core/util/calculation_rating_util.dart';
-import 'package:marketplace_musical_instruments_app/data/datasource/remote/listing/listing_firestore.dart';
-import 'package:marketplace_musical_instruments_app/data/datasource/remote/review/review_firestore.dart';
-import 'package:marketplace_musical_instruments_app/data/datasource/remote/user/user_firestore.dart';
+import 'package:marketplace_musical_instruments_app/data/datasource/remote/firestore/listing_firestore.dart';
+import 'package:marketplace_musical_instruments_app/data/datasource/remote/firestore/review_firestore.dart';
+import 'package:marketplace_musical_instruments_app/data/datasource/remote/firestore/user_firestore.dart';
 import 'package:marketplace_musical_instruments_app/data/model/review_model.dart';
 
 class ReviewRepository {

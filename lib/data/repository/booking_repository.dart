@@ -1,6 +1,6 @@
 import 'package:marketplace_musical_instruments_app/core/service/user_auth_service.dart';
-import 'package:marketplace_musical_instruments_app/data/datasource/remote/booking/booking_firestore.dart';
-import 'package:marketplace_musical_instruments_app/data/datasource/remote/user/user_firestore.dart';
+import 'package:marketplace_musical_instruments_app/data/datasource/remote/firestore/booking_firestore.dart';
+import 'package:marketplace_musical_instruments_app/data/datasource/remote/firestore/user_firestore.dart';
 import 'package:marketplace_musical_instruments_app/data/model/booking_model.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
 import 'package:uuid/uuid.dart';
