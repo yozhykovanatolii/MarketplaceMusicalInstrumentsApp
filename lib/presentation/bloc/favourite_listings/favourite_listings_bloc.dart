@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:marketplace_musical_instruments_app/core/exception/favourite_listings_exception.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
 import 'package:marketplace_musical_instruments_app/data/repository/user_repository.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/favourite_listings/favourite_listings_event.dart';
@@ -41,10 +42,13 @@ class FavouriteListingsBloc
           status: FavouriteListingsStatus.success,
         );
       },
-      onError: (error, stackTrace) => state.copyWith(
-        errorMessage: error.toString(),
-        status: FavouriteListingsStatus.failure,
-      ),
+      onError: (error, stackTrace) {
+        final exception = error as FavouriteListingsException;
+        return state.copyWith(
+          errorMessage: exception.errorMessage,
+          status: FavouriteListingsStatus.failure,
+        );
+      },
     );
   }
 

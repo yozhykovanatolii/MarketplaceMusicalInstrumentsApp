@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:marketplace_musical_instruments_app/core/exception/favourite_listings_exception.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
 
 class ListingFirestore {
@@ -13,7 +14,9 @@ class ListingFirestore {
     List<String> favouriteListingsId,
   ) {
     if (favouriteListingsId.isEmpty) {
-      throw Exception('You don\'t have favourite listings');
+      throw FavouriteListingsException(
+        'You don\'t have favourite listings',
+      );
     }
     return _firestore
         .collection('listings')
