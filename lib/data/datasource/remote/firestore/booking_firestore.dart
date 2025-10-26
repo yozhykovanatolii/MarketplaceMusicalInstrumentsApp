@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:marketplace_musical_instruments_app/core/exception/booking_requests_not_found.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/user_bookings_not_found.dart';
 import 'package:marketplace_musical_instruments_app/data/model/booking_model.dart';
 
@@ -44,7 +45,7 @@ class BookingFirestore {
         .snapshots()
         .map((snapshot) {
           if (snapshot.docs.isEmpty) {
-            throw Exception('There are no requests yet');
+            throw BookingRequestsNotFound('There are no requests yet');
           }
           return snapshot.docs.map((document) => document.data()).toList();
         });
