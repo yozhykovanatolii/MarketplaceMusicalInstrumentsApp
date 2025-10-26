@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:marketplace_musical_instruments_app/core/exception/get_all_listings_except_user_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/listing_filtration_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/listing_searching_exception.dart';
 import 'package:marketplace_musical_instruments_app/data/repository/listing_repository.dart';
@@ -26,10 +27,10 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
     try {
       final listings = await _listingRepository.getAllListingExceptUsers();
       emit(state.copyWith(listings: listings, status: ListingStatus.success));
-    } catch (exception) {
+    } on GetAllListingsExceptUserException catch (exception) {
       emit(
         state.copyWith(
-          errorMessage: exception.toString(),
+          errorMessage: exception.errorMessage,
           status: ListingStatus.failure,
         ),
       );
