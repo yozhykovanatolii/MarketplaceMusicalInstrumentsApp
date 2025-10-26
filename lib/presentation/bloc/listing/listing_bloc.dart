@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:marketplace_musical_instruments_app/core/exception/listing_filtration_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/listing_searching_exception.dart';
 import 'package:marketplace_musical_instruments_app/data/repository/listing_repository.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_event.dart';
@@ -119,10 +120,10 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
         state.selectedAverageRating,
       );
       emit(state.copyWith(listings: listings, status: ListingStatus.success));
-    } catch (exception) {
+    } on ListingFiltrationException catch (exception) {
       emit(
         state.copyWith(
-          errorMessage: exception.toString(),
+          errorMessage: exception.errorMessage,
           status: ListingStatus.failure,
         ),
       );

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/favourite_listings_exception.dart';
+import 'package:marketplace_musical_instruments_app/core/exception/listing_filtration_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/listing_searching_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/user_listings_exception.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
@@ -120,7 +121,7 @@ class ListingFirestore {
     }
     final querySnapshot = await query.get();
     if (querySnapshot.docs.isEmpty) {
-      throw Exception(
+      throw ListingFiltrationException(
         'Listings weren\'t found matching the selected criteria',
       );
     }
