@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:marketplace_musical_instruments_app/core/exception/listing_searching_exception.dart';
 import 'package:marketplace_musical_instruments_app/data/repository/listing_repository.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_state.dart';
@@ -46,10 +47,10 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
       emit(
         state.copyWith(listings: foundListings, status: ListingStatus.loading),
       );
-    } catch (exception) {
+    } on ListingSearchingException catch (exception) {
       emit(
         state.copyWith(
-          errorMessage: exception.toString(),
+          errorMessage: exception.errorMessage,
           status: ListingStatus.failure,
         ),
       );

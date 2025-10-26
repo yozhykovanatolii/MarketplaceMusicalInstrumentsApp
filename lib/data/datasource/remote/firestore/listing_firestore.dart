@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/favourite_listings_exception.dart';
+import 'package:marketplace_musical_instruments_app/core/exception/listing_searching_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/user_listings_exception.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
 
@@ -151,7 +152,9 @@ class ListingFirestore {
         .get();
     final results = await Future.wait([titleQuery, categoryQuery]);
     final allDocs = results.expand((s) => s.docs).toList();
-    if (allDocs.isEmpty) throw Exception('Listings weren\'t found');
+    if (allDocs.isEmpty) {
+      throw ListingSearchingException('Listings weren\'t found');
+    }
     final Map<String, ListingModel> uniqueListings = {};
     for (var doc in allDocs) {
       uniqueListings[doc.id] = doc.data();
