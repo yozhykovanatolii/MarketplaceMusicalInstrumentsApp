@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:marketplace_musical_instruments_app/core/exception/login_exception.dart';
-import 'package:marketplace_musical_instruments_app/core/exception/register_exception.dart';
-import 'package:marketplace_musical_instruments_app/core/exception/reset_password_exception.dart';
-import 'package:marketplace_musical_instruments_app/core/exception/user_not_found_exception.dart';
+import 'package:marketplace_musical_instruments_app/core/exception/auth/login_exception.dart';
+import 'package:marketplace_musical_instruments_app/core/exception/auth/register_exception.dart';
+import 'package:marketplace_musical_instruments_app/core/exception/auth/reset_password_exception.dart';
+import 'package:marketplace_musical_instruments_app/core/exception/auth/user_not_found_exception.dart';
 
 class UserAuthService {
   static final _firebaseAuth = FirebaseAuth.instance;

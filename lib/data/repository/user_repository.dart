@@ -1,4 +1,4 @@
-import 'package:marketplace_musical_instruments_app/core/exception/user_not_found_exception.dart';
+import 'package:marketplace_musical_instruments_app/core/exception/auth/user_not_found_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/service/camera_picker_service.dart';
 import 'package:marketplace_musical_instruments_app/core/service/user_auth_service.dart';
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/firestore/listing_firestore.dart';

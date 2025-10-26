@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:marketplace_musical_instruments_app/core/exception/register_exception.dart';
+import 'package:marketplace_musical_instruments_app/core/exception/auth/register_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/util/user_validator_util.dart';
 import 'package:marketplace_musical_instruments_app/data/repository/auth_repository.dart';
 import 'package:marketplace_musical_instruments_app/data/repository/user_repository.dart';

@@ -1,7 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:marketplace_musical_instruments_app/core/exception/get_all_listings_except_user_exception.dart';
-import 'package:marketplace_musical_instruments_app/core/exception/listing_filtration_exception.dart';
-import 'package:marketplace_musical_instruments_app/core/exception/listing_searching_exception.dart';
+import 'package:marketplace_musical_instruments_app/core/exception/listing/get_all_listings_except_user_exception.dart';
+import 'package:marketplace_musical_instruments_app/core/exception/listing/listing_filtration_exception.dart';
+import 'package:marketplace_musical_instruments_app/core/exception/listing/listing_searching_exception.dart';
+import 'package:marketplace_musical_instruments_app/core/exception/auth/user_not_found_exception.dart';
 import 'package:marketplace_musical_instruments_app/data/repository/listing_repository.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_state.dart';
@@ -27,6 +28,13 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
     try {
       final listings = await _listingRepository.getAllListingExceptUsers();
       emit(state.copyWith(listings: listings, status: ListingStatus.success));
+    } on UserNotFoundException catch (exception) {
+      emit(
+        state.copyWith(
+          errorMessage: exception.errorMessage,
+          status: ListingStatus.failure,
+        ),
+      );
     } on GetAllListingsExceptUserException catch (exception) {
       emit(
         state.copyWith(
