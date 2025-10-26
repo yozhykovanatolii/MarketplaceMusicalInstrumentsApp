@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:marketplace_musical_instruments_app/core/exception/user_bookings_not_found.dart';
 import 'package:marketplace_musical_instruments_app/data/model/booking_model.dart';
 import 'package:marketplace_musical_instruments_app/data/repository/booking_repository.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_overview/booking_overview_event.dart';
@@ -22,8 +23,8 @@ class BookingOverviewBloc
     try {
       final userBookings = await _bookingRepository.getAllUserBookings();
       emit(BookingSuccess(userBookings));
-    } catch (exception) {
-      emit(BookingFailure(exception.toString()));
+    } on UserBookingsNotFound catch (exception) {
+      emit(BookingFailure(exception.errorMessage));
     }
   }
 

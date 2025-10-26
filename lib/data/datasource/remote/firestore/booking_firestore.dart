@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:marketplace_musical_instruments_app/core/exception/user_bookings_not_found.dart';
 import 'package:marketplace_musical_instruments_app/data/model/booking_model.dart';
 
 class BookingFirestore {
@@ -25,7 +26,7 @@ class BookingFirestore {
         );
     final querySnapshot = await query.get();
     if (querySnapshot.docs.isEmpty) {
-      throw Exception('Bookings weren\'t found');
+      throw UserBookingsNotFound('Bookings weren\'t found');
     }
     return querySnapshot.docs.map((document) => document.data()).toList();
   }
