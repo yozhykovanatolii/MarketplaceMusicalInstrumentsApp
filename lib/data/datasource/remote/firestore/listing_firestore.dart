@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/favourite_listings_exception.dart';
+import 'package:marketplace_musical_instruments_app/core/exception/user_listings_exception.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
 
 class ListingFirestore {
@@ -70,7 +71,7 @@ class ListingFirestore {
         .snapshots()
         .map((snapshot) {
           if (snapshot.docs.isEmpty) {
-            throw Exception('User listings weren\'t found');
+            throw UserListingsException('User listings weren\'t found');
           }
           return snapshot.docs.map((document) => document.data()).toList();
         });
