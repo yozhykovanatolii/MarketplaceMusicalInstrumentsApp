@@ -1,3 +1,4 @@
+import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_state.dart';
 
 class BookingSaveState {
@@ -5,14 +6,16 @@ class BookingSaveState {
   final DateTime? endBookingDate;
   final String totalPriceText;
   final ButtonStatus buttonStatus;
+  final FormStatus formStatus;
   final String errorMessage;
 
   BookingSaveState({
-    required this.totalPriceText,
-    required this.errorMessage,
-    required this.buttonStatus,
     this.startBookingDate,
     this.endBookingDate,
+    required this.totalPriceText,
+    required this.buttonStatus,
+    required this.formStatus,
+    required this.errorMessage,
   });
 
   factory BookingSaveState.initial() {
@@ -20,6 +23,7 @@ class BookingSaveState {
       totalPriceText: '',
       errorMessage: '',
       buttonStatus: ButtonStatus.disabled,
+      formStatus: FormStatus.initial,
     );
   }
 
@@ -27,15 +31,17 @@ class BookingSaveState {
     DateTime? startBookingDate,
     DateTime? endBookingDate,
     String? totalPriceText,
-    String? errorMessage,
     ButtonStatus? buttonStatus,
+    FormStatus? formStatus,
+    String? errorMessage,
   }) {
     return BookingSaveState(
       startBookingDate: startBookingDate ?? this.startBookingDate,
       endBookingDate: endBookingDate ?? this.endBookingDate,
       totalPriceText: totalPriceText ?? this.totalPriceText,
-      errorMessage: errorMessage ?? this.errorMessage,
       buttonStatus: buttonStatus ?? this.buttonStatus,
+      formStatus: formStatus ?? this.formStatus,
+      errorMessage: errorMessage ?? this.errorMessage,
     );
   }
 }

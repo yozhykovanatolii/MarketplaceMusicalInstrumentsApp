@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 
 class InformationDialogBox extends StatelessWidget {
   final String title;
@@ -18,7 +19,6 @@ class InformationDialogBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: Colors.white,
       content: SizedBox(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -40,11 +40,7 @@ class InformationDialogBox extends StatelessWidget {
             Text(
               description,
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 18,
-                fontFamily: 'sans-serif',
-                fontWeight: FontWeight.w500,
-              ),
+              style: Theme.of(context).textTheme.labelSmall,
             ),
             const SizedBox(height: 30),
             Row(
@@ -52,7 +48,9 @@ class InformationDialogBox extends StatelessWidget {
               children: [
                 Expanded(
                   child: _DialogActionButton(
-                    text: isDeleting ? 'No, Keep It.' : 'No, Cancel It.',
+                    text: isDeleting
+                        ? S.of(context).noKeepIt
+                        : S.of(context).noCancelIt,
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
@@ -60,7 +58,9 @@ class InformationDialogBox extends StatelessWidget {
                 ),
                 Expanded(
                   child: _DialogActionButton(
-                    text: isDeleting ? 'Yes, Delete It!' : 'Yes, Confirm It!',
+                    text: isDeleting
+                        ? S.of(context).yesDeleteIt
+                        : S.of(context).yesConfirmIt,
                     textColor: Colors.white,
                     color: isDeleting ? Colors.red : Colors.blue,
                     onPressed: onClickActionButton,

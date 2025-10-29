@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/util/snack_bar_util.dart';
+import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/login/widget/forgot_password_text_button.dart';
@@ -17,7 +18,6 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: BlocListener<LoginBloc, LoginState>(
         listener: (context, state) {
           if (state.formStatus == FormStatus.failure) {
@@ -32,7 +32,7 @@ class LoginPage extends StatelessWidget {
           if (state.formStatus == FormStatus.success) {
             SnackBarUtil.showSnackBar(
               context,
-              'Success authorization',
+              S.of(context).successAuthorization,
               Icons.check_circle,
               0xFFD4FFFE,
               0xFF009688,
@@ -49,21 +49,15 @@ class LoginPage extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text(
-                  'Sign In',
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                  ),
+                Text(
+                  S.of(context).signIn,
+                  style: Theme.of(context).textTheme.headlineMedium,
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  'Hi! Welcome back, you\'ve been missed',
+                  S.of(context).welcomeBack,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.grey[600],
-                    fontSize: 17,
-                  ),
+                  style: Theme.of(context).textTheme.labelMedium,
                 ),
                 const SizedBox(height: 50),
                 const LoginEmailTextField(),
@@ -75,11 +69,8 @@ class LoginPage extends StatelessWidget {
                 const SignInButton(),
                 const SizedBox(height: 15),
                 Text(
-                  'Or sign in with',
-                  style: TextStyle(
-                    color: Colors.grey[500],
-                    fontSize: 15,
-                  ),
+                  S.of(context).orSignInWith,
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
                 const SizedBox(height: 15),
                 const SignInWithGoogleButton(),

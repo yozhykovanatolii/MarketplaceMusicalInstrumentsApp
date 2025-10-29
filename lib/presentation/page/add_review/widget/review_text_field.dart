@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_description_text_field.dart';
+import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/review/review_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/review/review_event.dart';
 
@@ -19,7 +20,7 @@ class ReviewTextField extends StatelessWidget {
       onChanged: (reviewText) => context.read<ReviewBloc>().add(
         ReviewTextChangeEvent(reviewText),
       ),
-      hintText: 'Enter here...',
+      hintText: S.of(context).enterHere,
       errorText: reviewTextError,
       counterText: conterReviewText,
     );

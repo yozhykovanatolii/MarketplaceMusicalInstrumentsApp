@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_description_text_field.dart';
+import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_state.dart';
@@ -19,7 +20,7 @@ class ListingDescriptionTextField extends StatelessWidget {
       builder: (context, state) {
         return CommonDescriptionTextField(
           controller: controller,
-          hintText: 'Enter description here...',
+          hintText: S.of(context).enterDescriptionHere,
           onChanged: (description) => context.read<SaveListingBloc>().add(
             ListingDecriptionChangeEvent(description),
           ),

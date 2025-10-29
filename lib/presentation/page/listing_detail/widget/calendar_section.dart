@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_event.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -23,19 +24,13 @@ class CalendarSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Booking Calendar',
-            style: TextStyle(
-              fontSize: MediaQuery.textScalerOf(context).scale(18),
-              fontWeight: FontWeight.bold,
-            ),
+            S.of(context).bookingCalendar,
+            style: Theme.of(context).textTheme.bodyMedium,
           ),
           const SizedBox(height: 5),
           Text(
-            'To reserve an instrument, you must select the start and end dates of your reservation. If the instrument is occupied on the selected dates, it will not be available for reservation.',
-            style: TextStyle(
-              fontSize: MediaQuery.textScalerOf(context).scale(17),
-              color: Colors.grey[600],
-            ),
+            S.of(context).reserveInstruction,
+            style: Theme.of(context).textTheme.labelMedium,
           ),
           const SizedBox(height: 10),
           _BookingCalendar(
@@ -142,11 +137,8 @@ class _TotalBookingPriceSubSection extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          'Total price',
-          style: TextStyle(
-            fontSize: MediaQuery.textScalerOf(context).scale(18),
-            color: Colors.grey[600],
-          ),
+          S.of(context).totalPrice,
+          style: Theme.of(context).textTheme.labelMedium,
         ),
         Text(
           totalPriceText,

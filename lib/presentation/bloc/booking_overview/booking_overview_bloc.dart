@@ -41,8 +41,10 @@ class BookingOverviewBloc
       _bookingRepository.getAllUserBookingRequests(),
       onData: (requests) => BookingSuccess(requests),
       onError: (error, stackTrace) {
-        final exception = error as BookingRequestsNotFound;
-        return BookingFailure(exception.errorMessage);
+        final String errorMessage = error is UserNotFoundException
+            ? error.errorMessage
+            : (error as BookingRequestsNotFound).errorMessage;
+        return BookingFailure(errorMessage);
       },
     );
   }

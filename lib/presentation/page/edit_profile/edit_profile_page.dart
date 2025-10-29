@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/util/snack_bar_util.dart';
+import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/app/app_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/app/app_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/app/app_state.dart';
@@ -55,13 +56,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Edit profile',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
+        title: Text(
+          S.of(context).editProfile,
         ),
-        centerTitle: true,
       ),
       body: MultiBlocListener(
         listeners: [
@@ -95,7 +92,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               if (state.formStatus == FormStatus.success) {
                 SnackBarUtil.showSnackBar(
                   context,
-                  'Success updating profile',
+                  S.of(context).successUpdatingProfile,
                   Icons.check_circle,
                   0xFFD4FFFE,
                   0xFF009688,
@@ -123,11 +120,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 const EditProfileUserAvatarSection(),
                 const SizedBox(height: 20),
                 Text(
-                  'Full Name',
-                  style: TextStyle(
-                    fontSize: MediaQuery.textScalerOf(context).scale(18),
-                    fontWeight: FontWeight.w600,
-                  ),
+                  S.of(context).fullName,
+                  style: Theme.of(context).textTheme.labelSmall,
                 ),
                 const SizedBox(height: 10),
                 ProfileFullNameTextField(
@@ -135,11 +129,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 ),
                 const SizedBox(height: 20),
                 Text(
-                  'Phone Number',
-                  style: TextStyle(
-                    fontSize: MediaQuery.textScalerOf(context).scale(18),
-                    fontWeight: FontWeight.w600,
-                  ),
+                  S.of(context).phoneNumber,
+                  style: Theme.of(context).textTheme.labelSmall,
                 ),
                 const SizedBox(height: 10),
                 ProfilePhoneNumberTextField(
@@ -147,11 +138,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 ),
                 const SizedBox(height: 20),
                 Text(
-                  'About Yourself',
-                  style: TextStyle(
-                    fontSize: MediaQuery.textScalerOf(context).scale(18),
-                    fontWeight: FontWeight.w600,
-                  ),
+                  S.of(context).aboutYourself,
+                  style: Theme.of(context).textTheme.labelSmall,
                 ),
                 const SizedBox(height: 10),
                 AboutYourselfTextField(

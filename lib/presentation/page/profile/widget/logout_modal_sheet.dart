@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_button.dart';
+import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profile/edit_profile_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profile/edit_profile_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/login/login_page.dart';
@@ -15,9 +16,9 @@ class LogoutModalSheet extends StatelessWidget {
       margin: EdgeInsets.only(
         top: MediaQuery.of(context).size.height * 0.693,
       ),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.vertical(
+      decoration: BoxDecoration(
+        color: Theme.of(context).scaffoldBackgroundColor,
+        borderRadius: const BorderRadius.vertical(
           top: Radius.circular(30),
         ),
       ),
@@ -26,7 +27,7 @@ class LogoutModalSheet extends StatelessWidget {
           children: [
             const SizedBox(height: 5),
             Text(
-              'Logout',
+              S.of(context).logout,
               style: TextStyle(
                 fontSize: MediaQuery.textScalerOf(context).scale(24),
                 fontWeight: FontWeight.bold,
@@ -36,7 +37,7 @@ class LogoutModalSheet extends StatelessWidget {
             const Divider(),
             const SizedBox(height: 10),
             Text(
-              'Are you sure you want to log out?',
+              S.of(context).areYouSureYouWantToLogOut,
               style: TextStyle(
                 fontSize: MediaQuery.textScalerOf(context).scale(20),
                 fontWeight: FontWeight.w500,
@@ -63,14 +64,14 @@ class _LogoutActionButtonsSection extends StatelessWidget {
           children: [
             Flexible(
               child: _LogoutActionButton(
-                text: 'Cancel',
+                text: S.of(context).cancel,
                 onPressed: () => Navigator.pop(context),
                 isLogOutButton: false,
               ),
             ),
             Flexible(
               child: _LogoutActionButton(
-                text: 'Yes, Logout',
+                text: S.of(context).yesLogout,
                 onPressed: () {
                   context.read<EditProfileBloc>().add(
                     ProfileLogoutEvent(),

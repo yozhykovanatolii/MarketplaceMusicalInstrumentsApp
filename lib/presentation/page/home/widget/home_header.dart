@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/home/widget/notification_button.dart';
 
 class HomeHeader extends StatelessWidget {
@@ -12,10 +11,7 @@ class HomeHeader extends StatelessWidget {
       children: [
         Text(
           'Rentify',
-          style: GoogleFonts.pacifico(
-            fontSize: 35,
-            fontWeight: FontWeight.w600,
-          ),
+          style: Theme.of(context).textTheme.headlineLarge,
         ),
         const NotificationButton(),
       ],

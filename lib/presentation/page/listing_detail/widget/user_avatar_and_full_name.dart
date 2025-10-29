@@ -24,10 +24,7 @@ class UserAvatarAndFullName extends StatelessWidget {
         ),
         Text(
           authorFullName,
-          style: TextStyle(
-            fontSize: MediaQuery.textScalerOf(context).scale(17),
-            fontWeight: FontWeight.w500,
-          ),
+          style: Theme.of(context).textTheme.labelSmall,
         ),
       ],
     );

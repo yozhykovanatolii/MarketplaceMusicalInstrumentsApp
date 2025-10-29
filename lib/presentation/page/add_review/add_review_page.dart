@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/add_review/widget/add_review_action_button.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/add_review/widget/average_rating_bar.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/add_review/widget/review_text_field.dart';
@@ -20,9 +21,9 @@ class AddReviewPage extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       margin: const EdgeInsets.only(top: 320),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.vertical(
+      decoration: BoxDecoration(
+        color: Theme.of(context).scaffoldBackgroundColor,
+        borderRadius: const BorderRadius.vertical(
           top: Radius.circular(30),
         ),
       ),
@@ -33,7 +34,7 @@ class AddReviewPage extends StatelessWidget {
             const SizedBox(height: 5),
             Center(
               child: Text(
-                'Leave a Review',
+                S.of(context).leaveAReview,
                 style: TextStyle(
                   fontSize: MediaQuery.textScalerOf(context).scale(24),
                   fontWeight: FontWeight.bold,
@@ -42,11 +43,8 @@ class AddReviewPage extends StatelessWidget {
             ),
             const SizedBox(height: 15),
             Text(
-              'Your overall rating',
-              style: TextStyle(
-                fontSize: MediaQuery.textScalerOf(context).scale(20),
-                fontWeight: FontWeight.w600,
-              ),
+              S.of(context).yourOverallRating,
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
             const SizedBox(height: 10),
             const AverageRatingBar(),
@@ -54,11 +52,8 @@ class AddReviewPage extends StatelessWidget {
             const Divider(),
             const SizedBox(height: 15),
             Text(
-              'Add detailed review',
-              style: TextStyle(
-                fontSize: MediaQuery.textScalerOf(context).scale(20),
-                fontWeight: FontWeight.w600,
-              ),
+              S.of(context).addDetailedReview,
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
             const SizedBox(height: 10),
             const ReviewTextField(),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/my_listings/widget/listings_section.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/my_listings/widget/requests_section.dart';
 
@@ -11,24 +12,11 @@ class MyListingsPage extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text(
-            'My Listings',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          centerTitle: true,
+          title: Text(S.of(context).myListings),
           bottom: TabBar(
-            indicatorColor: Colors.blue,
-            labelColor: Colors.blue,
-            indicatorWeight: 4,
-            labelStyle: TextStyle(
-              fontSize: MediaQuery.textScalerOf(context).scale(17),
-              fontWeight: FontWeight.w500,
-            ),
-            tabs: const [
-              Tab(text: 'Listings'),
-              Tab(text: 'Requests'),
+            tabs: [
+              Tab(text: S.of(context).listings),
+              Tab(text: S.of(context).requests),
             ],
           ),
         ),

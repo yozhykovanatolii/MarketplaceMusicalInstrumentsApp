@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/filter/widget/average_rating_filter_section.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/filter/widget/category_list_choice_chip.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/filter/widget/filter_actions_button_section.dart';
@@ -12,9 +13,9 @@ class FilterPage extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       margin: const EdgeInsets.only(top: 196),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.vertical(
+      decoration: BoxDecoration(
+        color: Theme.of(context).scaffoldBackgroundColor,
+        borderRadius: const BorderRadius.vertical(
           top: Radius.circular(30),
         ),
       ),
@@ -25,7 +26,7 @@ class FilterPage extends StatelessWidget {
             const SizedBox(height: 5),
             Center(
               child: Text(
-                'Filter by',
+                S.of(context).filterBy,
                 style: TextStyle(
                   fontSize: MediaQuery.textScalerOf(context).scale(24),
                   fontWeight: FontWeight.bold,
@@ -34,11 +35,8 @@ class FilterPage extends StatelessWidget {
             ),
             const SizedBox(height: 15),
             Text(
-              'Category',
-              style: TextStyle(
-                fontSize: MediaQuery.textScalerOf(context).scale(20),
-                fontWeight: FontWeight.w600,
-              ),
+              S.of(context).category,
+              style: Theme.of(context).textTheme.labelLarge,
             ),
             const SizedBox(height: 10),
             const CategoryListFilterChip(),
@@ -46,11 +44,8 @@ class FilterPage extends StatelessWidget {
             const Divider(),
             const SizedBox(height: 15),
             Text(
-              'Price Range (Daily)',
-              style: TextStyle(
-                fontSize: MediaQuery.textScalerOf(context).scale(20),
-                fontWeight: FontWeight.w600,
-              ),
+              S.of(context).priceRangeDaily,
+              style: Theme.of(context).textTheme.labelLarge,
             ),
             const SizedBox(height: 10),
             const PriceRangeSliderSection(),
@@ -58,11 +53,8 @@ class FilterPage extends StatelessWidget {
             const Divider(),
             const SizedBox(height: 10),
             Text(
-              'Rating',
-              style: TextStyle(
-                fontSize: MediaQuery.textScalerOf(context).scale(20),
-                fontWeight: FontWeight.w600,
-              ),
+              S.of(context).rating,
+              style: Theme.of(context).textTheme.labelLarge,
             ),
             const SizedBox(height: 10),
             const AverageRatingFilterSection(),

@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:marketplace_musical_instruments_app/core/exception/auth/user_not_found_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/listing/favourite_listings_exception.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
 import 'package:marketplace_musical_instruments_app/data/repository/user_repository.dart';
@@ -43,9 +44,11 @@ class FavouriteListingsBloc
         );
       },
       onError: (error, stackTrace) {
-        final exception = error as FavouriteListingsException;
+        final errorMessage = error is UserNotFoundException
+            ? error.errorMessage
+            : (error as FavouriteListingsException).errorMessage;
         return state.copyWith(
-          errorMessage: exception.errorMessage,
+          errorMessage: errorMessage,
           status: FavouriteListingsStatus.failure,
         );
       },

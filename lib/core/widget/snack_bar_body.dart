@@ -37,8 +37,6 @@ class SnackBarBody extends StatelessWidget {
           Expanded(
             child: Text(
               message,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 color: Color(color),
                 fontSize: 18,

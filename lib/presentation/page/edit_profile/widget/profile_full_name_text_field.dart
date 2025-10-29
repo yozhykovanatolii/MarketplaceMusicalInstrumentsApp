@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_text_field.dart';
+import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profile/edit_profile_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profile/edit_profile_event.dart';
 
@@ -24,7 +25,7 @@ class ProfileFullNameTextField extends StatelessWidget {
           ProfileFullNameChangeEvent(fullName),
         );
       },
-      hintText: 'Enter your full name',
+      hintText: S.of(context).enterYourFullName,
       errorText: fullNameError,
     );
   }

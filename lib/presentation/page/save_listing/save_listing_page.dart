@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/util/snack_bar_util.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
+import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_event.dart';
@@ -56,13 +57,9 @@ class _SaveListingPageState extends State<SaveListingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Create your listing',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
+        title: Text(
+          S.of(context).createYourListing,
         ),
-        centerTitle: true,
       ),
       body: BlocListener<SaveListingBloc, SaveListingState>(
         listener: (context, state) {
@@ -78,7 +75,7 @@ class _SaveListingPageState extends State<SaveListingPage> {
           if (state.formStatus == FormStatus.success) {
             SnackBarUtil.showSnackBar(
               context,
-              'Successful save listing',
+              S.of(context).successfulSaveListing,
               Icons.check_circle,
               0xFFD4FFFE,
               0xFF009688,
@@ -92,89 +89,64 @@ class _SaveListingPageState extends State<SaveListingPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Add photo of instrument',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+                Text(
+                  S.of(context).addPhotoOfInstrument,
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 Text(
-                  'Select several photos of the tool. The first photo will be on the listing cover.',
-                  style: TextStyle(
-                    color: Colors.grey[600],
-                    fontSize: 15,
-                  ),
+                  S.of(context).selectSeveralPhotosOfTheToolTheFirstPhotoWill,
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
                 const SizedBox(height: 10),
                 const PhotoListView(),
                 const SizedBox(height: 20),
-                const Text(
-                  'Title',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+                Text(
+                  S.of(context).title,
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 const SizedBox(height: 5),
                 ListingTitleTextField(
                   controller: _titleController,
                 ),
                 const SizedBox(height: 20),
-                const Text(
-                  'Description',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+                Text(
+                  S.of(context).description,
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 const SizedBox(height: 5),
                 ListingDescriptionTextField(
                   controller: _descriptionController,
                 ),
                 const SizedBox(height: 20),
-                const Text(
-                  'Price',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+                Text(
+                  S.of(context).price,
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 const SizedBox(height: 5),
                 ListingPriceTextField(
                   controller: _priceTextController,
                 ),
                 const SizedBox(height: 20),
-                const Text(
-                  'Category',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+                Text(
+                  S.of(context).category,
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 Text(
-                  'Select the category to which the musical instrument will belong.',
-                  style: TextStyle(
-                    color: Colors.grey[600],
-                    fontSize: 15,
-                  ),
+                  S
+                      .of(context)
+                      .selectTheCategoryToWhichTheMusicalInstrumentWillBelong,
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
                 const SizedBox(height: 10),
                 const CategoryDropdownMenu(),
                 const SizedBox(height: 20),
-                const Text(
-                  'Location',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+                Text(
+                  S.of(context).location,
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 Text(
-                  'Click the button to get your current location.',
-                  style: TextStyle(
-                    color: Colors.grey[600],
-                    fontSize: 15,
-                  ),
+                  S.of(context).clickTheButtonToGetYourCurrentLocation,
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
                 const SizedBox(height: 10),
                 const MiniGoogleMap(),

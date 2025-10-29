@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:marketplace_musical_instruments_app/data/model/review_model.dart';
+import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/review/review_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/review/review_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/add_review/add_review_page.dart';
@@ -103,7 +104,7 @@ class _ReviewAndRatingHeader extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          'Ratings & Reviews',
+          S.of(context).ratingsReviews,
           style: TextStyle(
             fontSize: MediaQuery.textScalerOf(context).scale(18),
             fontWeight: FontWeight.bold,
@@ -131,7 +132,7 @@ class _ReviewAndRatingHeader extends StatelessWidget {
                 color: Color(0xFF007DFC),
               ),
               Text(
-                'add review',
+                S.of(context).addReview,
                 style: TextStyle(
                   fontSize: MediaQuery.textScalerOf(context).scale(17),
                   fontWeight: FontWeight.w500,
@@ -168,11 +169,8 @@ class _RatingSection extends StatelessWidget {
           ),
         ),
         Text(
-          '$reviewerCounter reviews',
-          style: TextStyle(
-            fontSize: MediaQuery.textScalerOf(context).scale(18),
-            color: Colors.grey[600],
-          ),
+          S.of(context).reviewercounterReviews(reviewerCounter),
+          style: Theme.of(context).textTheme.labelMedium,
         ),
         RatingBarIndicator(
           rating: rating,
@@ -268,10 +266,7 @@ class _ListingReviews extends StatelessWidget {
                     ),
                     Text(
                       '01.02.2026',
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: MediaQuery.textScalerOf(context).scale(16),
-                      ),
+                      style: Theme.of(context).textTheme.labelMedium,
                     ),
                   ],
                 ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_event.dart';
 
@@ -10,22 +11,24 @@ class TextSearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(width: 1.2),
+        border: Border.all(
+          width: 1.2,
+          color: Theme.of(context).textTheme.bodyLarge?.color ?? Colors.black,
+        ),
         borderRadius: BorderRadius.circular(13),
       ),
       child: TextField(
         onChanged: (searchText) => context.read<ListingBloc>().add(
           ListingSearchEvent(searchText),
         ),
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
           border: InputBorder.none,
-          contentPadding: EdgeInsets.all(10),
-          prefixIcon: Icon(
+          contentPadding: const EdgeInsets.all(10),
+          prefixIcon: const Icon(
             Icons.search,
-            color: Colors.black,
           ),
-          hintText: 'Search instrument',
-          hintStyle: TextStyle(
+          hintText: S.of(context).searchInstrument,
+          hintStyle: const TextStyle(
             color: Colors.grey,
             fontSize: 18,
           ),

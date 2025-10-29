@@ -33,10 +33,7 @@ class _RequestsSectionState extends State<RequestsSection> {
           return Center(
             child: Text(
               state.errorMessage,
-              style: const TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.w500,
-              ),
+              style: Theme.of(context).textTheme.labelSmall,
             ),
           );
         }
@@ -51,10 +48,7 @@ class _RequestsSectionState extends State<RequestsSection> {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 date,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: Theme.of(context).textTheme.bodyMedium,
               ),
             ),
             itemBuilder: (context, request) {
@@ -91,7 +85,6 @@ class _RequestCard extends StatelessWidget {
     );
     return Card(
       elevation: 5,
-      color: const Color(0xFFF6F6F6),
       child: Padding(
         padding: const EdgeInsets.all(15),
         child: Column(
@@ -111,10 +104,7 @@ class _RequestCard extends StatelessWidget {
               'Prepared Hero Emergency Fire Blanket 303',
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: MediaQuery.textScalerOf(context).scale(17),
-              ),
+              style: Theme.of(context).textTheme.labelSmall,
             ),
             const SizedBox(height: 15),
             const Divider(),
@@ -123,10 +113,7 @@ class _RequestCard extends StatelessWidget {
               leftWidget: Text('Pick-Up Date', style: textStyle),
               rightWidget: Text(
                 "${request.startDate.day.toString().padLeft(2, '0')}.${request.startDate.month.toString().padLeft(2, '0')}.${request.startDate.year}",
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: MediaQuery.textScalerOf(context).scale(17),
-                ),
+                style: Theme.of(context).textTheme.labelSmall,
               ),
             ),
             const SizedBox(height: 10),
@@ -134,10 +121,7 @@ class _RequestCard extends StatelessWidget {
               leftWidget: Text('Return Date', style: textStyle),
               rightWidget: Text(
                 "${request.endDate.day.toString().padLeft(2, '0')}.${request.endDate.month.toString().padLeft(2, '0')}.${request.endDate.year}",
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: MediaQuery.textScalerOf(context).scale(17),
-                ),
+                style: Theme.of(context).textTheme.labelSmall,
               ),
             ),
             const SizedBox(height: 15),
@@ -147,10 +131,7 @@ class _RequestCard extends StatelessWidget {
               leftWidget: Text('Total price', style: textStyle),
               rightWidget: Text(
                 '\$${request.totalPrice}',
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: MediaQuery.textScalerOf(context).scale(17),
-                ),
+                style: Theme.of(context).textTheme.labelSmall,
               ),
             ),
             const SizedBox(height: 15),

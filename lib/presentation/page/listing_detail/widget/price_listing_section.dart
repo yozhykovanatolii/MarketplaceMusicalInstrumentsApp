@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_button.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/information_dialog_box.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
+import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_state.dart';
@@ -17,12 +18,17 @@ class PriceListingSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textStyle = TextStyle(
+      fontSize: MediaQuery.textScalerOf(context).scale(18),
+      color: Colors.grey[600],
+      fontWeight: FontWeight.w500,
+    );
     return SafeArea(
       child: Container(
         height: 100,
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          color: Colors.transparent,
+          color: Theme.of(context).scaffoldBackgroundColor,
           border: Border.all(
             color: Colors.black,
             width: 0.4,
@@ -39,29 +45,17 @@ class PriceListingSection extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Price',
-                  style: TextStyle(
-                    fontSize: MediaQuery.textScalerOf(context).scale(18),
-                    color: Colors.grey[600],
-                    fontWeight: FontWeight.w500,
-                  ),
+                  S.of(context).price,
+                  style: textStyle,
                 ),
                 RichText(
                   text: TextSpan(
                     text: '\$30',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: MediaQuery.textScalerOf(context).scale(23),
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: Theme.of(context).textTheme.bodyLarge,
                     children: [
                       TextSpan(
                         text: '/hr',
-                        style: TextStyle(
-                          color: Colors.grey[600],
-                          fontWeight: FontWeight.w500,
-                          fontSize: MediaQuery.textScalerOf(context).scale(18),
-                        ),
+                        style: textStyle,
                       ),
                     ],
                   ),
@@ -104,14 +98,15 @@ class _BookingButton extends StatelessWidget {
               context: context,
               builder: (context) => InformationDialogBox(
                 isDeleting: false,
-                title: 'Confirm Booking',
-                description:
-                    'You\'re going to book this instrument. Are you sure?',
+                title: S.of(context).confirmBooking,
+                description: S
+                    .of(context)
+                    .youreGoingToBookThisInstrumentAreYouSure,
                 onClickActionButton: () {
                   context.read<BookingSaveBloc>().add(
                     BookingCreateEvent(listing),
                   );
-                  print('Success booking');
+                  Navigator.pop(context);
                 },
               ),
             );
@@ -121,7 +116,7 @@ class _BookingButton extends StatelessWidget {
       width: MediaQuery.of(context).size.width / 2,
       color: color,
       child: Text(
-        'Book Now',
+        S.of(context).bookNow,
         style: TextStyle(
           fontSize: 18,
           color: textColor,

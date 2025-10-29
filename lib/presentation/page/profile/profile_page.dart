@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/edit_profile/edit_profile_page.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/my_bookings/my_bookings_page.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/my_listings/my_listings_page.dart';
@@ -7,6 +8,7 @@ import 'package:marketplace_musical_instruments_app/presentation/page/profile/wi
 import 'package:marketplace_musical_instruments_app/presentation/page/profile/widget/section_list_tile.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/profile/widget/user_avatar_section.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/profile/widget/user_full_name_section.dart';
+import 'package:marketplace_musical_instruments_app/presentation/page/settings/settings_page.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -15,13 +17,9 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Profile',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
+        title: Text(
+          S.of(context).profile,
         ),
-        centerTitle: true,
       ),
       body: SafeArea(
         minimum: const EdgeInsets.symmetric(
@@ -39,7 +37,7 @@ class ProfilePage extends StatelessWidget {
                 children: [
                   SectionListTile(
                     leadingIcon: Iconsax.user,
-                    title: 'Your profile',
+                    title: S.of(context).yourProfile,
                     onTap: () {
                       Navigator.push(
                         context,
@@ -51,7 +49,7 @@ class ProfilePage extends StatelessWidget {
                   ),
                   SectionListTile(
                     leadingIcon: Iconsax.note,
-                    title: 'My Listings',
+                    title: S.of(context).myListings,
                     onTap: () {
                       Navigator.push(
                         context,
@@ -63,7 +61,7 @@ class ProfilePage extends StatelessWidget {
                   ),
                   SectionListTile(
                     leadingIcon: Iconsax.document_text_1,
-                    title: 'My Bookings',
+                    title: S.of(context).myBookings,
                     onTap: () {
                       Navigator.push(
                         context,
@@ -73,13 +71,21 @@ class ProfilePage extends StatelessWidget {
                       );
                     },
                   ),
-                  const SectionListTile(
+                  SectionListTile(
                     leadingIcon: Iconsax.setting_2,
-                    title: 'Settings',
+                    title: S.of(context).settings,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const SettingsPage(),
+                        ),
+                      );
+                    },
                   ),
                   SectionListTile(
                     leadingIcon: Iconsax.logout,
-                    title: 'Logout',
+                    title: S.of(context).logout,
                     isLogOut: true,
                     onTap: () {
                       showModalBottomSheet(

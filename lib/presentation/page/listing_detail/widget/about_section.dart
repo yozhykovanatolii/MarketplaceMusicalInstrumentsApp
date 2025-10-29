@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/listing_mini_google_map.dart';
+import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/listing_detail/widget/read_more_text.dart';
@@ -30,11 +31,8 @@ class AboutSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Author',
-            style: TextStyle(
-              fontSize: MediaQuery.textScalerOf(context).scale(18),
-              fontWeight: FontWeight.bold,
-            ),
+            S.of(context).author,
+            style: Theme.of(context).textTheme.bodyMedium,
           ),
           const SizedBox(height: 10),
           _AuthorSubSection(
@@ -44,11 +42,8 @@ class AboutSection extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           Text(
-            'Description',
-            style: TextStyle(
-              fontSize: MediaQuery.textScalerOf(context).scale(18),
-              fontWeight: FontWeight.bold,
-            ),
+            S.of(context).description,
+            style: Theme.of(context).textTheme.bodyMedium,
           ),
           const SizedBox(height: 10),
           const ReadMoreText(
@@ -57,19 +52,13 @@ class AboutSection extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           Text(
-            'Location',
-            style: TextStyle(
-              fontSize: MediaQuery.textScalerOf(context).scale(18),
-              fontWeight: FontWeight.bold,
-            ),
+            S.of(context).location,
+            style: Theme.of(context).textTheme.bodyMedium,
           ),
           const SizedBox(height: 5),
           Text(
             'Location',
-            style: TextStyle(
-              fontSize: MediaQuery.textScalerOf(context).scale(17),
-              color: Colors.grey[600],
-            ),
+            style: Theme.of(context).textTheme.labelMedium,
           ),
           const SizedBox(height: 10),
           Expanded(

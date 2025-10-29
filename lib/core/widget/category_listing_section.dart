@@ -20,9 +20,9 @@ class CategoryListingSection extends StatelessWidget {
         child: Text(
           category,
           style: TextStyle(
-            fontSize: MediaQuery.textScalerOf(context).scale(17),
+            fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize,
             color: const Color(0xFF007DFC),
-            fontWeight: FontWeight.w500,
+            fontWeight: Theme.of(context).textTheme.bodyMedium?.fontWeight,
           ),
         ),
       ),

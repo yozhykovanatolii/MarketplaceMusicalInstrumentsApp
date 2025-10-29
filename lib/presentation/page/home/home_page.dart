@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_progress_indicator.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/listing_card.dart';
+import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/home/widget/advertisement_banner.dart';
@@ -35,12 +36,9 @@ class HomePage extends StatelessWidget {
             const SizedBox(height: 20),
             const AdvertisementBanner(),
             const SizedBox(height: 20),
-            const Text(
-              'Recommended For You',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+            Text(
+              S.of(context).recommendedForYou,
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
             const SizedBox(height: 10),
             Expanded(
@@ -50,10 +48,7 @@ class HomePage extends StatelessWidget {
                     return Center(
                       child: Text(
                         state.errorMessage,
-                        style: const TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.w500,
-                        ),
+                        style: Theme.of(context).textTheme.labelSmall,
                       ),
                     );
                   }

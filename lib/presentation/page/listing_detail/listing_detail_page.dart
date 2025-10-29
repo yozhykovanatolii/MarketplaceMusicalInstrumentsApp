@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/util/snack_bar_util.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
+import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_state.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/listing_detail/widget/about_section.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/listing_detail/widget/calendar_section.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/listing_detail/widget/category_and_average_rating_section.dart';
@@ -22,11 +24,20 @@ class ListingDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<BookingSaveBloc, BookingSaveState>(
-      listenWhen: (previous, current) {
-        return previous.errorMessage != current.errorMessage;
-      },
       listener: (BuildContext context, BookingSaveState state) {
-        if (state.errorMessage.isNotEmpty) {
+        final formStatus = state.formStatus;
+        if (state.formStatus == FormStatus.success) {
+          SnackBarUtil.showSnackBar(
+            context,
+            S
+                .of(context)
+                .theTransactionWasSuccessfulYourBookingRequestHasBeenSent,
+            Icons.check_circle,
+            0xFFD4FFFE,
+            0xFF009688,
+          );
+        }
+        if (formStatus == FormStatus.failure) {
           SnackBarUtil.showSnackBar(
             context,
             state.errorMessage,
@@ -61,29 +72,17 @@ class ListingDetailPage extends StatelessWidget {
                         ),
                         Text(
                           'Prepared Hero Emergency Fire Blanket 303',
-                          style: TextStyle(
-                            fontSize: MediaQuery.textScalerOf(
-                              context,
-                            ).scale(22),
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: Theme.of(context).textTheme.bodyLarge,
                         ),
                       ],
                     ),
                   ),
                   const SizedBox(height: 10),
                   TabBar(
-                    indicatorColor: const Color(0xFF007DFC),
-                    labelColor: const Color(0xFF007DFC),
-                    indicatorWeight: 4,
-                    labelStyle: TextStyle(
-                      fontSize: MediaQuery.textScalerOf(context).scale(17),
-                      fontWeight: FontWeight.w500,
-                    ),
-                    tabs: const [
-                      Tab(text: 'About'),
-                      Tab(text: 'Calendar'),
-                      Tab(text: 'Review'),
+                    tabs: [
+                      Tab(text: S.of(context).about),
+                      Tab(text: S.of(context).calendar),
+                      Tab(text: S.of(context).review),
                     ],
                   ),
                   SizedBox(

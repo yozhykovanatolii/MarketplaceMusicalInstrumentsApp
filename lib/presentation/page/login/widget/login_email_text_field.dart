@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_text_field.dart';
+import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
@@ -17,7 +18,7 @@ class LoginEmailTextField extends StatelessWidget {
           onChanged: (email) => context.read<LoginBloc>().add(
             LoginEmailChangeEvent(email),
           ),
-          hintText: 'Enter your email',
+          hintText: S.of(context).enterYourEmail,
           errorText: emailError,
         );
       },

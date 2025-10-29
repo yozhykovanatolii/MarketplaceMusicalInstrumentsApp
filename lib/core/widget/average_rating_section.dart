@@ -22,11 +22,7 @@ class AverageRatingSection extends StatelessWidget {
         RichText(
           text: TextSpan(
             text: '$averageRating ',
-            style: TextStyle(
-              fontSize: MediaQuery.textScalerOf(context).scale(17),
-              fontWeight: FontWeight.w500,
-              color: Colors.black,
-            ),
+            style: Theme.of(context).textTheme.bodyMedium,
             children: [
               TextSpan(
                 text: '($reviewerCounter)',

@@ -33,6 +33,10 @@ class CommonTextField extends StatelessWidget {
       readOnly: readOnly,
       obscureText: obscureText,
       keyboardType: keyboardType,
+      style: const TextStyle(
+        color: Colors.black,
+        fontSize: 18,
+      ),
       decoration: InputDecoration(
         filled: true,
         fillColor: const Color(0xFFF6F6F6),
@@ -65,6 +69,10 @@ class CommonTextField extends StatelessWidget {
         errorText: errorText,
         counterText: counterText,
         hintText: hintText,
+        hintStyle: const TextStyle(
+          color: Colors.grey,
+          fontSize: 18,
+        ),
       ),
     );
   }

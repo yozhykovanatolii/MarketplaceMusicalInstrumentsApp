@@ -5,6 +5,7 @@ import 'package:marketplace_musical_instruments_app/core/util/calculation_bookin
 import 'package:marketplace_musical_instruments_app/data/repository/booking_repository.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_state.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_state.dart';
 
 class BookingSaveBloc extends Bloc<BookingSaveEvent, BookingSaveState> {
@@ -32,6 +33,7 @@ class BookingSaveBloc extends Bloc<BookingSaveEvent, BookingSaveState> {
       emit(
         state.copyWith(
           buttonStatus: ButtonStatus.disabled,
+          formStatus: FormStatus.failure,
           errorMessage:
               'This instrument is already booked for the selected dates.',
         ),
@@ -46,6 +48,7 @@ class BookingSaveBloc extends Bloc<BookingSaveEvent, BookingSaveState> {
     emit(
       state.copyWith(
         errorMessage: '',
+        formStatus: FormStatus.initial,
         buttonStatus: ButtonStatus.enabled,
         startBookingDate: startDate,
         endBookingDate: endDate,
@@ -61,9 +64,19 @@ class BookingSaveBloc extends Bloc<BookingSaveEvent, BookingSaveState> {
     try {
       await DialerService.openDialer(event.authorPhoneNumber);
     } catch (exception) {
-      emit(state.copyWith(errorMessage: exception.toString()));
+      emit(
+        state.copyWith(
+          errorMessage: exception.toString(),
+          formStatus: FormStatus.failure,
+        ),
+      );
     } finally {
-      emit(state.copyWith(errorMessage: ''));
+      emit(
+        state.copyWith(
+          errorMessage: '',
+          formStatus: FormStatus.initial,
+        ),
+      );
     }
   }
 
@@ -82,10 +95,12 @@ class BookingSaveBloc extends Bloc<BookingSaveEvent, BookingSaveState> {
         endBookingDate,
         int.parse(totalPriceText),
       );
+      emit(state.copyWith(formStatus: FormStatus.success));
     } on UserNotFoundException catch (exception) {
       emit(
         state.copyWith(
           errorMessage: exception.errorMessage,
+          formStatus: FormStatus.failure,
         ),
       );
     }

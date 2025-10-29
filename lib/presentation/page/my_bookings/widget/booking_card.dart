@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/category_listing_section.dart';
 import 'package:marketplace_musical_instruments_app/data/model/booking_model.dart';
+import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 
 class BookingCard extends StatelessWidget {
   final BookingModel booking;
@@ -14,7 +15,6 @@ class BookingCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 5,
-      color: const Color(0xFFF6F6F6),
       child: Padding(
         padding: const EdgeInsets.all(15),
         child: Column(
@@ -44,12 +44,7 @@ class BookingCard extends StatelessWidget {
                       ),
                       Text(
                         'Prepared Hero Emergency Fire Blanket 303',
-                        style: TextStyle(
-                          fontSize: MediaQuery.textScalerOf(
-                            context,
-                          ).scale(17),
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     ],
                   ),
@@ -60,42 +55,33 @@ class BookingCard extends StatelessWidget {
             const Divider(),
             const SizedBox(height: 13),
             _BookingInformation(
-              title: 'Pick-Up Date',
+              title: S.of(context).pickupDate,
               widget: Text(
                 "${booking.startDate.day.toString().padLeft(2, '0')}.${booking.startDate.month.toString().padLeft(2, '0')}.${booking.startDate.year}",
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: MediaQuery.textScalerOf(context).scale(17),
-                ),
+                style: Theme.of(context).textTheme.labelSmall,
               ),
             ),
             const SizedBox(height: 10),
             _BookingInformation(
-              title: 'Return Date',
+              title: S.of(context).returnDate,
               widget: Text(
                 "${booking.endDate.day.toString().padLeft(2, '0')}.${booking.endDate.month.toString().padLeft(2, '0')}.${booking.endDate.year}",
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: MediaQuery.textScalerOf(context).scale(17),
-                ),
+                style: Theme.of(context).textTheme.labelSmall,
               ),
             ),
             const SizedBox(height: 13),
             const Divider(),
             const SizedBox(height: 13),
             _BookingInformation(
-              title: 'Total price',
+              title: S.of(context).totalPrice,
               widget: Text(
                 '\$${booking.totalPrice}',
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: MediaQuery.textScalerOf(context).scale(17),
-                ),
+                style: Theme.of(context).textTheme.labelSmall,
               ),
             ),
             const SizedBox(height: 10),
             _BookingInformation(
-              title: 'Status',
+              title: S.of(context).status,
               widget: _StatusSection(
                 status: booking.status,
               ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_text_field.dart';
+import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profile/edit_profile_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profile/edit_profile_event.dart';
 
@@ -25,7 +25,7 @@ class ProfilePhoneNumberTextField extends StatelessWidget {
           ProfilePhoneNumberChangeEvent(phoneNumber),
         );
       },
-      hintText: 'Enter your phone number',
+      hintText: S.of(context).enterYourPhoneNumber,
       errorText: phoneNumberError,
     );
   }

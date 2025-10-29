@@ -28,9 +28,6 @@ class CategoryDropdownMenu extends StatelessWidget {
         ),
       ),
       menuStyle: MenuStyle(
-        backgroundColor: const WidgetStatePropertyAll(
-          Color(0xFFFAFAFA),
-        ),
         shape: WidgetStatePropertyAll(
           RoundedRectangleBorder(
             borderRadius: BorderRadiusGeometry.circular(12),

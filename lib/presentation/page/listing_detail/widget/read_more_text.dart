@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 
 class ReadMoreText extends StatefulWidget {
   final String text;
@@ -57,16 +58,13 @@ class _ReadMoreTextState extends State<ReadMoreText> {
           widget.text,
           maxLines: _isReadMore ? widget.maxLines : null,
           overflow: _isReadMore ? TextOverflow.ellipsis : TextOverflow.fade,
-          style: TextStyle(
-            color: Colors.grey[600],
-            fontSize: MediaQuery.textScalerOf(context).scale(17),
-          ),
+          style: Theme.of(context).textTheme.labelMedium,
         ),
         if (_isOverflowing)
           GestureDetector(
             onTap: _readTextMore,
             child: Text(
-              _isReadMore ? 'Read more ' : 'Read less',
+              _isReadMore ? S.of(context).readMore : S.of(context).readLess,
               style: TextStyle(
                 color: const Color(0xFF007DFC),
                 fontWeight: FontWeight.w500,

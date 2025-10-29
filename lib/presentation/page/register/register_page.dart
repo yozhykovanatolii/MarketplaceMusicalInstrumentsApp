@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/util/snack_bar_util.dart';
+import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/register/register_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/register/register_state.dart';
@@ -30,7 +31,7 @@ class RegisterPage extends StatelessWidget {
           if (state.formStatus == FormStatus.success) {
             SnackBarUtil.showSnackBar(
               context,
-              'Success registration',
+              S.of(context).successRegistration,
               Icons.check_circle,
               0xFFD4FFFE,
               0xFF009688,
@@ -43,21 +44,15 @@ class RegisterPage extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text(
-                  'Create Account',
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                  ),
+                Text(
+                  S.of(context).createAccount,
+                  style: Theme.of(context).textTheme.headlineMedium,
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  'Fill your information below',
+                  S.of(context).fillYourInformationBelow,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.grey[600],
-                    fontSize: 17,
-                  ),
+                  style: Theme.of(context).textTheme.labelMedium,
                 ),
                 const SizedBox(height: 50),
                 const RegisterFullNameTextField(),

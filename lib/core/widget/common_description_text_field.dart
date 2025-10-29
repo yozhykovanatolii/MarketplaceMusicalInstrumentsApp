@@ -25,6 +25,7 @@ class CommonDescriptionTextField extends StatelessWidget {
         maxLines: null,
         minLines: 5,
         onChanged: onChanged,
+        style: const TextStyle(color: Colors.black),
         decoration: InputDecoration(
           filled: true,
           fillColor: const Color(0xFFF6F6F6),
@@ -53,6 +54,10 @@ class CommonDescriptionTextField extends StatelessWidget {
               width: 3,
             ),
             borderRadius: BorderRadius.circular(12),
+          ),
+          hintStyle: const TextStyle(
+            color: Colors.grey,
+            fontSize: 18,
           ),
           contentPadding: const EdgeInsets.all(10),
           errorText: errorText,

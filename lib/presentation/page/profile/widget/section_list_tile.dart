@@ -27,9 +27,7 @@ class SectionListTile extends StatelessWidget {
       title: Text(
         title,
         style: TextStyle(
-          color: isLogOut ? Colors.red : Colors.black,
-          fontSize: 20,
-          fontWeight: FontWeight.w500,
+          color: isLogOut ? Colors.red : null,
         ),
       ),
       trailing: const Icon(
