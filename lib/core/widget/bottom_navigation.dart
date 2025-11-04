@@ -5,9 +5,8 @@ class BottomNavigation extends StatelessWidget {
   final int selectedIndex;
   static const iconsData = [
     Iconsax.home,
-    Iconsax.map,
-    Iconsax.add,
     Iconsax.heart,
+    Iconsax.add,
     Iconsax.user,
   ];
   final ValueChanged<int> onTap;

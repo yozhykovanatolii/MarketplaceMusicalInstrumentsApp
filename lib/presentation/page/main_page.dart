@@ -16,9 +16,8 @@ class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
   static const _pages = [
     HomePage(),
-    HomePage(),
-    SaveListingPage(),
     FavouriteListingsPage(),
+    SaveListingPage(),
     ProfilePage(),
   ];
 
