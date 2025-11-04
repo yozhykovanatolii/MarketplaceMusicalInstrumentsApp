@@ -324,10 +324,10 @@ class S {
     return Intl.message('Cancel', name: 'cancel', desc: '', args: []);
   }
 
-  /// `Search instrument`
+  /// `Search instrument...`
   String get searchInstrument {
     return Intl.message(
-      'Search instrument',
+      'Search instrument...',
       name: 'searchInstrument',
       desc: '',
       args: [],

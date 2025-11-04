@@ -11,8 +11,9 @@ class TextSearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
+        color: Theme.of(context).scaffoldBackgroundColor,
         border: Border.all(
-          width: 1.2,
+          width: 1.5,
           color: Theme.of(context).textTheme.bodyLarge?.color ?? Colors.black,
         ),
         borderRadius: BorderRadius.circular(13),

@@ -131,7 +131,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "reviewercounterReviews": m0,
     "save": MessageLookupByLibrary.simpleMessage("Save"),
     "searchInstrument": MessageLookupByLibrary.simpleMessage(
-      "Search instrument",
+      "Search instrument...",
     ),
     "selectSeveralPhotosOfTheToolTheFirstPhotoWill":
         MessageLookupByLibrary.simpleMessage(
