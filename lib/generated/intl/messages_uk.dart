@@ -54,6 +54,7 @@ class MessageLookup extends MessageLookupByLibrary {
           "Натисніть кнопку, щоб отримати своє поточне місцезнаходження.",
         ),
     "confirmBooking": MessageLookupByLibrary.simpleMessage("Забронювати"),
+    "create": MessageLookupByLibrary.simpleMessage("Створити"),
     "createAccount": MessageLookupByLibrary.simpleMessage(
       "Створити обліковий запис",
     ),
@@ -104,6 +105,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "filterBy": MessageLookupByLibrary.simpleMessage("Фільтрувати по"),
     "forgotPassword": MessageLookupByLibrary.simpleMessage("Забув пароль?"),
     "fullName": MessageLookupByLibrary.simpleMessage("ПІБ"),
+    "home": MessageLookupByLibrary.simpleMessage("Головна"),
     "language": MessageLookupByLibrary.simpleMessage("Мова"),
     "languages": MessageLookupByLibrary.simpleMessage("Мови"),
     "leaveAReview": MessageLookupByLibrary.simpleMessage("Залишити відгук"),

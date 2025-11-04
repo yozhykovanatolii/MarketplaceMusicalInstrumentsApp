@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:marketplace_musical_instruments_app/core/widget/get_user_location_button.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/listing_mini_google_map.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_event.dart';
@@ -28,15 +28,9 @@ class MiniGoogleMap extends StatelessWidget {
         Positioned(
           right: 10,
           bottom: 10,
-          child: FloatingActionButton(
+          child: GetUserLocationButton(
             onPressed: () => context.read<SaveListingBloc>().add(
               GetUserCurrentLocationEvent(),
-            ),
-            backgroundColor: Colors.white,
-            foregroundColor: Colors.blue,
-            shape: const CircleBorder(),
-            child: const Icon(
-              Iconsax.gps,
             ),
           ),
         ),

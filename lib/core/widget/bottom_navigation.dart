@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 
 class BottomNavigation extends StatelessWidget {
   final int selectedIndex;
-  static const iconsData = [
-    Iconsax.home,
-    Iconsax.heart,
-    Iconsax.add,
-    Iconsax.user,
-  ];
   final ValueChanged<int> onTap;
 
   const BottomNavigation({
@@ -19,23 +14,24 @@ class BottomNavigation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final iconsData = [
+      _MenuItem(text: S.of(context).home, iconData: Iconsax.home),
+      _MenuItem(text: S.of(context).favourite, iconData: Iconsax.heart),
+      _MenuItem(text: S.of(context).create, iconData: Iconsax.add),
+      _MenuItem(text: S.of(context).profile, iconData: Iconsax.user),
+    ];
     return SafeArea(
       child: Container(
         height: 56,
-        margin: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 8,
-        ),
         padding: const EdgeInsets.symmetric(horizontal: 12),
         decoration: BoxDecoration(
-          color: const Color(0xFF1E1E1E),
-          borderRadius: BorderRadius.circular(20),
+          color: Theme.of(context).scaffoldBackgroundColor,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: List.generate(iconsData.length, (int index) {
             return _BottomNavigationItem(
-              iconData: iconsData[index],
+              menuItem: iconsData[index],
               isActive: selectedIndex == index,
               onTap: () => onTap(index),
             );
@@ -46,14 +42,24 @@ class BottomNavigation extends StatelessWidget {
   }
 }
 
-class _BottomNavigationItem extends StatelessWidget {
+class _MenuItem {
+  final String text;
   final IconData iconData;
+
+  _MenuItem({
+    required this.text,
+    required this.iconData,
+  });
+}
+
+class _BottomNavigationItem extends StatelessWidget {
+  final _MenuItem menuItem;
   final bool isActive;
   final GestureTapCallback onTap;
 
   const _BottomNavigationItem({
     super.key,
-    required this.iconData,
+    required this.menuItem,
     required this.isActive,
     required this.onTap,
   });
@@ -65,6 +71,7 @@ class _BottomNavigationItem extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          const SizedBox(height: 4),
           AnimatedContainer(
             duration: const Duration(milliseconds: 250),
             height: 3,
@@ -78,10 +85,17 @@ class _BottomNavigationItem extends StatelessWidget {
             duration: const Duration(milliseconds: 250),
             curve: Curves.easeOutBack,
             width: 36,
-            height: 36,
+            height: 28,
             child: Icon(
-              size: 24,
-              iconData,
+              size: 23,
+              menuItem.iconData,
+              color: isActive ? const Color(0xFF007DFC) : Colors.grey[400],
+            ),
+          ),
+          Text(
+            menuItem.text,
+            style: TextStyle(
+              fontSize: 15,
               color: isActive ? const Color(0xFF007DFC) : Colors.grey[400],
             ),
           ),

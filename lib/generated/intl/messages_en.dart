@@ -52,6 +52,7 @@ class MessageLookup extends MessageLookupByLibrary {
           "Click the button to get your current location.",
         ),
     "confirmBooking": MessageLookupByLibrary.simpleMessage("Confirm Booking"),
+    "create": MessageLookupByLibrary.simpleMessage("Create"),
     "createAccount": MessageLookupByLibrary.simpleMessage("Create Account"),
     "createYourListing": MessageLookupByLibrary.simpleMessage(
       "Create your listing",
@@ -96,6 +97,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "filterBy": MessageLookupByLibrary.simpleMessage("Filter by"),
     "forgotPassword": MessageLookupByLibrary.simpleMessage("Forgot Password?"),
     "fullName": MessageLookupByLibrary.simpleMessage("Full Name"),
+    "home": MessageLookupByLibrary.simpleMessage("Home"),
     "language": MessageLookupByLibrary.simpleMessage("Language"),
     "languages": MessageLookupByLibrary.simpleMessage("Languages"),
     "leaveAReview": MessageLookupByLibrary.simpleMessage("Leave a Review"),

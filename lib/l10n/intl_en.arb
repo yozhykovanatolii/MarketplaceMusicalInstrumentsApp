@@ -89,5 +89,7 @@
   "yesConfirmIt": "Yes, Confirm It!",
   "confirmBooking": "Confirm Booking",
   "youreGoingToBookThisInstrumentAreYouSure": "You're going to book this instrument. Are you sure?",
-  "bookNow": "Book Now"
+  "bookNow": "Book Now",
+  "home": "Home",
+  "create": "Create"
 }

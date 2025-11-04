@@ -89,5 +89,7 @@
   "yesConfirmIt": "Так, підтвердити!",
   "confirmBooking": "Забронювати",
   "youreGoingToBookThisInstrumentAreYouSure": "Ви збираєтеся забронювати цей інструмент. Ви впевнені?",
-  "bookNow": "Орендувати"
+  "bookNow": "Орендувати",
+  "home": "Головна",
+  "create": "Створити"
 }
