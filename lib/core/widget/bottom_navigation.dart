@@ -95,7 +95,7 @@ class _BottomNavigationItem extends StatelessWidget {
           Text(
             menuItem.text,
             style: TextStyle(
-              fontSize: 15,
+              fontSize: 13,
               color: isActive ? const Color(0xFF007DFC) : Colors.grey[400],
             ),
           ),

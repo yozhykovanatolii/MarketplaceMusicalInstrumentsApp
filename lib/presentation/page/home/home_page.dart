@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:marketplace_musical_instruments_app/core/widget/get_user_location_button.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/home/widget/filter_floating_action_button.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/home/widget/google_map_section.dart';
+import 'package:marketplace_musical_instruments_app/presentation/page/home/widget/listings_drawable_sheet.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/home/widget/text_search_bar.dart';
 
 class HomePage extends StatelessWidget {
@@ -9,8 +9,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: const SafeArea(
+    return const Scaffold(
+      body: SafeArea(
         child: Stack(
           children: [
             GoogleMapSection(),
@@ -27,11 +27,9 @@ class HomePage extends StatelessWidget {
                 ],
               ),
             ),
+            Positioned(child: ListingsDrawableSheet()),
           ],
         ),
-      ),
-      floatingActionButton: GetUserLocationButton(
-        onPressed: () {},
       ),
     );
   }
