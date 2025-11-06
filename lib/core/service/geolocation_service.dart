@@ -18,4 +18,22 @@ class GeolocationService {
     }
     return await Geolocator.getCurrentPosition();
   }
+
+  static bool isListingExistInThisRadius(
+    double radius,
+    double userLat,
+    double userLng,
+    double listingLat,
+    double listingLng,
+  ) {
+    final distance =
+        Geolocator.distanceBetween(
+          listingLat,
+          listingLng,
+          userLat,
+          userLng,
+        ) /
+        1000;
+    return distance <= radius;
+  }
 }

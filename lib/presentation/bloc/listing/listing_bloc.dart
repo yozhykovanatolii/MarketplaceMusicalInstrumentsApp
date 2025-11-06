@@ -1,8 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:marketplace_musical_instruments_app/core/exception/listing/get_all_listings_except_user_exception.dart';
+import 'package:marketplace_musical_instruments_app/core/exception/geolocation_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/listing/listing_filtration_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/listing/listing_searching_exception.dart';
-import 'package:marketplace_musical_instruments_app/core/exception/auth/user_not_found_exception.dart';
+import 'package:marketplace_musical_instruments_app/core/exception/permission_denied_exception.dart';
+import 'package:marketplace_musical_instruments_app/core/service/geolocation_service.dart';
 import 'package:marketplace_musical_instruments_app/data/repository/listing_repository.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_state.dart';
@@ -25,17 +26,50 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
     Emitter<ListingState> emit,
   ) async {
     emit(state.copyWith(status: ListingStatus.loading));
+    await _getUserLocation(emit);
+    await _fetchListings(emit);
+  }
+
+  Future<void> _fetchListings(Emitter<ListingState> emit) async {
     try {
-      final listings = await _listingRepository.getAllListingExceptUsers();
+      final listings = await _listingRepository.filterListings(
+        state.selectedCategories,
+        state.startPrice,
+        state.endPrice,
+        state.selectedAverageRating,
+        state.location['latitude']!,
+        state.location['longitude']!,
+      );
       emit(state.copyWith(listings: listings, status: ListingStatus.success));
-    } on UserNotFoundException catch (exception) {
+    } on ListingFiltrationException catch (exception) {
       emit(
         state.copyWith(
           errorMessage: exception.errorMessage,
           status: ListingStatus.failure,
         ),
       );
-    } on GetAllListingsExceptUserException catch (exception) {
+    }
+  }
+
+  Future<void> _getUserLocation(Emitter<ListingState> emit) async {
+    try {
+      final location = await GeolocationService.getCurrentLocation();
+      final updatedUserLocation = Map<String, double>.from(
+        state.location,
+      );
+      updatedUserLocation.addAll({
+        'latitude': location.latitude,
+        'longitude': location.longitude,
+      });
+      emit(state.copyWith(location: updatedUserLocation));
+    } on PermissionDeniedException catch (exception) {
+      emit(
+        state.copyWith(
+          errorMessage: exception.errorMessage,
+          status: ListingStatus.failure,
+        ),
+      );
+    } on GeolocationException catch (exception) {
       emit(
         state.copyWith(
           errorMessage: exception.errorMessage,
@@ -98,7 +132,6 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
     } else {
       updatedCategories.add(event.category);
     }
-    print(updatedCategories);
     emit(state.copyWith(selectedCategories: updatedCategories));
   }
 
@@ -121,21 +154,6 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
     Emitter<ListingState> emit,
   ) async {
     emit(state.copyWith(status: ListingStatus.loading));
-    try {
-      final listings = await _listingRepository.filterListings(
-        state.selectedCategories,
-        state.startPrice,
-        state.endPrice,
-        state.selectedAverageRating,
-      );
-      emit(state.copyWith(listings: listings, status: ListingStatus.success));
-    } on ListingFiltrationException catch (exception) {
-      emit(
-        state.copyWith(
-          errorMessage: exception.errorMessage,
-          status: ListingStatus.failure,
-        ),
-      );
-    }
+    await _fetchListings(emit);
   }
 }
