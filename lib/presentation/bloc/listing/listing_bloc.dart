@@ -18,6 +18,8 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
     on<PriceRangeSelectedEvent>(_choosePriceRange);
     on<ListingCategorySelectedEvent>(_chooseListingCategory);
     on<ClearFilterEvent>(_clearFilter);
+    on<DistanceDecreaseEvent>(_decreaseDistance);
+    on<DistanceIncreaseEvent>(_increaseDistance);
     on<ListingFilterEvent>(_filterListings);
   }
 
@@ -39,6 +41,7 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
         state.selectedAverageRating,
         state.location['latitude']!,
         state.location['longitude']!,
+        state.distance,
       );
       emit(state.copyWith(listings: listings, status: ListingStatus.success));
     } on ListingFiltrationException catch (exception) {
@@ -147,6 +150,23 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
         selectedCategories: [],
       ),
     );
+  }
+
+  void _decreaseDistance(
+    DistanceDecreaseEvent event,
+    Emitter<ListingState> emit,
+  ) {
+    final distance = state.distance;
+    if (distance <= 1) return;
+    emit(state.copyWith(distance: distance - 1));
+  }
+
+  void _increaseDistance(
+    DistanceIncreaseEvent event,
+    Emitter<ListingState> emit,
+  ) {
+    final distance = state.distance;
+    emit(state.copyWith(distance: distance + 1));
   }
 
   Future<void> _filterListings(

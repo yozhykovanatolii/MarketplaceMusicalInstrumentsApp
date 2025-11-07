@@ -27,6 +27,10 @@ final class ListingCategorySelectedEvent extends ListingEvent {
   ListingCategorySelectedEvent(this.category);
 }
 
+final class DistanceIncreaseEvent extends ListingEvent {}
+
+final class DistanceDecreaseEvent extends ListingEvent {}
+
 final class ClearFilterEvent extends ListingEvent {}
 
 final class ListingFilterEvent extends ListingEvent {}

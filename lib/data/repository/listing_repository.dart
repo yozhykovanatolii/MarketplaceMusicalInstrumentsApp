@@ -65,6 +65,7 @@ class ListingRepository {
     int averageRating,
     double userLat,
     double userLng,
+    int radius,
   ) async {
     return await _listingFirestore.filterListings(
       categories,
@@ -73,6 +74,7 @@ class ListingRepository {
       averageRating,
       userLat,
       userLng,
+      radius,
     );
   }
 

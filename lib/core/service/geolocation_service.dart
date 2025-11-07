@@ -20,7 +20,7 @@ class GeolocationService {
   }
 
   static bool isListingExistInThisRadius(
-    double radius,
+    int radius,
     double userLat,
     double userLng,
     double listingLat,

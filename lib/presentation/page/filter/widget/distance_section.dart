@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_bloc.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_event.dart';
 
 class DistanceSection extends StatelessWidget {
   const DistanceSection({super.key});
@@ -13,18 +16,15 @@ class DistanceSection extends StatelessWidget {
           'Distance',
           style: Theme.of(context).textTheme.labelLarge,
         ),
-        Row(
+        const Row(
           mainAxisSize: MainAxisSize.min,
           spacing: 10,
           children: [
             _DistanceActionButton(
-              onPressed: () {},
               isIncreasing: false,
             ),
-            const _DistanceResultSection(),
-            _DistanceActionButton(
-              onPressed: () {},
-            ),
+            _DistanceResultSection(),
+            _DistanceActionButton(),
           ],
         ),
       ],
@@ -37,8 +37,11 @@ class _DistanceResultSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final distance = context.select(
+      (ListingBloc bloc) => bloc.state.distance,
+    );
     return Text(
-      '2 km',
+      '$distance km',
       style: TextStyle(
         fontSize: MediaQuery.textScalerOf(context).scale(18),
         fontWeight: FontWeight.w500,
@@ -48,19 +51,19 @@ class _DistanceResultSection extends StatelessWidget {
 }
 
 class _DistanceActionButton extends StatelessWidget {
-  final Function()? onPressed;
   final bool isIncreasing;
 
   const _DistanceActionButton({
     super.key,
-    required this.onPressed,
     this.isIncreasing = true,
   });
 
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton.small(
-      onPressed: onPressed,
+      onPressed: () => context.read<ListingBloc>().add(
+        isIncreasing ? DistanceIncreaseEvent() : DistanceDecreaseEvent(),
+      ),
       backgroundColor: Colors.white,
       foregroundColor: Colors.black,
       child: Icon(

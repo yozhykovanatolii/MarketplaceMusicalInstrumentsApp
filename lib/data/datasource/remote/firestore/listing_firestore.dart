@@ -104,6 +104,7 @@ class ListingFirestore {
     int averageRating,
     double userLat,
     double userLng,
+    int radius,
   ) async {
     var query = _firestore
         .collection('listings')
@@ -135,7 +136,7 @@ class ListingFirestore {
     final nearbyListings = listings.where((listing) {
       final location = listing.location;
       return GeolocationService.isListingExistInThisRadius(
-        1,
+        radius,
         userLat,
         userLng,
         location['latitude']!,

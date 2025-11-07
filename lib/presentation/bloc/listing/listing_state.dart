@@ -10,6 +10,7 @@ class ListingState {
   final int endPrice;
   final List<String> selectedCategories;
   final Map<String, double> location;
+  final int distance;
   final ListingStatus status;
 
   ListingState({
@@ -20,6 +21,7 @@ class ListingState {
     required this.endPrice,
     required this.selectedCategories,
     required this.location,
+    required this.distance,
     required this.status,
   });
 
@@ -30,6 +32,7 @@ class ListingState {
       selectedAverageRating: 0,
       startPrice: 0,
       endPrice: 20,
+      distance: 1,
       selectedCategories: [],
       location: {'latitude': 37.42796133580664, 'longitude': -122.085749655962},
       status: ListingStatus.initial,
@@ -44,6 +47,7 @@ class ListingState {
     int? endPrice,
     List<String>? selectedCategories,
     Map<String, double>? location,
+    int? distance,
     ListingStatus? status,
   }) {
     return ListingState(
@@ -55,6 +59,7 @@ class ListingState {
       endPrice: endPrice ?? this.endPrice,
       selectedCategories: selectedCategories ?? this.selectedCategories,
       location: location ?? this.location,
+      distance: distance ?? this.distance,
       status: status ?? this.status,
     );
   }
