@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/filter/widget/average_rating_filter_section.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/filter/widget/category_list_choice_chip.dart';
+import 'package:marketplace_musical_instruments_app/presentation/page/filter/widget/distance_section.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/filter/widget/filter_actions_button_section.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/filter/widget/price_range_slider_section.dart';
 
@@ -12,7 +13,7 @@ class FilterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      margin: const EdgeInsets.only(top: 196),
+      margin: const EdgeInsets.only(top: 110),
       decoration: BoxDecoration(
         color: Theme.of(context).scaffoldBackgroundColor,
         borderRadius: const BorderRadius.vertical(
@@ -28,7 +29,7 @@ class FilterPage extends StatelessWidget {
               child: Text(
                 S.of(context).filterBy,
                 style: TextStyle(
-                  fontSize: MediaQuery.textScalerOf(context).scale(24),
+                  fontSize: MediaQuery.textScalerOf(context).scale(23),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -42,13 +43,8 @@ class FilterPage extends StatelessWidget {
             const CategoryListFilterChip(),
             const SizedBox(height: 10),
             const Divider(),
-            const SizedBox(height: 15),
-            Text(
-              S.of(context).priceRangeDaily,
-              style: Theme.of(context).textTheme.labelLarge,
-            ),
             const SizedBox(height: 10),
-            const PriceRangeSliderSection(),
+            const DistanceSection(),
             const SizedBox(height: 10),
             const Divider(),
             const SizedBox(height: 10),
@@ -58,6 +54,16 @@ class FilterPage extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             const AverageRatingFilterSection(),
+            const SizedBox(height: 10),
+            const Divider(),
+            const SizedBox(height: 15),
+            Text(
+              S.of(context).priceRangeDaily,
+              style: Theme.of(context).textTheme.labelLarge,
+            ),
+            const SizedBox(height: 10),
+            const PriceRangeSliderSection(),
+            const SizedBox(height: 25),
             const FilterActionsButtonSection(),
           ],
         ),
