@@ -778,6 +778,21 @@ class S {
   String get create {
     return Intl.message('Create', name: 'create', desc: '', args: []);
   }
+
+  /// `Distance`
+  String get distance {
+    return Intl.message('Distance', name: 'distance', desc: '', args: []);
+  }
+
+  /// `{distance} km`
+  String distanceKm(Object distance) {
+    return Intl.message(
+      '$distance km',
+      name: 'distanceKm',
+      desc: '',
+      args: [distance],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

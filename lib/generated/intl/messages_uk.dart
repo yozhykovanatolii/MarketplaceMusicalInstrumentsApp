@@ -20,7 +20,9 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'uk';
 
-  static String m0(reviewerCounter) => "${reviewerCounter} відгуків";
+  static String m0(distance) => "${distance} км";
+
+  static String m1(reviewerCounter) => "${reviewerCounter} відгуків";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -43,7 +45,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Календар бронювання",
     ),
     "bookingsWerentFound": MessageLookupByLibrary.simpleMessage(
-      "Bookings weren\\\'t found",
+      "Бронювання не були знайдені",
     ),
     "calendar": MessageLookupByLibrary.simpleMessage("Календар"),
     "cancel": MessageLookupByLibrary.simpleMessage("Відмінити"),
@@ -66,6 +68,8 @@ class MessageLookup extends MessageLookupByLibrary {
       "Видалити оголошення",
     ),
     "description": MessageLookupByLibrary.simpleMessage("Опис"),
+    "distance": MessageLookupByLibrary.simpleMessage("Відстань"),
+    "distanceKm": m0,
     "dontHaveAnAccount": MessageLookupByLibrary.simpleMessage(
       "Немаєш облікового запису?",
     ),
@@ -140,7 +144,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "resetPassword": MessageLookupByLibrary.simpleMessage("Скинути пароль"),
     "returnDate": MessageLookupByLibrary.simpleMessage("Дата повернення"),
     "review": MessageLookupByLibrary.simpleMessage("Відгук"),
-    "reviewercounterReviews": m0,
+    "reviewercounterReviews": m1,
     "save": MessageLookupByLibrary.simpleMessage("Зберегти"),
     "searchInstrument": MessageLookupByLibrary.simpleMessage(
       "Пошук інструмента...",

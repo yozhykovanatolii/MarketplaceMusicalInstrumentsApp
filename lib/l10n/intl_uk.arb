@@ -82,7 +82,7 @@
   "readLess": "Читати менше",
   "ratingsReviews": "Рейтинги та відгуки",
   "reviewercounterReviews": "{reviewerCounter} відгуків",
-  "bookingsWerentFound": "Bookings weren\\'t found",
+  "bookingsWerentFound": "Бронювання не були знайдені",
   "noKeepIt": "Ні, зберегти.",
   "noCancelIt": "Ні, відмінити",
   "yesDeleteIt": "Так, видалити!",
@@ -91,5 +91,7 @@
   "youreGoingToBookThisInstrumentAreYouSure": "Ви збираєтеся забронювати цей інструмент. Ви впевнені?",
   "bookNow": "Орендувати",
   "home": "Головна",
-  "create": "Створити"
+  "create": "Створити",
+  "distance": "Відстань",
+  "distanceKm": "{distance} км"
 }

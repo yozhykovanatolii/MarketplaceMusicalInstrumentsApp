@@ -20,7 +20,9 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(reviewerCounter) => "${reviewerCounter} reviews";
+  static String m0(distance) => "${distance} km";
+
+  static String m1(reviewerCounter) => "${reviewerCounter} reviews";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -60,6 +62,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "darkMode": MessageLookupByLibrary.simpleMessage("Dark Mode"),
     "deleteListing": MessageLookupByLibrary.simpleMessage("Delete Listing"),
     "description": MessageLookupByLibrary.simpleMessage("Description"),
+    "distance": MessageLookupByLibrary.simpleMessage("Distance"),
+    "distanceKm": m0,
     "dontHaveAnAccount": MessageLookupByLibrary.simpleMessage(
       "Don\'t have an account?",
     ),
@@ -130,7 +134,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "resetPassword": MessageLookupByLibrary.simpleMessage("Reset password"),
     "returnDate": MessageLookupByLibrary.simpleMessage("Return Date"),
     "review": MessageLookupByLibrary.simpleMessage("Review"),
-    "reviewercounterReviews": m0,
+    "reviewercounterReviews": m1,
     "save": MessageLookupByLibrary.simpleMessage("Save"),
     "searchInstrument": MessageLookupByLibrary.simpleMessage(
       "Search instrument...",

@@ -91,5 +91,7 @@
   "youreGoingToBookThisInstrumentAreYouSure": "You're going to book this instrument. Are you sure?",
   "bookNow": "Book Now",
   "home": "Home",
-  "create": "Create"
+  "create": "Create",
+  "distance": "Distance",
+  "distanceKm": "{distance} km"
 }

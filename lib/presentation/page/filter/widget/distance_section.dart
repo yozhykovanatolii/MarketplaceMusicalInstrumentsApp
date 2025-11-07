@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_event.dart';
 
@@ -13,7 +14,7 @@ class DistanceSection extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          'Distance',
+          S.of(context).distance,
           style: Theme.of(context).textTheme.labelLarge,
         ),
         const Row(
@@ -41,7 +42,7 @@ class _DistanceResultSection extends StatelessWidget {
       (ListingBloc bloc) => bloc.state.distance,
     );
     return Text(
-      '$distance km',
+      S.of(context).distanceKm(distance),
       style: TextStyle(
         fontSize: MediaQuery.textScalerOf(context).scale(18),
         fontWeight: FontWeight.w500,
