@@ -18,6 +18,7 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
     on<PriceRangeSelectedEvent>(_choosePriceRange);
     on<ListingCategorySelectedEvent>(_chooseListingCategory);
     on<ClearFilterEvent>(_clearFilter);
+    on<LocationChangedEvent>(_changeLocation);
     on<DistanceDecreaseEvent>(_decreaseDistance);
     on<DistanceIncreaseEvent>(_increaseDistance);
     on<ListingFilterEvent>(_filterListings);
@@ -102,6 +103,20 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
         ),
       );
     }
+  }
+
+  void _changeLocation(
+    LocationChangedEvent event,
+    Emitter<ListingState> emit,
+  ) {
+    final updatedLocation = Map<String, double>.from(
+      state.location,
+    );
+    updatedLocation.addAll({
+      'latitude': event.latitude,
+      'longitude': event.longitude,
+    });
+    emit(state.copyWith(location: updatedLocation));
   }
 
   void _chooseAverageRating(

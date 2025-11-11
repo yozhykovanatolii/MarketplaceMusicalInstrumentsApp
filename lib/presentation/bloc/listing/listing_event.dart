@@ -27,6 +27,13 @@ final class ListingCategorySelectedEvent extends ListingEvent {
   ListingCategorySelectedEvent(this.category);
 }
 
+final class LocationChangedEvent extends ListingEvent {
+  final double latitude;
+  final double longitude;
+
+  LocationChangedEvent(this.latitude, this.longitude);
+}
+
 final class DistanceIncreaseEvent extends ListingEvent {}
 
 final class DistanceDecreaseEvent extends ListingEvent {}

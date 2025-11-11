@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_bloc.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/listing_detail/listing_detail_page.dart';
 
 class GoogleMapSection extends StatefulWidget {
@@ -45,10 +46,6 @@ class _GoogleMapSectionState extends State<GoogleMapSection> {
     });
   }
 
-  void _onCameraIdle() {
-    print('Camera stopped');
-  }
-
   @override
   Widget build(BuildContext context) {
     final listings = context.select(
@@ -64,9 +61,16 @@ class _GoogleMapSectionState extends State<GoogleMapSection> {
         zoom: 13,
       ),
       onCameraMove: (position) {
-        print('Camera moved');
+        context.read<ListingBloc>().add(
+          LocationChangedEvent(
+            position.target.latitude,
+            position.target.longitude,
+          ),
+        );
       },
-      onCameraIdle: _onCameraIdle,
+      onCameraIdle: () {
+        context.read<ListingBloc>().add(ListingFilterEvent());
+      },
       markers: listings
           .map(
             (listing) => Marker(
