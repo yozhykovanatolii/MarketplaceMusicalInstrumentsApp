@@ -18,6 +18,13 @@ class GoogleMapSection extends StatefulWidget {
 
 class _GoogleMapSectionState extends State<GoogleMapSection> {
   GoogleMapController? _controller;
+  BitmapDescriptor customIcon = BitmapDescriptor.defaultMarker;
+
+  @override
+  void initState() {
+    _addCustomIconMarker();
+    super.initState();
+  }
 
   @override
   void didUpdateWidget(covariant GoogleMapSection oldWidget) {
@@ -27,6 +34,15 @@ class _GoogleMapSectionState extends State<GoogleMapSection> {
         CameraUpdate.newLatLng(widget.currentLocation),
       );
     }
+  }
+
+  void _addCustomIconMarker() {
+    BitmapDescriptor.asset(
+      const ImageConfiguration(),
+      'assets/images/price_marker.png',
+    ).then((icon) {
+      customIcon = icon;
+    });
   }
 
   void _onCameraIdle() {
@@ -59,7 +75,7 @@ class _GoogleMapSectionState extends State<GoogleMapSection> {
                 listing.location['latitude']!,
                 listing.location['longitude']!,
               ),
-              icon: BitmapDescriptor.defaultMarker,
+              icon: customIcon,
               onTap: () {
                 Navigator.push(
                   context,
