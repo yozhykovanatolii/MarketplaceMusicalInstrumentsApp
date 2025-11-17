@@ -1,10 +1,10 @@
 import 'package:another_flutter_splash_screen/another_flutter_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:marketplace_musical_instruments_app/core/navigation/app_routes.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/app/app_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/app/app_state.dart';
-import 'package:marketplace_musical_instruments_app/presentation/page/login/login_page.dart';
-import 'package:marketplace_musical_instruments_app/presentation/page/main_page.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
@@ -12,9 +12,6 @@ class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = context.select((AppBloc appBloc) => appBloc.state);
-    final nextScreen = state is UserAuthenticatedState
-        ? const MainPage()
-        : const LoginPage();
     return FlutterSplashScreen.fadeIn(
       backgroundColor: const Color(0xFF007DFC),
       animationDuration: const Duration(milliseconds: 3000),
@@ -27,7 +24,11 @@ class SplashPage extends StatelessWidget {
           fontWeight: FontWeight.w600,
         ),
       ),
-      nextScreen: nextScreen,
+      onEnd: () {
+        state is UserAuthenticatedState
+            ? context.go(AppRoutes.mainPage)
+            : context.go(AppRoutes.loginPage);
+      },
     );
   }
 }

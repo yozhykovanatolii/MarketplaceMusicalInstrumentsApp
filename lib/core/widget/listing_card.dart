@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:marketplace_musical_instruments_app/core/navigation/app_routes.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/average_rating_section.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/favourite_button.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
-import 'package:marketplace_musical_instruments_app/presentation/page/save_listing/save_listing_page.dart';
-import 'package:marketplace_musical_instruments_app/presentation/page/listing_detail/listing_detail_page.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/my_listings/widget/delete_listing_button.dart';
 
 class ListingCard extends StatelessWidget {
@@ -21,22 +21,14 @@ class ListingCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         if (isEditing) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => SaveListingPage(
-                listing: listing,
-              ),
-            ),
+          context.push(
+            AppRoutes.saveListingPage,
+            extra: listing,
           );
         } else {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => ListingDetailPage(
-                listing: listing,
-              ),
-            ),
+          context.push(
+            AppRoutes.listingsDetailPage,
+            extra: listing,
           );
         }
       },

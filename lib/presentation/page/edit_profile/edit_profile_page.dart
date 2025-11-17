@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:marketplace_musical_instruments_app/core/navigation/app_routes.dart';
 import 'package:marketplace_musical_instruments_app/core/util/snack_bar_util.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/app/app_bloc.dart';
@@ -14,7 +16,6 @@ import 'package:marketplace_musical_instruments_app/presentation/page/edit_profi
 import 'package:marketplace_musical_instruments_app/presentation/page/edit_profile/widget/edit_profile_user_avatar_section.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/edit_profile/widget/profile_full_name_text_field.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/edit_profile/widget/profile_phone_number_text_field.dart';
-import 'package:marketplace_musical_instruments_app/presentation/page/login/login_page.dart';
 
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({super.key});
@@ -80,10 +81,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   0xFFFFEEEF,
                   0xFFE77282,
                 );
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const LoginPage()),
-                );
+                context.go(AppRoutes.loginPage);
               }
             },
           ),

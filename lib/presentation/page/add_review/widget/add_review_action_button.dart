@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_button.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/review/review_bloc.dart';
@@ -42,7 +43,7 @@ class AddReviewActionButton extends StatelessWidget {
                 reviewerCounter: reviewerCounter,
               ),
             );
-            Navigator.pop(context);
+            context.pop();
           },
           color: color,
           child: Text(

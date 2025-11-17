@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:marketplace_musical_instruments_app/core/navigation/app_routes.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_button.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profile/edit_profile_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profile/edit_profile_event.dart';
-import 'package:marketplace_musical_instruments_app/presentation/page/login/login_page.dart';
 
 class LogoutModalSheet extends StatelessWidget {
   const LogoutModalSheet({super.key});
@@ -76,12 +77,7 @@ class _LogoutActionButtonsSection extends StatelessWidget {
                   context.read<EditProfileBloc>().add(
                     ProfileLogoutEvent(),
                   );
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => const LoginPage(),
-                    ),
-                  );
+                  context.go(AppRoutes.loginPage);
                 },
               ),
             ),

@@ -81,12 +81,12 @@ class _GoogleMapSectionState extends State<GoogleMapSection> {
               ),
               icon: customIcon,
               onTap: () {
-                Navigator.push(
+                /* Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (_) => ListingDetailPage(listing: listing),
                   ),
-                );
+                );*/
               },
             ),
           )

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:marketplace_musical_instruments_app/core/navigation/app_routes.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
-import 'package:marketplace_musical_instruments_app/presentation/page/forgot_password/forgot_password_page.dart';
 
 class ForgotPasswordTextButton extends StatelessWidget {
   const ForgotPasswordTextButton({super.key});
@@ -10,15 +11,10 @@ class ForgotPasswordTextButton extends StatelessWidget {
     return Align(
       alignment: AlignmentGeometry.centerRight,
       child: GestureDetector(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => const ForgotPasswordPage()),
-          );
-        },
+        onTap: () => context.push(AppRoutes.forgotPasswordPage),
         child: Text(
           S.of(context).forgotPassword,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.bold,
             decoration: TextDecoration.underline,

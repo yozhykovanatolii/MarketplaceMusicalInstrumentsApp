@@ -2,6 +2,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:marketplace_musical_instruments_app/core/navigation/app_router.dart';
 import 'package:marketplace_musical_instruments_app/core/theme/app_theme.dart';
 import 'package:marketplace_musical_instruments_app/firebase_options.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
@@ -21,7 +22,6 @@ import 'package:marketplace_musical_instruments_app/presentation/bloc/reset_pass
 import 'package:marketplace_musical_instruments_app/presentation/bloc/review/review_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/settings/settings_cubit.dart';
-import 'package:marketplace_musical_instruments_app/presentation/page/splash/splash_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
@@ -74,7 +74,7 @@ class MarketplaceApp extends StatelessWidget {
     final languageCode = context.select(
       (SettingsCubit cubit) => cubit.state.languageCode,
     );
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       theme: isDarkMode ? AppTheme.darkMode : AppTheme.lightMode,
       localizationsDelegates: [
@@ -85,7 +85,7 @@ class MarketplaceApp extends StatelessWidget {
       ],
       supportedLocales: S.delegate.supportedLocales,
       locale: Locale(languageCode),
-      home: const SplashPage(),
+      routerConfig: AppRouter.getRouter(),
     );
   }
 }

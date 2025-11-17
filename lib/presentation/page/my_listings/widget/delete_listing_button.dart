@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/information_dialog_box.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
@@ -27,7 +28,7 @@ class DeleteListingButton extends StatelessWidget {
               context.read<AuthorListingBloc>().add(
                 AuthorListingDeleteEvent(listingId),
               );
-              Navigator.of(context).pop();
+              //context.pop();
             },
           ),
         );

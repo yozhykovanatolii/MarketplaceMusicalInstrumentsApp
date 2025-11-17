@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:marketplace_musical_instruments_app/core/navigation/app_routes.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
-import 'package:marketplace_musical_instruments_app/presentation/page/edit_profile/edit_profile_page.dart';
-import 'package:marketplace_musical_instruments_app/presentation/page/my_bookings/my_bookings_page.dart';
-import 'package:marketplace_musical_instruments_app/presentation/page/my_listings/my_listings_page.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/profile/widget/logout_modal_sheet.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/profile/widget/section_list_tile.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/profile/widget/user_avatar_section.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/profile/widget/user_full_name_section.dart';
-import 'package:marketplace_musical_instruments_app/presentation/page/settings/settings_page.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -38,50 +36,22 @@ class ProfilePage extends StatelessWidget {
                   SectionListTile(
                     leadingIcon: Iconsax.user,
                     title: S.of(context).yourProfile,
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const EditProfilePage(),
-                        ),
-                      );
-                    },
+                    onTap: () => context.push(AppRoutes.editProfilePage),
                   ),
                   SectionListTile(
                     leadingIcon: Iconsax.note,
                     title: S.of(context).myListings,
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const MyListingsPage(),
-                        ),
-                      );
-                    },
+                    onTap: () => context.push(AppRoutes.myListingsPage),
                   ),
                   SectionListTile(
                     leadingIcon: Iconsax.document_text_1,
                     title: S.of(context).myBookings,
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const MyBookingsPage(),
-                        ),
-                      );
-                    },
+                    onTap: () => context.push(AppRoutes.myBookingsPage),
                   ),
                   SectionListTile(
                     leadingIcon: Iconsax.setting_2,
                     title: S.of(context).settings,
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const SettingsPage(),
-                        ),
-                      );
-                    },
+                    onTap: () => context.push(AppRoutes.settingsPage),
                   ),
                   SectionListTile(
                     leadingIcon: Iconsax.logout,
