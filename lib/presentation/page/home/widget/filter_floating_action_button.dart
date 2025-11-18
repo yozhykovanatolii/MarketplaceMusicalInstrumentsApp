@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:marketplace_musical_instruments_app/core/util/widget_util.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/filter/filter_page.dart';
 
 class FilterFloatingActionButton extends StatelessWidget {
@@ -11,15 +12,10 @@ class FilterFloatingActionButton extends StatelessWidget {
       child: FloatingActionButton(
         backgroundColor: const Color(0xFF007DFC),
         foregroundColor: Colors.white,
-        onPressed: () {
-          showModalBottomSheet(
-            isScrollControlled: true,
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            context: context,
-            builder: (_) => const FilterPage(),
-          );
-        },
+        onPressed: () => WidgetUtil.showModalSheet(
+          context,
+          const FilterPage(),
+        ),
         child: const Icon(Icons.tune),
       ),
     );

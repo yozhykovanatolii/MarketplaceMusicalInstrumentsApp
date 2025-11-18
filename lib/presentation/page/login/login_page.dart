@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:marketplace_musical_instruments_app/core/navigation/app_routes.dart';
-import 'package:marketplace_musical_instruments_app/core/util/snack_bar_util.dart';
+import 'package:marketplace_musical_instruments_app/core/util/widget_util.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
@@ -22,7 +22,7 @@ class LoginPage extends StatelessWidget {
       body: BlocListener<LoginBloc, LoginState>(
         listener: (context, state) {
           if (state.formStatus == FormStatus.failure) {
-            SnackBarUtil.showSnackBar(
+            WidgetUtil.showSnackBar(
               context,
               state.errorMessage,
               Icons.error,
@@ -31,7 +31,7 @@ class LoginPage extends StatelessWidget {
             );
           }
           if (state.formStatus == FormStatus.success) {
-            SnackBarUtil.showSnackBar(
+            WidgetUtil.showSnackBar(
               context,
               S.of(context).successAuthorization,
               Icons.check_circle,

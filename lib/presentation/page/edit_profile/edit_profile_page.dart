@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:marketplace_musical_instruments_app/core/navigation/app_routes.dart';
-import 'package:marketplace_musical_instruments_app/core/util/snack_bar_util.dart';
+import 'package:marketplace_musical_instruments_app/core/util/widget_util.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/app/app_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/app/app_event.dart';
@@ -74,7 +74,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 _aboutController.text = state.userModel.about;
               }
               if (state is UserUnauthenticatedState) {
-                SnackBarUtil.showSnackBar(
+                WidgetUtil.showSnackBar(
                   context,
                   state.errorMessage,
                   Icons.error,
@@ -88,7 +88,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           BlocListener<EditProfileBloc, EditProfileState>(
             listener: (context, state) {
               if (state.formStatus == FormStatus.success) {
-                SnackBarUtil.showSnackBar(
+                WidgetUtil.showSnackBar(
                   context,
                   S.of(context).successUpdatingProfile,
                   Icons.check_circle,
@@ -98,7 +98,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 context.read<AppBloc>().add(AppUserSubscriptionRequested());
               }
               if (state.errorMessage.isNotEmpty) {
-                SnackBarUtil.showSnackBar(
+                WidgetUtil.showSnackBar(
                   context,
                   state.errorMessage,
                   Icons.error,
