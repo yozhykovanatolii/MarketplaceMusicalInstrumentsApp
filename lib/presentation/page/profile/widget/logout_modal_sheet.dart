@@ -66,7 +66,7 @@ class _LogoutActionButtonsSection extends StatelessWidget {
             Flexible(
               child: _LogoutActionButton(
                 text: S.of(context).cancel,
-                onPressed: () => Navigator.pop(context),
+                onPressed: () => Navigator.of(context).pop(),
                 isLogOutButton: false,
               ),
             ),

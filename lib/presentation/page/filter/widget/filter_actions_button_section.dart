@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_button.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_bloc.dart';
@@ -20,9 +19,12 @@ class FilterActionsButtonSection extends StatelessWidget {
             Flexible(
               child: _FilterActionButton(
                 text: S.of(context).clearFilter,
-                onPressed: () => context.read<ListingBloc>().add(
-                  ClearFilterEvent(),
-                ),
+                onPressed: () {
+                  context.read<ListingBloc>().add(
+                    ClearFilterEvent(),
+                  );
+                  Navigator.of(context).pop();
+                },
                 isClearButton: true,
               ),
             ),
@@ -33,7 +35,7 @@ class FilterActionsButtonSection extends StatelessWidget {
                   context.read<ListingBloc>().add(
                     ListingFilterEvent(),
                   );
-                  //context.pop();
+                  Navigator.of(context).pop();
                 },
               ),
             ),
