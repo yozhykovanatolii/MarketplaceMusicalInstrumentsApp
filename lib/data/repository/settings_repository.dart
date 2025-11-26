@@ -1,21 +1,20 @@
-import 'package:marketplace_musical_instruments_app/data/datasource/local/language_shared_preference.dart';
-import 'package:marketplace_musical_instruments_app/data/datasource/local/theme_shared_preference.dart';
+import 'package:marketplace_musical_instruments_app/data/datasource/local/settings_shared_preference.dart';
 
 class SettingsRepository {
-  final _themeSharedPreference = ThemeSharedPreference();
-  final _languageSharedPreference = LanguageSharedPreference();
+  final _settingsSharedPreference = SettingsSharedPreference();
 
-  Future<bool> loadThemeMode() async => _themeSharedPreference.loadThemeMode();
+  Future<bool> loadThemeMode() async =>
+      _settingsSharedPreference.loadThemeMode();
 
   Future<void> saveThemeMode(bool isDarkMode) async {
-    await _themeSharedPreference.saveThemeMode(isDarkMode);
+    await _settingsSharedPreference.saveThemeMode(isDarkMode);
   }
 
   Future<String> loadLanguageCode() async {
-    return await _languageSharedPreference.loadLanguageCode();
+    return await _settingsSharedPreference.loadLanguageCode();
   }
 
   Future<void> saveLanguageCode(String languageCode) async {
-    await _languageSharedPreference.saveLanguageCode(languageCode);
+    await _settingsSharedPreference.saveLanguageCode(languageCode);
   }
 }
