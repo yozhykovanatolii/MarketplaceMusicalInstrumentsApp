@@ -1,4 +1,4 @@
-import 'package:marketplace_musical_instruments_app/data/model/user_model.dart';
+import 'package:marketplace_musical_instruments_app/domain/entity/user_entity.dart';
 
 sealed class EditProfileEvent {}
 
@@ -23,7 +23,7 @@ final class ProfileAboutChangeEvent extends EditProfileEvent {
 }
 
 final class UserProfileFetchEvent extends EditProfileEvent {
-  final UserModel user;
+  final UserEntity user;
 
   UserProfileFetchEvent(this.user);
 }

@@ -1,13 +1,13 @@
-import 'package:marketplace_musical_instruments_app/data/model/user_model.dart';
+import 'package:marketplace_musical_instruments_app/domain/entity/user_entity.dart';
 
 sealed class AppEvent {}
 
 class AppUserSubscriptionRequested extends AppEvent {}
 
 class AppUserChanged extends AppEvent {
-  final UserModel userModel;
+  final UserEntity user;
 
-  AppUserChanged(this.userModel);
+  AppUserChanged(this.user);
 }
 
 class AppUserUnauthenticated extends AppEvent {

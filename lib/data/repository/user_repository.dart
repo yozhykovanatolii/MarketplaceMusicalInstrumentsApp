@@ -6,6 +6,7 @@ import 'package:marketplace_musical_instruments_app/data/datasource/remote/fires
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/storage/user_storage.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
 import 'package:marketplace_musical_instruments_app/data/model/user_model.dart';
+import 'package:marketplace_musical_instruments_app/domain/entity/user_entity.dart';
 
 class UserRepository {
   final _userStorage = UserStorage();
@@ -16,22 +17,16 @@ class UserRepository {
     return _userFirestore.checkUserByEmail(email);
   }
 
-  Future<void> updateUserData(
-    String avatarUrl,
-    String fullName,
-    String phoneNumber,
-    String about,
-  ) async {
-    final userId = UserAuthService.userId;
-    UserModel user = await _userFirestore.getUserModelById(userId);
+  Future<void> updateUserData(UserEntity userEntity) async {
+    UserModel user = await _userFirestore.getUserModelById(userEntity.id);
     user = user.copyWith(
       id: user.id,
       email: user.email,
       password: user.password,
-      fullName: fullName,
-      phoneNumber: phoneNumber,
-      about: about,
-      avatar: avatarUrl,
+      fullName: userEntity.fullName,
+      phoneNumber: userEntity.phoneNumber,
+      about: userEntity.about,
+      avatar: userEntity.avatar,
     );
     await _userFirestore.saveUser(user);
   }
@@ -42,12 +37,20 @@ class UserRepository {
     return userImageUrl;
   }
 
-  Stream<UserModel> getUserModelCurrentData() {
+  Stream<UserEntity> getUserModelCurrentData() {
     final userStream = UserAuthService.user;
     return userStream.asyncMap((user) async {
       print('[DEBUG] Firebase user: $user');
       if (user == null) throw UserNotFoundException('User didn\'t find');
-      return await _userFirestore.getUserModelById(user.uid);
+      final userModel = await _userFirestore.getUserModelById(user.uid);
+      return UserEntity(
+        id: userModel.id,
+        fullName: userModel.fullName,
+        about: userModel.about,
+        phoneNumber: userModel.phoneNumber,
+        avatar: userModel.avatar,
+        favouriteListingsId: userModel.favouriteListingsId,
+      );
     });
   }
 

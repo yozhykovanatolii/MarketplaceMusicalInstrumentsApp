@@ -1,58 +1,44 @@
 import 'package:marketplace_musical_instruments_app/core/validator/user_validator.dart';
+import 'package:marketplace_musical_instruments_app/domain/entity/user_entity.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
 
 class EditProfileState {
-  final String avatarUrl;
-  final String about;
-  final String fullName;
-  final String phoneNumber;
+  final UserEntity user;
   final String errorMessage;
   final FormStatus formStatus;
 
   EditProfileState({
-    required this.avatarUrl,
-    required this.about,
-    required this.fullName,
-    required this.phoneNumber,
+    required this.user,
     required this.errorMessage,
     required this.formStatus,
   });
 
   factory EditProfileState.initial() {
     return EditProfileState(
-      avatarUrl: '',
-      about: '',
-      fullName: '',
-      phoneNumber: '',
+      user: UserEntity.initial(),
       errorMessage: '',
       formStatus: FormStatus.initial,
     );
   }
 
   EditProfileState copyWith({
-    String? avatarUrl,
-    String? about,
-    String? fullName,
-    String? phoneNumber,
+    UserEntity? user,
     String? errorMessage,
     FormStatus? formStatus,
   }) {
     return EditProfileState(
-      avatarUrl: avatarUrl ?? this.avatarUrl,
-      about: about ?? this.about,
-      fullName: fullName ?? this.fullName,
-      phoneNumber: phoneNumber ?? this.phoneNumber,
+      user: user ?? this.user,
       errorMessage: errorMessage ?? this.errorMessage,
       formStatus: formStatus ?? this.formStatus,
     );
   }
 
-  String get counterAbout => '${about.length}/115';
+  String get counterAbout => '${user.about.length}/115';
 
-  String? get fullNameError => UserValidator.validateFullName(fullName);
+  String? get fullNameError => UserValidator.validateFullName(user.fullName);
 
   String? get phoneNumberError =>
-      UserValidator.validatePhoneNumber(phoneNumber);
+      UserValidator.validatePhoneNumber(user.phoneNumber);
 
-  String? get aboutError => UserValidator.validateAboutYourself(about);
+  String? get aboutError => UserValidator.validateAboutYourself(user.about);
 }

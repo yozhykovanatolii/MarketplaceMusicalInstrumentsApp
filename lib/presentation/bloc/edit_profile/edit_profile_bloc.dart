@@ -28,7 +28,8 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
   ) async {
     try {
       final userAvatarUrl = await _userRepository.getUserImage();
-      emit(state.copyWith(avatarUrl: userAvatarUrl));
+      final user = state.user;
+      emit(state.copyWith(user: user.copyWith(avatar: userAvatarUrl)));
     } on PermissionDeniedException catch (exception) {
       emit(state.copyWith(errorMessage: exception.errorMessage));
     } on PhotoNotSelectedException catch (exception) {
@@ -42,35 +43,43 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
     ProfileFullNameChangeEvent event,
     Emitter<EditProfileState> emit,
   ) {
-    emit(state.copyWith(fullName: event.fullName));
+    final user = state.user;
+    emit(
+      state.copyWith(
+        user: user.copyWith(fullName: event.fullName),
+      ),
+    );
   }
 
   void _editAbout(
     ProfileAboutChangeEvent event,
     Emitter<EditProfileState> emit,
   ) {
-    emit(state.copyWith(about: event.about));
+    final user = state.user;
+    emit(
+      state.copyWith(
+        user: user.copyWith(about: event.about),
+      ),
+    );
   }
 
   void _editUserPhoneNumber(
     ProfilePhoneNumberChangeEvent event,
     Emitter<EditProfileState> emit,
   ) {
-    emit(state.copyWith(phoneNumber: event.phoneNumber));
+    final user = state.user;
+    emit(
+      state.copyWith(
+        user: user.copyWith(phoneNumber: event.phoneNumber),
+      ),
+    );
   }
 
   void _fetchUserProfile(
     UserProfileFetchEvent event,
     Emitter<EditProfileState> emit,
   ) {
-    emit(
-      state.copyWith(
-        fullName: event.user.fullName,
-        phoneNumber: event.user.phoneNumber,
-        about: event.user.about,
-        avatarUrl: event.user.avatar,
-      ),
-    );
+    emit(state.copyWith(user: event.user));
   }
 
   Future<void> _updateProfile(
@@ -79,12 +88,7 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
   ) async {
     emit(state.copyWith(formStatus: FormStatus.loading));
     try {
-      await _userRepository.updateUserData(
-        state.avatarUrl,
-        state.fullName,
-        state.phoneNumber,
-        state.about,
-      );
+      await _userRepository.updateUserData(state.user);
       emit(state.copyWith(formStatus: FormStatus.success));
     } on UserNotFoundException catch (exception) {
       emit(

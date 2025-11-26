@@ -35,11 +35,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
       final appState = context.read<AppBloc>().state;
       if (appState is UserAuthenticatedState) {
         context.read<EditProfileBloc>().add(
-          UserProfileFetchEvent(appState.userModel),
+          UserProfileFetchEvent(appState.user),
         );
-        _fullNameController.text = appState.userModel.fullName;
-        _phoneNumberController.text = appState.userModel.phoneNumber;
-        _aboutController.text = appState.userModel.about;
+        _fullNameController.text = appState.user.fullName;
+        _phoneNumberController.text = appState.user.phoneNumber;
+        _aboutController.text = appState.user.about;
       }
     });
     super.initState();
@@ -67,11 +67,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
             listener: (context, state) {
               if (state is UserAuthenticatedState) {
                 context.read<EditProfileBloc>().add(
-                  UserProfileFetchEvent(state.userModel),
+                  UserProfileFetchEvent(state.user),
                 );
-                _fullNameController.text = state.userModel.fullName;
-                _phoneNumberController.text = state.userModel.phoneNumber;
-                _aboutController.text = state.userModel.about;
+                _fullNameController.text = state.user.fullName;
+                _phoneNumberController.text = state.user.phoneNumber;
+                _aboutController.text = state.user.about;
               }
               if (state is UserUnauthenticatedState) {
                 SnackBarHelper.showSnackBar(

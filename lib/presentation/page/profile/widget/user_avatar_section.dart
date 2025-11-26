@@ -10,7 +10,7 @@ class UserAvatarSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final state = context.watch<AppBloc>().state;
     final ImageProvider<Object> avatarWidget = state is UserAuthenticatedState
-        ? NetworkImage(state.userModel.avatar)
+        ? NetworkImage(state.user.avatar)
         : const AssetImage(
             'assets/images/test.jpg',
           );

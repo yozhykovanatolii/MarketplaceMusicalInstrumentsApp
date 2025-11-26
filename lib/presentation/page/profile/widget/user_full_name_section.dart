@@ -10,7 +10,7 @@ class UserFullNameSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final state = context.watch<AppBloc>().state;
     final userFullName = state is UserAuthenticatedState
-        ? state.userModel.fullName
+        ? state.user.fullName
         : 'Uknown';
     return Text(
       userFullName,
