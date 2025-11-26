@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_button.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_progress_indicator.dart';
-import 'package:marketplace_musical_instruments_app/data/model/booking_model.dart';
+import 'package:marketplace_musical_instruments_app/domain/entity/booking_entity.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_overview/booking_overview_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_overview/booking_overview_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_overview/booking_overview_state.dart';
@@ -39,11 +39,9 @@ class _RequestsSectionState extends State<RequestsSection> {
         }
         if (state is BookingSuccess) {
           final requests = state.bookings;
-          return GroupedListView<BookingModel, String>(
+          return GroupedListView<BookingEntity, String>(
             elements: requests,
-            groupBy: (request) {
-              return "${request.startDate.day.toString().padLeft(2, '0')}.${request.startDate.month.toString().padLeft(2, '0')}.${request.startDate.year}";
-            },
+            groupBy: (request) => request.startDate,
             groupSeparatorBuilder: (String date) => Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
@@ -69,7 +67,7 @@ class _RequestsSectionState extends State<RequestsSection> {
 }
 
 class _RequestCard extends StatelessWidget {
-  final BookingModel request;
+  final BookingEntity request;
 
   const _RequestCard({
     super.key,
@@ -112,7 +110,7 @@ class _RequestCard extends StatelessWidget {
             _RequestInformation(
               leftWidget: Text('Pick-Up Date', style: textStyle),
               rightWidget: Text(
-                "${request.startDate.day.toString().padLeft(2, '0')}.${request.startDate.month.toString().padLeft(2, '0')}.${request.startDate.year}",
+                request.startDate,
                 style: Theme.of(context).textTheme.labelSmall,
               ),
             ),
@@ -120,7 +118,7 @@ class _RequestCard extends StatelessWidget {
             _RequestInformation(
               leftWidget: Text('Return Date', style: textStyle),
               rightWidget: Text(
-                "${request.endDate.day.toString().padLeft(2, '0')}.${request.endDate.month.toString().padLeft(2, '0')}.${request.endDate.year}",
+                request.endDate,
                 style: Theme.of(context).textTheme.labelSmall,
               ),
             ),

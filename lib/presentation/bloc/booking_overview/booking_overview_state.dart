@@ -1,4 +1,4 @@
-import 'package:marketplace_musical_instruments_app/data/model/booking_model.dart';
+import 'package:marketplace_musical_instruments_app/domain/entity/booking_entity.dart';
 
 sealed class BookingOverviewState {}
 
@@ -7,7 +7,7 @@ final class BookingInitial extends BookingOverviewState {}
 final class BookingLoading extends BookingOverviewState {}
 
 final class BookingSuccess extends BookingOverviewState {
-  final List<BookingModel> bookings;
+  final List<BookingEntity> bookings;
 
   BookingSuccess(this.bookings);
 }

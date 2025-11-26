@@ -2,8 +2,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/booking/booking_requests_not_found.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/booking/user_bookings_not_found.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/auth/user_not_found_exception.dart';
-import 'package:marketplace_musical_instruments_app/data/model/booking_model.dart';
 import 'package:marketplace_musical_instruments_app/data/repository/booking_repository.dart';
+import 'package:marketplace_musical_instruments_app/domain/entity/booking_entity.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_overview/booking_overview_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_overview/booking_overview_state.dart';
 
@@ -37,7 +37,7 @@ class BookingOverviewBloc
     Emitter<BookingOverviewState> emit,
   ) async {
     emit(BookingLoading());
-    await emit.forEach<List<BookingModel>>(
+    await emit.forEach<List<BookingEntity>>(
       _bookingRepository.getAllUserBookingRequests(),
       onData: (requests) => BookingSuccess(requests),
       onError: (error, stackTrace) {
@@ -55,7 +55,7 @@ class BookingOverviewBloc
   ) async {
     if (event.isAccepted) {
       await _bookingRepository.changeBookingStatus(
-        'Accepted',
+        'Confirmed',
         event.bookingId,
       );
     } else {

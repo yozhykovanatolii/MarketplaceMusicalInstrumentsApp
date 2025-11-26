@@ -10,6 +10,12 @@ enum BookingStatus {
     required this.color,
     required this.text,
   });
+
+  static BookingStatus fromText(String textStatus) {
+    return BookingStatus.values.firstWhere(
+      (status) => status.text == textStatus,
+    );
+  }
 }
 
 class BookingEntity {

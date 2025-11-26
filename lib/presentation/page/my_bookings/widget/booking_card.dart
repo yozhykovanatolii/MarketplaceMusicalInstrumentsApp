@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/category_listing_section.dart';
-import 'package:marketplace_musical_instruments_app/data/model/booking_model.dart';
+import 'package:marketplace_musical_instruments_app/domain/entity/booking_entity.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 
 class BookingCard extends StatelessWidget {
-  final BookingModel booking;
+  final BookingEntity booking;
 
   const BookingCard({
     super.key,
@@ -57,7 +57,7 @@ class BookingCard extends StatelessWidget {
             _BookingInformation(
               title: S.of(context).pickupDate,
               widget: Text(
-                "${booking.startDate.day.toString().padLeft(2, '0')}.${booking.startDate.month.toString().padLeft(2, '0')}.${booking.startDate.year}",
+                booking.startDate,
                 style: Theme.of(context).textTheme.labelSmall,
               ),
             ),
@@ -65,7 +65,7 @@ class BookingCard extends StatelessWidget {
             _BookingInformation(
               title: S.of(context).returnDate,
               widget: Text(
-                "${booking.endDate.day.toString().padLeft(2, '0')}.${booking.endDate.month.toString().padLeft(2, '0')}.${booking.endDate.year}",
+                booking.endDate,
                 style: Theme.of(context).textTheme.labelSmall,
               ),
             ),
@@ -123,7 +123,7 @@ class _BookingInformation extends StatelessWidget {
 }
 
 class _StatusSection extends StatelessWidget {
-  final String status;
+  final BookingStatus status;
 
   const _StatusSection({
     super.key,
@@ -135,16 +135,16 @@ class _StatusSection extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
       decoration: BoxDecoration(
-        color: Colors.red,
+        color: Color(status.color),
         borderRadius: BorderRadius.circular(5),
       ),
       child: Center(
         child: Text(
-          status,
+          status.text,
           style: TextStyle(
             fontSize: MediaQuery.textScalerOf(context).scale(17),
             color: Colors.white,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.w600,
           ),
         ),
       ),
