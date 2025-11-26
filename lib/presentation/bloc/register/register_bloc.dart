@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/auth/register_exception.dart';
-import 'package:marketplace_musical_instruments_app/core/util/user_validator_util.dart';
+import 'package:marketplace_musical_instruments_app/core/validator/user_validator.dart';
 import 'package:marketplace_musical_instruments_app/data/repository/auth_repository.dart';
 import 'package:marketplace_musical_instruments_app/data/repository/user_repository.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
@@ -27,7 +27,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     RegisterFullNameChangeEvent event,
     Emitter<RegisterState> emit,
   ) {
-    final fullNameError = UserValidatorUtil.validateFullName(
+    final fullNameError = UserValidator.validateFullName(
       event.fullName,
     );
     _fullNameText = event.fullName;
@@ -43,7 +43,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     RegisterEmailChangeEvent event,
     Emitter<RegisterState> emit,
   ) async {
-    String? emailError = UserValidatorUtil.validateEmail(
+    String? emailError = UserValidator.validateEmail(
       event.email,
     );
     _emailText = event.email;
@@ -67,7 +67,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     RegisterPasswordChangeEvent event,
     Emitter<RegisterState> emit,
   ) {
-    final passwordError = UserValidatorUtil.validatePassword(
+    final passwordError = UserValidator.validatePassword(
       event.password,
     );
     _passwordText = event.password;
@@ -83,7 +83,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     RegisterPhoneNumberChangeEvent event,
     Emitter<RegisterState> emit,
   ) {
-    final phoneNumberError = UserValidatorUtil.validatePhoneNumber(
+    final phoneNumberError = UserValidator.validatePhoneNumber(
       event.phoneNumber,
     );
     _phoneNumberText = event.phoneNumber;

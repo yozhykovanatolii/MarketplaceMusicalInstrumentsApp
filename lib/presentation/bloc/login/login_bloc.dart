@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/auth/login_exception.dart';
-import 'package:marketplace_musical_instruments_app/core/util/user_validator_util.dart';
+import 'package:marketplace_musical_instruments_app/core/validator/user_validator.dart';
 import 'package:marketplace_musical_instruments_app/data/repository/auth_repository.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
@@ -20,7 +20,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     LoginEmailChangeEvent event,
     Emitter<LoginState> emit,
   ) {
-    final emailError = UserValidatorUtil.validateEmail(event.email);
+    final emailError = UserValidator.validateEmail(event.email);
     _emailText = event.email;
     emit(
       state.copyWith(
@@ -34,7 +34,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     LoginPasswordChangeEvent event,
     Emitter<LoginState> emit,
   ) {
-    final passwordError = UserValidatorUtil.validatePassword(
+    final passwordError = UserValidator.validatePassword(
       event.password,
     );
     _passwordText = event.password;

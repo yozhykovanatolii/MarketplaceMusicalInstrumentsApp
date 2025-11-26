@@ -1,4 +1,4 @@
-class ListingValidatorUtil {
+class ListingValidator {
   static String? validateTitle(String title) {
     if (title.isEmpty) return "The title must not be empty.";
     if (title.length > 50) return "The title must not exceed 50 characters";

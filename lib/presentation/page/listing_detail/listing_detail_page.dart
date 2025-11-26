@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:marketplace_musical_instruments_app/core/util/widget_util.dart';
+import 'package:marketplace_musical_instruments_app/core/helper/snack_bar_helper.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_bloc.dart';
@@ -27,7 +27,7 @@ class ListingDetailPage extends StatelessWidget {
       listener: (BuildContext context, BookingSaveState state) {
         final formStatus = state.formStatus;
         if (state.formStatus == FormStatus.success) {
-          WidgetUtil.showSnackBar(
+          SnackBarHelper.showSnackBar(
             context,
             S
                 .of(context)
@@ -38,7 +38,7 @@ class ListingDetailPage extends StatelessWidget {
           );
         }
         if (formStatus == FormStatus.failure) {
-          WidgetUtil.showSnackBar(
+          SnackBarHelper.showSnackBar(
             context,
             state.errorMessage,
             Icons.error,

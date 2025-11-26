@@ -1,4 +1,4 @@
-class UserValidatorUtil {
+class UserValidator {
   static String? validateEmail(String email) {
     if (email.endsWith('@gmail.com') && email.isNotEmpty) return null;
     return 'Email must end with @gmail.com and not be empty';

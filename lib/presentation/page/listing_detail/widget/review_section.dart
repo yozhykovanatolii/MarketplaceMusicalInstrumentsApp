@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:marketplace_musical_instruments_app/core/util/widget_util.dart';
+import 'package:marketplace_musical_instruments_app/core/helper/modal_sheet_helper.dart';
 import 'package:marketplace_musical_instruments_app/data/model/review_model.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/review/review_bloc.dart';
@@ -112,7 +112,7 @@ class _ReviewAndRatingHeader extends StatelessWidget {
           ),
         ),
         GestureDetector(
-          onTap: () => WidgetUtil.showModalSheet(
+          onTap: () => ModalSheetHelper.showModalSheet(
             context,
             AddReviewPage(
               listingId: listingId,

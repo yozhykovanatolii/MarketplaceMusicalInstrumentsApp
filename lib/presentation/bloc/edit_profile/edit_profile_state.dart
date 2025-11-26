@@ -1,4 +1,4 @@
-import 'package:marketplace_musical_instruments_app/core/util/user_validator_util.dart';
+import 'package:marketplace_musical_instruments_app/core/validator/user_validator.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
 
 class EditProfileState {
@@ -49,10 +49,10 @@ class EditProfileState {
 
   String get counterAbout => '${about.length}/115';
 
-  String? get fullNameError => UserValidatorUtil.validateFullName(fullName);
+  String? get fullNameError => UserValidator.validateFullName(fullName);
 
   String? get phoneNumberError =>
-      UserValidatorUtil.validatePhoneNumber(phoneNumber);
+      UserValidator.validatePhoneNumber(phoneNumber);
 
-  String? get aboutError => UserValidatorUtil.validateAboutYourself(about);
+  String? get aboutError => UserValidator.validateAboutYourself(about);
 }

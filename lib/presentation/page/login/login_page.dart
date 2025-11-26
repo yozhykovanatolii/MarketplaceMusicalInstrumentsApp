@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:marketplace_musical_instruments_app/core/helper/snack_bar_helper.dart';
 import 'package:marketplace_musical_instruments_app/core/navigation/app_routes.dart';
-import 'package:marketplace_musical_instruments_app/core/util/widget_util.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
@@ -11,7 +11,6 @@ import 'package:marketplace_musical_instruments_app/presentation/page/login/widg
 import 'package:marketplace_musical_instruments_app/presentation/page/login/widget/login_password_text_field.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/login/widget/not_have_account_section.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/login/widget/sign_in_button.dart';
-import 'package:marketplace_musical_instruments_app/presentation/page/login/widget/sign_in_with_google_button.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -22,7 +21,7 @@ class LoginPage extends StatelessWidget {
       body: BlocListener<LoginBloc, LoginState>(
         listener: (context, state) {
           if (state.formStatus == FormStatus.failure) {
-            WidgetUtil.showSnackBar(
+            SnackBarHelper.showSnackBar(
               context,
               state.errorMessage,
               Icons.error,
@@ -31,7 +30,7 @@ class LoginPage extends StatelessWidget {
             );
           }
           if (state.formStatus == FormStatus.success) {
-            WidgetUtil.showSnackBar(
+            SnackBarHelper.showSnackBar(
               context,
               S.of(context).successAuthorization,
               Icons.check_circle,
@@ -65,13 +64,6 @@ class LoginPage extends StatelessWidget {
                 const ForgotPasswordTextButton(),
                 const SizedBox(height: 30),
                 const SignInButton(),
-                const SizedBox(height: 15),
-                Text(
-                  S.of(context).orSignInWith,
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
-                const SizedBox(height: 15),
-                const SignInWithGoogleButton(),
                 const SizedBox(height: 20),
                 const NotHaveAccountSection(),
               ],

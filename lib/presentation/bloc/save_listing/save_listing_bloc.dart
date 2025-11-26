@@ -4,7 +4,7 @@ import 'package:marketplace_musical_instruments_app/core/exception/permission_de
 import 'package:marketplace_musical_instruments_app/core/exception/photo_not_selected_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/auth/user_not_found_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/service/geolocation_service.dart';
-import 'package:marketplace_musical_instruments_app/core/util/listing_validator_util.dart';
+import 'package:marketplace_musical_instruments_app/core/validator/listing_validator.dart';
 import 'package:marketplace_musical_instruments_app/data/repository/listing_repository.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_event.dart';
@@ -79,7 +79,7 @@ class SaveListingBloc extends Bloc<SaveListingEvent, SaveListingState> {
     Emitter<SaveListingState> emit,
   ) {
     final title = event.title;
-    final titleError = ListingValidatorUtil.validateTitle(title);
+    final titleError = ListingValidator.validateTitle(title);
     emit(
       state.copyWith(
         title: title,
@@ -94,7 +94,7 @@ class SaveListingBloc extends Bloc<SaveListingEvent, SaveListingState> {
     Emitter<SaveListingState> emit,
   ) {
     final description = event.description;
-    final descriptionError = ListingValidatorUtil.validateDescription(
+    final descriptionError = ListingValidator.validateDescription(
       description,
     );
     emit(
@@ -111,7 +111,7 @@ class SaveListingBloc extends Bloc<SaveListingEvent, SaveListingState> {
     Emitter<SaveListingState> emit,
   ) {
     final priceText = event.priceText;
-    final priceError = ListingValidatorUtil.validateListingPrice(priceText);
+    final priceError = ListingValidator.validateListingPrice(priceText);
     emit(
       state.copyWith(
         price: priceError == null ? int.parse(priceText) : 0,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/snack_bar_body.dart';
 
-class WidgetUtil {
+class SnackBarHelper {
   static void showSnackBar(
     BuildContext context,
     String message,
@@ -22,15 +22,5 @@ class WidgetUtil {
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  }
-
-  static void showModalSheet(BuildContext context, Widget widget) {
-    showModalBottomSheet(
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      context: context,
-      builder: (_) => widget,
-    );
   }
 }

@@ -1,4 +1,4 @@
-class ReviewValidatorUtil {
+class ReviewValidator {
   static String? validateReviewText(String reviewText) {
     if (reviewText.isEmpty) return "The review text must not be empty.";
     if (reviewText.length > 445) {

@@ -1,4 +1,4 @@
-import 'package:marketplace_musical_instruments_app/core/util/user_validator_util.dart';
+import 'package:marketplace_musical_instruments_app/core/validator/user_validator.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
 
 class ResetPasswordState {
@@ -32,5 +32,5 @@ class ResetPasswordState {
     );
   }
 
-  String? get emailErrorMessage => UserValidatorUtil.validateEmail(email);
+  String? get emailErrorMessage => UserValidator.validateEmail(email);
 }

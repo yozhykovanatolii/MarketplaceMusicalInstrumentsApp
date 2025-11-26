@@ -1,4 +1,4 @@
-import 'package:marketplace_musical_instruments_app/core/util/review_validator_util.dart';
+import 'package:marketplace_musical_instruments_app/core/validator/review_validator.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_state.dart';
 
 class ReviewState {
@@ -34,12 +34,10 @@ class ReviewState {
 
   String get counterReviewText => '${reviewText.length}/445';
 
-  String? get reviewTextError =>
-      ReviewValidatorUtil.validateReviewText(reviewText);
+  String? get reviewTextError => ReviewValidator.validateReviewText(reviewText);
 
   ButtonStatus get buttonStatus {
-    return rating != 0 &&
-            ReviewValidatorUtil.validateReviewText(reviewText) == null
+    return rating != 0 && ReviewValidator.validateReviewText(reviewText) == null
         ? ButtonStatus.enabled
         : ButtonStatus.disabled;
   }
