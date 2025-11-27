@@ -4,6 +4,7 @@ import 'package:marketplace_musical_instruments_app/core/service/user_auth_servi
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/firestore/listing_firestore.dart';
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/firestore/user_firestore.dart';
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/storage/supabase_storage.dart';
+import 'package:marketplace_musical_instruments_app/data/mapper/user_mapper.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
 import 'package:marketplace_musical_instruments_app/data/model/user_model.dart';
 import 'package:marketplace_musical_instruments_app/domain/entity/user_entity.dart';
@@ -46,14 +47,7 @@ class UserRepository {
       print('[DEBUG] Firebase user: $user');
       if (user == null) throw UserNotFoundException('User didn\'t find');
       final userModel = await _userFirestore.getUserModelById(user.uid);
-      return UserEntity(
-        id: userModel.id,
-        fullName: userModel.fullName,
-        about: userModel.about,
-        phoneNumber: userModel.phoneNumber,
-        avatar: userModel.avatar,
-        favouriteListingsId: userModel.favouriteListingsId,
-      );
+      return UserMapper.toEntity(userModel);
     });
   }
 
