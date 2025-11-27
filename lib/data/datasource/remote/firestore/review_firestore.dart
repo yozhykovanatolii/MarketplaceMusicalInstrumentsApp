@@ -8,11 +8,19 @@ class ReviewFirestore {
     ReviewModel reviewModel,
     String listingId,
   ) async {
-    final docReference = getReviewDocumentReference(reviewModel.id, listingId);
+    final docReference = _getReviewDocumentReference(reviewModel.id, listingId);
     await docReference.set(reviewModel);
   }
 
   Stream<List<ReviewModel>> getAllListingReviews(String listingId) {
+    final collectionReference = _getCollectionReference(listingId);
+    return collectionReference.snapshots().map((snapshot) {
+      if (snapshot.docs.isEmpty) return [];
+      return snapshot.docs.map((document) => document.data()).toList();
+    });
+  }
+
+  CollectionReference<ReviewModel> _getCollectionReference(String listingId) {
     return _firestore
         .collection('listings')
         .doc(listingId)
@@ -21,15 +29,10 @@ class ReviewFirestore {
           fromFirestore: ReviewModel.fromFirestore,
           toFirestore: (ReviewModel userModel, options) =>
               userModel.toFirestore(),
-        )
-        .snapshots()
-        .map((snapshot) {
-          if (snapshot.docs.isEmpty) return [];
-          return snapshot.docs.map((document) => document.data()).toList();
-        });
+        );
   }
 
-  DocumentReference<ReviewModel> getReviewDocumentReference(
+  DocumentReference<ReviewModel> _getReviewDocumentReference(
     String reviewId,
     String listingId,
   ) {

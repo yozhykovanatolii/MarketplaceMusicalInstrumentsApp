@@ -11,7 +11,7 @@ class ListingFirestore {
   final _firestore = FirebaseFirestore.instance;
 
   Future<void> saveListingModel(ListingModel listingModel) async {
-    final docReference = getListingDocumentReference(listingModel.id);
+    final docReference = _getListingDocumentReference(listingModel.id);
     await docReference.set(listingModel);
   }
 
@@ -23,14 +23,9 @@ class ListingFirestore {
         'You don\'t have favourite listings',
       );
     }
-    return _firestore
-        .collection('listings')
+    final collectionReference = _getListingCollectionReference();
+    return collectionReference
         .where('id', whereIn: favouriteListingsId)
-        .withConverter(
-          fromFirestore: ListingModel.fromFirestore,
-          toFirestore: (ListingModel userModel, options) =>
-              userModel.toFirestore(),
-        )
         .snapshots()
         .map((snapshot) {
           return snapshot.docs.map((document) => document.data()).toList();
@@ -40,7 +35,7 @@ class ListingFirestore {
   Stream<Map<String, dynamic>> getListingRatingAndReviewerCount(
     String listingId,
   ) {
-    final docReference = getListingDocumentReference(listingId);
+    final docReference = _getListingDocumentReference(listingId);
     return docReference.snapshots().map((snapshot) {
       if (!snapshot.exists) return {};
       final listingModel = snapshot.data();
@@ -56,7 +51,7 @@ class ListingFirestore {
     double newAverageRating,
     int newReviewerCounter,
   ) async {
-    final docReference = getListingDocumentReference(listingId);
+    final docReference = _getListingDocumentReference(listingId);
     await docReference.update({
       'averageRating': newAverageRating,
       'reviewerCount': newReviewerCounter,
@@ -64,14 +59,9 @@ class ListingFirestore {
   }
 
   Stream<List<ListingModel>> getUserListings(String userId) {
-    return _firestore
-        .collection('listings')
+    final collectionReference = _getListingCollectionReference();
+    return collectionReference
         .where('authorId', isEqualTo: userId)
-        .withConverter(
-          fromFirestore: ListingModel.fromFirestore,
-          toFirestore: (ListingModel userModel, options) =>
-              userModel.toFirestore(),
-        )
         .snapshots()
         .map((snapshot) {
           if (snapshot.docs.isEmpty) {
@@ -82,14 +72,8 @@ class ListingFirestore {
   }
 
   Future<List<ListingModel>> getAllListingExceptUsers(String userId) async {
-    final query = _firestore
-        .collection('listings')
-        .where('authorId', isEqualTo: userId)
-        .withConverter(
-          fromFirestore: ListingModel.fromFirestore,
-          toFirestore: (ListingModel userModel, options) =>
-              userModel.toFirestore(),
-        );
+    final collectionReference = _getListingCollectionReference();
+    final query = collectionReference.where('authorId', isEqualTo: userId);
     final querySnapshot = await query.get();
     if (querySnapshot.docs.isEmpty) {
       throw GetAllListingsExceptUserException('Listings weren\'t found');
@@ -106,15 +90,10 @@ class ListingFirestore {
     double userLng,
     int radius,
   ) async {
-    var query = _firestore
-        .collection('listings')
+    final collectionReference = _getListingCollectionReference();
+    var query = collectionReference
         .where('priceByHour', isGreaterThanOrEqualTo: startPrice)
-        .where('priceByHour', isLessThanOrEqualTo: endPrice)
-        .withConverter(
-          fromFirestore: ListingModel.fromFirestore,
-          toFirestore: (ListingModel userModel, options) =>
-              userModel.toFirestore(),
-        );
+        .where('priceByHour', isLessThanOrEqualTo: endPrice);
     if (categories.isNotEmpty) {
       query = query.where('category', whereIn: categories);
     }
@@ -152,27 +131,16 @@ class ListingFirestore {
   }
 
   Future<List<ListingModel>> searchListings(String searchText) async {
-    final titleQuery = _firestore
-        .collection('listings')
+    final collectionReference = _getListingCollectionReference();
+    final titleQuery = collectionReference
         .orderBy('title')
         .startAt([searchText])
         .endAt(['$searchText\uf8ff'])
-        .withConverter(
-          fromFirestore: ListingModel.fromFirestore,
-          toFirestore: (ListingModel userModel, options) =>
-              userModel.toFirestore(),
-        )
         .get();
-    final categoryQuery = _firestore
-        .collection('listings')
+    final categoryQuery = collectionReference
         .orderBy('category')
         .startAt([searchText])
         .endAt(['$searchText\uf8ff'])
-        .withConverter(
-          fromFirestore: ListingModel.fromFirestore,
-          toFirestore: (ListingModel userModel, options) =>
-              userModel.toFirestore(),
-        )
         .get();
     final results = await Future.wait([titleQuery, categoryQuery]);
     final allDocs = results.expand((s) => s.docs).toList();
@@ -190,7 +158,17 @@ class ListingFirestore {
     await _firestore.collection('listings').doc(listingId).delete();
   }
 
-  DocumentReference<ListingModel> getListingDocumentReference(String id) {
+  CollectionReference<ListingModel> _getListingCollectionReference() {
+    return _firestore
+        .collection('listings')
+        .withConverter(
+          fromFirestore: ListingModel.fromFirestore,
+          toFirestore: (ListingModel userModel, options) =>
+              userModel.toFirestore(),
+        );
+  }
+
+  DocumentReference<ListingModel> _getListingDocumentReference(String id) {
     return _firestore
         .collection('listings')
         .doc(id)

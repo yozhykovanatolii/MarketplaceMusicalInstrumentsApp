@@ -14,12 +14,12 @@ class UserFirestore {
   }
 
   Future<void> saveUser(UserModel userModel) async {
-    final docReference = getUserDocumentReference(userModel.id);
+    final docReference = _getUserDocumentReference(userModel.id);
     await docReference.set(userModel);
   }
 
   Future<UserModel> getUserModelById(String id) async {
-    final docRef = getUserDocumentReference(id);
+    final docRef = _getUserDocumentReference(id);
     final snapshot = await docRef.get();
     print('[DEBUG] Firestore exists: ${snapshot.exists}');
     print('[DEBUG] Firestore data: ${snapshot.data()?.fullName}');
@@ -28,7 +28,7 @@ class UserFirestore {
   }
 
   Stream<List<String>> getUserFavourites(String id) {
-    final docRef = getUserDocumentReference(id);
+    final docRef = _getUserDocumentReference(id);
     return docRef.snapshots().map((snapshot) {
       final data = snapshot.data();
       return data?.favouriteListingsId ?? [];
@@ -39,11 +39,11 @@ class UserFirestore {
     String id,
     List<String> updatedFavourites,
   ) async {
-    final docRef = getUserDocumentReference(id);
+    final docRef = _getUserDocumentReference(id);
     await docRef.update({'favouriteListingsId': updatedFavourites});
   }
 
-  DocumentReference<UserModel> getUserDocumentReference(String id) {
+  DocumentReference<UserModel> _getUserDocumentReference(String id) {
     return _firestore
         .collection('users')
         .doc(id)

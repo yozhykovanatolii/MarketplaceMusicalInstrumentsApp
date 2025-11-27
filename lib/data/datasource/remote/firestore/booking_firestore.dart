@@ -7,24 +7,18 @@ class BookingFirestore {
   final _firestore = FirebaseFirestore.instance;
 
   Future<void> saveBooking(BookingModel bookingModel) async {
-    final docReference = getBookingDocumentReference(bookingModel.id);
+    final docReference = _getBookingDocumentReference(bookingModel.id);
     await docReference.set(bookingModel);
   }
 
   Future<void> changeBookingStatus(String newStatus, String bookingId) async {
-    final docReference = getBookingDocumentReference(bookingId);
+    final docReference = _getBookingDocumentReference(bookingId);
     await docReference.update({'status': newStatus});
   }
 
   Future<List<BookingModel>> getAllUserBookings(String userId) async {
-    final query = _firestore
-        .collection('bookings')
-        .where('renterId', isEqualTo: userId)
-        .withConverter(
-          fromFirestore: BookingModel.fromFirestore,
-          toFirestore: (BookingModel bookingModel, options) =>
-              bookingModel.toFirestore(),
-        );
+    final collectionReference = _getBookingCollectionReference();
+    final query = collectionReference.where('renterId', isEqualTo: userId);
     final querySnapshot = await query.get();
     if (querySnapshot.docs.isEmpty) {
       throw UserBookingsNotFound('Bookings weren\'t found');
@@ -33,15 +27,10 @@ class BookingFirestore {
   }
 
   Stream<List<BookingModel>> getAllUserBookingRequests(String authorId) {
-    return _firestore
-        .collection('bookings')
+    final collectionReference = _getBookingCollectionReference();
+    return collectionReference
         .where('authorId', isEqualTo: authorId)
         .where('status', isEqualTo: 'Unconfirmed')
-        .withConverter(
-          fromFirestore: BookingModel.fromFirestore,
-          toFirestore: (BookingModel userModel, options) =>
-              userModel.toFirestore(),
-        )
         .snapshots()
         .map((snapshot) {
           if (snapshot.docs.isEmpty) {
@@ -66,7 +55,17 @@ class BookingFirestore {
     return querySnapshot.docs.isNotEmpty;
   }
 
-  DocumentReference<BookingModel> getBookingDocumentReference(String id) {
+  CollectionReference<BookingModel> _getBookingCollectionReference() {
+    return _firestore
+        .collection('bookings')
+        .withConverter(
+          fromFirestore: BookingModel.fromFirestore,
+          toFirestore: (BookingModel userModel, options) =>
+              userModel.toFirestore(),
+        );
+  }
+
+  DocumentReference<BookingModel> _getBookingDocumentReference(String id) {
     return _firestore
         .collection('bookings')
         .doc(id)
