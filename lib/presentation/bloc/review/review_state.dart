@@ -1,32 +1,33 @@
 import 'package:marketplace_musical_instruments_app/core/validator/review_validator.dart';
+import 'package:marketplace_musical_instruments_app/domain/entity/review_summary_entity.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_state.dart';
 
 class ReviewState {
-  final Map<String, dynamic> reviewsAndRating;
+  final ReviewSummaryEntity reviewSummaryEntity;
   final double rating;
   final String reviewText;
 
   ReviewState({
-    required this.reviewsAndRating,
+    required this.reviewSummaryEntity,
     required this.rating,
     required this.reviewText,
   });
 
   factory ReviewState.initial() {
     return ReviewState(
-      reviewsAndRating: {},
+      reviewSummaryEntity: ReviewSummaryEntity.initial(),
       rating: 0,
       reviewText: '',
     );
   }
 
   ReviewState copyWith({
-    Map<String, dynamic>? reviewsAndRating,
+    ReviewSummaryEntity? reviewSummaryEntity,
     double? rating,
     String? reviewText,
   }) {
     return ReviewState(
-      reviewsAndRating: reviewsAndRating ?? this.reviewsAndRating,
+      reviewSummaryEntity: reviewSummaryEntity ?? this.reviewSummaryEntity,
       rating: rating ?? this.rating,
       reviewText: reviewText ?? this.reviewText,
     );

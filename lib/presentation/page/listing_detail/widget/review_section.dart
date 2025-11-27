@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:marketplace_musical_instruments_app/core/helper/modal_sheet_helper.dart';
-import 'package:marketplace_musical_instruments_app/data/model/review_model.dart';
+import 'package:marketplace_musical_instruments_app/domain/entity/review_entity.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/review/review_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/review/review_event.dart';
@@ -32,8 +32,8 @@ class _ReviewSectionState extends State<ReviewSection> {
 
   @override
   Widget build(BuildContext context) {
-    final listingReviewersAndRating = context.select(
-      (ReviewBloc bloc) => bloc.state.reviewsAndRating,
+    final reviewSummaryEntity = context.select(
+      (ReviewBloc bloc) => bloc.state.reviewSummaryEntity,
     );
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -42,12 +42,8 @@ class _ReviewSectionState extends State<ReviewSection> {
         children: [
           _ReviewAndRatingHeader(
             listingId: widget.listingId,
-            rating:
-                listingReviewersAndRating['ratingAndReviewerCount']?['averageRating'] ??
-                0,
-            reviewerCounter:
-                listingReviewersAndRating['ratingAndReviewerCount']?['reviewerCount'] ??
-                0,
+            rating: reviewSummaryEntity.averageRating,
+            reviewerCounter: reviewSummaryEntity.reviewerCount,
           ),
           const SizedBox(height: 10),
           Row(
@@ -55,22 +51,16 @@ class _ReviewSectionState extends State<ReviewSection> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               _RatingSection(
-                rating:
-                    listingReviewersAndRating['ratingAndReviewerCount']?['averageRating'] ??
-                    0,
-                reviewerCounter:
-                    listingReviewersAndRating['ratingAndReviewerCount']?['reviewerCount'] ??
-                    0,
+                rating: reviewSummaryEntity.averageRating,
+                reviewerCounter: reviewSummaryEntity.reviewerCount,
               ),
               Expanded(
                 child: Column(
                   children: List.generate(
-                    5,
+                    reviewSummaryEntity.ratingProcents.length,
                     (index) => _RatingSummaryProgressIndicator(
-                      text: '${5 - index}',
-                      value:
-                          listingReviewersAndRating['ratingsProcent']?['${5 - index}'] ??
-                          0,
+                      text: reviewSummaryEntity.ratingProcents[index].star,
+                      value: reviewSummaryEntity.ratingProcents[index].procent,
                     ),
                   ),
                 ),
@@ -79,7 +69,7 @@ class _ReviewSectionState extends State<ReviewSection> {
           ),
           const SizedBox(height: 20),
           _ListingReviews(
-            reviews: listingReviewersAndRating['reviews'] ?? [],
+            reviews: reviewSummaryEntity.reviews ?? [],
           ),
         ],
       ),
@@ -225,7 +215,7 @@ class _RatingSummaryProgressIndicator extends StatelessWidget {
 }
 
 class _ListingReviews extends StatelessWidget {
-  final List<ReviewModel> reviews;
+  final List<ReviewEntity> reviews;
 
   const _ListingReviews({
     super.key,
@@ -243,8 +233,8 @@ class _ListingReviews extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 UserAvatarAndFullName(
-                  authorAvatar: reviews[index].viewerAvatar,
-                  authorFullName: reviews[index].viewerFullName,
+                  authorAvatar: reviews[index].authorAvatarUrl,
+                  authorFullName: reviews[index].authorFullName,
                 ),
                 const SizedBox(height: 10),
                 Row(
@@ -268,7 +258,7 @@ class _ListingReviews extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 ReadMoreText(
-                  text: reviews[index].reviewText,
+                  text: reviews[index].text,
                 ),
               ],
             ),

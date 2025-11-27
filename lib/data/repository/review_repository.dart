@@ -3,7 +3,11 @@ import 'package:marketplace_musical_instruments_app/core/util/calculation_rating
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/firestore/listing_firestore.dart';
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/firestore/review_firestore.dart';
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/firestore/user_firestore.dart';
+import 'package:marketplace_musical_instruments_app/data/mapper/rating_procent_mapper.dart';
+import 'package:marketplace_musical_instruments_app/data/mapper/review_mapper.dart';
+import 'package:marketplace_musical_instruments_app/data/mapper/review_summary_mapper.dart';
 import 'package:marketplace_musical_instruments_app/data/model/review_model.dart';
+import 'package:marketplace_musical_instruments_app/domain/entity/review_summary_entity.dart';
 
 class ReviewRepository {
   final _userFirestore = UserFirestore();
@@ -41,7 +45,7 @@ class ReviewRepository {
     await _reviewFirestore.saveReviewModel(reviewModel, listingId);
   }
 
-  Stream<Map<String, dynamic>> getListingRatingAndAllReviews(
+  Stream<ReviewSummaryEntity> getListingRatingAndAllReviews(
     String listingId,
   ) {
     final reviewsStream = _reviewFirestore.getAllListingReviews(listingId);
@@ -49,10 +53,18 @@ class ReviewRepository {
       final ratingAndReviewerCountStream = _listingFirestore
           .getListingRatingAndReviewerCount(listingId);
       final ratingAndReviewerCount = await ratingAndReviewerCountStream.first;
-      return {
-        'ratingAndReviewerCount': ratingAndReviewerCount,
-        'reviews': reviews,
-      };
+      final reviewsEntity = reviews
+          .map((reviewModel) => ReviewMapper.toEntity(reviewModel))
+          .toList();
+      final ratingsProcentEntity = RatingProcentMapper.toEntity(
+        reviews,
+        ratingAndReviewerCount['reviewerCount'] ?? 0,
+      );
+      return ReviewSummaryMapper.toEntity(
+        ratingAndReviewerCount,
+        reviewsEntity,
+        ratingsProcentEntity,
+      );
     });
   }
 }
