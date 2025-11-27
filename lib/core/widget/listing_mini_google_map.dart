@@ -37,8 +37,17 @@ class _ListingMiniGoogleMapState extends State<ListingMiniGoogleMap> {
         child: GoogleMap(
           onMapCreated: (controller) => _controller = controller,
           zoomControlsEnabled: false,
-          myLocationEnabled: true,
           myLocationButtonEnabled: false,
+          circles: {
+            Circle(
+              circleId: const CircleId('blue_circle'),
+              center: widget.currentLocation,
+              radius: 300,
+              fillColor: Colors.blue.withValues(alpha: 0.3),
+              strokeColor: Colors.blue,
+              strokeWidth: 2,
+            ),
+          },
           initialCameraPosition: CameraPosition(
             target: widget.currentLocation,
             zoom: 14,

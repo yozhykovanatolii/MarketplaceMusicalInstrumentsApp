@@ -55,11 +55,6 @@ class AboutSection extends StatelessWidget {
             S.of(context).location,
             style: Theme.of(context).textTheme.bodyMedium,
           ),
-          const SizedBox(height: 5),
-          Text(
-            'Location',
-            style: Theme.of(context).textTheme.labelMedium,
-          ),
           const SizedBox(height: 10),
           Expanded(
             child: ListingMiniGoogleMap(
