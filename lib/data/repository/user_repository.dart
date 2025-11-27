@@ -3,13 +3,13 @@ import 'package:marketplace_musical_instruments_app/core/service/camera_picker_s
 import 'package:marketplace_musical_instruments_app/core/service/user_auth_service.dart';
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/firestore/listing_firestore.dart';
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/firestore/user_firestore.dart';
-import 'package:marketplace_musical_instruments_app/data/datasource/remote/storage/user_storage.dart';
+import 'package:marketplace_musical_instruments_app/data/datasource/remote/storage/supabase_storage.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
 import 'package:marketplace_musical_instruments_app/data/model/user_model.dart';
 import 'package:marketplace_musical_instruments_app/domain/entity/user_entity.dart';
 
 class UserRepository {
-  final _userStorage = UserStorage();
+  final _supabaseStorage = SupabaseStorage();
   final _userFirestore = UserFirestore();
   final _listingFirestore = ListingFirestore();
 
@@ -33,7 +33,10 @@ class UserRepository {
 
   Future<String> getUserImage() async {
     final userImageFile = await CameraPickerService.pickImageFileFromGallery();
-    final userImageUrl = await _userStorage.saveImage(userImageFile);
+    final userImageUrl = await _supabaseStorage.saveImage(
+      userImageFile,
+      'users',
+    );
     return userImageUrl;
   }
 
