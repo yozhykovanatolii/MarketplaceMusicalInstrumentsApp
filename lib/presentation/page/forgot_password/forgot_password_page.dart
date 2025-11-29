@@ -5,7 +5,7 @@ import 'package:marketplace_musical_instruments_app/core/helper/snack_bar_helper
 import 'package:marketplace_musical_instruments_app/core/navigation/app_routes.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/reset_password/reset_password_bloc.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/reset_password/reset_password_cubit.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/reset_password/reset_password_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/forgot_password/widget/forgot_password_email_text_field.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/forgot_password/widget/reset_password_button.dart';
@@ -16,7 +16,7 @@ class ForgotPasswordPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocListener<ResetPasswordBloc, ResetPasswordState>(
+      body: BlocListener<ResetPasswordCubit, ResetPasswordState>(
         listener: (context, state) {
           if (state.formStatus == FormStatus.success) {
             SnackBarHelper.showSnackBar(

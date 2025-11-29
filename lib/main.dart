@@ -18,7 +18,7 @@ import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/li
 import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/register/register_bloc.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/reset_password/reset_password_bloc.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/reset_password/reset_password_cubit.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/review/review_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/settings/settings_cubit.dart';
@@ -51,7 +51,7 @@ void main() async {
               FavouriteListingsBloc()..add(UserFavouriteListingsIdFetchEvent()),
         ),
         BlocProvider(create: (_) => SettingsCubit()..fetchSettings()),
-        BlocProvider(create: (_) => ResetPasswordBloc()),
+        BlocProvider(create: (_) => ResetPasswordCubit()),
         BlocProvider(create: (_) => EditProfileBloc()),
         BlocProvider(create: (_) => ReviewBloc()),
         BlocProvider(create: (_) => AuthorListingBloc()),

@@ -4,8 +4,7 @@ import 'package:marketplace_musical_instruments_app/core/widget/common_button.da
 import 'package:marketplace_musical_instruments_app/core/widget/common_progress_indicator.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/reset_password/reset_password_bloc.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/reset_password/reset_password_event.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/reset_password/reset_password_cubit.dart';
 
 class ResetPasswordButton extends StatelessWidget {
   const ResetPasswordButton({super.key});
@@ -13,7 +12,7 @@ class ResetPasswordButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final formStatus = context.select(
-      (ResetPasswordBloc bloc) => bloc.state.formStatus,
+      (ResetPasswordCubit bloc) => bloc.state.formStatus,
     );
     final child = formStatus == FormStatus.loading
         ? const CommonProgressIndicator(scale: 0.8)
@@ -26,9 +25,7 @@ class ResetPasswordButton extends StatelessWidget {
           );
     return CommonButton(
       width: MediaQuery.of(context).size.width,
-      onPressed: () => context.read<ResetPasswordBloc>().add(
-        EmailLetterSendEvent(),
-      ),
+      onPressed: () => context.read<ResetPasswordCubit>().sendEmailLetter(),
       child: child,
     );
   }
