@@ -16,7 +16,7 @@ import 'package:marketplace_musical_instruments_app/presentation/bloc/favourite_
 import 'package:marketplace_musical_instruments_app/presentation/bloc/favourite_listings/favourite_listings_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_event.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_bloc.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_cubit.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/register/register_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/reset_password/reset_password_cubit.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/review/review_bloc.dart';
@@ -37,7 +37,7 @@ void main() async {
   runApp(
     MultiBlocProvider(
       providers: [
-        BlocProvider(create: (_) => LoginBloc()),
+        BlocProvider(create: (_) => LoginCubit()),
         BlocProvider(create: (_) => RegisterBloc()),
         BlocProvider(create: (_) => SaveListingBloc()),
         BlocProvider(

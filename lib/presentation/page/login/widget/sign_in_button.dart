@@ -3,8 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_button.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_progress_indicator.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_bloc.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_event.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_cubit.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
 
 class SignInButton extends StatelessWidget {
@@ -12,7 +11,7 @@ class SignInButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<LoginBloc, LoginState, FormStatus>(
+    return BlocSelector<LoginCubit, LoginState, FormStatus>(
       selector: (state) => state.formStatus,
       builder: (context, registerStatus) {
         final child = registerStatus == FormStatus.loading
@@ -26,9 +25,7 @@ class SignInButton extends StatelessWidget {
               );
         return CommonButton(
           width: MediaQuery.of(context).size.width,
-          onPressed: () => context.read<LoginBloc>().add(
-            LoginSubmitEvent(),
-          ),
+          onPressed: () => context.read<LoginCubit>().signInUser(),
           child: child,
         );
       },

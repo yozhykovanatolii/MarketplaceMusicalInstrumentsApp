@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:marketplace_musical_instruments_app/core/helper/snack_bar_helper.dart';
 import 'package:marketplace_musical_instruments_app/core/navigation/app_routes.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_bloc.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_cubit.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/login/widget/forgot_password_text_button.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/login/widget/login_email_text_field.dart';
@@ -18,7 +18,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocListener<LoginBloc, LoginState>(
+      body: BlocListener<LoginCubit, LoginState>(
         listener: (context, state) {
           if (state.formStatus == FormStatus.failure) {
             SnackBarHelper.showSnackBar(

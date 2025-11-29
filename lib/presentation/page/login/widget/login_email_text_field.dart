@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_text_field.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_bloc.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_event.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_cubit.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
 
 class LoginEmailTextField extends StatelessWidget {
@@ -11,13 +10,11 @@ class LoginEmailTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<LoginBloc, LoginState, String?>(
+    return BlocSelector<LoginCubit, LoginState, String?>(
       selector: (state) => state.emailError,
       builder: (context, emailError) {
         return CommonTextField(
-          onChanged: (email) => context.read<LoginBloc>().add(
-            LoginEmailChangeEvent(email),
-          ),
+          onChanged: (email) => context.read<LoginCubit>().setLoginEmail(email),
           hintText: S.of(context).enterYourEmail,
           errorText: emailError,
         );

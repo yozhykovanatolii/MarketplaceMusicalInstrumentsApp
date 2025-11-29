@@ -1,40 +1,43 @@
+import 'package:marketplace_musical_instruments_app/core/validator/user_validator.dart';
+
 enum FormStatus { initial, loading, success, failure }
 
 class LoginState {
-  final String? emailError;
-  final String? passwordError;
+  final String email;
+  final String password;
   final FormStatus formStatus;
   final String errorMessage;
 
   LoginState({
-    this.emailError,
-    this.passwordError,
+    required this.email,
+    required this.password,
     required this.formStatus,
     required this.errorMessage,
   });
 
   factory LoginState.initial() {
     return LoginState(
+      email: '',
+      password: '',
       formStatus: FormStatus.initial,
       errorMessage: '',
     );
   }
 
   LoginState copyWith({
-    String? emailError,
-    String? passwordError,
+    String? email,
+    String? password,
     FormStatus? formStatus,
     String? errorMessage,
-    bool clearEmailError = false,
-    bool clearPasswordError = false,
   }) {
     return LoginState(
-      emailError: clearEmailError ? null : (emailError ?? this.emailError),
-      passwordError: clearPasswordError
-          ? null
-          : (passwordError ?? this.passwordError),
+      email: email ?? this.email,
+      password: password ?? this.password,
       formStatus: formStatus ?? this.formStatus,
       errorMessage: errorMessage ?? this.errorMessage,
     );
   }
+
+  String? get emailError => UserValidator.validateEmail(email);
+  String? get passwordError => UserValidator.validatePassword(password);
 }
