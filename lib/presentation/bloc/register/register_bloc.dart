@@ -101,7 +101,8 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   ) async {
     if (state.emailError != null ||
         state.fullNameError != null ||
-        state.passwordError != null) {
+        state.passwordError != null ||
+        state.phoneNumberError != null) {
       return;
     }
     emit(state.copyWith(formStatus: FormStatus.loading));
