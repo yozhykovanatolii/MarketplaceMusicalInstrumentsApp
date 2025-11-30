@@ -4,31 +4,17 @@ import 'package:marketplace_musical_instruments_app/core/exception/permission_de
 import 'package:marketplace_musical_instruments_app/core/exception/photo_not_selected_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/auth/user_not_found_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/service/geolocation_service.dart';
-import 'package:marketplace_musical_instruments_app/core/validator/listing_validator.dart';
+import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
 import 'package:marketplace_musical_instruments_app/data/repository/listing_repository.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_state.dart';
 
-class SaveListingBloc extends Bloc<SaveListingEvent, SaveListingState> {
+class SaveListingCubit extends Cubit<SaveListingState> {
   final _listingRepository = ListingRepository();
 
-  SaveListingBloc() : super(SaveListingState.initial()) {
-    on<AddListingPhotoEvent>(_onAddListingPhotoInList);
-    on<DeleteListingPhotoEvent>(_onDeleteListingPhotoFromList);
-    on<GetUserCurrentLocationEvent>(_onGetUserLocation);
-    on<ListingTitleChangeEvent>(_onTitleChanged);
-    on<ListingDecriptionChangeEvent>(_onDescriptionChanged);
-    on<ListingPriceChangeEvent>(_onPriceChanged);
-    on<ListingCategoryChangeEvent>(_onCategoryChanged);
-    on<ListingEditEvent>(_onEditListing);
-    on<ListingSaveEvent>(_onSaveListing);
-  }
+  SaveListingCubit() : super(SaveListingState.initial());
 
-  Future<void> _onAddListingPhotoInList(
-    AddListingPhotoEvent event,
-    Emitter<SaveListingState> emit,
-  ) async {
+  Future<void> onAddListingPhotoInList() async {
     try {
       final photoUrl = await _listingRepository.getListingPhotoUrl();
       final updatedPhotos = List<String>.from(state.photos)..add(photoUrl);
@@ -42,19 +28,12 @@ class SaveListingBloc extends Bloc<SaveListingEvent, SaveListingState> {
     }
   }
 
-  void _onDeleteListingPhotoFromList(
-    DeleteListingPhotoEvent event,
-    Emitter<SaveListingState> emit,
-  ) {
-    String photoUrl = event.photoUrl;
+  void onDeleteListingPhotoFromList(String photoUrl) {
     final updatedList = List<String>.from(state.photos)..remove(photoUrl);
     emit(state.copyWith(photos: updatedList));
   }
 
-  Future<void> _onGetUserLocation(
-    GetUserCurrentLocationEvent event,
-    Emitter<SaveListingState> emit,
-  ) async {
+  Future<void> onGetUserLocation() async {
     try {
       final location = await GeolocationService.getCurrentLocation();
       final updatedUserLocation = Map<String, double>.from(
@@ -74,65 +53,23 @@ class SaveListingBloc extends Bloc<SaveListingEvent, SaveListingState> {
     }
   }
 
-  void _onTitleChanged(
-    ListingTitleChangeEvent event,
-    Emitter<SaveListingState> emit,
-  ) {
-    final title = event.title;
-    final titleError = ListingValidator.validateTitle(title);
-    emit(
-      state.copyWith(
-        title: title,
-        titleError: titleError,
-        clearTitleError: titleError == null,
-      ),
-    );
+  void onTitleChanged(String title) {
+    emit(state.copyWith(title: title));
   }
 
-  void _onDescriptionChanged(
-    ListingDecriptionChangeEvent event,
-    Emitter<SaveListingState> emit,
-  ) {
-    final description = event.description;
-    final descriptionError = ListingValidator.validateDescription(
-      description,
-    );
-    emit(
-      state.copyWith(
-        description: description,
-        descriptionError: descriptionError,
-        clearDecriptionError: descriptionError == null,
-      ),
-    );
+  void onDescriptionChanged(String description) {
+    emit(state.copyWith(description: description));
   }
 
-  void _onPriceChanged(
-    ListingPriceChangeEvent event,
-    Emitter<SaveListingState> emit,
-  ) {
-    final priceText = event.priceText;
-    final priceError = ListingValidator.validateListingPrice(priceText);
-    emit(
-      state.copyWith(
-        price: priceError == null ? int.parse(priceText) : 0,
-        priceError: priceError,
-        clearPriceError: priceError == null,
-      ),
-    );
+  void onPriceChanged(String priceText) {
+    emit(state.copyWith(price: int.parse(priceText)));
   }
 
-  void _onCategoryChanged(
-    ListingCategoryChangeEvent event,
-    Emitter<SaveListingState> emit,
-  ) {
-    emit(state.copyWith(category: event.category));
+  void onCategoryChanged(String category) {
+    emit(state.copyWith(category: category));
   }
 
-  void _onEditListing(
-    ListingEditEvent event,
-    Emitter<SaveListingState> emit,
-  ) {
-    final listing = event.listing;
+  void onEditListing(ListingModel? listing) {
     if (listing != null) {
       emit(
         state.copyWith(
@@ -147,10 +84,7 @@ class SaveListingBloc extends Bloc<SaveListingEvent, SaveListingState> {
     }
   }
 
-  Future<void> _onSaveListing(
-    ListingSaveEvent event,
-    Emitter<SaveListingState> emit,
-  ) async {
+  Future<void> onSaveListing(ListingModel? listing) async {
     print('Hello, listing');
     emit(state.copyWith(formStatus: FormStatus.loading));
     try {
@@ -161,7 +95,7 @@ class SaveListingBloc extends Bloc<SaveListingEvent, SaveListingState> {
         state.description,
         state.category,
         state.price,
-        currentListing: event.listing,
+        currentListing: listing,
       );
       emit(state.copyWith(formStatus: FormStatus.success));
     } on UserNotFoundException catch (exception) {

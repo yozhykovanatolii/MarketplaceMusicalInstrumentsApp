@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_text_field.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_bloc.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_event.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_cubit.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_state.dart';
 
 class ListingTitleTextField extends StatelessWidget {
@@ -16,13 +15,12 @@ class ListingTitleTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SaveListingBloc, SaveListingState>(
+    return BlocBuilder<SaveListingCubit, SaveListingState>(
       builder: (context, state) {
         return CommonTextField(
           controller: controller,
-          onChanged: (title) => context.read<SaveListingBloc>().add(
-            ListingTitleChangeEvent(title),
-          ),
+          onChanged: (title) =>
+              context.read<SaveListingCubit>().onTitleChanged(title),
           hintText: S.of(context).enterNameOfTheInstrument,
           errorText: state.titleError,
           counterText: state.titleCounterText,

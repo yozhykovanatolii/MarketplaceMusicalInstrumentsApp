@@ -20,7 +20,7 @@ import 'package:marketplace_musical_instruments_app/presentation/bloc/login/logi
 import 'package:marketplace_musical_instruments_app/presentation/bloc/register/register_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/reset_password/reset_password_cubit.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/review/review_bloc.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_bloc.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_cubit.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/settings/settings_cubit.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -39,7 +39,7 @@ void main() async {
       providers: [
         BlocProvider(create: (_) => LoginCubit()),
         BlocProvider(create: (_) => RegisterBloc()),
-        BlocProvider(create: (_) => SaveListingBloc()),
+        BlocProvider(create: (_) => SaveListingCubit()),
         BlocProvider(
           create: (_) => AppBloc()..add(AppUserSubscriptionRequested()),
         ),

@@ -4,8 +4,7 @@ import 'package:marketplace_musical_instruments_app/core/helper/snack_bar_helper
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_bloc.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_event.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_cubit.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/save_listing/widget/category_dropdown_menu.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/save_listing/widget/listing_description_text_field.dart';
@@ -28,16 +27,16 @@ class SaveListingPage extends StatefulWidget {
 }
 
 class _SaveListingPageState extends State<SaveListingPage> {
-  late final SaveListingBloc bloc;
+  late final SaveListingCubit cubit;
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _priceTextController = TextEditingController();
 
   @override
   void initState() {
-    bloc = context.read<SaveListingBloc>();
+    cubit = context.read<SaveListingCubit>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      bloc.add(ListingEditEvent(widget.listing));
+      cubit.onEditListing(widget.listing);
       _titleController.text = widget.listing?.title ?? '';
       _descriptionController.text = widget.listing?.description ?? '';
       _priceTextController.text = widget.listing?.priceByHour.toString() ?? '';
@@ -61,7 +60,7 @@ class _SaveListingPageState extends State<SaveListingPage> {
           S.of(context).createYourListing,
         ),
       ),
-      body: BlocListener<SaveListingBloc, SaveListingState>(
+      body: BlocListener<SaveListingCubit, SaveListingState>(
         listener: (context, state) {
           if (state.errorMessage.isNotEmpty) {
             SnackBarHelper.showSnackBar(

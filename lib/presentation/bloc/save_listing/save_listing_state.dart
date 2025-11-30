@@ -1,3 +1,4 @@
+import 'package:marketplace_musical_instruments_app/core/validator/listing_validator.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
 
 enum ButtonStatus { enabled, disabled }
@@ -9,9 +10,6 @@ class SaveListingState {
   final String description;
   final int price;
   final String category;
-  final String? titleError;
-  final String? descriptionError;
-  final String? priceError;
   final FormStatus formStatus;
   final String errorMessage;
 
@@ -22,9 +20,6 @@ class SaveListingState {
     required this.description,
     required this.price,
     required this.category,
-    this.titleError,
-    this.descriptionError,
-    this.priceError,
     required this.formStatus,
     required this.currentLocation,
   });
@@ -50,13 +45,7 @@ class SaveListingState {
     int? price,
     String? category,
     String? errorMessage,
-    String? titleError,
-    String? descriptionError,
-    String? priceError,
     FormStatus? formStatus,
-    bool clearTitleError = false,
-    bool clearDecriptionError = false,
-    bool clearPriceError = false,
   }) {
     return SaveListingState(
       photos: photos ?? this.photos,
@@ -67,23 +56,24 @@ class SaveListingState {
       category: category ?? this.category,
       formStatus: formStatus ?? this.formStatus,
       errorMessage: errorMessage ?? this.errorMessage,
-      titleError: clearTitleError ? null : (titleError ?? this.titleError),
-      priceError: clearPriceError ? null : (priceError ?? this.priceError),
-      descriptionError: clearDecriptionError
-          ? null
-          : (descriptionError ?? this.descriptionError),
     );
   }
 
   String get titleCounterText => '${title.length}/50';
   String get descriptionCounterText => '${description.length}/9000';
 
+  String? get titleError => ListingValidator.validateTitle(title);
+  String? get descriptionError =>
+      ListingValidator.validateDescription(description);
+  String? get priceError =>
+      ListingValidator.validateListingPrice(price.toString());
+
   ButtonStatus get buttonStatus {
     if (photos.isEmpty ||
         currentLocation.isEmpty ||
-        price == 0 ||
-        (title.length > 50 || titleError != null) ||
-        (description.length > 50 || descriptionError != null)) {
+        ListingValidator.validateListingPrice(price.toString()) != null ||
+        ListingValidator.validateTitle(title) != null ||
+        ListingValidator.validateDescription(description) != null) {
       return ButtonStatus.disabled;
     }
     return ButtonStatus.enabled;

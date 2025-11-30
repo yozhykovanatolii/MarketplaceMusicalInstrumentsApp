@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_bloc.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_event.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_cubit.dart';
 
 class CategoryDropdownMenu extends StatelessWidget {
   static const List<String> categories = [
@@ -16,9 +15,9 @@ class CategoryDropdownMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return DropdownMenu<String>(
       initialSelection: categories.first,
-      onSelected: (category) => context.read<SaveListingBloc>().add(
-        ListingCategoryChangeEvent(category ?? 'Guitar'),
-      ),
+      onSelected: (category) => context
+          .read<SaveListingCubit>()
+          .onCategoryChanged(category ?? 'Guitar'),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: const Color(0xFFF6F6F6),
