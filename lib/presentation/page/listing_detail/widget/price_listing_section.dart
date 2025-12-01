@@ -4,8 +4,7 @@ import 'package:marketplace_musical_instruments_app/core/widget/common_button.da
 import 'package:marketplace_musical_instruments_app/core/widget/information_dialog_box.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_bloc.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_event.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_cubit.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_state.dart';
 
 class PriceListingSection extends StatelessWidget {
@@ -83,7 +82,7 @@ class _BookingButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final buttonStatus = context.select(
-      (BookingSaveBloc bloc) => bloc.state.buttonStatus,
+      (BookingSaveCubit bloc) => bloc.state.buttonStatus,
     );
     final color = buttonStatus == ButtonStatus.disabled
         ? Colors.grey
@@ -103,9 +102,7 @@ class _BookingButton extends StatelessWidget {
                     .of(context)
                     .youreGoingToBookThisInstrumentAreYouSure,
                 onClickActionButton: () {
-                  context.read<BookingSaveBloc>().add(
-                    BookingCreateEvent(listing),
-                  );
+                  context.read<BookingSaveCubit>().createBooking(listing);
                   Navigator.pop(context);
                 },
               ),

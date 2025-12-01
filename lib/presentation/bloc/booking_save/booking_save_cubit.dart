@@ -1,31 +1,26 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/auth/user_not_found_exception.dart';
-import 'package:marketplace_musical_instruments_app/core/service/dialer_service.dart';
 import 'package:marketplace_musical_instruments_app/core/util/calculation_booking_price_util.dart';
+import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
 import 'package:marketplace_musical_instruments_app/data/repository/booking_repository.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_state.dart';
 
-class BookingSaveBloc extends Bloc<BookingSaveEvent, BookingSaveState> {
+class BookingSaveCubit extends Cubit<BookingSaveState> {
   final _bookingRepository = BookingRepository();
 
-  BookingSaveBloc() : super(BookingSaveState.initial()) {
-    on<BookingTotalCalculateEvent>(_calculateBookingTotalPrice);
-    on<OpenCallDialerEvent>(_openCallDialer);
-    on<BookingCreateEvent>(_createBooking);
-  }
+  BookingSaveCubit() : super(BookingSaveState.initial());
 
-  Future<void> _calculateBookingTotalPrice(
-    BookingTotalCalculateEvent event,
-    Emitter<BookingSaveState> emit,
+  Future<void> calculateBookingTotalPrice(
+    String listingId,
+    DateTime? startDate,
+    DateTime? endDate,
+    int startingPrice,
   ) async {
-    final startDate = event.startDate;
-    final endDate = event.endDate;
     if (startDate == null || endDate == null) return;
     final isInstrumentBooked = await _bookingRepository.checkIfInstrumentBooked(
-      event.listingId,
+      listingId,
       startDate,
       endDate,
     );
@@ -43,7 +38,7 @@ class BookingSaveBloc extends Bloc<BookingSaveEvent, BookingSaveState> {
     final totalPrice = CalculationBookingPriceUtil.calculateTotalPrice(
       startDate,
       endDate,
-      event.startingPrice,
+      startingPrice,
     );
     emit(
       state.copyWith(
@@ -57,12 +52,9 @@ class BookingSaveBloc extends Bloc<BookingSaveEvent, BookingSaveState> {
     );
   }
 
-  Future<void> _openCallDialer(
-    OpenCallDialerEvent event,
-    Emitter<BookingSaveState> emit,
-  ) async {
+  Future<void> openCallDialer(String authorPhoneNumber) async {
     try {
-      await DialerService.openDialer(event.authorPhoneNumber);
+      await _bookingRepository.callDialer(authorPhoneNumber);
     } catch (exception) {
       emit(
         state.copyWith(
@@ -80,17 +72,14 @@ class BookingSaveBloc extends Bloc<BookingSaveEvent, BookingSaveState> {
     }
   }
 
-  Future<void> _createBooking(
-    BookingCreateEvent event,
-    Emitter<BookingSaveState> emit,
-  ) async {
+  Future<void> createBooking(ListingModel listingModel) async {
     final startBookingDate = state.startBookingDate;
     final endBookingDate = state.endBookingDate;
     final totalPriceText = state.totalPriceText.replaceAll('\$', '');
     if (startBookingDate == null || endBookingDate == null) return;
     try {
       await _bookingRepository.createBooking(
-        event.listingModel,
+        listingModel,
         startBookingDate,
         endBookingDate,
         int.parse(totalPriceText),

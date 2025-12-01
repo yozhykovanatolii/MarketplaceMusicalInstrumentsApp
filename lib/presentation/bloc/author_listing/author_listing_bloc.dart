@@ -12,8 +12,6 @@ class AuthorListingBloc extends Bloc<AuthorListingEvent, AuthorListingState> {
   AuthorListingBloc() : super(AuthorListingInitialState()) {
     on<AuthorListingsFetchEvent>(_fetchAuthorListings);
     on<AuthorListingDeleteEvent>(_deleteAuthorListing);
-    on<AuthorListingsSucceedEvent>(_downloadAuthorListingsSuccess);
-    on<AuthorListingsFailedEvent>(_getFailureErrorMessage);
   }
 
   Future<void> _fetchAuthorListings(
@@ -35,20 +33,6 @@ class AuthorListingBloc extends Bloc<AuthorListingEvent, AuthorListingState> {
         );
       },
     );
-  }
-
-  void _downloadAuthorListingsSuccess(
-    AuthorListingsSucceedEvent event,
-    Emitter<AuthorListingState> emit,
-  ) {
-    emit(AuthorListingSuccessState(event.listings));
-  }
-
-  void _getFailureErrorMessage(
-    AuthorListingsFailedEvent event,
-    Emitter<AuthorListingState> emit,
-  ) {
-    emit(AuthorListingFailureState(event.errorMessage));
   }
 
   Future<void> _deleteAuthorListing(

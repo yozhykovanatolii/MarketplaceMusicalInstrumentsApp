@@ -4,8 +4,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/listing_mini_google_map.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_bloc.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_event.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_cubit.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/listing_detail/widget/read_more_text.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/listing_detail/widget/user_avatar_and_full_name.dart';
 
@@ -93,9 +92,7 @@ class _AuthorSubSection extends StatelessWidget {
         ),
         IconButton.filled(
           onPressed: () {
-            context.read<BookingSaveBloc>().add(
-              OpenCallDialerEvent(authorPhoneNumber),
-            );
+            context.read<BookingSaveCubit>().openCallDialer(authorPhoneNumber);
           },
           style: ButtonStyle(
             backgroundColor: WidgetStatePropertyAll(Colors.grey[200]),

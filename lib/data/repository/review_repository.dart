@@ -1,4 +1,4 @@
-import 'package:marketplace_musical_instruments_app/core/service/user_auth_service.dart';
+import 'package:marketplace_musical_instruments_app/data/datasource/remote/firebase_auth/user_auth.dart';
 import 'package:marketplace_musical_instruments_app/core/util/calculation_rating_util.dart';
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/firestore/listing_firestore.dart';
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/firestore/review_firestore.dart';
@@ -12,6 +12,7 @@ import 'package:marketplace_musical_instruments_app/domain/entity/review_summary
 class ReviewRepository {
   final _userFirestore = UserFirestore();
   final _listingFirestore = ListingFirestore();
+  final _userAuth = UserAuth();
   final _reviewFirestore = ReviewFirestore();
 
   Future<void> saveReview(
@@ -21,7 +22,7 @@ class ReviewRepository {
     int reviewerCount,
     String listingId,
   ) async {
-    final viewerId = UserAuthService.userId;
+    final viewerId = _userAuth.userId;
     final userModel = await _userFirestore.getUserModelById(viewerId);
     ReviewModel reviewModel = ReviewModel.initial();
     reviewModel = reviewModel.copyWith(

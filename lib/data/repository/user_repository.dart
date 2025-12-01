@@ -1,6 +1,6 @@
 import 'package:marketplace_musical_instruments_app/core/exception/auth/user_not_found_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/service/camera_picker_service.dart';
-import 'package:marketplace_musical_instruments_app/core/service/user_auth_service.dart';
+import 'package:marketplace_musical_instruments_app/data/datasource/remote/firebase_auth/user_auth.dart';
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/firestore/listing_firestore.dart';
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/firestore/user_firestore.dart';
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/storage/supabase_storage.dart';
@@ -12,6 +12,7 @@ import 'package:marketplace_musical_instruments_app/domain/entity/user_entity.da
 class UserRepository {
   final _supabaseStorage = SupabaseStorage();
   final _userFirestore = UserFirestore();
+  final _userAuth = UserAuth();
   final _listingFirestore = ListingFirestore();
 
   Future<bool> checkIfUserExistByEmail(String email) async {
@@ -42,7 +43,7 @@ class UserRepository {
   }
 
   Stream<UserEntity> getUserModelCurrentData() {
-    final userStream = UserAuthService.user;
+    final userStream = _userAuth.user;
     return userStream.asyncMap((user) async {
       print('[DEBUG] Firebase user: $user');
       if (user == null) throw UserNotFoundException('User didn\'t find');
@@ -52,12 +53,12 @@ class UserRepository {
   }
 
   Future<void> updateUserFavourites(List<String> updatedFavourites) async {
-    final userId = UserAuthService.userId;
+    final userId = _userAuth.userId;
     await _userFirestore.updateUserFavourites(userId, updatedFavourites);
   }
 
   Stream<List<String>> getFavouriteListingsId() {
-    final userId = UserAuthService.userId;
+    final userId = _userAuth.userId;
     return _userFirestore.getUserFavourites(userId);
   }
 

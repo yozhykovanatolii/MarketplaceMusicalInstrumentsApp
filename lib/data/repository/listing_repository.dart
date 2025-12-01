@@ -1,5 +1,5 @@
 import 'package:marketplace_musical_instruments_app/core/service/camera_picker_service.dart';
-import 'package:marketplace_musical_instruments_app/core/service/user_auth_service.dart';
+import 'package:marketplace_musical_instruments_app/data/datasource/remote/firebase_auth/user_auth.dart';
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/firestore/listing_firestore.dart';
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/firestore/user_firestore.dart';
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/storage/supabase_storage.dart';
@@ -9,6 +9,7 @@ import 'package:uuid/uuid.dart';
 class ListingRepository {
   final _supabaseStorage = SupabaseStorage();
   final _listingFirestore = ListingFirestore();
+  final _userAuth = UserAuth();
   final _userFirestore = UserFirestore();
 
   Future<String> getListingPhotoUrl() async {
@@ -26,7 +27,7 @@ class ListingRepository {
     int price, {
     ListingModel? currentListing,
   }) async {
-    final userId = UserAuthService.userId;
+    final userId = _userAuth.userId;
     final userModel = await _userFirestore.getUserModelById(userId);
     ListingModel listingModel = currentListing ?? ListingModel.initial();
     listingModel = listingModel.copyWith(
@@ -49,12 +50,12 @@ class ListingRepository {
   }
 
   Stream<List<ListingModel>> getUserListings() {
-    final authorId = UserAuthService.userId;
+    final authorId = _userAuth.userId;
     return _listingFirestore.getUserListings(authorId);
   }
 
   Future<List<ListingModel>> getAllListingExceptUsers() async {
-    final authorId = UserAuthService.userId;
+    final authorId = _userAuth.userId;
     return await _listingFirestore.getAllListingExceptUsers(authorId);
   }
 

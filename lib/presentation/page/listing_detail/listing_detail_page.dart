@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/helper/snack_bar_helper.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_bloc.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_cubit.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/listing_detail/widget/about_section.dart';
@@ -23,7 +23,7 @@ class ListingDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<BookingSaveBloc, BookingSaveState>(
+    return BlocListener<BookingSaveCubit, BookingSaveState>(
       listener: (BuildContext context, BookingSaveState state) {
         final formStatus = state.formStatus;
         if (state.formStatus == FormStatus.success) {

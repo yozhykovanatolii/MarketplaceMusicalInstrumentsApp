@@ -10,7 +10,7 @@ import 'package:marketplace_musical_instruments_app/presentation/bloc/app/app_bl
 import 'package:marketplace_musical_instruments_app/presentation/bloc/app/app_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/author_listing/author_listing_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_overview/booking_overview_bloc.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_bloc.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_cubit.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profile/edit_profile_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/favourite_listings/favourite_listings_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/favourite_listings/favourite_listings_event.dart';
@@ -55,7 +55,7 @@ void main() async {
         BlocProvider(create: (_) => EditProfileBloc()),
         BlocProvider(create: (_) => ReviewBloc()),
         BlocProvider(create: (_) => AuthorListingBloc()),
-        BlocProvider(create: (_) => BookingSaveBloc()),
+        BlocProvider(create: (_) => BookingSaveCubit()),
         BlocProvider(create: (_) => BookingOverviewBloc()),
       ],
       child: const MarketplaceApp(),

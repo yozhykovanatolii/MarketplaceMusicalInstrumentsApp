@@ -3,13 +3,14 @@ import 'package:marketplace_musical_instruments_app/core/exception/geolocation_e
 import 'package:marketplace_musical_instruments_app/core/exception/listing/listing_filtration_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/listing/listing_searching_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/permission_denied_exception.dart';
-import 'package:marketplace_musical_instruments_app/core/service/geolocation_service.dart';
+import 'package:marketplace_musical_instruments_app/data/repository/geolocation_repository.dart';
 import 'package:marketplace_musical_instruments_app/data/repository/listing_repository.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_state.dart';
 
 class ListingBloc extends Bloc<ListingEvent, ListingState> {
   final _listingRepository = ListingRepository();
+  final _geolocationRepository = GeolocationRepository();
 
   ListingBloc() : super(ListingState.initial()) {
     on<ListingInitializeEvent>(_initializeListings);
@@ -57,14 +58,8 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
 
   Future<void> _getUserLocation(Emitter<ListingState> emit) async {
     try {
-      final location = await GeolocationService.getCurrentLocation();
-      final updatedUserLocation = Map<String, double>.from(
-        state.location,
-      );
-      updatedUserLocation.addAll({
-        'latitude': location.latitude,
-        'longitude': location.longitude,
-      });
+      final location = await _geolocationRepository.getCurrentLocation();
+      final updatedUserLocation = Map<String, double>.from(location);
       emit(state.copyWith(location: updatedUserLocation));
     } on PermissionDeniedException catch (exception) {
       emit(

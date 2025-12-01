@@ -3,14 +3,15 @@ import 'package:marketplace_musical_instruments_app/core/exception/geolocation_e
 import 'package:marketplace_musical_instruments_app/core/exception/permission_denied_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/photo_not_selected_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/auth/user_not_found_exception.dart';
-import 'package:marketplace_musical_instruments_app/core/service/geolocation_service.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
+import 'package:marketplace_musical_instruments_app/data/repository/geolocation_repository.dart';
 import 'package:marketplace_musical_instruments_app/data/repository/listing_repository.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_state.dart';
 
 class SaveListingCubit extends Cubit<SaveListingState> {
   final _listingRepository = ListingRepository();
+  final _geolocationRepository = GeolocationRepository();
 
   SaveListingCubit() : super(SaveListingState.initial());
 
@@ -35,14 +36,8 @@ class SaveListingCubit extends Cubit<SaveListingState> {
 
   Future<void> onGetUserLocation() async {
     try {
-      final location = await GeolocationService.getCurrentLocation();
-      final updatedUserLocation = Map<String, double>.from(
-        state.currentLocation,
-      );
-      updatedUserLocation.addAll({
-        'latitude': location.latitude,
-        'longitude': location.longitude,
-      });
+      final location = await _geolocationRepository.getCurrentLocation();
+      final updatedUserLocation = Map<String, double>.from(location);
       emit(state.copyWith(currentLocation: updatedUserLocation));
     } on PermissionDeniedException catch (exception) {
       emit(state.copyWith(errorMessage: exception.errorMessage));

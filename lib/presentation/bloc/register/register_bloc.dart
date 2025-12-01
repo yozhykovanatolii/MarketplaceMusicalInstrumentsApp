@@ -10,10 +10,7 @@ import 'package:marketplace_musical_instruments_app/presentation/bloc/register/r
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   final _userRepository = UserRepository();
   final _authRepository = AuthRepository();
-  String _fullNameText = '';
   String _emailText = '';
-  String _passwordText = '';
-  String _phoneNumberText = '';
 
   RegisterBloc() : super(RegisterState.initial()) {
     on<RegisterFullNameChangeEvent>(_setRegisterFullName);
@@ -27,16 +24,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     RegisterFullNameChangeEvent event,
     Emitter<RegisterState> emit,
   ) {
-    final fullNameError = UserValidator.validateFullName(
-      event.fullName,
-    );
-    _fullNameText = event.fullName;
-    emit(
-      state.copyWith(
-        fullNameError: fullNameError,
-        clearFullNameError: fullNameError == null,
-      ),
-    );
+    emit(state.copyWith(fullName: event.fullName));
   }
 
   Future<void> _setRegisterEmail(
@@ -55,44 +43,21 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
           ? 'This email is busy, please choose another one.'
           : null;
     }
-    emit(
-      state.copyWith(
-        emailError: emailError,
-        clearEmailError: emailError == null,
-      ),
-    );
+    emit(state.copyWith(email: event.email));
   }
 
   void _setRegisterPassword(
     RegisterPasswordChangeEvent event,
     Emitter<RegisterState> emit,
   ) {
-    final passwordError = UserValidator.validatePassword(
-      event.password,
-    );
-    _passwordText = event.password;
-    emit(
-      state.copyWith(
-        passwordError: passwordError,
-        clearPasswordError: passwordError == null,
-      ),
-    );
+    emit(state.copyWith(password: event.password));
   }
 
   void _setRegisterPhoneNumber(
     RegisterPhoneNumberChangeEvent event,
     Emitter<RegisterState> emit,
   ) {
-    final phoneNumberError = UserValidator.validatePhoneNumber(
-      event.phoneNumber,
-    );
-    _phoneNumberText = event.phoneNumber;
-    emit(
-      state.copyWith(
-        phoneNumberError: phoneNumberError,
-        clearPhoneNumberError: phoneNumberError == null,
-      ),
-    );
+    emit(state.copyWith(phoneNumber: event.phoneNumber));
   }
 
   Future<void> _signUpUser(
@@ -109,9 +74,9 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     try {
       await _authRepository.signUpUser(
         _emailText,
-        _passwordText,
-        _fullNameText,
-        _phoneNumberText,
+        state.password,
+        state.fullName,
+        state.phoneNumber,
       );
       emit(state.copyWith(formStatus: FormStatus.success));
     } on RegisterException catch (exception) {

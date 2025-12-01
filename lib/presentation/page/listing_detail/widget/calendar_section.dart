@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_bloc.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_event.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_cubit.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarSection extends StatelessWidget {
@@ -58,7 +57,7 @@ class _BookingCalendar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final calendarTextFontSize = MediaQuery.textScalerOf(context).scale(17);
-    final bookingSaveState = context.watch<BookingSaveBloc>().state;
+    final bookingSaveState = context.watch<BookingSaveCubit>().state;
     return TableCalendar(
       daysOfWeekHeight: 20,
       firstDay: DateTime.now(),
@@ -68,8 +67,11 @@ class _BookingCalendar extends StatelessWidget {
       rangeStartDay: bookingSaveState.startBookingDate,
       rangeEndDay: bookingSaveState.endBookingDate,
       onRangeSelected: (start, end, focusedDay) {
-        context.read<BookingSaveBloc>().add(
-          BookingTotalCalculateEvent(listingId, start, end, startingPrice),
+        context.read<BookingSaveCubit>().calculateBookingTotalPrice(
+          listingId,
+          start,
+          end,
+          startingPrice,
         );
       },
       headerStyle: HeaderStyle(
@@ -131,7 +133,7 @@ class _TotalBookingPriceSubSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final totalPriceText = context.select(
-      (BookingSaveBloc bloc) => bloc.state.totalPriceText,
+      (BookingSaveCubit bloc) => bloc.state.totalPriceText,
     );
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

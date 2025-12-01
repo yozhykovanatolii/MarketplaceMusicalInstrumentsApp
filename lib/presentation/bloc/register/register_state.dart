@@ -1,54 +1,55 @@
+import 'package:marketplace_musical_instruments_app/core/validator/user_validator.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
 
 class RegisterState {
-  final String? fullNameError;
-  final String? emailError;
-  final String? passwordError;
-  final String? phoneNumberError;
+  final String fullName;
+  final String email;
+  final String password;
+  final String phoneNumber;
   final String errorMessage;
   final FormStatus formStatus;
 
   RegisterState({
-    this.fullNameError,
-    this.emailError,
-    this.passwordError,
-    this.phoneNumberError,
+    required this.fullName,
+    required this.email,
+    required this.password,
+    required this.phoneNumber,
     required this.errorMessage,
     required this.formStatus,
   });
 
   factory RegisterState.initial() {
     return RegisterState(
+      fullName: '',
+      email: '',
+      password: '',
+      phoneNumber: '',
       errorMessage: '',
       formStatus: FormStatus.initial,
     );
   }
 
   RegisterState copyWith({
-    String? fullNameError,
-    String? emailError,
-    String? passwordError,
-    String? phoneNumberError,
+    String? fullName,
+    String? email,
+    String? password,
+    String? phoneNumber,
     String? errorMessage,
     FormStatus? formStatus,
-    bool clearFullNameError = false,
-    bool clearEmailError = false,
-    bool clearPasswordError = false,
-    bool clearPhoneNumberError = false,
   }) {
     return RegisterState(
-      fullNameError: clearFullNameError
-          ? null
-          : (fullNameError ?? this.fullNameError),
-      emailError: clearEmailError ? null : (emailError ?? this.emailError),
-      passwordError: clearPasswordError
-          ? null
-          : (passwordError ?? this.passwordError),
-      phoneNumberError: clearPhoneNumberError
-          ? null
-          : (phoneNumberError ?? this.phoneNumberError),
+      fullName: fullName ?? this.fullName,
+      email: email ?? this.email,
+      password: password ?? this.password,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
       errorMessage: errorMessage ?? this.errorMessage,
       formStatus: formStatus ?? this.formStatus,
     );
   }
+
+  String? get fullNameError => UserValidator.validateFullName(fullName);
+  String? get emailError => UserValidator.validateEmail(email);
+  String? get passwordError => UserValidator.validatePassword(password);
+  String? get phoneNumberError =>
+      UserValidator.validatePhoneNumber(phoneNumber);
 }
