@@ -1,5 +1,4 @@
 import 'package:marketplace_musical_instruments_app/core/exception/auth/user_not_found_exception.dart';
-import 'package:marketplace_musical_instruments_app/core/service/camera_picker_service.dart';
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/firebase_auth/user_auth.dart';
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/firestore/listing_firestore.dart';
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/firestore/user_firestore.dart';
@@ -7,6 +6,7 @@ import 'package:marketplace_musical_instruments_app/data/datasource/remote/stora
 import 'package:marketplace_musical_instruments_app/data/mapper/user_mapper.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
 import 'package:marketplace_musical_instruments_app/data/model/user_model.dart';
+import 'package:marketplace_musical_instruments_app/data/service/camera_picker_service.dart';
 import 'package:marketplace_musical_instruments_app/domain/entity/user_entity.dart';
 
 class UserRepository {

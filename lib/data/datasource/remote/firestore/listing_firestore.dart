@@ -4,8 +4,8 @@ import 'package:marketplace_musical_instruments_app/core/exception/listing/get_a
 import 'package:marketplace_musical_instruments_app/core/exception/listing/listing_filtration_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/listing/listing_searching_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/listing/user_listings_exception.dart';
-import 'package:marketplace_musical_instruments_app/core/service/geolocation_service.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
+import 'package:marketplace_musical_instruments_app/data/service/geolocation_service.dart';
 
 class ListingFirestore {
   final _firestore = FirebaseFirestore.instance;

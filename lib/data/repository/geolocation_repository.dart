@@ -1,4 +1,4 @@
-import 'package:marketplace_musical_instruments_app/core/service/geolocation_service.dart';
+import 'package:marketplace_musical_instruments_app/data/service/geolocation_service.dart';
 
 class GeolocationRepository {
   Future<Map<String, double>> getCurrentLocation() async {
