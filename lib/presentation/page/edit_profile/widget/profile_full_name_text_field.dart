@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_text_field.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profile/edit_profile_bloc.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profile/edit_profile_event.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profile/edit_profile_cubit.dart';
 
 class ProfileFullNameTextField extends StatelessWidget {
   final TextEditingController? controller;
@@ -16,14 +15,12 @@ class ProfileFullNameTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final fullNameError = context.select(
-      (EditProfileBloc bloc) => bloc.state.fullNameError,
+      (EditProfileCubit bloc) => bloc.state.fullNameError,
     );
     return CommonTextField(
       controller: controller,
       onChanged: (fullName) {
-        context.read<EditProfileBloc>().add(
-          ProfileFullNameChangeEvent(fullName),
-        );
+        context.read<EditProfileCubit>().editUserFullName(fullName);
       },
       hintText: S.of(context).enterYourFullName,
       errorText: fullNameError,

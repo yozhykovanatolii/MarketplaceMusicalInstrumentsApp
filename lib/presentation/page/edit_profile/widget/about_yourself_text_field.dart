@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profile/edit_profile_bloc.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profile/edit_profile_event.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profile/edit_profile_cubit.dart';
 
 class AboutYourselfTextField extends StatelessWidget {
   final TextEditingController? controller;
@@ -15,19 +14,17 @@ class AboutYourselfTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final aboutError = context.select(
-      (EditProfileBloc bloc) => bloc.state.aboutError,
+      (EditProfileCubit bloc) => bloc.state.aboutError,
     );
     final counterAbout = context.select(
-      (EditProfileBloc bloc) => bloc.state.counterAbout,
+      (EditProfileCubit bloc) => bloc.state.counterAbout,
     );
     return SizedBox(
       height: 200,
       child: TextField(
         controller: controller,
         onChanged: (about) {
-          context.read<EditProfileBloc>().add(
-            ProfileAboutChangeEvent(about),
-          );
+          context.read<EditProfileCubit>().editAbout(about);
         },
         maxLines: null,
         minLines: 5,

@@ -4,8 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:marketplace_musical_instruments_app/core/navigation/app_routes.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_button.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profile/edit_profile_bloc.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profile/edit_profile_event.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profile/edit_profile_cubit.dart';
 
 class LogoutModalSheet extends StatelessWidget {
   const LogoutModalSheet({super.key});
@@ -74,9 +73,7 @@ class _LogoutActionButtonsSection extends StatelessWidget {
               child: _LogoutActionButton(
                 text: S.of(context).yesLogout,
                 onPressed: () {
-                  context.read<EditProfileBloc>().add(
-                    ProfileLogoutEvent(),
-                  );
+                  context.read<EditProfileCubit>().logOut();
                   context.go(AppRoutes.loginPage);
                 },
               ),

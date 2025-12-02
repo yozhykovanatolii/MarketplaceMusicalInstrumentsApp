@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profile/edit_profile_bloc.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profile/edit_profile_event.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profile/edit_profile_cubit.dart';
 
 class EditProfileUserAvatarSection extends StatelessWidget {
   const EditProfileUserAvatarSection({super.key});
@@ -30,7 +29,7 @@ class _EditProfileAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userAvatarUrl = context.select(
-      (EditProfileBloc bloc) => bloc.state.user.avatar,
+      (EditProfileCubit bloc) => bloc.state.user.avatar,
     );
     return SizedBox(
       height: 120,
@@ -53,9 +52,7 @@ class _EditAvatarButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton.filled(
       onPressed: () {
-        context.read<EditProfileBloc>().add(
-          ProfileAvatarChangeEvent(),
-        );
+        context.read<EditProfileCubit>().editUserAvatar();
       },
       style: const ButtonStyle(
         backgroundColor: WidgetStatePropertyAll(Colors.blue),

@@ -7,8 +7,7 @@ import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/app/app_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/app/app_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/app/app_state.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profile/edit_profile_bloc.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profile/edit_profile_event.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profile/edit_profile_cubit.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profile/edit_profile_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/edit_profile/widget/about_yourself_text_field.dart';
@@ -34,9 +33,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final appState = context.read<AppBloc>().state;
       if (appState is UserAuthenticatedState) {
-        context.read<EditProfileBloc>().add(
-          UserProfileFetchEvent(appState.user),
-        );
+        context.read<EditProfileCubit>().fetchUserProfile(appState.user);
         _fullNameController.text = appState.user.fullName;
         _phoneNumberController.text = appState.user.phoneNumber;
         _aboutController.text = appState.user.about;
@@ -66,9 +63,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           BlocListener<AppBloc, AppState>(
             listener: (context, state) {
               if (state is UserAuthenticatedState) {
-                context.read<EditProfileBloc>().add(
-                  UserProfileFetchEvent(state.user),
-                );
+                context.read<EditProfileCubit>().fetchUserProfile(state.user);
                 _fullNameController.text = state.user.fullName;
                 _phoneNumberController.text = state.user.phoneNumber;
                 _aboutController.text = state.user.about;
@@ -85,7 +80,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               }
             },
           ),
-          BlocListener<EditProfileBloc, EditProfileState>(
+          BlocListener<EditProfileCubit, EditProfileState>(
             listener: (context, state) {
               if (state.formStatus == FormStatus.success) {
                 SnackBarHelper.showSnackBar(

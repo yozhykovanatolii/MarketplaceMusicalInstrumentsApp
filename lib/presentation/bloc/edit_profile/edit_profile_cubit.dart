@@ -4,28 +4,17 @@ import 'package:marketplace_musical_instruments_app/core/exception/photo_not_sel
 import 'package:marketplace_musical_instruments_app/core/exception/auth/user_not_found_exception.dart';
 import 'package:marketplace_musical_instruments_app/data/repository/auth_repository.dart';
 import 'package:marketplace_musical_instruments_app/data/repository/user_repository.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profile/edit_profile_event.dart';
+import 'package:marketplace_musical_instruments_app/domain/entity/user_entity.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profile/edit_profile_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
 
-class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
+class EditProfileCubit extends Cubit<EditProfileState> {
   final _userRepository = UserRepository();
   final _authRepository = AuthRepository();
 
-  EditProfileBloc() : super(EditProfileState.initial()) {
-    on<ProfileAvatarChangeEvent>(_editUserAvatar);
-    on<ProfileFullNameChangeEvent>(_editUserFullName);
-    on<ProfileAboutChangeEvent>(_editAbout);
-    on<ProfilePhoneNumberChangeEvent>(_editUserPhoneNumber);
-    on<UserProfileFetchEvent>(_fetchUserProfile);
-    on<ProfileUpdateEvent>(_updateProfile);
-    on<ProfileLogoutEvent>(_logOut);
-  }
+  EditProfileCubit() : super(EditProfileState.initial());
 
-  Future<void> _editUserAvatar(
-    ProfileAvatarChangeEvent event,
-    Emitter<EditProfileState> emit,
-  ) async {
+  Future<void> editUserAvatar() async {
     try {
       final userAvatarUrl = await _userRepository.getUserImage();
       final user = state.user;
@@ -39,53 +28,38 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
     }
   }
 
-  void _editUserFullName(
-    ProfileFullNameChangeEvent event,
-    Emitter<EditProfileState> emit,
-  ) {
+  void editUserFullName(String fullName) {
     final user = state.user;
     emit(
       state.copyWith(
-        user: user.copyWith(fullName: event.fullName),
+        user: user.copyWith(fullName: fullName),
       ),
     );
   }
 
-  void _editAbout(
-    ProfileAboutChangeEvent event,
-    Emitter<EditProfileState> emit,
-  ) {
+  void editAbout(String about) {
     final user = state.user;
     emit(
       state.copyWith(
-        user: user.copyWith(about: event.about),
+        user: user.copyWith(about: about),
       ),
     );
   }
 
-  void _editUserPhoneNumber(
-    ProfilePhoneNumberChangeEvent event,
-    Emitter<EditProfileState> emit,
-  ) {
+  void editUserPhoneNumber(String phoneNumber) {
     final user = state.user;
     emit(
       state.copyWith(
-        user: user.copyWith(phoneNumber: event.phoneNumber),
+        user: user.copyWith(phoneNumber: phoneNumber),
       ),
     );
   }
 
-  void _fetchUserProfile(
-    UserProfileFetchEvent event,
-    Emitter<EditProfileState> emit,
-  ) {
-    emit(state.copyWith(user: event.user));
+  void fetchUserProfile(UserEntity user) {
+    emit(state.copyWith(user: user));
   }
 
-  Future<void> _updateProfile(
-    ProfileUpdateEvent event,
-    Emitter<EditProfileState> emit,
-  ) async {
+  Future<void> updateProfile() async {
     emit(state.copyWith(formStatus: FormStatus.loading));
     try {
       await _userRepository.updateUserData(state.user);
@@ -106,10 +80,7 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
     }
   }
 
-  Future<void> _logOut(
-    ProfileLogoutEvent event,
-    Emitter<EditProfileState> emit,
-  ) async {
+  Future<void> logOut() async {
     await _authRepository.signOut();
   }
 }
