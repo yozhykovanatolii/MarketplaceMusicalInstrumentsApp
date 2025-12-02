@@ -9,10 +9,10 @@ class PriceRangeSliderSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final startPrice = context.select(
-      (ListingBloc bloc) => bloc.state.startPrice,
+      (ListingBloc bloc) => bloc.state.listingFilters.startPrice,
     );
     final endPrice = context.select(
-      (ListingBloc bloc) => bloc.state.endPrice,
+      (ListingBloc bloc) => bloc.state.listingFilters.endPrice,
     );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

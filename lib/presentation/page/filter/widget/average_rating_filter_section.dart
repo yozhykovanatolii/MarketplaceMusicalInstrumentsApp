@@ -33,7 +33,8 @@ class _RatingCardButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool isRatingCardSelected = context.select(
-      (ListingBloc bloc) => bloc.state.selectedAverageRating == rating,
+      (ListingBloc bloc) =>
+          bloc.state.listingFilters.selectedAverageRating == rating,
     );
     return GestureDetector(
       onTap: () => context.read<ListingBloc>().add(

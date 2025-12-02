@@ -6,7 +6,8 @@ import 'package:marketplace_musical_instruments_app/core/exception/permission_de
 import 'package:marketplace_musical_instruments_app/data/repository/geolocation_repository.dart';
 import 'package:marketplace_musical_instruments_app/data/repository/listing_repository.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_event.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_state.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/state/listing_filters.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/state/listing_state.dart';
 
 class ListingBloc extends Bloc<ListingEvent, ListingState> {
   final _listingRepository = ListingRepository();
@@ -37,13 +38,13 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
   Future<void> _fetchListings(Emitter<ListingState> emit) async {
     try {
       final listings = await _listingRepository.filterListings(
-        state.selectedCategories,
-        state.startPrice,
-        state.endPrice,
-        state.selectedAverageRating,
+        state.listingFilters.selectedCategories,
+        state.listingFilters.startPrice,
+        state.listingFilters.endPrice,
+        state.listingFilters.selectedAverageRating,
         state.location['latitude']!,
         state.location['longitude']!,
-        state.distance,
+        state.listingFilters.distance,
       );
       emit(state.copyWith(listings: listings, status: ListingStatus.success));
     } on ListingFiltrationException catch (exception) {
@@ -119,11 +120,15 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
     Emitter<ListingState> emit,
   ) {
     final currentSelectedAverageRating = event.rating;
-    final previousSelectedAverageRating = state.selectedAverageRating;
+    final previousSelectedAverageRating =
+        state.listingFilters.selectedAverageRating;
     if (previousSelectedAverageRating == currentSelectedAverageRating) {
       return;
     }
-    emit(state.copyWith(selectedAverageRating: currentSelectedAverageRating));
+    final newListingFilters = _updateFilters(
+      selectedAverageRating: currentSelectedAverageRating,
+    );
+    emit(state.copyWith(listingFilters: newListingFilters));
   }
 
   void _choosePriceRange(
@@ -132,51 +137,77 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
   ) {
     final int startPrice = event.start.toInt();
     final int endPrice = event.end.toInt();
-    emit(state.copyWith(startPrice: startPrice, endPrice: endPrice));
+    final newListingFilters = _updateFilters(
+      startPrice: startPrice,
+      endPrice: endPrice,
+    );
+    emit(state.copyWith(listingFilters: newListingFilters));
   }
 
   void _chooseListingCategory(
     ListingCategorySelectedEvent event,
     Emitter<ListingState> emit,
   ) {
-    final updatedCategories = List<String>.from(state.selectedCategories);
+    final updatedCategories = List<String>.from(
+      state.listingFilters.selectedCategories,
+    );
     if (updatedCategories.contains(event.category)) {
       updatedCategories.remove(event.category);
     } else {
       updatedCategories.add(event.category);
     }
-    emit(state.copyWith(selectedCategories: updatedCategories));
+    final newListingFilters = _updateFilters(
+      selectedCategories: updatedCategories,
+    );
+    emit(state.copyWith(listingFilters: newListingFilters));
   }
 
   void _clearFilter(
     ClearFilterEvent event,
     Emitter<ListingState> emit,
   ) {
-    emit(
-      state.copyWith(
-        selectedAverageRating: 0,
-        startPrice: 0,
-        endPrice: 20,
-        selectedCategories: [],
-      ),
+    final newListingFilters = _updateFilters(
+      selectedAverageRating: 0,
+      startPrice: 0,
+      endPrice: 10000,
+      selectedCategories: [],
     );
+    emit(state.copyWith(listingFilters: newListingFilters));
   }
 
   void _decreaseDistance(
     DistanceDecreaseEvent event,
     Emitter<ListingState> emit,
   ) {
-    final distance = state.distance;
+    final distance = state.listingFilters.distance;
     if (distance <= 1) return;
-    emit(state.copyWith(distance: distance - 1));
+    final newListingFilters = _updateFilters(distance: distance - 1);
+    emit(state.copyWith(listingFilters: newListingFilters));
   }
 
   void _increaseDistance(
     DistanceIncreaseEvent event,
     Emitter<ListingState> emit,
   ) {
-    final distance = state.distance;
-    emit(state.copyWith(distance: distance + 1));
+    final distance = state.listingFilters.distance;
+    final newListingFilters = _updateFilters(distance: distance + 1);
+    emit(state.copyWith(listingFilters: newListingFilters));
+  }
+
+  ListingFilters _updateFilters({
+    int? selectedAverageRating,
+    int? startPrice,
+    int? endPrice,
+    List<String>? selectedCategories,
+    int? distance,
+  }) {
+    return state.listingFilters.copyWith(
+      selectedAverageRating: selectedAverageRating,
+      startPrice: startPrice,
+      endPrice: endPrice,
+      selectedCategories: selectedCategories,
+      distance: distance,
+    );
   }
 
   Future<void> _filterListings(

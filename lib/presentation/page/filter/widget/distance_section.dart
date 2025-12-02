@@ -39,7 +39,7 @@ class _DistanceResultSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final distance = context.select(
-      (ListingBloc bloc) => bloc.state.distance,
+      (ListingBloc bloc) => bloc.state.listingFilters.distance,
     );
     return Text(
       S.of(context).distanceKm(distance),

@@ -45,7 +45,8 @@ class _CategoryFilterChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isCategorySelected = context.select(
-      (ListingBloc bloc) => bloc.state.selectedCategories.contains(category),
+      (ListingBloc bloc) =>
+          bloc.state.listingFilters.selectedCategories.contains(category),
     );
     return GestureDetector(
       onTap: () => context.read<ListingBloc>().add(

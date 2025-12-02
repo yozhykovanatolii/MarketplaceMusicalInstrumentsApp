@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_progress_indicator.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/listing_card.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_bloc.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_state.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/state/listing_state.dart';
 
 class ListingsDrawableSheet extends StatelessWidget {
   const ListingsDrawableSheet({super.key});
