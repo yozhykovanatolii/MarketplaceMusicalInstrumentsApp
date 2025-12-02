@@ -4,8 +4,7 @@ import 'package:marketplace_musical_instruments_app/core/widget/common_button.da
 import 'package:marketplace_musical_instruments_app/core/widget/common_progress_indicator.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/register/register_bloc.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/register/register_event.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/register/register_cubit.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/register/register_state.dart';
 
 class SignUpButton extends StatelessWidget {
@@ -13,7 +12,7 @@ class SignUpButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<RegisterBloc, RegisterState, FormStatus>(
+    return BlocSelector<RegisterCubit, RegisterState, FormStatus>(
       selector: (state) => state.formStatus,
       builder: (context, formStatus) {
         final child = formStatus == FormStatus.loading
@@ -27,9 +26,7 @@ class SignUpButton extends StatelessWidget {
               );
         return CommonButton(
           width: MediaQuery.of(context).size.width,
-          onPressed: () => context.read<RegisterBloc>().add(
-            RegisterSubmitEvent(),
-          ),
+          onPressed: () => context.read<RegisterCubit>().signUpUser(),
           child: child,
         );
       },
