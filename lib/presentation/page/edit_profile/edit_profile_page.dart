@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:marketplace_musical_instruments_app/core/helper/snack_bar_helper.dart';
+import 'package:marketplace_musical_instruments_app/core/helper/ui_helper.dart';
 import 'package:marketplace_musical_instruments_app/core/navigation/app_routes.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/app/app_bloc.dart';
@@ -69,7 +69,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 _aboutController.text = state.user.about;
               }
               if (state is UserUnauthenticatedState) {
-                SnackBarHelper.showSnackBar(
+                UiHelper.showSnackBar(
                   context,
                   state.errorMessage,
                   Icons.error,
@@ -83,7 +83,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           BlocListener<EditProfileCubit, EditProfileState>(
             listener: (context, state) {
               if (state.formStatus == FormStatus.success) {
-                SnackBarHelper.showSnackBar(
+                UiHelper.showSnackBar(
                   context,
                   S.of(context).successUpdatingProfile,
                   Icons.check_circle,
@@ -93,7 +93,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 context.read<AppBloc>().add(AppUserSubscriptionRequested());
               }
               if (state.errorMessage.isNotEmpty) {
-                SnackBarHelper.showSnackBar(
+                UiHelper.showSnackBar(
                   context,
                   state.errorMessage,
                   Icons.error,

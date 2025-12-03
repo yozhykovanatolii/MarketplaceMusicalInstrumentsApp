@@ -64,7 +64,6 @@ class _PhotoSectionCard extends StatelessWidget {
   final bool isEditing;
 
   const _PhotoSectionCard({
-    super.key,
     required this.imageUrl,
     required this.listingId,
     required this.isEditing,
@@ -102,7 +101,6 @@ class _ShortDescriptionSection extends StatelessWidget {
   final int reviewerCounter;
 
   const _ShortDescriptionSection({
-    super.key,
     required this.title,
     required this.price,
     required this.averageRating,

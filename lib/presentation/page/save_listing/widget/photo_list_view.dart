@@ -35,7 +35,6 @@ class _PhotoCardItem extends StatelessWidget {
   final String photoUrl;
 
   const _PhotoCardItem({
-    super.key,
     required this.photoUrl,
   });
 
@@ -74,7 +73,7 @@ class _PhotoCardItem extends StatelessWidget {
 }
 
 class _OpenGalleryButton extends StatelessWidget {
-  const _OpenGalleryButton({super.key});
+  const _OpenGalleryButton();
 
   @override
   Widget build(BuildContext context) {

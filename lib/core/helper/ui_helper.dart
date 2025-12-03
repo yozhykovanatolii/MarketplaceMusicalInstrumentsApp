@@ -1,7 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/snack_bar_body.dart';
 
-class SnackBarHelper {
+class UiHelper {
+  static void showConfirmDialog(
+    BuildContext context,
+    Widget widget,
+  ) {
+    showDialog(
+      context: context,
+      builder: (_) => widget,
+    );
+  }
+
+  static void showModalSheet(BuildContext context, Widget widget) {
+    showModalBottomSheet(
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      context: context,
+      builder: (_) => widget,
+    );
+  }
+
   static void showSnackBar(
     BuildContext context,
     String message,

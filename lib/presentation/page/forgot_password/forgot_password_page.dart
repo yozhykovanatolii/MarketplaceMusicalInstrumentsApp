@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:marketplace_musical_instruments_app/core/helper/snack_bar_helper.dart';
+import 'package:marketplace_musical_instruments_app/core/helper/ui_helper.dart';
 import 'package:marketplace_musical_instruments_app/core/navigation/app_routes.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
@@ -19,7 +19,7 @@ class ForgotPasswordPage extends StatelessWidget {
       body: BlocListener<ResetPasswordCubit, ResetPasswordState>(
         listener: (context, state) {
           if (state.formStatus == FormStatus.success) {
-            SnackBarHelper.showSnackBar(
+            UiHelper.showSnackBar(
               context,
               'The operation was completed successfully. Check your email.',
               Icons.check_circle,
@@ -29,7 +29,7 @@ class ForgotPasswordPage extends StatelessWidget {
             context.go(AppRoutes.loginPage);
           }
           if (state.formStatus == FormStatus.failure) {
-            SnackBarHelper.showSnackBar(
+            UiHelper.showSnackBar(
               context,
               state.errorMessage,
               Icons.error,

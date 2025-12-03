@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:marketplace_musical_instruments_app/core/helper/ui_helper.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/information_dialog_box.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/author_listing/author_listing_bloc.dart';
@@ -19,16 +19,16 @@ class DeleteListingButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton.filled(
       onPressed: () {
-        showDialog(
-          context: context,
-          builder: (context) => InformationDialogBox(
+        UiHelper.showConfirmDialog(
+          context,
+          InformationDialogBox(
             title: S.of(context).deleteListing,
             description: S.of(context).youreGoingToDeleteYourListingAreYouSure,
             onClickActionButton: () {
               context.read<AuthorListingBloc>().add(
                 AuthorListingDeleteEvent(listingId),
               );
-              //context.pop();
+              Navigator.pop(context);
             },
           ),
         );

@@ -24,7 +24,7 @@ class EditProfileUserAvatarSection extends StatelessWidget {
 }
 
 class _EditProfileAvatar extends StatelessWidget {
-  const _EditProfileAvatar({super.key});
+  const _EditProfileAvatar();
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class _EditProfileAvatar extends StatelessWidget {
 }
 
 class _EditAvatarButton extends StatelessWidget {
-  const _EditAvatarButton({super.key});
+  const _EditAvatarButton();
 
   @override
   Widget build(BuildContext context) {

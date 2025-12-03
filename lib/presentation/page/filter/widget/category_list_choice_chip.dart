@@ -38,7 +38,6 @@ class _CategoryFilterChip extends StatelessWidget {
   final String category;
 
   const _CategoryFilterChip({
-    super.key,
     required this.category,
   });
 

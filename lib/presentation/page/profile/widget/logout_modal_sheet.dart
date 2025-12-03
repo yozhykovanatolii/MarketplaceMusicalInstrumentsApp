@@ -52,7 +52,7 @@ class LogoutModalSheet extends StatelessWidget {
 }
 
 class _LogoutActionButtonsSection extends StatelessWidget {
-  const _LogoutActionButtonsSection({super.key});
+  const _LogoutActionButtonsSection();
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +91,6 @@ class _LogoutActionButton extends StatelessWidget {
   final bool isLogOutButton;
 
   const _LogoutActionButton({
-    super.key,
     required this.text,
     required this.onPressed,
     this.isLogOutButton = true,

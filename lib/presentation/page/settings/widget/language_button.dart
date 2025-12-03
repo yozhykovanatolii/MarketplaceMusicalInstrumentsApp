@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:marketplace_musical_instruments_app/core/helper/modal_sheet_helper.dart';
+import 'package:marketplace_musical_instruments_app/core/helper/ui_helper.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/settings/settings_cubit.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/languages/languages_page.dart';
 
@@ -13,7 +13,7 @@ class LanguageButton extends StatelessWidget {
       (SettingsCubit cubit) => cubit.state.languageCode == 'en',
     );
     return GestureDetector(
-      onTap: () => ModalSheetHelper.showModalSheet(
+      onTap: () => UiHelper.showModalSheet(
         context,
         const LanguagesPage(),
       ),

@@ -75,7 +75,6 @@ class _AuthorSubSection extends StatelessWidget {
   final String authorPhoneNumber;
 
   const _AuthorSubSection({
-    super.key,
     required this.authorAvatar,
     required this.authorFullName,
     required this.authorPhoneNumber,

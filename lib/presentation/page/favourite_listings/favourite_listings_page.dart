@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_progress_indicator.dart';
-import 'package:marketplace_musical_instruments_app/core/widget/listing_card.dart';
+import 'package:marketplace_musical_instruments_app/core/widget/listings_grid_view.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/favourite_listings/favourite_listings_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/favourite_listings/favourite_listings_event.dart';
@@ -44,20 +44,9 @@ class _FavouriteListingsPageState extends State<FavouriteListingsPage> {
             }
             if (status == FavouriteListingsStatus.success) {
               final favouriteListings = state.favouriteListings;
-              return GridView.builder(
-                itemCount: favouriteListings.length,
-                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 250,
-                  childAspectRatio: 0.615,
-                  crossAxisSpacing: 5,
-                  mainAxisSpacing: 5,
-                ),
-                itemBuilder: (_, index) {
-                  return ListingCard(
-                    listing: favouriteListings[index],
-                    isEditing: false,
-                  );
-                },
+              return ListingsGridView(
+                listings: favouriteListings,
+                isEditingListings: false,
               );
             }
             return const Center(

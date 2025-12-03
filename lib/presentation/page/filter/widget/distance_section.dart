@@ -34,7 +34,7 @@ class DistanceSection extends StatelessWidget {
 }
 
 class _DistanceResultSection extends StatelessWidget {
-  const _DistanceResultSection({super.key});
+  const _DistanceResultSection();
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,6 @@ class _DistanceActionButton extends StatelessWidget {
   final bool isIncreasing;
 
   const _DistanceActionButton({
-    super.key,
     this.isIncreasing = true,
   });
 

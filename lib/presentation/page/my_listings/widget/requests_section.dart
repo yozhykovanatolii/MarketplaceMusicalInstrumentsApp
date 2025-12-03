@@ -70,7 +70,6 @@ class _RequestCard extends StatelessWidget {
   final BookingEntity request;
 
   const _RequestCard({
-    super.key,
     required this.request,
   });
 
@@ -158,7 +157,6 @@ class _RequestInformation extends StatelessWidget {
   final Widget rightWidget;
 
   const _RequestInformation({
-    super.key,
     required this.leftWidget,
     required this.rightWidget,
   });
@@ -182,7 +180,6 @@ class _RequestActionButton extends StatelessWidget {
   final String bookingId;
 
   const _RequestActionButton({
-    super.key,
     required this.text,
     required this.bookingId,
     this.isAccepted = true,

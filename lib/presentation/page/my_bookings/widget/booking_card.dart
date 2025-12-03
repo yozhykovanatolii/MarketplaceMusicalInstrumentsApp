@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:marketplace_musical_instruments_app/core/widget/category_listing_section.dart';
+import 'package:marketplace_musical_instruments_app/core/widget/tag_container.dart';
 import 'package:marketplace_musical_instruments_app/domain/entity/booking_entity.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 
@@ -39,8 +39,16 @@ class BookingCard extends StatelessWidget {
                     spacing: 8,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      CategoryListingSection(
-                        category: booking.listingCategory,
+                      TagContainer(
+                        text: booking.listingCategory,
+                        fontSize: Theme.of(
+                          context,
+                        ).textTheme.bodyMedium?.fontSize,
+                        colorContainer: Colors.grey[200],
+                        fontWeight: Theme.of(
+                          context,
+                        ).textTheme.bodyMedium?.fontWeight,
+                        colorText: const Color(0xFF007DFC),
                       ),
                       Text(
                         'Prepared Hero Emergency Fire Blanket 303',
@@ -82,8 +90,12 @@ class BookingCard extends StatelessWidget {
             const SizedBox(height: 10),
             _BookingInformation(
               title: S.of(context).status,
-              widget: _StatusSection(
-                status: booking.status,
+              widget: TagContainer(
+                text: booking.status.text,
+                fontSize: MediaQuery.textScalerOf(context).scale(17),
+                colorContainer: Color(booking.status.color),
+                fontWeight: FontWeight.w600,
+                colorText: Colors.white,
               ),
             ),
           ],
@@ -98,7 +110,6 @@ class _BookingInformation extends StatelessWidget {
   final Widget widget;
 
   const _BookingInformation({
-    super.key,
     required this.title,
     required this.widget,
   });
@@ -118,36 +129,6 @@ class _BookingInformation extends StatelessWidget {
         ),
         widget,
       ],
-    );
-  }
-}
-
-class _StatusSection extends StatelessWidget {
-  final BookingStatus status;
-
-  const _StatusSection({
-    super.key,
-    required this.status,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-      decoration: BoxDecoration(
-        color: Color(status.color),
-        borderRadius: BorderRadius.circular(5),
-      ),
-      child: Center(
-        child: Text(
-          status.text,
-          style: TextStyle(
-            fontSize: MediaQuery.textScalerOf(context).scale(17),
-            color: Colors.white,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      ),
     );
   }
 }

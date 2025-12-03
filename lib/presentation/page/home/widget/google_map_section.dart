@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_event.dart';
-import 'package:marketplace_musical_instruments_app/presentation/page/listing_detail/listing_detail_page.dart';
 
 class GoogleMapSection extends StatefulWidget {
   final LatLng currentLocation;
@@ -80,14 +79,6 @@ class _GoogleMapSectionState extends State<GoogleMapSection> {
                 listing.location['longitude']!,
               ),
               icon: customIcon,
-              onTap: () {
-                /* Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => ListingDetailPage(listing: listing),
-                  ),
-                );*/
-              },
             ),
           )
           .toSet(),

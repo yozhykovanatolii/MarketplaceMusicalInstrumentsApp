@@ -26,7 +26,6 @@ class _RatingCardButton extends StatelessWidget {
   final int rating;
 
   const _RatingCardButton({
-    super.key,
     required this.rating,
   });
 

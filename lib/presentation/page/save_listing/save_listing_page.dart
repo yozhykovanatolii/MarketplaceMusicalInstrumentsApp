@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:marketplace_musical_instruments_app/core/helper/snack_bar_helper.dart';
+import 'package:marketplace_musical_instruments_app/core/helper/ui_helper.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
@@ -63,7 +63,7 @@ class _SaveListingPageState extends State<SaveListingPage> {
       body: BlocListener<SaveListingCubit, SaveListingState>(
         listener: (context, state) {
           if (state.errorMessage.isNotEmpty) {
-            SnackBarHelper.showSnackBar(
+            UiHelper.showSnackBar(
               context,
               state.errorMessage,
               Icons.error,
@@ -72,7 +72,7 @@ class _SaveListingPageState extends State<SaveListingPage> {
             );
           }
           if (state.formStatus == FormStatus.success) {
-            SnackBarHelper.showSnackBar(
+            UiHelper.showSnackBar(
               context,
               S.of(context).successfulSaveListing,
               Icons.check_circle,

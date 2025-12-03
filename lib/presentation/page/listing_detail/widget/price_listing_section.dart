@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:marketplace_musical_instruments_app/core/helper/ui_helper.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_button.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/information_dialog_box.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
@@ -75,7 +76,6 @@ class _BookingButton extends StatelessWidget {
   final ListingModel listing;
 
   const _BookingButton({
-    super.key,
     required this.listing,
   });
 
@@ -93,9 +93,9 @@ class _BookingButton extends StatelessWidget {
     final onPressed = buttonStatus == ButtonStatus.disabled
         ? null
         : () {
-            showDialog(
-              context: context,
-              builder: (context) => InformationDialogBox(
+            UiHelper.showConfirmDialog(
+              context,
+              InformationDialogBox(
                 isDeleting: false,
                 title: S.of(context).confirmBooking,
                 description: S

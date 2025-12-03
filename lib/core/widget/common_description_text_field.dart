@@ -6,6 +6,7 @@ class CommonDescriptionTextField extends StatelessWidget {
   final String? errorText;
   final String? counterText;
   final Function(String)? onChanged;
+  final double height;
 
   const CommonDescriptionTextField({
     super.key,
@@ -14,12 +15,13 @@ class CommonDescriptionTextField extends StatelessWidget {
     this.errorText,
     this.counterText,
     this.onChanged,
+    this.height = 100,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 100,
+      height: height,
       child: TextField(
         controller: controller,
         maxLines: null,

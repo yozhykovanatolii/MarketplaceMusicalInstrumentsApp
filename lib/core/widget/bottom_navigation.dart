@@ -58,7 +58,6 @@ class _BottomNavigationItem extends StatelessWidget {
   final GestureTapCallback onTap;
 
   const _BottomNavigationItem({
-    super.key,
     required this.menuItem,
     required this.isActive,
     required this.onTap,

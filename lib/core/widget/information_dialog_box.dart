@@ -82,7 +82,6 @@ class _DialogActionButton extends StatelessWidget {
   final Function()? onPressed;
 
   const _DialogActionButton({
-    super.key,
     required this.text,
     required this.onPressed,
     this.color = Colors.grey,

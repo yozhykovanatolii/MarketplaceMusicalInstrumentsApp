@@ -49,7 +49,6 @@ class _BookingCalendar extends StatelessWidget {
   final int startingPrice;
 
   const _BookingCalendar({
-    super.key,
     required this.listingId,
     required this.startingPrice,
   });
@@ -128,7 +127,7 @@ class _BookingCalendar extends StatelessWidget {
 }
 
 class _TotalBookingPriceSubSection extends StatelessWidget {
-  const _TotalBookingPriceSubSection({super.key});
+  const _TotalBookingPriceSubSection();
 
   @override
   Widget build(BuildContext context) {

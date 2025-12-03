@@ -65,7 +65,6 @@ class _ImageItem extends StatelessWidget {
   final List<String> photos;
 
   const _ImageItem({
-    super.key,
     required this.photoUrl,
     required this.currentPhotoIndex,
     required this.photoCount,
@@ -111,7 +110,6 @@ class _PhotoCounterSection extends StatelessWidget {
   final int photoCount;
 
   const _PhotoCounterSection({
-    super.key,
     required this.currentPhotoIndex,
     required this.photoCount,
   });

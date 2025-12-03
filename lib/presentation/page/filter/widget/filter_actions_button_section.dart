@@ -52,7 +52,6 @@ class _FilterActionButton extends StatelessWidget {
   final bool isClearButton;
 
   const _FilterActionButton({
-    super.key,
     required this.text,
     required this.onPressed,
     this.isClearButton = false,

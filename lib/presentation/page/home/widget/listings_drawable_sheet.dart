@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_progress_indicator.dart';
-import 'package:marketplace_musical_instruments_app/core/widget/listing_card.dart';
+import 'package:marketplace_musical_instruments_app/core/widget/listings_grid_view.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/state/listing_state.dart';
 
@@ -53,22 +53,10 @@ class ListingsDrawableSheet extends StatelessWidget {
                     }
                     if (state.status == ListingStatus.success) {
                       final listings = state.listings;
-                      return GridView.builder(
+                      return ListingsGridView(
+                        listings: listings,
                         controller: scrollController,
-                        itemCount: listings.length,
-                        gridDelegate:
-                            const SliverGridDelegateWithMaxCrossAxisExtent(
-                              maxCrossAxisExtent: 250,
-                              childAspectRatio: 0.615,
-                              crossAxisSpacing: 5,
-                              mainAxisSpacing: 5,
-                            ),
-                        itemBuilder: (_, index) {
-                          return ListingCard(
-                            listing: listings[index],
-                            isEditing: false,
-                          );
-                        },
+                        isEditingListings: false,
                       );
                     }
                     return const Center(
