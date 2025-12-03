@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
-import 'package:marketplace_musical_instruments_app/core/widget/dashed_border.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_cubit.dart';
+import 'package:marketplace_musical_instruments_app/presentation/page/save_listing/widget/dashed_border.dart';
 
 class PhotoListView extends StatelessWidget {
   const PhotoListView({super.key});
