@@ -38,7 +38,7 @@ class PriceRangeSliderSection extends StatelessWidget {
               startPrice.toDouble(),
               endPrice.toDouble(),
             ),
-            max: 200,
+            max: 500,
             onChanged: (values) => context.read<ListingBloc>().add(
               PriceRangeSelectedEvent(values.start, values.end),
             ),
