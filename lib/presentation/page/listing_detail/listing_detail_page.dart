@@ -64,6 +64,7 @@ class ListingDetailPage extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Column(
                       spacing: 10,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CategoryAndAverageRatingSection(
                           listingCategory: listing.category,
@@ -71,7 +72,7 @@ class ListingDetailPage extends StatelessWidget {
                           reviewerCounter: listing.reviewerCount,
                         ),
                         Text(
-                          'Prepared Hero Emergency Fire Blanket 303',
+                          listing.title,
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                       ],

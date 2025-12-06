@@ -40,7 +40,7 @@ class ListingReviews extends StatelessWidget {
                     },
                   ),
                   Text(
-                    '01.02.2026',
+                    reviews[index].createdAt,
                     style: Theme.of(context).textTheme.labelMedium,
                   ),
                 ],

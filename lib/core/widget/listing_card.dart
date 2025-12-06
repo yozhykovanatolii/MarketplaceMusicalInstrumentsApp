@@ -116,7 +116,7 @@ class _ShortDescriptionSection extends StatelessWidget {
         spacing: 2,
         children: [
           Text(
-            'Prepared Hero Emergency Fire Blanket 303',
+            title,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(

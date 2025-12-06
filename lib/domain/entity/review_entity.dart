@@ -4,6 +4,7 @@ class ReviewEntity {
   final String authorFullName;
   final int rating;
   final String text;
+  final String createdAt;
 
   ReviewEntity({
     required this.id,
@@ -11,5 +12,6 @@ class ReviewEntity {
     required this.authorFullName,
     required this.rating,
     required this.text,
+    required this.createdAt,
   });
 }

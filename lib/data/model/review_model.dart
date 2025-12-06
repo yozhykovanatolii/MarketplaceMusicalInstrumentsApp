@@ -8,6 +8,7 @@ class ReviewModel {
   final String viewerFullName;
   final int rating;
   final String reviewText;
+  final DateTime createdAt;
 
   ReviewModel({
     required this.id,
@@ -16,6 +17,7 @@ class ReviewModel {
     required this.viewerFullName,
     required this.rating,
     required this.reviewText,
+    required this.createdAt,
   });
 
   ReviewModel copyWith({
@@ -25,6 +27,7 @@ class ReviewModel {
     String? viewerFullName,
     int? rating,
     String? reviewText,
+    DateTime? createdAt,
   }) {
     return ReviewModel(
       id: id ?? this.id,
@@ -33,6 +36,7 @@ class ReviewModel {
       viewerFullName: viewerFullName ?? this.viewerFullName,
       rating: rating ?? this.rating,
       reviewText: reviewText ?? this.reviewText,
+      createdAt: createdAt ?? this.createdAt,
     );
   }
 
@@ -44,6 +48,7 @@ class ReviewModel {
       viewerFullName: '',
       rating: 0,
       reviewText: '',
+      createdAt: DateTime.now(),
     );
   }
 
@@ -55,6 +60,7 @@ class ReviewModel {
       'viewerFullName': viewerFullName,
       'rating': rating,
       'reviewText': reviewText,
+      'createdAt': Timestamp.fromDate(createdAt),
     };
   }
 
@@ -70,6 +76,7 @@ class ReviewModel {
       viewerFullName: data?['viewerFullName'] as String,
       rating: data?['rating'] as int,
       reviewText: data?['reviewText'] as String,
+      createdAt: (data?['createdAt'] as Timestamp).toDate(),
     );
   }
 }

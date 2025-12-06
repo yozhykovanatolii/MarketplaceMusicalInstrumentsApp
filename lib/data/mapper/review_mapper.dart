@@ -9,6 +9,8 @@ class ReviewMapper {
       authorFullName: reviewModel.viewerFullName,
       rating: reviewModel.rating,
       text: reviewModel.reviewText,
+      createdAt:
+          "${reviewModel.createdAt.day.toString().padLeft(2, '0')}.${reviewModel.createdAt.month.toString().padLeft(2, '0')}.${reviewModel.createdAt.year}",
     );
   }
 }
