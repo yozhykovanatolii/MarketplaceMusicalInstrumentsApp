@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:marketplace_musical_instruments_app/core/navigation/app_routes.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
@@ -14,21 +13,20 @@ import 'package:marketplace_musical_instruments_app/presentation/page/save_listi
 import 'package:marketplace_musical_instruments_app/presentation/page/settings/settings_page.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/splash/splash_page.dart';
 
-abstract class AppRouter {
-  static final GlobalKey<NavigatorState> _parentNavigatorKey =
-      GlobalKey<NavigatorState>();
+class AppRouter {
+  static final AppRouter _instance = AppRouter._();
 
-  static GoRouter getRouter() {
-    final routes = getRoutes();
-    return GoRouter(
-      initialLocation: AppRoutes.splashPage,
-      navigatorKey: _parentNavigatorKey,
-      debugLogDiagnostics: true,
-      routes: routes,
-    );
-  }
+  AppRouter._();
 
-  static List<RouteBase> getRoutes() {
+  factory AppRouter() => _instance;
+
+  late final GoRouter router = GoRouter(
+    initialLocation: AppRoutes.splashPage,
+    debugLogDiagnostics: true,
+    routes: _getRoutes(),
+  );
+
+  static List<RouteBase> _getRoutes() {
     return [
       GoRoute(
         path: AppRoutes.splashPage,

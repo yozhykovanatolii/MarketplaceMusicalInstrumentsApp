@@ -98,7 +98,7 @@ class _RequestCard extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Text(
-              'Prepared Hero Emergency Fire Blanket 303',
+              request.listingTitle,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: Theme.of(context).textTheme.labelSmall,

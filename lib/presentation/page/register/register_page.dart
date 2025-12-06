@@ -44,30 +44,32 @@ class RegisterPage extends StatelessWidget {
         child: SafeArea(
           minimum: const EdgeInsets.symmetric(horizontal: 30),
           child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  S.of(context).createAccount,
-                  style: Theme.of(context).textTheme.headlineMedium,
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  S.of(context).fillYourInformationBelow,
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.labelMedium,
-                ),
-                const SizedBox(height: 50),
-                const RegisterFullNameTextField(),
-                const SizedBox(height: 15),
-                const RegisterEmailTextField(),
-                const SizedBox(height: 15),
-                const RegisterPasswordTextField(),
-                const SizedBox(height: 15),
-                const RegisterPhoneNumberTextField(),
-                const SizedBox(height: 30),
-                const SignUpButton(),
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    S.of(context).createAccount,
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    S.of(context).fillYourInformationBelow,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.labelMedium,
+                  ),
+                  const SizedBox(height: 50),
+                  const RegisterFullNameTextField(),
+                  const SizedBox(height: 15),
+                  const RegisterEmailTextField(),
+                  const SizedBox(height: 15),
+                  const RegisterPasswordTextField(),
+                  const SizedBox(height: 15),
+                  const RegisterPhoneNumberTextField(),
+                  const SizedBox(height: 30),
+                  const SignUpButton(),
+                ],
+              ),
             ),
           ),
         ),

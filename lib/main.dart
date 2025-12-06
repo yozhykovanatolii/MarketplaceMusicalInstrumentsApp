@@ -85,7 +85,7 @@ class MarketplaceApp extends StatelessWidget {
       ],
       supportedLocales: S.delegate.supportedLocales,
       locale: Locale(languageCode),
-      routerConfig: AppRouter.getRouter(),
+      routerConfig: AppRouter().router,
     );
   }
 }

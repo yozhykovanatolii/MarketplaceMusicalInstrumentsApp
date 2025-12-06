@@ -51,7 +51,7 @@ class BookingCard extends StatelessWidget {
                         colorText: const Color(0xFF007DFC),
                       ),
                       Text(
-                        'Prepared Hero Emergency Fire Blanket 303',
+                        booking.listingTitle,
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     ],
