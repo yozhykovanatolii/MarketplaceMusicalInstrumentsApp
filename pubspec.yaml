@@ -55,6 +55,7 @@ dependencies:
   grouped_list: ^6.0.0
   shared_preferences: ^2.5.3
   go_router: ^17.0.0
+  get_it: ^9.2.0
 
 dev_dependencies:
   flutter_test:
