@@ -3,13 +3,13 @@ import 'package:marketplace_musical_instruments_app/data/repository/settings_rep
 import 'package:marketplace_musical_instruments_app/presentation/bloc/settings/settings_state.dart';
 
 class SettingsCubit extends Cubit<SettingsState> {
-  final _settingsRepository = SettingsRepository();
+  final SettingsRepository settingsRepository;
 
-  SettingsCubit() : super(SettingsState.initial());
+  SettingsCubit(this.settingsRepository) : super(SettingsState.initial());
 
   Future<void> fetchSettings() async {
-    final isDarkMode = await _settingsRepository.loadThemeMode();
-    final languageCode = await _settingsRepository.loadLanguageCode();
+    final isDarkMode = await settingsRepository.loadThemeMode();
+    final languageCode = await settingsRepository.loadLanguageCode();
     emit(
       state.copyWith(
         isDarkMode: isDarkMode,
@@ -20,11 +20,11 @@ class SettingsCubit extends Cubit<SettingsState> {
 
   Future<void> changeThemeMode(bool isDarkMode) async {
     emit(state.copyWith(isDarkMode: isDarkMode));
-    await _settingsRepository.saveThemeMode(isDarkMode);
+    await settingsRepository.saveThemeMode(isDarkMode);
   }
 
   Future<void> changeLanguageCode(String languageCode) async {
     emit(state.copyWith(languageCode: languageCode));
-    await _settingsRepository.saveLanguageCode(languageCode);
+    await settingsRepository.saveLanguageCode(languageCode);
   }
 }

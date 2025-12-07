@@ -8,10 +8,10 @@ import 'package:marketplace_musical_instruments_app/presentation/bloc/app/app_ev
 import 'package:marketplace_musical_instruments_app/presentation/bloc/app/app_state.dart';
 
 class AppBloc extends Bloc<AppEvent, AppState> {
-  final _userRepository = UserRepository();
+  final UserRepository userRepository;
   StreamSubscription<UserEntity>? _userStreamSubscription;
 
-  AppBloc() : super(AppInitialState()) {
+  AppBloc(this.userRepository) : super(AppInitialState()) {
     on<AppUserSubscriptionRequested>(_checkIfUserAuthenticated);
     on<AppUserChanged>(_onUserChanged);
     on<AppUserUnauthenticated>(_onUserUnauthenticated);
@@ -28,7 +28,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     Emitter<AppState> emit,
   ) {
     _userStreamSubscription?.cancel();
-    _userStreamSubscription = _userRepository.getUserModelCurrentData().listen(
+    _userStreamSubscription = userRepository.getUserModelCurrentData().listen(
       (user) => add(
         AppUserChanged(user),
       ),

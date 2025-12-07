@@ -5,9 +5,9 @@ import 'package:marketplace_musical_instruments_app/presentation/bloc/login/logi
 import 'package:marketplace_musical_instruments_app/presentation/bloc/reset_password/reset_password_state.dart';
 
 class ResetPasswordCubit extends Cubit<ResetPasswordState> {
-  final _authRepository = AuthRepository();
+  final AuthRepository authRepository;
 
-  ResetPasswordCubit() : super(ResetPasswordState.initial());
+  ResetPasswordCubit(this.authRepository) : super(ResetPasswordState.initial());
 
   void changeUserEmail(String email) {
     emit(state.copyWith(email: email));
@@ -16,7 +16,7 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
   Future<void> sendEmailLetter() async {
     emit(state.copyWith(formStatus: FormStatus.loading));
     try {
-      await _authRepository.resetPassword(state.email);
+      await authRepository.resetPassword(state.email);
       emit(state.copyWith(formStatus: FormStatus.success));
     } on ResetPasswordException catch (exception) {
       emit(

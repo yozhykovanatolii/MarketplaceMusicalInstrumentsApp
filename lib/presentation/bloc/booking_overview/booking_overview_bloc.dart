@@ -9,9 +9,9 @@ import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_ov
 
 class BookingOverviewBloc
     extends Bloc<BookingOverviewEvent, BookingOverviewState> {
-  final _bookingRepository = BookingRepository();
+  final BookingRepository bookingRepository;
 
-  BookingOverviewBloc() : super(BookingInitial()) {
+  BookingOverviewBloc(this.bookingRepository) : super(BookingInitial()) {
     on<UserBookingsFetchEvent>(_fetchUserBookings);
     on<UserBookingsRequestsFetchEvent>(_fetchUserBookingsRequests);
     on<AuthorAcceptRequestEvent>(_acceptBookingStatus);
@@ -23,7 +23,7 @@ class BookingOverviewBloc
   ) async {
     emit(BookingLoading());
     try {
-      final userBookings = await _bookingRepository.getAllUserBookings();
+      final userBookings = await bookingRepository.getAllUserBookings();
       emit(BookingSuccess(userBookings));
     } on UserNotFoundException catch (exception) {
       emit(BookingFailure(exception.errorMessage));
@@ -38,7 +38,7 @@ class BookingOverviewBloc
   ) async {
     emit(BookingLoading());
     await emit.forEach<List<BookingEntity>>(
-      _bookingRepository.getAllUserBookingRequests(),
+      bookingRepository.getAllUserBookingRequests(),
       onData: (requests) => BookingSuccess(requests),
       onError: (error, stackTrace) {
         final String errorMessage = error is UserNotFoundException
@@ -54,12 +54,12 @@ class BookingOverviewBloc
     Emitter<BookingOverviewState> emit,
   ) async {
     if (event.isAccepted) {
-      await _bookingRepository.changeBookingStatus(
+      await bookingRepository.changeBookingStatus(
         'Confirmed',
         event.bookingId,
       );
     } else {
-      await _bookingRepository.changeBookingStatus(
+      await bookingRepository.changeBookingStatus(
         'Canceled by author',
         event.bookingId,
       );

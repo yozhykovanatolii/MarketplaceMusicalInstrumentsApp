@@ -8,9 +8,10 @@ import 'package:marketplace_musical_instruments_app/presentation/bloc/favourite_
 
 class FavouriteListingsBloc
     extends Bloc<FavouriteListingsEvent, FavouriteListingsState> {
-  final _userRepository = UserRepository();
+  final UserRepository userRepository;
 
-  FavouriteListingsBloc() : super(FavouriteListingsState.initial()) {
+  FavouriteListingsBloc(this.userRepository)
+    : super(FavouriteListingsState.initial()) {
     on<UserFavouriteListingsIdFetchEvent>(_fetchUserFavouriteListingsId);
     on<FavouriteListingsFetchEvent>(_fetchFavouriteListings);
     on<FavouriteListingAddEvent>(_addListingInFavourites);
@@ -21,7 +22,7 @@ class FavouriteListingsBloc
     Emitter<FavouriteListingsState> emit,
   ) async {
     await emit.forEach<List<String>>(
-      _userRepository.getFavouriteListingsId(),
+      userRepository.getFavouriteListingsId(),
       onData: (favouriteListingsId) => state.copyWith(
         favouriteListingsId: favouriteListingsId,
       ),
@@ -36,7 +37,7 @@ class FavouriteListingsBloc
       state.copyWith(status: FavouriteListingsStatus.loading),
     );
     await emit.forEach<List<ListingModel>>(
-      _userRepository.getUserFavouriteListings(),
+      userRepository.getUserFavouriteListings(),
       onData: (data) {
         return state.copyWith(
           favouriteListings: data,
@@ -66,6 +67,6 @@ class FavouriteListingsBloc
       updatedFavouritesId.add(event.listingId);
     }
     emit(state.copyWith(favouriteListingsId: updatedFavouritesId));
-    await _userRepository.updateUserFavourites(updatedFavouritesId);
+    await userRepository.updateUserFavourites(updatedFavouritesId);
   }
 }

@@ -36,11 +36,12 @@ class _GoogleMapSectionState extends State<GoogleMapSection> {
     }
   }
 
-  void _addCustomIconMarker() {
-    BitmapDescriptor.asset(
+  Future<void> _addCustomIconMarker() async {
+    final icon = await BitmapDescriptor.asset(
       const ImageConfiguration(),
       'assets/images/price_marker.png',
-    ).then((icon) {
+    );
+    setState(() {
       customIcon = icon;
     });
   }
@@ -54,7 +55,7 @@ class _GoogleMapSectionState extends State<GoogleMapSection> {
       zoomControlsEnabled: false,
       myLocationEnabled: true,
       myLocationButtonEnabled: false,
-      onMapCreated: (controller) => _controller = controller,
+      onMapCreated: (controller) => _controller ??= controller,
       initialCameraPosition: CameraPosition(
         target: widget.currentLocation,
         zoom: 13,

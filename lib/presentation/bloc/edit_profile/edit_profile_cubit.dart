@@ -9,14 +9,17 @@ import 'package:marketplace_musical_instruments_app/presentation/bloc/edit_profi
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
 
 class EditProfileCubit extends Cubit<EditProfileState> {
-  final _userRepository = UserRepository();
-  final _authRepository = AuthRepository();
+  final UserRepository userRepository;
+  final AuthRepository authRepository;
 
-  EditProfileCubit() : super(EditProfileState.initial());
+  EditProfileCubit(
+    this.userRepository,
+    this.authRepository,
+  ) : super(EditProfileState.initial());
 
   Future<void> editUserAvatar() async {
     try {
-      final userAvatarUrl = await _userRepository.getUserImage();
+      final userAvatarUrl = await userRepository.getUserImage();
       final user = state.user;
       emit(state.copyWith(user: user.copyWith(avatar: userAvatarUrl)));
     } on PermissionDeniedException catch (exception) {
@@ -62,7 +65,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
   Future<void> updateProfile() async {
     emit(state.copyWith(formStatus: FormStatus.loading));
     try {
-      await _userRepository.updateUserData(state.user);
+      await userRepository.updateUserData(state.user);
       emit(state.copyWith(formStatus: FormStatus.success));
     } on UserNotFoundException catch (exception) {
       emit(
@@ -81,6 +84,6 @@ class EditProfileCubit extends Cubit<EditProfileState> {
   }
 
   Future<void> logOut() async {
-    await _authRepository.signOut();
+    await authRepository.signOut();
   }
 }

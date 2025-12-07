@@ -6,10 +6,13 @@ import 'package:marketplace_musical_instruments_app/presentation/bloc/login/logi
 import 'package:marketplace_musical_instruments_app/presentation/bloc/register/register_state.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
-  final _userRepository = UserRepository();
-  final _authRepository = AuthRepository();
+  final UserRepository userRepository;
+  final AuthRepository authRepository;
 
-  RegisterCubit() : super(RegisterState.initial());
+  RegisterCubit(
+    this.userRepository,
+    this.authRepository,
+  ) : super(RegisterState.initial());
 
   void setRegisterFullName(String fullName) {
     emit(state.copyWith(fullName: fullName));
@@ -36,7 +39,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     }
     emit(state.copyWith(formStatus: FormStatus.loading));
     try {
-      final isUserExist = await _userRepository.checkIfUserExistByEmail(
+      final isUserExist = await userRepository.checkIfUserExistByEmail(
         state.email,
       );
       if (isUserExist) {
@@ -48,7 +51,7 @@ class RegisterCubit extends Cubit<RegisterState> {
         );
         return;
       }
-      await _authRepository.signUpUser(
+      await authRepository.signUpUser(
         state.email,
         state.password,
         state.fullName,

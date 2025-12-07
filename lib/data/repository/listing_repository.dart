@@ -7,14 +7,21 @@ import 'package:marketplace_musical_instruments_app/data/service/camera_picker_s
 import 'package:uuid/uuid.dart';
 
 class ListingRepository {
-  final _supabaseStorage = SupabaseStorage();
-  final _listingFirestore = ListingFirestore();
-  final _userAuth = UserAuth();
-  final _userFirestore = UserFirestore();
+  final SupabaseStorage supabaseStorage;
+  final ListingFirestore listingFirestore;
+  final UserAuth userAuth;
+  final UserFirestore userFirestore;
+
+  ListingRepository(
+    this.supabaseStorage,
+    this.listingFirestore,
+    this.userAuth,
+    this.userFirestore,
+  );
 
   Future<String> getListingPhotoUrl() async {
     final imageFile = await CameraPickerService.pickImageFileFromGallery();
-    final imageUrl = await _supabaseStorage.saveImage(imageFile, 'uploads');
+    final imageUrl = await supabaseStorage.saveImage(imageFile, 'uploads');
     return imageUrl;
   }
 
@@ -27,8 +34,8 @@ class ListingRepository {
     int price, {
     ListingModel? currentListing,
   }) async {
-    final userId = _userAuth.userId;
-    final userModel = await _userFirestore.getUserModelById(userId);
+    final userId = userAuth.userId;
+    final userModel = await userFirestore.getUserModelById(userId);
     ListingModel listingModel = currentListing ?? ListingModel.initial();
     listingModel = listingModel.copyWith(
       id: currentListing?.id ?? const Uuid().v1(),
@@ -46,17 +53,17 @@ class ListingRepository {
       authorAvatar: userModel.avatar,
       authorPhoneNumber: userModel.phoneNumber,
     );
-    await _listingFirestore.saveListingModel(listingModel);
+    await listingFirestore.saveListingModel(listingModel);
   }
 
   Stream<List<ListingModel>> getUserListings() {
-    final authorId = _userAuth.userId;
-    return _listingFirestore.getUserListings(authorId);
+    final authorId = userAuth.userId;
+    return listingFirestore.getUserListings(authorId);
   }
 
   Future<List<ListingModel>> getAllListingExceptUsers() async {
-    final authorId = _userAuth.userId;
-    return await _listingFirestore.getAllListingExceptUsers(authorId);
+    final authorId = userAuth.userId;
+    return await listingFirestore.getAllListingExceptUsers(authorId);
   }
 
   Future<List<ListingModel>> filterListings(
@@ -68,7 +75,7 @@ class ListingRepository {
     double userLng,
     int radius,
   ) async {
-    return await _listingFirestore.filterListings(
+    return await listingFirestore.filterListings(
       categories,
       startPrice,
       endPrice,
@@ -80,10 +87,10 @@ class ListingRepository {
   }
 
   Future<List<ListingModel>> searchListings(String searchText) async {
-    return await _listingFirestore.searchListings(searchText);
+    return await listingFirestore.searchListings(searchText);
   }
 
   Future<void> deleteAuthorListing(String listingId) async {
-    await _listingFirestore.deleteListing(listingId);
+    await listingFirestore.deleteListing(listingId);
   }
 }

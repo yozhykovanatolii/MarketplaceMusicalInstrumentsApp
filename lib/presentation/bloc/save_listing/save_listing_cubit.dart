@@ -10,14 +10,17 @@ import 'package:marketplace_musical_instruments_app/presentation/bloc/login/logi
 import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_state.dart';
 
 class SaveListingCubit extends Cubit<SaveListingState> {
-  final _listingRepository = ListingRepository();
-  final _geolocationRepository = GeolocationRepository();
+  final ListingRepository listingRepository;
+  final GeolocationRepository geolocationRepository;
 
-  SaveListingCubit() : super(SaveListingState.initial());
+  SaveListingCubit(
+    this.listingRepository,
+    this.geolocationRepository,
+  ) : super(SaveListingState.initial());
 
   Future<void> onAddListingPhotoInList() async {
     try {
-      final photoUrl = await _listingRepository.getListingPhotoUrl();
+      final photoUrl = await listingRepository.getListingPhotoUrl();
       final updatedPhotos = List<String>.from(state.photos)..add(photoUrl);
       emit(state.copyWith(photos: updatedPhotos));
     } on PermissionDeniedException catch (exception) {
@@ -36,7 +39,7 @@ class SaveListingCubit extends Cubit<SaveListingState> {
 
   Future<void> onGetUserLocation() async {
     try {
-      final location = await _geolocationRepository.getCurrentLocation();
+      final location = await geolocationRepository.getCurrentLocation();
       final updatedUserLocation = Map<String, double>.from(location);
       emit(state.copyWith(currentLocation: updatedUserLocation));
     } on PermissionDeniedException catch (exception) {
@@ -83,7 +86,7 @@ class SaveListingCubit extends Cubit<SaveListingState> {
     print('Hello, listing');
     emit(state.copyWith(formStatus: FormStatus.loading));
     try {
-      await _listingRepository.saveListing(
+      await listingRepository.saveListing(
         state.currentLocation,
         state.photos,
         state.title,

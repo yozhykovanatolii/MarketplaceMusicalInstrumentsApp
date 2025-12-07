@@ -9,9 +9,15 @@ import 'package:marketplace_musical_instruments_app/domain/entity/booking_entity
 import 'package:uuid/uuid.dart';
 
 class BookingRepository {
-  final _bookingFirestore = BookingFirestore();
-  final _userAuth = UserAuth();
-  final _userFirestore = UserFirestore();
+  final BookingFirestore bookingFirestore;
+  final UserAuth userAuth;
+  final UserFirestore userFirestore;
+
+  BookingRepository(
+    this.bookingFirestore,
+    this.userAuth,
+    this.userFirestore,
+  );
 
   Future<void> createBooking(
     ListingModel listingModel,
@@ -19,8 +25,8 @@ class BookingRepository {
     DateTime endDate,
     int totalPrice,
   ) async {
-    final renterId = _userAuth.userId;
-    final renter = await _userFirestore.getUserModelById(renterId);
+    final renterId = userAuth.userId;
+    final renter = await userFirestore.getUserModelById(renterId);
     BookingModel bookingModel = BookingModel.initial();
     bookingModel = bookingModel.copyWith(
       id: const Uuid().v1(),
@@ -36,7 +42,7 @@ class BookingRepository {
       endDate: endDate,
       totalPrice: totalPrice,
     );
-    await _bookingFirestore.saveBooking(bookingModel);
+    await bookingFirestore.saveBooking(bookingModel);
   }
 
   Future<bool> checkIfInstrumentBooked(
@@ -44,7 +50,7 @@ class BookingRepository {
     DateTime startDate,
     DateTime endDate,
   ) async {
-    return await _bookingFirestore.checkIfInstrumentBooked(
+    return await bookingFirestore.checkIfInstrumentBooked(
       listingId,
       startDate,
       endDate,
@@ -52,8 +58,8 @@ class BookingRepository {
   }
 
   Future<List<BookingEntity>> getAllUserBookings() async {
-    final renterId = _userAuth.userId;
-    final bookingModels = await _bookingFirestore.getAllUserBookings(renterId);
+    final renterId = userAuth.userId;
+    final bookingModels = await bookingFirestore.getAllUserBookings(renterId);
     return bookingModels
         .map((bookingModel) => BookingMapper.toEntity(bookingModel))
         .toList();
@@ -64,8 +70,8 @@ class BookingRepository {
   }
 
   Stream<List<BookingEntity>> getAllUserBookingRequests() {
-    final authorId = _userAuth.userId;
-    final bookingRequestsStream = _bookingFirestore.getAllUserBookingRequests(
+    final authorId = userAuth.userId;
+    final bookingRequestsStream = bookingFirestore.getAllUserBookingRequests(
       authorId,
     );
     return bookingRequestsStream.map((bookingRequests) {
@@ -79,6 +85,6 @@ class BookingRepository {
     String newStatus,
     String bookingId,
   ) async {
-    await _bookingFirestore.changeBookingStatus(newStatus, bookingId);
+    await bookingFirestore.changeBookingStatus(newStatus, bookingId);
   }
 }

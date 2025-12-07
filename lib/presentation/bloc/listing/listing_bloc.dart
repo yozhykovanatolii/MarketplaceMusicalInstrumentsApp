@@ -10,10 +10,13 @@ import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/st
 import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/state/listing_state.dart';
 
 class ListingBloc extends Bloc<ListingEvent, ListingState> {
-  final _listingRepository = ListingRepository();
-  final _geolocationRepository = GeolocationRepository();
+  final ListingRepository listingRepository;
+  final GeolocationRepository geolocationRepository;
 
-  ListingBloc() : super(ListingState.initial()) {
+  ListingBloc(
+    this.listingRepository,
+    this.geolocationRepository,
+  ) : super(ListingState.initial()) {
     on<ListingInitializeEvent>(_initializeListings);
     on<ListingSearchEvent>(_searchListings);
     on<AverageRatingListingClickedEvent>(_chooseAverageRating);
@@ -37,7 +40,7 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
 
   Future<void> _fetchListings(Emitter<ListingState> emit) async {
     try {
-      final listings = await _listingRepository.filterListings(
+      final listings = await listingRepository.filterListings(
         state.listingFilters.selectedCategories,
         state.listingFilters.startPrice,
         state.listingFilters.endPrice,
@@ -59,7 +62,7 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
 
   Future<void> _getUserLocation(Emitter<ListingState> emit) async {
     try {
-      final location = await _geolocationRepository.getCurrentLocation();
+      final location = await geolocationRepository.getCurrentLocation();
       final updatedUserLocation = Map<String, double>.from(location);
       emit(state.copyWith(location: updatedUserLocation));
     } on PermissionDeniedException catch (exception) {
@@ -87,7 +90,7 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
     if (searchText == null) return;
     emit(state.copyWith(status: ListingStatus.loading));
     try {
-      final foundListings = await _listingRepository.searchListings(searchText);
+      final foundListings = await listingRepository.searchListings(searchText);
       emit(
         state.copyWith(listings: foundListings, status: ListingStatus.loading),
       );

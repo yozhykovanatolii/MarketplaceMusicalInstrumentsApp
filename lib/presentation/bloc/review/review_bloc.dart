@@ -5,9 +5,9 @@ import 'package:marketplace_musical_instruments_app/presentation/bloc/review/rev
 import 'package:marketplace_musical_instruments_app/presentation/bloc/review/review_state.dart';
 
 class ReviewBloc extends Bloc<ReviewEvent, ReviewState> {
-  final _reviewRepository = ReviewRepository();
+  final ReviewRepository reviewRepository;
 
-  ReviewBloc() : super(ReviewState.initial()) {
+  ReviewBloc(this.reviewRepository) : super(ReviewState.initial()) {
     on<ReviewAndRatingFetchEvent>(_fetchListingReviewsAndRating);
     on<AverageRatingChangeEvent>(_changeAverageRatingBar);
     on<ReviewTextChangeEvent>(_changeReviewText);
@@ -35,7 +35,7 @@ class ReviewBloc extends Bloc<ReviewEvent, ReviewState> {
     Emitter<ReviewState> emit,
   ) async {
     await emit.forEach(
-      _reviewRepository.getListingRatingAndAllReviews(event.listingId),
+      reviewRepository.getListingRatingAndAllReviews(event.listingId),
       onData: (data) => state.copyWith(reviewSummaryEntity: data),
     );
   }
@@ -45,7 +45,7 @@ class ReviewBloc extends Bloc<ReviewEvent, ReviewState> {
     Emitter<ReviewState> emit,
   ) async {
     try {
-      await _reviewRepository.saveReview(
+      await reviewRepository.saveReview(
         state.rating.toInt(),
         state.reviewText,
         event.rating,

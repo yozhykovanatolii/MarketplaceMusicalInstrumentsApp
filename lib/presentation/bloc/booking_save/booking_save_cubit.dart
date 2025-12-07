@@ -8,9 +8,9 @@ import 'package:marketplace_musical_instruments_app/presentation/bloc/login/logi
 import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_state.dart';
 
 class BookingSaveCubit extends Cubit<BookingSaveState> {
-  final _bookingRepository = BookingRepository();
+  final BookingRepository bookingRepository;
 
-  BookingSaveCubit() : super(BookingSaveState.initial());
+  BookingSaveCubit(this.bookingRepository) : super(BookingSaveState.initial());
 
   Future<void> calculateBookingTotalPrice(
     String listingId,
@@ -19,7 +19,7 @@ class BookingSaveCubit extends Cubit<BookingSaveState> {
     int startingPrice,
   ) async {
     if (startDate == null || endDate == null) return;
-    final isInstrumentBooked = await _bookingRepository.checkIfInstrumentBooked(
+    final isInstrumentBooked = await bookingRepository.checkIfInstrumentBooked(
       listingId,
       startDate,
       endDate,
@@ -54,7 +54,7 @@ class BookingSaveCubit extends Cubit<BookingSaveState> {
 
   Future<void> openCallDialer(String authorPhoneNumber) async {
     try {
-      await _bookingRepository.callDialer(authorPhoneNumber);
+      await bookingRepository.callDialer(authorPhoneNumber);
     } catch (exception) {
       emit(
         state.copyWith(
@@ -78,7 +78,7 @@ class BookingSaveCubit extends Cubit<BookingSaveState> {
     final totalPriceText = state.totalPriceText.replaceAll('\$', '');
     if (startBookingDate == null || endBookingDate == null) return;
     try {
-      await _bookingRepository.createBooking(
+      await bookingRepository.createBooking(
         listingModel,
         startBookingDate,
         endBookingDate,

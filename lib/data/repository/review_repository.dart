@@ -10,10 +10,17 @@ import 'package:marketplace_musical_instruments_app/data/model/review_model.dart
 import 'package:marketplace_musical_instruments_app/domain/entity/review_summary_entity.dart';
 
 class ReviewRepository {
-  final _userFirestore = UserFirestore();
-  final _listingFirestore = ListingFirestore();
-  final _userAuth = UserAuth();
-  final _reviewFirestore = ReviewFirestore();
+  final UserFirestore userFirestore;
+  final ListingFirestore listingFirestore;
+  final UserAuth userAuth;
+  final ReviewFirestore reviewFirestore;
+
+  ReviewRepository(
+    this.userFirestore,
+    this.listingFirestore,
+    this.userAuth,
+    this.reviewFirestore,
+  );
 
   Future<void> saveReview(
     int rating,
@@ -22,8 +29,8 @@ class ReviewRepository {
     int reviewerCount,
     String listingId,
   ) async {
-    final viewerId = _userAuth.userId;
-    final userModel = await _userFirestore.getUserModelById(viewerId);
+    final viewerId = userAuth.userId;
+    final userModel = await userFirestore.getUserModelById(viewerId);
     ReviewModel reviewModel = ReviewModel.initial();
     reviewModel = reviewModel.copyWith(
       id: reviewModel.id,
@@ -38,20 +45,20 @@ class ReviewRepository {
       reviewerCount,
       rating,
     );
-    await _listingFirestore.updateListingAverageRatingAndCounter(
+    await listingFirestore.updateListingAverageRatingAndCounter(
       listingId,
       newAverageRating,
       reviewerCount + 1,
     );
-    await _reviewFirestore.saveReviewModel(reviewModel, listingId);
+    await reviewFirestore.saveReviewModel(reviewModel, listingId);
   }
 
   Stream<ReviewSummaryEntity> getListingRatingAndAllReviews(
     String listingId,
   ) {
-    final reviewsStream = _reviewFirestore.getAllListingReviews(listingId);
+    final reviewsStream = reviewFirestore.getAllListingReviews(listingId);
     return reviewsStream.asyncMap((reviews) async {
-      final ratingAndReviewerCountStream = _listingFirestore
+      final ratingAndReviewerCountStream = listingFirestore
           .getListingRatingAndReviewerCount(listingId);
       final ratingAndReviewerCount = await ratingAndReviewerCountStream.first;
       final reviewsEntity = reviews

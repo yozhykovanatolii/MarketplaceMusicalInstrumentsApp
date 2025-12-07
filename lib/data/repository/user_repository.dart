@@ -10,17 +10,24 @@ import 'package:marketplace_musical_instruments_app/data/service/camera_picker_s
 import 'package:marketplace_musical_instruments_app/domain/entity/user_entity.dart';
 
 class UserRepository {
-  final _supabaseStorage = SupabaseStorage();
-  final _userFirestore = UserFirestore();
-  final _userAuth = UserAuth();
-  final _listingFirestore = ListingFirestore();
+  final SupabaseStorage supabaseStorage;
+  final UserFirestore userFirestore;
+  final UserAuth userAuth;
+  final ListingFirestore listingFirestore;
+
+  UserRepository(
+    this.supabaseStorage,
+    this.userFirestore,
+    this.userAuth,
+    this.listingFirestore,
+  );
 
   Future<bool> checkIfUserExistByEmail(String email) async {
-    return _userFirestore.checkUserByEmail(email);
+    return userFirestore.checkUserByEmail(email);
   }
 
   Future<void> updateUserData(UserEntity userEntity) async {
-    UserModel user = await _userFirestore.getUserModelById(userEntity.id);
+    UserModel user = await userFirestore.getUserModelById(userEntity.id);
     user = user.copyWith(
       id: user.id,
       email: user.email,
@@ -30,12 +37,12 @@ class UserRepository {
       about: userEntity.about,
       avatar: userEntity.avatar,
     );
-    await _userFirestore.saveUser(user);
+    await userFirestore.saveUser(user);
   }
 
   Future<String> getUserImage() async {
     final userImageFile = await CameraPickerService.pickImageFileFromGallery();
-    final userImageUrl = await _supabaseStorage.saveImage(
+    final userImageUrl = await supabaseStorage.saveImage(
       userImageFile,
       'users',
     );
@@ -43,28 +50,28 @@ class UserRepository {
   }
 
   Stream<UserEntity> getUserModelCurrentData() {
-    final userStream = _userAuth.user;
+    final userStream = userAuth.user;
     return userStream.asyncMap((user) async {
       print('[DEBUG] Firebase user: $user');
       if (user == null) throw UserNotFoundException('User didn\'t find');
-      final userModel = await _userFirestore.getUserModelById(user.uid);
+      final userModel = await userFirestore.getUserModelById(user.uid);
       return UserMapper.toEntity(userModel);
     });
   }
 
   Future<void> updateUserFavourites(List<String> updatedFavourites) async {
-    final userId = _userAuth.userId;
-    await _userFirestore.updateUserFavourites(userId, updatedFavourites);
+    final userId = userAuth.userId;
+    await userFirestore.updateUserFavourites(userId, updatedFavourites);
   }
 
   Stream<List<String>> getFavouriteListingsId() {
-    final userId = _userAuth.userId;
-    return _userFirestore.getUserFavourites(userId);
+    final userId = userAuth.userId;
+    return userFirestore.getUserFavourites(userId);
   }
 
   Stream<List<ListingModel>> getUserFavouriteListings() async* {
     await for (final favouriteListingsId in getFavouriteListingsId()) {
-      yield* _listingFirestore.getUserFavouriteListings(favouriteListingsId);
+      yield* listingFirestore.getUserFavouriteListings(favouriteListingsId);
     }
   }
 }

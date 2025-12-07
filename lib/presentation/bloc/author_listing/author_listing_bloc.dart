@@ -7,9 +7,10 @@ import 'package:marketplace_musical_instruments_app/presentation/bloc/author_lis
 import 'package:marketplace_musical_instruments_app/presentation/bloc/author_listing/author_listing_state.dart';
 
 class AuthorListingBloc extends Bloc<AuthorListingEvent, AuthorListingState> {
-  final _listingRepository = ListingRepository();
+  final ListingRepository listingRepository;
 
-  AuthorListingBloc() : super(AuthorListingInitialState()) {
+  AuthorListingBloc(this.listingRepository)
+    : super(AuthorListingInitialState()) {
     on<AuthorListingsFetchEvent>(_fetchAuthorListings);
     on<AuthorListingDeleteEvent>(_deleteAuthorListing);
   }
@@ -20,7 +21,7 @@ class AuthorListingBloc extends Bloc<AuthorListingEvent, AuthorListingState> {
   ) async {
     emit(AuthorListingLoadingState());
     await emit.forEach<List<ListingModel>>(
-      _listingRepository.getUserListings(),
+      listingRepository.getUserListings(),
       onData: (authorListings) => AuthorListingSuccessState(
         authorListings,
       ),
@@ -39,6 +40,6 @@ class AuthorListingBloc extends Bloc<AuthorListingEvent, AuthorListingState> {
     AuthorListingDeleteEvent event,
     Emitter<AuthorListingState> emit,
   ) async {
-    await _listingRepository.deleteAuthorListing(event.listingId);
+    await listingRepository.deleteAuthorListing(event.listingId);
   }
 }

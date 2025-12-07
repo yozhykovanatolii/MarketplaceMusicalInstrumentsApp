@@ -4,9 +4,9 @@ import 'package:marketplace_musical_instruments_app/data/repository/auth_reposit
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
-  final _authRepository = AuthRepository();
+  final AuthRepository authRepository;
 
-  LoginCubit() : super(LoginState.initial());
+  LoginCubit(this.authRepository) : super(LoginState.initial());
 
   void setLoginEmail(String email) {
     emit(state.copyWith(email: email));
@@ -20,7 +20,7 @@ class LoginCubit extends Cubit<LoginState> {
     if (state.emailError != null || state.passwordError != null) return;
     emit(state.copyWith(formStatus: FormStatus.loading));
     try {
-      await _authRepository.signInUser(state.email, state.password);
+      await authRepository.signInUser(state.email, state.password);
       emit(state.copyWith(formStatus: FormStatus.success));
     } on LoginException catch (exception) {
       emit(

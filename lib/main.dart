@@ -2,8 +2,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:marketplace_musical_instruments_app/core/navigation/app_router.dart';
 import 'package:marketplace_musical_instruments_app/core/theme/app_theme.dart';
+import 'package:marketplace_musical_instruments_app/di/dependencies.dart';
 import 'package:marketplace_musical_instruments_app/firebase_options.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/app/app_bloc.dart';
@@ -26,6 +28,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  Dependencies.setupDependencies();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -37,26 +40,28 @@ void main() async {
   runApp(
     MultiBlocProvider(
       providers: [
-        BlocProvider(create: (_) => LoginCubit()),
-        BlocProvider(create: (_) => RegisterCubit()),
-        BlocProvider(create: (_) => SaveListingCubit()),
+        BlocProvider(create: (_) => GetIt.I<LoginCubit>()),
+        BlocProvider(create: (_) => GetIt.I<RegisterCubit>()),
+        BlocProvider(create: (_) => GetIt.I<SaveListingCubit>()),
         BlocProvider(
-          create: (_) => AppBloc()..add(AppUserSubscriptionRequested()),
+          create: (_) =>
+              GetIt.I<AppBloc>()..add(AppUserSubscriptionRequested()),
         ),
         BlocProvider(
-          create: (_) => ListingBloc()..add(ListingInitializeEvent()),
+          create: (_) => GetIt.I<ListingBloc>()..add(ListingInitializeEvent()),
         ),
         BlocProvider(
           create: (_) =>
-              FavouriteListingsBloc()..add(UserFavouriteListingsIdFetchEvent()),
+              GetIt.I<FavouriteListingsBloc>()
+                ..add(UserFavouriteListingsIdFetchEvent()),
         ),
-        BlocProvider(create: (_) => SettingsCubit()..fetchSettings()),
-        BlocProvider(create: (_) => ResetPasswordCubit()),
-        BlocProvider(create: (_) => EditProfileCubit()),
-        BlocProvider(create: (_) => ReviewBloc()),
-        BlocProvider(create: (_) => AuthorListingBloc()),
-        BlocProvider(create: (_) => BookingSaveCubit()),
-        BlocProvider(create: (_) => BookingOverviewBloc()),
+        BlocProvider(create: (_) => GetIt.I<SettingsCubit>()..fetchSettings()),
+        BlocProvider(create: (_) => GetIt.I<ResetPasswordCubit>()),
+        BlocProvider(create: (_) => GetIt.I<EditProfileCubit>()),
+        BlocProvider(create: (_) => GetIt.I<ReviewBloc>()),
+        BlocProvider(create: (_) => GetIt.I<AuthorListingBloc>()),
+        BlocProvider(create: (_) => GetIt.I<BookingSaveCubit>()),
+        BlocProvider(create: (_) => GetIt.I<BookingOverviewBloc>()),
       ],
       child: const MarketplaceApp(),
     ),
