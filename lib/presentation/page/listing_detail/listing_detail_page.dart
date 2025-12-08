@@ -33,11 +33,9 @@ class ListingDetailPage extends StatelessWidget {
           listener: (context, state) {
             if (state is UserUnauthenticatedState) {
               UiHelper.showSnackBar(
-                context,
-                state.errorMessage,
-                Icons.error,
-                0xFFFFEEEF,
-                0xFFE77282,
+                context: context,
+                message: state.errorMessage,
+                isErrorSnackBar: true,
               );
               context.go(AppRoutes.loginPage);
             }
@@ -48,22 +46,17 @@ class ListingDetailPage extends StatelessWidget {
             final formStatus = state.formStatus;
             if (state.formStatus == FormStatus.success) {
               UiHelper.showSnackBar(
-                context,
-                S
+                context: context,
+                message: S
                     .of(context)
                     .theTransactionWasSuccessfulYourBookingRequestHasBeenSent,
-                Icons.check_circle,
-                0xFFD4FFFE,
-                0xFF009688,
               );
             }
             if (formStatus == FormStatus.failure) {
               UiHelper.showSnackBar(
-                context,
-                state.errorMessage,
-                Icons.error,
-                0xFFFFEEEF,
-                0xFFE77282,
+                context: context,
+                message: state.errorMessage,
+                isErrorSnackBar: true,
               );
             }
           },

@@ -70,11 +70,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
               }
               if (state is UserUnauthenticatedState) {
                 UiHelper.showSnackBar(
-                  context,
-                  state.errorMessage,
-                  Icons.error,
-                  0xFFFFEEEF,
-                  0xFFE77282,
+                  context: context,
+                  message: state.errorMessage,
+                  isErrorSnackBar: true,
                 );
                 context.go(AppRoutes.loginPage);
               }
@@ -84,21 +82,16 @@ class _EditProfilePageState extends State<EditProfilePage> {
             listener: (context, state) {
               if (state.formStatus == FormStatus.success) {
                 UiHelper.showSnackBar(
-                  context,
-                  S.of(context).successUpdatingProfile,
-                  Icons.check_circle,
-                  0xFFD4FFFE,
-                  0xFF009688,
+                  context: context,
+                  message: S.of(context).successUpdatingProfile,
                 );
                 context.read<AppBloc>().add(AppUserSubscriptionRequested());
               }
               if (state.errorMessage.isNotEmpty) {
                 UiHelper.showSnackBar(
-                  context,
-                  state.errorMessage,
-                  Icons.error,
-                  0xFFFFEEEF,
-                  0xFFE77282,
+                  context: context,
+                  message: state.errorMessage,
+                  isErrorSnackBar: true,
                 );
               }
             },

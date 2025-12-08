@@ -93,5 +93,6 @@
   "home": "Home",
   "create": "Create",
   "distance": "Distance",
-  "distanceKm": "{distance} km"
+  "distanceKm": "{distance} km",
+  "theOperationWasCompletedSuccessfullyCheckYourEmail": "The operation was completed successfully. Check your email."
 }

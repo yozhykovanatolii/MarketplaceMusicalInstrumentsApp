@@ -93,5 +93,6 @@
   "home": "Головна",
   "create": "Створити",
   "distance": "Відстань",
-  "distanceKm": "{distance} км"
+  "distanceKm": "{distance} км",
+  "theOperationWasCompletedSuccessfullyCheckYourEmail": "Операцію успішно завершено. Перевірте свою електронну пошту."
 }

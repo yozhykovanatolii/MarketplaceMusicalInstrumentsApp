@@ -180,6 +180,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "successfulSaveListing": MessageLookupByLibrary.simpleMessage(
       "Успішне збереження оголошення",
     ),
+    "theOperationWasCompletedSuccessfullyCheckYourEmail":
+        MessageLookupByLibrary.simpleMessage(
+          "Операцію успішно завершено. Перевірте свою електронну пошту.",
+        ),
     "theTransactionWasSuccessfulYourBookingRequestHasBeenSent":
         MessageLookupByLibrary.simpleMessage(
           "Транзакцію успішно завершено. Ваш запит на бронювання надіслано. Будь ласка, зачекайте на відповідь від автора оголошення.",

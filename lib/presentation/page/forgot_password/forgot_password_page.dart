@@ -20,21 +20,18 @@ class ForgotPasswordPage extends StatelessWidget {
         listener: (context, state) {
           if (state.formStatus == FormStatus.success) {
             UiHelper.showSnackBar(
-              context,
-              'The operation was completed successfully. Check your email.',
-              Icons.check_circle,
-              0xFFD4FFFE,
-              0xFF009688,
+              context: context,
+              message: S
+                  .of(context)
+                  .theOperationWasCompletedSuccessfullyCheckYourEmail,
             );
             context.go(AppRoutes.loginPage);
           }
           if (state.formStatus == FormStatus.failure) {
             UiHelper.showSnackBar(
-              context,
-              state.errorMessage,
-              Icons.error,
-              0xFFFFEEEF,
-              0xFFE77282,
+              context: context,
+              message: state.errorMessage,
+              isErrorSnackBar: true,
             );
           }
         },

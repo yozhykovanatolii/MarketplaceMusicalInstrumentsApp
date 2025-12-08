@@ -170,6 +170,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "successfulSaveListing": MessageLookupByLibrary.simpleMessage(
       "Successful save listing",
     ),
+    "theOperationWasCompletedSuccessfullyCheckYourEmail":
+        MessageLookupByLibrary.simpleMessage(
+          "The operation was completed successfully. Check your email.",
+        ),
     "theTransactionWasSuccessfulYourBookingRequestHasBeenSent":
         MessageLookupByLibrary.simpleMessage(
           "The transaction was successful. Your booking request has been sent. Please wait for a response from the listing author.",

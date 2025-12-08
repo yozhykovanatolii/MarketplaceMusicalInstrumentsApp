@@ -793,6 +793,16 @@ class S {
       args: [distance],
     );
   }
+
+  /// `The operation was completed successfully. Check your email.`
+  String get theOperationWasCompletedSuccessfullyCheckYourEmail {
+    return Intl.message(
+      'The operation was completed successfully. Check your email.',
+      name: 'theOperationWasCompletedSuccessfullyCheckYourEmail',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

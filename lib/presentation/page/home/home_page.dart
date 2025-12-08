@@ -24,11 +24,9 @@ class HomePage extends StatelessWidget {
       listener: (context, state) {
         if (state is UserUnauthenticatedState) {
           UiHelper.showSnackBar(
-            context,
-            state.errorMessage,
-            Icons.error,
-            0xFFFFEEEF,
-            0xFFE77282,
+            context: context,
+            message: state.errorMessage,
+            isErrorSnackBar: true,
           );
           context.go(AppRoutes.loginPage);
         }

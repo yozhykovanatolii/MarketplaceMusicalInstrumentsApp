@@ -23,20 +23,15 @@ class RegisterPage extends StatelessWidget {
         listener: (context, state) {
           if (state.formStatus == FormStatus.failure) {
             UiHelper.showSnackBar(
-              context,
-              state.errorMessage,
-              Icons.error,
-              0xFFFFEEEF,
-              0xFFE77282,
+              context: context,
+              message: state.errorMessage,
+              isErrorSnackBar: true,
             );
           }
           if (state.formStatus == FormStatus.success) {
             UiHelper.showSnackBar(
-              context,
-              S.of(context).successRegistration,
-              Icons.check_circle,
-              0xFFD4FFFE,
-              0xFF009688,
+              context: context,
+              message: S.of(context).successRegistration,
             );
             context.go(AppRoutes.loginPage);
           }

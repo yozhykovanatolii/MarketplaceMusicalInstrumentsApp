@@ -22,22 +22,20 @@ class UiHelper {
     );
   }
 
-  static void showSnackBar(
-    BuildContext context,
-    String message,
-    IconData iconData,
-    int backgroundColor,
-    int color,
-  ) {
+  static void showSnackBar({
+    required BuildContext context,
+    required String message,
+    bool isErrorSnackBar = false,
+  }) {
     var snackBar = SnackBar(
       backgroundColor: Colors.transparent,
       elevation: 0,
       behavior: SnackBarBehavior.floating,
       content: SnackBarBody(
-        backgroundColor: backgroundColor,
-        color: color,
+        backgroundColor: isErrorSnackBar ? 0xFFFFEEEF : 0xFFD4FFFE,
+        color: isErrorSnackBar ? 0xFFE77282 : 0xFF009688,
         message: message,
-        iconData: iconData,
+        iconData: isErrorSnackBar ? Icons.error : Icons.check_circle,
       ),
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
     );
