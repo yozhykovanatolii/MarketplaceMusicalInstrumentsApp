@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:marketplace_musical_instruments_app/core/widget/bottom_navigation.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
+import 'package:marketplace_musical_instruments_app/presentation/page/main/widget/bottom_navigation.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/save_listing/save_listing_page.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/favourite_listings/favourite_listings_page.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/home/home_page.dart';
