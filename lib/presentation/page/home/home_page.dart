@@ -20,59 +20,57 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocListener<AppBloc, AppState>(
-        listener: (context, state) {
-          if (state is UserUnauthenticatedState) {
-            UiHelper.showSnackBar(
-              context,
-              state.errorMessage,
-              Icons.error,
-              0xFFFFEEEF,
-              0xFFE77282,
-            );
-            context.go(AppRoutes.loginPage);
-          }
-        },
-        child: SafeArea(
-          child: Stack(
-            children: [
-              BlocSelector<ListingBloc, ListingState, Map<String, double>>(
-                selector: (state) => state.location,
-                builder: (context, location) {
-                  return GoogleMapSection(
-                    currentLocation: LatLng(
-                      location['latitude']!,
-                      location['longitude']!,
-                    ),
-                  );
-                },
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 18, vertical: 20),
-                child: Row(
-                  spacing: 10,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Expanded(
-                      child: TextSearchBar(),
-                    ),
-                    FilterFloatingActionButton(),
-                  ],
-                ),
-              ),
-              Positioned(
-                bottom: 175,
-                right: 15,
-                child: GetUserLocationButton(
-                  onPressed: () => context.read<ListingBloc>().add(
-                    ListingInitializeEvent(),
+    return BlocListener<AppBloc, AppState>(
+      listener: (context, state) {
+        if (state is UserUnauthenticatedState) {
+          UiHelper.showSnackBar(
+            context,
+            state.errorMessage,
+            Icons.error,
+            0xFFFFEEEF,
+            0xFFE77282,
+          );
+          context.go(AppRoutes.loginPage);
+        }
+      },
+      child: SafeArea(
+        child: Stack(
+          children: [
+            BlocSelector<ListingBloc, ListingState, Map<String, double>>(
+              selector: (state) => state.location,
+              builder: (context, location) {
+                return GoogleMapSection(
+                  currentLocation: LatLng(
+                    location['latitude']!,
+                    location['longitude']!,
                   ),
+                );
+              },
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 18, vertical: 20),
+              child: Row(
+                spacing: 10,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Expanded(
+                    child: TextSearchBar(),
+                  ),
+                  FilterFloatingActionButton(),
+                ],
+              ),
+            ),
+            Positioned(
+              bottom: 175,
+              right: 15,
+              child: GetUserLocationButton(
+                onPressed: () => context.read<ListingBloc>().add(
+                  ListingInitializeEvent(),
                 ),
               ),
-              const ListingsDrawableSheet(),
-            ],
-          ),
+            ),
+            const ListingsDrawableSheet(),
+          ],
         ),
       ),
     );

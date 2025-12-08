@@ -17,73 +17,66 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          S.of(context).profile,
+    return BlocListener<AppBloc, AppState>(
+      listener: (context, state) {
+        if (state is UserUnauthenticatedState) {
+          UiHelper.showSnackBar(
+            context,
+            state.errorMessage,
+            Icons.error,
+            0xFFFFEEEF,
+            0xFFE77282,
+          );
+          context.go(AppRoutes.loginPage);
+        }
+      },
+      child: SafeArea(
+        minimum: const EdgeInsets.symmetric(
+          horizontal: 10,
+          vertical: 10,
         ),
-      ),
-      body: BlocListener<AppBloc, AppState>(
-        listener: (context, state) {
-          if (state is UserUnauthenticatedState) {
-            UiHelper.showSnackBar(
-              context,
-              state.errorMessage,
-              Icons.error,
-              0xFFFFEEEF,
-              0xFFE77282,
-            );
-            context.go(AppRoutes.loginPage);
-          }
-        },
-        child: SafeArea(
-          minimum: const EdgeInsets.symmetric(
-            horizontal: 10,
-            vertical: 10,
-          ),
-          child: Column(
-            children: [
-              const UserAvatarSection(),
-              const SizedBox(height: 10),
-              const UserFullNameSection(),
-              const SizedBox(height: 30),
-              Expanded(
-                child: ListView(
-                  children: [
-                    SectionListTile(
-                      leadingIcon: Iconsax.user,
-                      title: S.of(context).yourProfile,
-                      onTap: () => context.push(AppRoutes.editProfilePage),
+        child: Column(
+          children: [
+            const UserAvatarSection(),
+            const SizedBox(height: 10),
+            const UserFullNameSection(),
+            const SizedBox(height: 30),
+            Expanded(
+              child: ListView(
+                children: [
+                  SectionListTile(
+                    leadingIcon: Iconsax.user,
+                    title: S.of(context).yourProfile,
+                    onTap: () => context.push(AppRoutes.editProfilePage),
+                  ),
+                  SectionListTile(
+                    leadingIcon: Iconsax.note,
+                    title: S.of(context).myListings,
+                    onTap: () => context.push(AppRoutes.myListingsPage),
+                  ),
+                  SectionListTile(
+                    leadingIcon: Iconsax.document_text_1,
+                    title: S.of(context).myBookings,
+                    onTap: () => context.push(AppRoutes.myBookingsPage),
+                  ),
+                  SectionListTile(
+                    leadingIcon: Iconsax.setting_2,
+                    title: S.of(context).settings,
+                    onTap: () => context.push(AppRoutes.settingsPage),
+                  ),
+                  SectionListTile(
+                    leadingIcon: Iconsax.logout,
+                    title: S.of(context).logout,
+                    isLogOut: true,
+                    onTap: () => UiHelper.showModalSheet(
+                      context,
+                      const LogoutModalSheet(),
                     ),
-                    SectionListTile(
-                      leadingIcon: Iconsax.note,
-                      title: S.of(context).myListings,
-                      onTap: () => context.push(AppRoutes.myListingsPage),
-                    ),
-                    SectionListTile(
-                      leadingIcon: Iconsax.document_text_1,
-                      title: S.of(context).myBookings,
-                      onTap: () => context.push(AppRoutes.myBookingsPage),
-                    ),
-                    SectionListTile(
-                      leadingIcon: Iconsax.setting_2,
-                      title: S.of(context).settings,
-                      onTap: () => context.push(AppRoutes.settingsPage),
-                    ),
-                    SectionListTile(
-                      leadingIcon: Iconsax.logout,
-                      title: S.of(context).logout,
-                      isLogOut: true,
-                      onTap: () => UiHelper.showModalSheet(
-                        context,
-                        const LogoutModalSheet(),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

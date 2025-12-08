@@ -5,7 +5,7 @@ import 'package:marketplace_musical_instruments_app/presentation/page/edit_profi
 import 'package:marketplace_musical_instruments_app/presentation/page/forgot_password/forgot_password_page.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/listing_detail/listing_detail_page.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/login/login_page.dart';
-import 'package:marketplace_musical_instruments_app/presentation/page/main_page.dart';
+import 'package:marketplace_musical_instruments_app/presentation/page/main/main_page.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/my_bookings/my_bookings_page.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/my_listings/my_listings_page.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/register/register_page.dart';
