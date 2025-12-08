@@ -118,6 +118,7 @@ class Dependencies {
     _getIt.registerFactory<BookingSaveCubit>(
       () => BookingSaveCubit(
         bookingRepository,
+        userRepository,
       ),
     );
     _getIt.registerFactory<FavouriteListingsBloc>(

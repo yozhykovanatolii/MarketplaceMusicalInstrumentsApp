@@ -7,6 +7,7 @@ import 'package:marketplace_musical_instruments_app/data/mapper/user_mapper.dart
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
 import 'package:marketplace_musical_instruments_app/data/model/user_model.dart';
 import 'package:marketplace_musical_instruments_app/data/service/camera_picker_service.dart';
+import 'package:marketplace_musical_instruments_app/data/service/dialer_service.dart';
 import 'package:marketplace_musical_instruments_app/domain/entity/user_entity.dart';
 
 class UserRepository {
@@ -57,6 +58,10 @@ class UserRepository {
       final userModel = await userFirestore.getUserModelById(user.uid);
       return UserMapper.toEntity(userModel);
     });
+  }
+
+  Future<void> callUserDialer(String userPhoneNumber) async {
+    await DialerService.openDialer(userPhoneNumber);
   }
 
   Future<void> updateUserFavourites(List<String> updatedFavourites) async {

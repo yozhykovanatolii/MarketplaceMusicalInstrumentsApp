@@ -3,14 +3,19 @@ import 'package:marketplace_musical_instruments_app/core/exception/auth/user_not
 import 'package:marketplace_musical_instruments_app/core/util/calculation_booking_price_util.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
 import 'package:marketplace_musical_instruments_app/data/repository/booking_repository.dart';
+import 'package:marketplace_musical_instruments_app/data/repository/user_repository.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_state.dart';
 
 class BookingSaveCubit extends Cubit<BookingSaveState> {
   final BookingRepository bookingRepository;
+  final UserRepository userRepository;
 
-  BookingSaveCubit(this.bookingRepository) : super(BookingSaveState.initial());
+  BookingSaveCubit(
+    this.bookingRepository,
+    this.userRepository,
+  ) : super(BookingSaveState.initial());
 
   Future<void> calculateBookingTotalPrice(
     String listingId,
@@ -54,7 +59,7 @@ class BookingSaveCubit extends Cubit<BookingSaveState> {
 
   Future<void> openCallDialer(String authorPhoneNumber) async {
     try {
-      await bookingRepository.callDialer(authorPhoneNumber);
+      await userRepository.callUserDialer(authorPhoneNumber);
     } catch (exception) {
       emit(
         state.copyWith(

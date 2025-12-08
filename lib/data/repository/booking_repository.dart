@@ -4,7 +4,6 @@ import 'package:marketplace_musical_instruments_app/data/datasource/remote/fires
 import 'package:marketplace_musical_instruments_app/data/mapper/booking_mapper.dart';
 import 'package:marketplace_musical_instruments_app/data/model/booking_model.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
-import 'package:marketplace_musical_instruments_app/data/service/dialer_service.dart';
 import 'package:marketplace_musical_instruments_app/domain/entity/booking_entity.dart';
 import 'package:uuid/uuid.dart';
 
@@ -63,10 +62,6 @@ class BookingRepository {
     return bookingModels
         .map((bookingModel) => BookingMapper.toEntity(bookingModel))
         .toList();
-  }
-
-  Future<void> callDialer(String phoneNumber) async {
-    await DialerService.openDialer(phoneNumber);
   }
 
   Stream<List<BookingEntity>> getAllUserBookingRequests() {
