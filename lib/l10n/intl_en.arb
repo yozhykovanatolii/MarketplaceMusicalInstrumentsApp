@@ -94,5 +94,6 @@
   "create": "Create",
   "distance": "Distance",
   "distanceKm": "{distance} km",
-  "theOperationWasCompletedSuccessfullyCheckYourEmail": "The operation was completed successfully. Check your email."
+  "theOperationWasCompletedSuccessfullyCheckYourEmail": "The operation was completed successfully. Check your email.",
+  "listOfListings": "List of listings"
 }

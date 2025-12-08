@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:marketplace_musical_instruments_app/core/theme/app_colors.dart';
 
 class SettingListTile extends StatelessWidget {
   final String text;
@@ -18,7 +19,7 @@ class SettingListTile extends StatelessWidget {
       leading: Icon(
         size: 36,
         leadingIcon,
-        color: const Color(0xFF007DFC),
+        color: const Color(AppColors.kBlue),
       ),
       title: Text(text),
       trailing: trailing,

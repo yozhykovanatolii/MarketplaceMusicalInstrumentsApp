@@ -803,6 +803,16 @@ class S {
       args: [],
     );
   }
+
+  /// `List of listings`
+  String get listOfListings {
+    return Intl.message(
+      'List of listings',
+      name: 'listOfListings',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:marketplace_musical_instruments_app/core/theme/app_colors.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_button.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/review/review_bloc.dart';
@@ -25,7 +26,7 @@ class AddReviewActionButton extends StatelessWidget {
     );
     final color = buttonStatus == ButtonStatus.disabled
         ? Colors.grey
-        : const Color(0xFF007DFC);
+        : const Color(AppColors.kBlue);
     final textColor = buttonStatus == ButtonStatus.disabled
         ? Colors.black
         : Colors.white;

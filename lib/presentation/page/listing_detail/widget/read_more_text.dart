@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:marketplace_musical_instruments_app/core/theme/app_colors.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 
 class ReadMoreText extends StatefulWidget {
@@ -66,7 +67,7 @@ class _ReadMoreTextState extends State<ReadMoreText> {
             child: Text(
               _isReadMore ? S.of(context).readMore : S.of(context).readLess,
               style: TextStyle(
-                color: const Color(0xFF007DFC),
+                color: const Color(AppColors.kBlue),
                 fontWeight: FontWeight.w500,
                 fontSize: MediaQuery.textScalerOf(context).scale(17),
               ),

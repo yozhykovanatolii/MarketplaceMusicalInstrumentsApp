@@ -113,6 +113,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "language": MessageLookupByLibrary.simpleMessage("Мова"),
     "languages": MessageLookupByLibrary.simpleMessage("Мови"),
     "leaveAReview": MessageLookupByLibrary.simpleMessage("Залишити відгук"),
+    "listOfListings": MessageLookupByLibrary.simpleMessage("List of listings"),
     "listings": MessageLookupByLibrary.simpleMessage("Оголошення"),
     "location": MessageLookupByLibrary.simpleMessage("Місцезнаходження"),
     "logout": MessageLookupByLibrary.simpleMessage("Вихід з аккаунту"),

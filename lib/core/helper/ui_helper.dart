@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:marketplace_musical_instruments_app/core/theme/app_colors.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/snack_bar_body.dart';
 
 class UiHelper {
@@ -32,8 +33,10 @@ class UiHelper {
       elevation: 0,
       behavior: SnackBarBehavior.floating,
       content: SnackBarBody(
-        backgroundColor: isErrorSnackBar ? 0xFFFFEEEF : 0xFFD4FFFE,
-        color: isErrorSnackBar ? 0xFFE77282 : 0xFF009688,
+        backgroundColor: isErrorSnackBar
+            ? AppColors.kRoseMist
+            : AppColors.kMintAqua,
+        color: isErrorSnackBar ? AppColors.kCoralRed : AppColors.kDeepTeal,
         message: message,
         iconData: isErrorSnackBar ? Icons.error : Icons.check_circle,
       ),

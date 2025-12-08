@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:marketplace_musical_instruments_app/core/theme/app_colors.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_button.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_bloc.dart';
@@ -59,15 +60,16 @@ class _FilterActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final blueColor = const Color(AppColors.kBlue);
     return CommonButton(
       width: MediaQuery.of(context).size.width / 2,
       onPressed: onPressed,
-      color: isClearButton ? Colors.grey[300]! : const Color(0xFF007DFC),
+      color: isClearButton ? Colors.grey[300]! : blueColor,
       child: Text(
         text,
         style: TextStyle(
           fontSize: 17,
-          color: isClearButton ? const Color(0xFF007DFC) : Colors.white,
+          color: isClearButton ? blueColor : Colors.white,
         ),
       ),
     );

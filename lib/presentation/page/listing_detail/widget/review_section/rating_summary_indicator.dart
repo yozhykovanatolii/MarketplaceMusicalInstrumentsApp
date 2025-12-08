@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:marketplace_musical_instruments_app/core/theme/app_colors.dart';
 
 class RatingSummaryIndicator extends StatelessWidget {
   final String text;
@@ -32,7 +33,7 @@ class RatingSummaryIndicator extends StatelessWidget {
             value: value,
             minHeight: 10,
             backgroundColor: Colors.grey[300],
-            color: const Color(0xFF007DFC),
+            color: const Color(AppColors.kBlue),
             borderRadius: BorderRadius.circular(12),
           ),
         ),

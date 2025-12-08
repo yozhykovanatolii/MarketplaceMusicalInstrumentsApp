@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:marketplace_musical_instruments_app/core/theme/app_colors.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_event.dart';
 
@@ -14,6 +15,7 @@ class PriceRangeSliderSection extends StatelessWidget {
     final endPrice = context.select(
       (ListingBloc bloc) => bloc.state.listingFilters.endPrice,
     );
+    final blueColor = const Color(AppColors.kBlue);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: 10,
@@ -27,9 +29,9 @@ class PriceRangeSliderSection extends StatelessWidget {
         ),
         SliderTheme(
           data: SliderTheme.of(context).copyWith(
-            activeTrackColor: const Color(0xFF007DFC),
+            activeTrackColor: blueColor,
             inactiveTrackColor: Colors.grey[300],
-            thumbColor: const Color(0xFF007DFC),
+            thumbColor: blueColor,
             overlayShape: SliderComponentShape.noOverlay,
             trackHeight: 6,
           ),

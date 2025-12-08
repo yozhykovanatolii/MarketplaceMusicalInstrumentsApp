@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:marketplace_musical_instruments_app/core/theme/app_colors.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/tag_container.dart';
 import 'package:marketplace_musical_instruments_app/domain/entity/booking_entity.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
@@ -48,7 +49,7 @@ class BookingCard extends StatelessWidget {
                         fontWeight: Theme.of(
                           context,
                         ).textTheme.bodyMedium?.fontWeight,
-                        colorText: const Color(0xFF007DFC),
+                        colorText: const Color(AppColors.kBlue),
                       ),
                       Text(
                         booking.listingTitle,

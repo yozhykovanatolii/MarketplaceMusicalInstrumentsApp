@@ -105,6 +105,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "language": MessageLookupByLibrary.simpleMessage("Language"),
     "languages": MessageLookupByLibrary.simpleMessage("Languages"),
     "leaveAReview": MessageLookupByLibrary.simpleMessage("Leave a Review"),
+    "listOfListings": MessageLookupByLibrary.simpleMessage("List of listings"),
     "listings": MessageLookupByLibrary.simpleMessage("Listings"),
     "location": MessageLookupByLibrary.simpleMessage("Location"),
     "logout": MessageLookupByLibrary.simpleMessage("Logout"),

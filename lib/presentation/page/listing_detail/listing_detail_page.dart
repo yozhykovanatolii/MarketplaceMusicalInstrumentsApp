@@ -107,6 +107,7 @@ class ListingDetailPage extends StatelessWidget {
                       children: [
                         AboutSection(
                           location: listing.location,
+                          listingDescription: listing.description,
                           authorAvatar: listing.authorAvatar,
                           authorFullName: listing.authorFullName,
                           authorPhoneNumber: listing.authorPhoneNumber,

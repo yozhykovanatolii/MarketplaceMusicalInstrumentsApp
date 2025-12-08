@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:marketplace_musical_instruments_app/core/theme/app_colors.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 
 class BottomNavigation extends StatelessWidget {
@@ -76,7 +77,7 @@ class _BottomNavigationItem extends StatelessWidget {
             height: 3,
             width: isActive ? 24 : 0,
             decoration: BoxDecoration(
-              color: const Color(0xFF007DFC),
+              color: const Color(AppColors.kBlue),
               borderRadius: BorderRadius.circular(12),
             ),
           ),

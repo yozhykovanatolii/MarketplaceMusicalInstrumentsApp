@@ -94,5 +94,6 @@
   "create": "Створити",
   "distance": "Відстань",
   "distanceKm": "{distance} км",
-  "theOperationWasCompletedSuccessfullyCheckYourEmail": "Операцію успішно завершено. Перевірте свою електронну пошту."
+  "theOperationWasCompletedSuccessfullyCheckYourEmail": "Операцію успішно завершено. Перевірте свою електронну пошту.",
+  "listOfListings": "List of listings"
 }

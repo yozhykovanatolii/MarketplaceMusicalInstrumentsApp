@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:marketplace_musical_instruments_app/core/theme/app_colors.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_event.dart';
 
@@ -43,7 +44,7 @@ class _RatingCardButton extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 13),
         decoration: BoxDecoration(
           color: isRatingCardSelected
-              ? const Color(0xFF007DFC)
+              ? const Color(AppColors.kBlue)
               : Colors.grey[200],
           borderRadius: BorderRadius.circular(15),
         ),
