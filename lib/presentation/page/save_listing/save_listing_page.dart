@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:marketplace_musical_instruments_app/core/helper/ui_helper.dart';
+import 'package:marketplace_musical_instruments_app/core/navigation/app_routes.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/app/app_bloc.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/app/app_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_cubit.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_state.dart';
@@ -60,28 +64,46 @@ class _SaveListingPageState extends State<SaveListingPage> {
           S.of(context).createYourListing,
         ),
       ),
-      body: BlocListener<SaveListingCubit, SaveListingState>(
-        listener: (context, state) {
-          if (state.errorMessage.isNotEmpty) {
-            UiHelper.showSnackBar(
-              context,
-              state.errorMessage,
-              Icons.error,
-              0xFFFFEEEF,
-              0xFFE77282,
-            );
-          }
-          if (state.formStatus == FormStatus.success) {
-            UiHelper.showSnackBar(
-              context,
-              S.of(context).successfulSaveListing,
-              Icons.check_circle,
-              0xFFD4FFFE,
-              0xFF009688,
-            );
-            if (widget.listing != null) Navigator.pop(context);
-          }
-        },
+      body: MultiBlocListener(
+        listeners: [
+          BlocListener<AppBloc, AppState>(
+            listener: (context, state) {
+              if (state is UserUnauthenticatedState) {
+                UiHelper.showSnackBar(
+                  context,
+                  state.errorMessage,
+                  Icons.error,
+                  0xFFFFEEEF,
+                  0xFFE77282,
+                );
+                context.go(AppRoutes.loginPage);
+              }
+            },
+          ),
+          BlocListener<SaveListingCubit, SaveListingState>(
+            listener: (context, state) {
+              if (state.errorMessage.isNotEmpty) {
+                UiHelper.showSnackBar(
+                  context,
+                  state.errorMessage,
+                  Icons.error,
+                  0xFFFFEEEF,
+                  0xFFE77282,
+                );
+              }
+              if (state.formStatus == FormStatus.success) {
+                UiHelper.showSnackBar(
+                  context,
+                  S.of(context).successfulSaveListing,
+                  Icons.check_circle,
+                  0xFFD4FFFE,
+                  0xFF009688,
+                );
+                if (widget.listing != null) Navigator.pop(context);
+              }
+            },
+          ),
+        ],
         child: SafeArea(
           minimum: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: SingleChildScrollView(

@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:marketplace_musical_instruments_app/core/helper/ui_helper.dart';
+import 'package:marketplace_musical_instruments_app/core/navigation/app_routes.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/app/app_bloc.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/app/app_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_cubit.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
@@ -23,30 +27,48 @@ class ListingDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<BookingSaveCubit, BookingSaveState>(
-      listener: (BuildContext context, BookingSaveState state) {
-        final formStatus = state.formStatus;
-        if (state.formStatus == FormStatus.success) {
-          UiHelper.showSnackBar(
-            context,
-            S
-                .of(context)
-                .theTransactionWasSuccessfulYourBookingRequestHasBeenSent,
-            Icons.check_circle,
-            0xFFD4FFFE,
-            0xFF009688,
-          );
-        }
-        if (formStatus == FormStatus.failure) {
-          UiHelper.showSnackBar(
-            context,
-            state.errorMessage,
-            Icons.error,
-            0xFFFFEEEF,
-            0xFFE77282,
-          );
-        }
-      },
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<AppBloc, AppState>(
+          listener: (context, state) {
+            if (state is UserUnauthenticatedState) {
+              UiHelper.showSnackBar(
+                context,
+                state.errorMessage,
+                Icons.error,
+                0xFFFFEEEF,
+                0xFFE77282,
+              );
+              context.go(AppRoutes.loginPage);
+            }
+          },
+        ),
+        BlocListener<BookingSaveCubit, BookingSaveState>(
+          listener: (BuildContext context, BookingSaveState state) {
+            final formStatus = state.formStatus;
+            if (state.formStatus == FormStatus.success) {
+              UiHelper.showSnackBar(
+                context,
+                S
+                    .of(context)
+                    .theTransactionWasSuccessfulYourBookingRequestHasBeenSent,
+                Icons.check_circle,
+                0xFFD4FFFE,
+                0xFF009688,
+              );
+            }
+            if (formStatus == FormStatus.failure) {
+              UiHelper.showSnackBar(
+                context,
+                state.errorMessage,
+                Icons.error,
+                0xFFFFEEEF,
+                0xFFE77282,
+              );
+            }
+          },
+        ),
+      ],
       child: DefaultTabController(
         length: 3,
         child: Scaffold(

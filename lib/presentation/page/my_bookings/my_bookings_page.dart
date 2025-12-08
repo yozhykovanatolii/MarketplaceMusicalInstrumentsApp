@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:marketplace_musical_instruments_app/core/helper/ui_helper.dart';
+import 'package:marketplace_musical_instruments_app/core/navigation/app_routes.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_progress_indicator.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/app/app_bloc.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/app/app_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_overview/booking_overview_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_overview/booking_overview_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_overview/booking_overview_state.dart';
@@ -35,41 +40,55 @@ class _MyBookingsPageState extends State<MyBookingsPage> {
         ),
         centerTitle: true,
       ),
-      body: BlocBuilder<BookingOverviewBloc, BookingOverviewState>(
-        builder: (BuildContext context, BookingOverviewState state) {
-          if (state is BookingFailure) {
-            return Center(
-              child: Text(
-                state.errorMessage,
-                style: const TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.w500,
+      body: BlocListener<AppBloc, AppState>(
+        listener: (context, state) {
+          if (state is UserUnauthenticatedState) {
+            UiHelper.showSnackBar(
+              context,
+              state.errorMessage,
+              Icons.error,
+              0xFFFFEEEF,
+              0xFFE77282,
+            );
+            context.go(AppRoutes.loginPage);
+          }
+        },
+        child: BlocBuilder<BookingOverviewBloc, BookingOverviewState>(
+          builder: (BuildContext context, BookingOverviewState state) {
+            if (state is BookingFailure) {
+              return Center(
+                child: Text(
+                  state.errorMessage,
+                  style: const TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
+              );
+            }
+            if (state is BookingSuccess) {
+              final userBookings = state.bookings;
+              return ListView.separated(
+                itemCount: userBookings.length,
+                padding: const EdgeInsets.all(10),
+                itemBuilder: (context, index) {
+                  return BookingCard(
+                    booking: userBookings[index],
+                  );
+                },
+                separatorBuilder: (BuildContext context, int index) {
+                  return const SizedBox(height: 20);
+                },
+              );
+            }
+            return const Center(
+              child: CommonProgressIndicator(
+                scale: 1.2,
+                color: Colors.blue,
               ),
             );
-          }
-          if (state is BookingSuccess) {
-            final userBookings = state.bookings;
-            return ListView.separated(
-              itemCount: userBookings.length,
-              padding: const EdgeInsets.all(10),
-              itemBuilder: (context, index) {
-                return BookingCard(
-                  booking: userBookings[index],
-                );
-              },
-              separatorBuilder: (BuildContext context, int index) {
-                return const SizedBox(height: 20);
-              },
-            );
-          }
-          return const Center(
-            child: CommonProgressIndicator(
-              scale: 1.2,
-              color: Colors.blue,
-            ),
-          );
-        },
+          },
+        ),
       ),
     );
   }

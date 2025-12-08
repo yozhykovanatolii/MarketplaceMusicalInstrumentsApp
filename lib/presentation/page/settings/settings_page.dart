@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:marketplace_musical_instruments_app/core/helper/ui_helper.dart';
+import 'package:marketplace_musical_instruments_app/core/navigation/app_routes.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/app/app_bloc.dart';
+import 'package:marketplace_musical_instruments_app/presentation/bloc/app/app_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/settings/widget/language_button.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/settings/widget/setting_list_tile.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/settings/widget/theme_switch.dart';
@@ -16,19 +22,33 @@ class SettingsPage extends StatelessWidget {
           S.of(context).settings,
         ),
       ),
-      body: ListView(
-        children: [
-          SettingListTile(
-            leadingIcon: Iconsax.sun_1,
-            text: S.of(context).darkMode,
-            trailing: const ThemeSwitch(),
-          ),
-          SettingListTile(
-            leadingIcon: Iconsax.language_circle,
-            text: S.of(context).language,
-            trailing: const LanguageButton(),
-          ),
-        ],
+      body: BlocListener<AppBloc, AppState>(
+        listener: (context, state) {
+          if (state is UserUnauthenticatedState) {
+            UiHelper.showSnackBar(
+              context,
+              state.errorMessage,
+              Icons.error,
+              0xFFFFEEEF,
+              0xFFE77282,
+            );
+            context.go(AppRoutes.loginPage);
+          }
+        },
+        child: ListView(
+          children: [
+            SettingListTile(
+              leadingIcon: Iconsax.sun_1,
+              text: S.of(context).darkMode,
+              trailing: const ThemeSwitch(),
+            ),
+            SettingListTile(
+              leadingIcon: Iconsax.language_circle,
+              text: S.of(context).language,
+              trailing: const LanguageButton(),
+            ),
+          ],
+        ),
       ),
     );
   }
