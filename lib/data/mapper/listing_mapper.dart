@@ -4,6 +4,7 @@ import 'package:marketplace_musical_instruments_app/domain/entity/location_entit
 
 class ListingMapper {
   static ListingEntity toEntity(ListingModel listingModel) {
+    final locationInitial = LocationEntity.initial();
     return ListingEntity(
       id: listingModel.id,
       title: listingModel.title,
@@ -14,8 +15,9 @@ class ListingMapper {
       averageRating: listingModel.averageRating,
       reviewerCount: listingModel.reviewerCount,
       location: LocationEntity(
-        latitude: listingModel.location['latitude'] ?? 37.42796133580664,
-        longitude: listingModel.location['latitude'] ?? -122.085749655962,
+        latitude: listingModel.location['latitude'] ?? locationInitial.latitude,
+        longitude:
+            listingModel.location['latitude'] ?? locationInitial.longitude,
       ),
       authorId: listingModel.authorId,
       authorFullName: listingModel.authorFullName,

@@ -3,8 +3,8 @@ import 'package:marketplace_musical_instruments_app/data/datasource/remote/fires
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/firestore/user_firestore.dart';
 import 'package:marketplace_musical_instruments_app/data/mapper/booking_mapper.dart';
 import 'package:marketplace_musical_instruments_app/data/model/booking_model.dart';
-import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
 import 'package:marketplace_musical_instruments_app/domain/entity/booking_entity.dart';
+import 'package:marketplace_musical_instruments_app/domain/entity/listing_entity.dart';
 import 'package:marketplace_musical_instruments_app/domain/repository/booking_repository.dart';
 import 'package:uuid/uuid.dart';
 
@@ -21,7 +21,7 @@ class BookingRepositoryImpl implements BookingRepository {
 
   @override
   Future<void> createBooking(
-    ListingModel listingModel,
+    ListingEntity listing,
     DateTime startDate,
     DateTime endDate,
     int totalPrice,
@@ -34,11 +34,11 @@ class BookingRepositoryImpl implements BookingRepository {
       renterId: renterId,
       renterFullName: renter.fullName,
       renterAvatar: renter.avatar,
-      authorId: listingModel.authorId,
-      listingId: listingModel.id,
-      listingTitle: listingModel.title,
-      listingPhoto: listingModel.photos.first,
-      listingCategory: listingModel.category,
+      authorId: listing.authorId,
+      listingId: listing.id,
+      listingTitle: listing.title,
+      listingPhoto: listing.photos.first,
+      listingCategory: listing.category,
       startDate: startDate,
       endDate: endDate,
       totalPrice: totalPrice,

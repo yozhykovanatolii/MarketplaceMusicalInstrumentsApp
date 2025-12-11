@@ -1,19 +1,19 @@
-import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
+import 'package:marketplace_musical_instruments_app/domain/entity/listing_entity.dart';
+import 'package:marketplace_musical_instruments_app/domain/entity/location_entity.dart';
 
 abstract interface class ListingRepository {
   Future<String> getListingPhotoUrl();
   Future<void> saveListing(
-    Map<String, double> location,
+    LocationEntity location,
     List<String> photos,
     String title,
     String description,
     String category,
     int price, {
-    ListingModel? currentListing,
+    ListingEntity? currentListing,
   });
-  Stream<List<ListingModel>> getUserListings();
-  Future<List<ListingModel>> getAllListingExceptUsers();
-  Future<List<ListingModel>> filterListings(
+  Stream<List<ListingEntity>> getUserListings();
+  Future<List<ListingEntity>> filterListings(
     List<String> categories,
     int startPrice,
     int endPrice,
@@ -22,6 +22,6 @@ abstract interface class ListingRepository {
     double userLng,
     int radius,
   );
-  Future<List<ListingModel>> searchListings(String searchText);
+  Future<List<ListingEntity>> searchListings(String searchText);
   Future<void> deleteAuthorListing(String listingId);
 }

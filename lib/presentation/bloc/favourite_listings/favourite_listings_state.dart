@@ -1,9 +1,9 @@
-import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
+import 'package:marketplace_musical_instruments_app/domain/entity/listing_entity.dart';
 
 enum FavouriteListingsStatus { initial, loading, success, failure }
 
 class FavouriteListingsState {
-  final List<ListingModel> favouriteListings;
+  final List<ListingEntity> favouriteListings;
   final List<String> favouriteListingsId;
   final String errorMessage;
   final FavouriteListingsStatus status;
@@ -25,7 +25,7 @@ class FavouriteListingsState {
   }
 
   FavouriteListingsState copyWith({
-    List<ListingModel>? favouriteListings,
+    List<ListingEntity>? favouriteListings,
     List<String>? favouriteListingsId,
     String? errorMessage,
     FavouriteListingsStatus? status,

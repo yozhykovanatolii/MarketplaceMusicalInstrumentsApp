@@ -76,8 +76,8 @@ class _GoogleMapSectionState extends State<GoogleMapSection> {
             (listing) => Marker(
               markerId: MarkerId(listing.id),
               position: LatLng(
-                listing.location['latitude']!,
-                listing.location['longitude']!,
+                listing.location.latitude,
+                listing.location.longitude,
               ),
               icon: customIcon,
             ),

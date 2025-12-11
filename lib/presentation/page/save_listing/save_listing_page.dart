@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:marketplace_musical_instruments_app/core/helper/ui_helper.dart';
 import 'package:marketplace_musical_instruments_app/core/navigation/app_routes.dart';
-import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
+import 'package:marketplace_musical_instruments_app/domain/entity/listing_entity.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/app/app_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/app/app_state.dart';
@@ -19,7 +19,7 @@ import 'package:marketplace_musical_instruments_app/presentation/page/save_listi
 import 'package:marketplace_musical_instruments_app/presentation/page/save_listing/widget/photo_list_view.dart';
 
 class SaveListingPage extends StatefulWidget {
-  final ListingModel? listing;
+  final ListingEntity? listing;
 
   const SaveListingPage({
     super.key,

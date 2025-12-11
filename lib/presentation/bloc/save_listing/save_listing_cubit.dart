@@ -3,7 +3,7 @@ import 'package:marketplace_musical_instruments_app/core/exception/geolocation_e
 import 'package:marketplace_musical_instruments_app/core/exception/permission_denied_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/photo_not_selected_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/auth/user_not_found_exception.dart';
-import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
+import 'package:marketplace_musical_instruments_app/domain/entity/listing_entity.dart';
 import 'package:marketplace_musical_instruments_app/domain/repository/geolocation_repository.dart';
 import 'package:marketplace_musical_instruments_app/domain/repository/listing_repository.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
@@ -40,7 +40,10 @@ class SaveListingCubit extends Cubit<SaveListingState> {
   Future<void> onGetUserLocation() async {
     try {
       final location = await geolocationRepository.getCurrentLocation();
-      final updatedUserLocation = Map<String, double>.from(location);
+      final updatedUserLocation = state.currentLocation.copyWith(
+        latitude: location['latitude'],
+        longitude: location['longitude'],
+      );
       emit(state.copyWith(currentLocation: updatedUserLocation));
     } on PermissionDeniedException catch (exception) {
       emit(state.copyWith(errorMessage: exception.errorMessage));
@@ -67,7 +70,7 @@ class SaveListingCubit extends Cubit<SaveListingState> {
     emit(state.copyWith(category: category));
   }
 
-  void onEditListing(ListingModel? listing) {
+  void onEditListing(ListingEntity? listing) {
     if (listing != null) {
       emit(
         state.copyWith(
@@ -79,10 +82,11 @@ class SaveListingCubit extends Cubit<SaveListingState> {
           category: listing.category,
         ),
       );
+      print('State: ${listing.location.latitude}');
     }
   }
 
-  Future<void> onSaveListing(ListingModel? listing) async {
+  Future<void> onSaveListing(ListingEntity? listing) async {
     print('Hello, listing');
     emit(state.copyWith(formStatus: FormStatus.loading));
     try {

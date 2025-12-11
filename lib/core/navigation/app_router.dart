@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:marketplace_musical_instruments_app/core/navigation/app_routes.dart';
-import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
+import 'package:marketplace_musical_instruments_app/domain/entity/listing_entity.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/edit_profile/edit_profile_page.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/forgot_password/forgot_password_page.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/listing_detail/listing_detail_page.dart';
@@ -67,14 +67,14 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.listingsDetailPage,
         builder: (context, state) {
-          final listing = state.extra as ListingModel;
+          final listing = state.extra as ListingEntity;
           return ListingDetailPage(listing: listing);
         },
       ),
       GoRoute(
         path: AppRoutes.saveListingPage,
         builder: (context, state) {
-          final listing = state.extra as ListingModel;
+          final listing = state.extra as ListingEntity;
           return SaveListingPage(listing: listing);
         },
       ),

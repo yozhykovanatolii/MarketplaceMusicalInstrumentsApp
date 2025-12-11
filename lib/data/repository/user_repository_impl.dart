@@ -3,11 +3,12 @@ import 'package:marketplace_musical_instruments_app/data/datasource/remote/fireb
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/firestore/listing_firestore.dart';
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/firestore/user_firestore.dart';
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/storage/supabase_storage.dart';
+import 'package:marketplace_musical_instruments_app/data/mapper/listing_mapper.dart';
 import 'package:marketplace_musical_instruments_app/data/mapper/user_mapper.dart';
-import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
 import 'package:marketplace_musical_instruments_app/data/model/user_model.dart';
 import 'package:marketplace_musical_instruments_app/data/service/camera_picker_service.dart';
 import 'package:marketplace_musical_instruments_app/data/service/dialer_service.dart';
+import 'package:marketplace_musical_instruments_app/domain/entity/listing_entity.dart';
 import 'package:marketplace_musical_instruments_app/domain/entity/user_entity.dart';
 import 'package:marketplace_musical_instruments_app/domain/repository/user_repository.dart';
 
@@ -83,9 +84,16 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Stream<List<ListingModel>> getUserFavouriteListings() async* {
+  Stream<List<ListingEntity>> getUserFavouriteListings() async* {
     await for (final favouriteListingsId in getFavouriteListingsId()) {
-      yield* listingFirestore.getUserFavouriteListings(favouriteListingsId);
+      final listingModelsStream = listingFirestore.getUserFavouriteListings(
+        favouriteListingsId,
+      );
+      yield* listingModelsStream.map(
+        (listingModels) => listingModels
+            .map((listingModel) => ListingMapper.toEntity(listingModel))
+            .toList(),
+      );
     }
   }
 }

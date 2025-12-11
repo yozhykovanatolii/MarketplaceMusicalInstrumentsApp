@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/auth/user_not_found_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/util/calculation_booking_price_util.dart';
-import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
+import 'package:marketplace_musical_instruments_app/domain/entity/listing_entity.dart';
 import 'package:marketplace_musical_instruments_app/domain/repository/booking_repository.dart';
 import 'package:marketplace_musical_instruments_app/domain/repository/user_repository.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_state.dart';
@@ -77,14 +77,14 @@ class BookingSaveCubit extends Cubit<BookingSaveState> {
     }
   }
 
-  Future<void> createBooking(ListingModel listingModel) async {
+  Future<void> createBooking(ListingEntity listing) async {
     final startBookingDate = state.startBookingDate;
     final endBookingDate = state.endBookingDate;
     final totalPriceText = state.totalPriceText.replaceAll('\$', '');
     if (startBookingDate == null || endBookingDate == null) return;
     try {
       await bookingRepository.createBooking(
-        listingModel,
+        listing,
         startBookingDate,
         endBookingDate,
         int.parse(totalPriceText),

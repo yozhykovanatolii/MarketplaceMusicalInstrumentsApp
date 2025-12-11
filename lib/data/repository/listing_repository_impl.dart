@@ -2,8 +2,11 @@ import 'package:marketplace_musical_instruments_app/data/datasource/remote/fireb
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/firestore/listing_firestore.dart';
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/firestore/user_firestore.dart';
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/storage/supabase_storage.dart';
+import 'package:marketplace_musical_instruments_app/data/mapper/listing_mapper.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
 import 'package:marketplace_musical_instruments_app/data/service/camera_picker_service.dart';
+import 'package:marketplace_musical_instruments_app/domain/entity/listing_entity.dart';
+import 'package:marketplace_musical_instruments_app/domain/entity/location_entity.dart';
 import 'package:marketplace_musical_instruments_app/domain/repository/listing_repository.dart';
 import 'package:uuid/uuid.dart';
 
@@ -29,20 +32,23 @@ class ListingRepositoryImpl implements ListingRepository {
 
   @override
   Future<void> saveListing(
-    Map<String, double> location,
+    LocationEntity location,
     List<String> photos,
     String title,
     String description,
     String category,
     int price, {
-    ListingModel? currentListing,
+    ListingEntity? currentListing,
   }) async {
     final userId = userAuth.userId;
     final userModel = await userFirestore.getUserModelById(userId);
-    ListingModel listingModel = currentListing ?? ListingModel.initial();
+    ListingModel listingModel = ListingModel.initial();
     listingModel = listingModel.copyWith(
       id: currentListing?.id ?? const Uuid().v1(),
-      location: location,
+      location: {
+        'latitude': location.latitude,
+        'longitude': location.longitude,
+      },
       photos: photos,
       averageRating: listingModel.averageRating,
       reviewerCount: listingModel.reviewerCount,
@@ -59,19 +65,17 @@ class ListingRepositoryImpl implements ListingRepository {
   }
 
   @override
-  Stream<List<ListingModel>> getUserListings() {
+  Stream<List<ListingEntity>> getUserListings() {
     final authorId = userAuth.userId;
-    return listingFirestore.getUserListings(authorId);
+    return listingFirestore.getUserListings(authorId).map((listingsModel) {
+      return listingsModel
+          .map((listingModel) => ListingMapper.toEntity(listingModel))
+          .toList();
+    });
   }
 
   @override
-  Future<List<ListingModel>> getAllListingExceptUsers() async {
-    final authorId = userAuth.userId;
-    return await listingFirestore.getAllListingExceptUsers(authorId);
-  }
-
-  @override
-  Future<List<ListingModel>> filterListings(
+  Future<List<ListingEntity>> filterListings(
     List<String> categories,
     int startPrice,
     int endPrice,
@@ -80,7 +84,7 @@ class ListingRepositoryImpl implements ListingRepository {
     double userLng,
     int radius,
   ) async {
-    return await listingFirestore.filterListings(
+    final listingsModel = await listingFirestore.filterListings(
       categories,
       startPrice,
       endPrice,
@@ -89,11 +93,17 @@ class ListingRepositoryImpl implements ListingRepository {
       userLng,
       radius,
     );
+    return listingsModel
+        .map((listingModel) => ListingMapper.toEntity(listingModel))
+        .toList();
   }
 
   @override
-  Future<List<ListingModel>> searchListings(String searchText) async {
-    return await listingFirestore.searchListings(searchText);
+  Future<List<ListingEntity>> searchListings(String searchText) async {
+    final listingsModel = await listingFirestore.searchListings(searchText);
+    return listingsModel
+        .map((listingModel) => ListingMapper.toEntity(listingModel))
+        .toList();
   }
 
   @override

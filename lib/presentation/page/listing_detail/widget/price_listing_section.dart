@@ -3,13 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/helper/ui_helper.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_button.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/information_dialog_box.dart';
-import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
+import 'package:marketplace_musical_instruments_app/domain/entity/listing_entity.dart';
 import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_cubit.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_state.dart';
 
 class PriceListingSection extends StatelessWidget {
-  final ListingModel listing;
+  final ListingEntity listing;
 
   const PriceListingSection({
     super.key,
@@ -73,7 +73,7 @@ class PriceListingSection extends StatelessWidget {
 }
 
 class _BookingButton extends StatelessWidget {
-  final ListingModel listing;
+  final ListingEntity listing;
 
   const _BookingButton({
     required this.listing,

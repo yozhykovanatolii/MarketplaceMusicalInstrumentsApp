@@ -1,9 +1,9 @@
-import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
 import 'package:marketplace_musical_instruments_app/domain/entity/booking_entity.dart';
+import 'package:marketplace_musical_instruments_app/domain/entity/listing_entity.dart';
 
 abstract interface class BookingRepository {
   Future<void> createBooking(
-    ListingModel listingModel,
+    ListingEntity listing,
     DateTime startDate,
     DateTime endDate,
     int totalPrice,

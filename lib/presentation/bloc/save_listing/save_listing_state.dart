@@ -1,11 +1,12 @@
 import 'package:marketplace_musical_instruments_app/core/validator/listing_validator.dart';
+import 'package:marketplace_musical_instruments_app/domain/entity/location_entity.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
 
 enum ButtonStatus { enabled, disabled }
 
 class SaveListingState {
   final List<String> photos;
-  final Map<String, double> currentLocation;
+  final LocationEntity currentLocation;
   final String title;
   final String description;
   final int price;
@@ -27,7 +28,7 @@ class SaveListingState {
   factory SaveListingState.initial() {
     return SaveListingState(
       photos: [],
-      currentLocation: {},
+      currentLocation: LocationEntity.initial(),
       title: '',
       description: '',
       price: 0,
@@ -39,13 +40,13 @@ class SaveListingState {
 
   SaveListingState copyWith({
     List<String>? photos,
-    Map<String, double>? currentLocation,
+    LocationEntity? currentLocation,
     String? title,
     String? description,
     int? price,
     String? category,
-    String? errorMessage,
     FormStatus? formStatus,
+    String? errorMessage,
   }) {
     return SaveListingState(
       photos: photos ?? this.photos,
@@ -70,7 +71,6 @@ class SaveListingState {
 
   ButtonStatus get buttonStatus {
     if (photos.isEmpty ||
-        currentLocation.isEmpty ||
         ListingValidator.validateListingPrice(price.toString()) != null ||
         ListingValidator.validateTitle(title) != null ||
         ListingValidator.validateDescription(description) != null) {

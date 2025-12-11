@@ -1,10 +1,10 @@
-import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
+import 'package:marketplace_musical_instruments_app/domain/entity/listing_entity.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/state/listing_filters.dart';
 
 enum ListingStatus { initial, loading, success, failure }
 
 class ListingState {
-  final List<ListingModel> listings;
+  final List<ListingEntity> listings;
   final String errorMessage;
   final Map<String, double> location;
   final ListingFilters listingFilters;
@@ -22,14 +22,14 @@ class ListingState {
     return ListingState(
       listings: [],
       errorMessage: '',
-      location: {'latitude': 37.42796133580664, 'longitude': -122.085749655962},
+      location: {'latitude': 47.8858599, 'longitude': 35.0093512},
       listingFilters: ListingFilters.initial(),
       status: ListingStatus.initial,
     );
   }
 
   ListingState copyWith({
-    List<ListingModel>? listings,
+    List<ListingEntity>? listings,
     String? errorMessage,
     Map<String, double>? location,
     ListingFilters? listingFilters,

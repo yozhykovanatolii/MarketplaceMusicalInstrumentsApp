@@ -1,4 +1,4 @@
-import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
+import 'package:marketplace_musical_instruments_app/domain/entity/listing_entity.dart';
 import 'package:marketplace_musical_instruments_app/domain/entity/user_entity.dart';
 
 abstract interface class UserRepository {
@@ -9,5 +9,5 @@ abstract interface class UserRepository {
   Future<void> callUserDialer(String userPhoneNumber);
   Future<void> updateUserFavourites(List<String> updatedFavourites);
   Stream<List<String>> getFavouriteListingsId();
-  Stream<List<ListingModel>> getUserFavouriteListings();
+  Stream<List<ListingEntity>> getUserFavouriteListings();
 }

@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/auth/user_not_found_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/listing/user_listings_exception.dart';
-import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
+import 'package:marketplace_musical_instruments_app/domain/entity/listing_entity.dart';
 import 'package:marketplace_musical_instruments_app/domain/repository/listing_repository.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/author_listing/author_listing_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/author_listing/author_listing_state.dart';
@@ -20,7 +20,7 @@ class AuthorListingBloc extends Bloc<AuthorListingEvent, AuthorListingState> {
     Emitter<AuthorListingState> emit,
   ) async {
     emit(AuthorListingLoadingState());
-    await emit.forEach<List<ListingModel>>(
+    await emit.forEach<List<ListingEntity>>(
       listingRepository.getUserListings(),
       onData: (authorListings) => AuthorListingSuccessState(
         authorListings,

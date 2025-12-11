@@ -3,11 +3,11 @@ import 'package:go_router/go_router.dart';
 import 'package:marketplace_musical_instruments_app/core/navigation/app_routes.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/average_rating_section.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/favourite_button.dart';
-import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
+import 'package:marketplace_musical_instruments_app/domain/entity/listing_entity.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/my_listings/widget/delete_listing_button.dart';
 
 class ListingCard extends StatelessWidget {
-  final ListingModel listing;
+  final ListingEntity listing;
   final bool isEditing;
 
   const ListingCard({

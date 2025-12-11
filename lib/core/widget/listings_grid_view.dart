@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/listing_card.dart';
-import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
+import 'package:marketplace_musical_instruments_app/domain/entity/listing_entity.dart';
 
 class ListingsGridView extends StatelessWidget {
   final ScrollController? controller;
   final bool isEditingListings;
-  final List<ListingModel> listings;
+  final List<ListingEntity> listings;
 
   const ListingsGridView({
     super.key,
