@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:marketplace_musical_instruments_app/data/repository/settings_repository.dart';
+import 'package:marketplace_musical_instruments_app/domain/repository/settings_repository.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/settings/settings_state.dart';
 
 class SettingsCubit extends Cubit<SettingsState> {

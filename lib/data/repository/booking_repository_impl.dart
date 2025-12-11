@@ -5,19 +5,21 @@ import 'package:marketplace_musical_instruments_app/data/mapper/booking_mapper.d
 import 'package:marketplace_musical_instruments_app/data/model/booking_model.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
 import 'package:marketplace_musical_instruments_app/domain/entity/booking_entity.dart';
+import 'package:marketplace_musical_instruments_app/domain/repository/booking_repository.dart';
 import 'package:uuid/uuid.dart';
 
-class BookingRepository {
+class BookingRepositoryImpl implements BookingRepository {
   final BookingFirestore bookingFirestore;
   final UserAuth userAuth;
   final UserFirestore userFirestore;
 
-  BookingRepository(
+  BookingRepositoryImpl(
     this.bookingFirestore,
     this.userAuth,
     this.userFirestore,
   );
 
+  @override
   Future<void> createBooking(
     ListingModel listingModel,
     DateTime startDate,
@@ -44,6 +46,7 @@ class BookingRepository {
     await bookingFirestore.saveBooking(bookingModel);
   }
 
+  @override
   Future<bool> checkIfInstrumentBooked(
     String listingId,
     DateTime startDate,
@@ -56,6 +59,7 @@ class BookingRepository {
     );
   }
 
+  @override
   Future<List<BookingEntity>> getAllUserBookings() async {
     final renterId = userAuth.userId;
     final bookingModels = await bookingFirestore.getAllUserBookings(renterId);
@@ -64,6 +68,7 @@ class BookingRepository {
         .toList();
   }
 
+  @override
   Stream<List<BookingEntity>> getAllUserBookingRequests() {
     final authorId = userAuth.userId;
     final bookingRequestsStream = bookingFirestore.getAllUserBookingRequests(
@@ -76,6 +81,7 @@ class BookingRepository {
     });
   }
 
+  @override
   Future<void> changeBookingStatus(
     String newStatus,
     String bookingId,

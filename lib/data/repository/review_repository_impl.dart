@@ -8,20 +8,22 @@ import 'package:marketplace_musical_instruments_app/data/mapper/review_mapper.da
 import 'package:marketplace_musical_instruments_app/data/mapper/review_summary_mapper.dart';
 import 'package:marketplace_musical_instruments_app/data/model/review_model.dart';
 import 'package:marketplace_musical_instruments_app/domain/entity/review_summary_entity.dart';
+import 'package:marketplace_musical_instruments_app/domain/repository/review_repository.dart';
 
-class ReviewRepository {
+class ReviewRepositoryImpl implements ReviewRepository {
   final UserFirestore userFirestore;
   final ListingFirestore listingFirestore;
   final UserAuth userAuth;
   final ReviewFirestore reviewFirestore;
 
-  ReviewRepository(
+  ReviewRepositoryImpl(
     this.userFirestore,
     this.listingFirestore,
     this.userAuth,
     this.reviewFirestore,
   );
 
+  @override
   Future<void> saveReview(
     int rating,
     String reviewText,
@@ -53,6 +55,7 @@ class ReviewRepository {
     await reviewFirestore.saveReviewModel(reviewModel, listingId);
   }
 
+  @override
   Stream<ReviewSummaryEntity> getListingRatingAndAllReviews(
     String listingId,
   ) {

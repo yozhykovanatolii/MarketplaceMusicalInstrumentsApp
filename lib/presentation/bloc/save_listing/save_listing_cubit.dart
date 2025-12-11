@@ -4,8 +4,8 @@ import 'package:marketplace_musical_instruments_app/core/exception/permission_de
 import 'package:marketplace_musical_instruments_app/core/exception/photo_not_selected_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/auth/user_not_found_exception.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
-import 'package:marketplace_musical_instruments_app/data/repository/geolocation_repository.dart';
-import 'package:marketplace_musical_instruments_app/data/repository/listing_repository.dart';
+import 'package:marketplace_musical_instruments_app/domain/repository/geolocation_repository.dart';
+import 'package:marketplace_musical_instruments_app/domain/repository/listing_repository.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_state.dart';
 

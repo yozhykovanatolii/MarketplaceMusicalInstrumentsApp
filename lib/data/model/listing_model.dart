@@ -10,7 +10,6 @@ class ListingModel {
   final List<String> photos;
   final double averageRating;
   final int reviewerCount;
-  final List<ReviewModel> reviews;
   final Map<String, double> location;
   final String authorId;
   final String authorFullName;
@@ -26,7 +25,6 @@ class ListingModel {
     required this.photos,
     required this.averageRating,
     required this.reviewerCount,
-    required this.reviews,
     required this.location,
     required this.authorId,
     required this.authorFullName,
@@ -44,7 +42,6 @@ class ListingModel {
       averageRating: 0.0,
       reviewerCount: 0,
       photos: [],
-      reviews: [],
       location: {},
       authorId: '',
       authorFullName: '',
@@ -78,7 +75,6 @@ class ListingModel {
       photos: photos ?? this.photos,
       averageRating: averageRating ?? this.averageRating,
       reviewerCount: reviewerCount ?? this.reviewerCount,
-      reviews: reviews ?? this.reviews,
       location: location ?? this.location,
       authorId: authorId ?? this.authorId,
       authorFullName: authorFullName ?? this.authorFullName,
@@ -97,7 +93,6 @@ class ListingModel {
       'photos': photos,
       'averageRating': averageRating,
       'reviewerCount': reviewerCount,
-      'reviews': reviews,
       'location': location,
       'authorId': authorId,
       'authorFullName': authorFullName,
@@ -122,11 +117,6 @@ class ListingModel {
       photos:
           (data?['photos'] as List<dynamic>?)
               ?.map((e) => e as String)
-              .toList() ??
-          [],
-      reviews:
-          (data?['reviews'] as List<dynamic>?)
-              ?.map((e) => e as ReviewModel)
               .toList() ??
           [],
       location:

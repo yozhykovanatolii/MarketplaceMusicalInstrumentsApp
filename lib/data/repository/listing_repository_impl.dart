@@ -4,27 +4,30 @@ import 'package:marketplace_musical_instruments_app/data/datasource/remote/fires
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/storage/supabase_storage.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
 import 'package:marketplace_musical_instruments_app/data/service/camera_picker_service.dart';
+import 'package:marketplace_musical_instruments_app/domain/repository/listing_repository.dart';
 import 'package:uuid/uuid.dart';
 
-class ListingRepository {
+class ListingRepositoryImpl implements ListingRepository {
   final SupabaseStorage supabaseStorage;
   final ListingFirestore listingFirestore;
   final UserAuth userAuth;
   final UserFirestore userFirestore;
 
-  ListingRepository(
+  ListingRepositoryImpl(
     this.supabaseStorage,
     this.listingFirestore,
     this.userAuth,
     this.userFirestore,
   );
 
+  @override
   Future<String> getListingPhotoUrl() async {
     final imageFile = await CameraPickerService.pickImageFileFromGallery();
     final imageUrl = await supabaseStorage.saveImage(imageFile, 'uploads');
     return imageUrl;
   }
 
+  @override
   Future<void> saveListing(
     Map<String, double> location,
     List<String> photos,
@@ -43,7 +46,6 @@ class ListingRepository {
       photos: photos,
       averageRating: listingModel.averageRating,
       reviewerCount: listingModel.reviewerCount,
-      reviews: listingModel.reviews,
       title: title,
       description: description,
       priceByHour: price,
@@ -56,16 +58,19 @@ class ListingRepository {
     await listingFirestore.saveListingModel(listingModel);
   }
 
+  @override
   Stream<List<ListingModel>> getUserListings() {
     final authorId = userAuth.userId;
     return listingFirestore.getUserListings(authorId);
   }
 
+  @override
   Future<List<ListingModel>> getAllListingExceptUsers() async {
     final authorId = userAuth.userId;
     return await listingFirestore.getAllListingExceptUsers(authorId);
   }
 
+  @override
   Future<List<ListingModel>> filterListings(
     List<String> categories,
     int startPrice,
@@ -86,10 +91,12 @@ class ListingRepository {
     );
   }
 
+  @override
   Future<List<ListingModel>> searchListings(String searchText) async {
     return await listingFirestore.searchListings(searchText);
   }
 
+  @override
   Future<void> deleteAuthorListing(String listingId) async {
     await listingFirestore.deleteListing(listingId);
   }

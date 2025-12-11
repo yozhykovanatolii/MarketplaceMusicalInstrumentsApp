@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/auth/user_not_found_exception.dart';
-import 'package:marketplace_musical_instruments_app/data/repository/review_repository.dart';
+import 'package:marketplace_musical_instruments_app/domain/repository/review_repository.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/review/review_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/review/review_state.dart';
 

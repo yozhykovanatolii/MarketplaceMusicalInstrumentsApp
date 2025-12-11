@@ -6,13 +6,13 @@ import 'package:marketplace_musical_instruments_app/data/datasource/remote/fires
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/firestore/review_firestore.dart';
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/firestore/user_firestore.dart';
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/storage/supabase_storage.dart';
-import 'package:marketplace_musical_instruments_app/data/repository/auth_repository.dart';
-import 'package:marketplace_musical_instruments_app/data/repository/booking_repository.dart';
-import 'package:marketplace_musical_instruments_app/data/repository/geolocation_repository.dart';
-import 'package:marketplace_musical_instruments_app/data/repository/listing_repository.dart';
-import 'package:marketplace_musical_instruments_app/data/repository/review_repository.dart';
-import 'package:marketplace_musical_instruments_app/data/repository/settings_repository.dart';
-import 'package:marketplace_musical_instruments_app/data/repository/user_repository.dart';
+import 'package:marketplace_musical_instruments_app/data/repository/auth_repository_impl.dart';
+import 'package:marketplace_musical_instruments_app/data/repository/booking_repository_impl.dart';
+import 'package:marketplace_musical_instruments_app/data/repository/geolocation_repository_impl.dart';
+import 'package:marketplace_musical_instruments_app/data/repository/listing_repository_impl.dart';
+import 'package:marketplace_musical_instruments_app/data/repository/review_repository_impl.dart';
+import 'package:marketplace_musical_instruments_app/data/repository/settings_repository_impl.dart';
+import 'package:marketplace_musical_instruments_app/data/repository/user_repository_impl.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/app/app_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/author_listing/author_listing_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_overview/booking_overview_bloc.dart';
@@ -59,36 +59,36 @@ class Dependencies {
     final listingFirestore = _getIt<ListingFirestore>();
     final supabaseStorage = _getIt<SupabaseStorage>();
     final reviewFirestore = _getIt<ReviewFirestore>();
-    _getIt.registerFactory<GeolocationRepository>(
-      () => GeolocationRepository(),
+    _getIt.registerFactory<GeolocationRepositoryImpl>(
+      () => GeolocationRepositoryImpl(),
     );
-    _getIt.registerFactory<SettingsRepository>(
-      () => SettingsRepository(_getIt<SettingsSharedPreference>()),
+    _getIt.registerFactory<SettingsRepositoryImpl>(
+      () => SettingsRepositoryImpl(_getIt<SettingsSharedPreference>()),
     );
-    _getIt.registerFactory<AuthRepository>(
-      () => AuthRepository(userFirestore, userAuth),
+    _getIt.registerFactory<AuthRepositoryImpl>(
+      () => AuthRepositoryImpl(userFirestore, userAuth),
     );
-    _getIt.registerFactory<BookingRepository>(
-      () => BookingRepository(bookingFirestore, userAuth, userFirestore),
+    _getIt.registerFactory<BookingRepositoryImpl>(
+      () => BookingRepositoryImpl(bookingFirestore, userAuth, userFirestore),
     );
-    _getIt.registerFactory<ListingRepository>(
-      () => ListingRepository(
+    _getIt.registerFactory<ListingRepositoryImpl>(
+      () => ListingRepositoryImpl(
         supabaseStorage,
         listingFirestore,
         userAuth,
         userFirestore,
       ),
     );
-    _getIt.registerFactory<UserRepository>(
-      () => UserRepository(
+    _getIt.registerFactory<UserRepositoryImpl>(
+      () => UserRepositoryImpl(
         supabaseStorage,
         userFirestore,
         userAuth,
         listingFirestore,
       ),
     );
-    _getIt.registerFactory<ReviewRepository>(
-      () => ReviewRepository(
+    _getIt.registerFactory<ReviewRepositoryImpl>(
+      () => ReviewRepositoryImpl(
         userFirestore,
         listingFirestore,
         userAuth,
@@ -98,13 +98,13 @@ class Dependencies {
   }
 
   static void _setupBloc() {
-    final authRepository = _getIt<AuthRepository>();
-    final userRepository = _getIt<UserRepository>();
-    final bookingRepository = _getIt<BookingRepository>();
-    final listingRepository = _getIt<ListingRepository>();
-    final geolocationRepository = _getIt<GeolocationRepository>();
+    final authRepository = _getIt<AuthRepositoryImpl>();
+    final userRepository = _getIt<UserRepositoryImpl>();
+    final bookingRepository = _getIt<BookingRepositoryImpl>();
+    final listingRepository = _getIt<ListingRepositoryImpl>();
+    final geolocationRepository = _getIt<GeolocationRepositoryImpl>();
     _getIt.registerFactory<SettingsCubit>(
-      () => SettingsCubit(_getIt<SettingsRepository>()),
+      () => SettingsCubit(_getIt<SettingsRepositoryImpl>()),
     );
     _getIt.registerFactory<AppBloc>(
       () => AppBloc(userRepository),
@@ -142,7 +142,7 @@ class Dependencies {
     );
     _getIt.registerFactory<ReviewBloc>(
       () => ReviewBloc(
-        _getIt<ReviewRepository>(),
+        _getIt<ReviewRepositoryImpl>(),
       ),
     );
     _getIt.registerFactory<SaveListingCubit>(

@@ -9,24 +9,27 @@ import 'package:marketplace_musical_instruments_app/data/model/user_model.dart';
 import 'package:marketplace_musical_instruments_app/data/service/camera_picker_service.dart';
 import 'package:marketplace_musical_instruments_app/data/service/dialer_service.dart';
 import 'package:marketplace_musical_instruments_app/domain/entity/user_entity.dart';
+import 'package:marketplace_musical_instruments_app/domain/repository/user_repository.dart';
 
-class UserRepository {
+class UserRepositoryImpl implements UserRepository {
   final SupabaseStorage supabaseStorage;
   final UserFirestore userFirestore;
   final UserAuth userAuth;
   final ListingFirestore listingFirestore;
 
-  UserRepository(
+  UserRepositoryImpl(
     this.supabaseStorage,
     this.userFirestore,
     this.userAuth,
     this.listingFirestore,
   );
 
+  @override
   Future<bool> checkIfUserExistByEmail(String email) async {
     return userFirestore.checkUserByEmail(email);
   }
 
+  @override
   Future<void> updateUserData(UserEntity userEntity) async {
     UserModel user = await userFirestore.getUserModelById(userEntity.id);
     user = user.copyWith(
@@ -41,6 +44,7 @@ class UserRepository {
     await userFirestore.saveUser(user);
   }
 
+  @override
   Future<String> getUserImage() async {
     final userImageFile = await CameraPickerService.pickImageFileFromGallery();
     final userImageUrl = await supabaseStorage.saveImage(
@@ -50,6 +54,7 @@ class UserRepository {
     return userImageUrl;
   }
 
+  @override
   Stream<UserEntity> getUserModelCurrentData() {
     final userStream = userAuth.user;
     return userStream.asyncMap((user) async {
@@ -60,20 +65,24 @@ class UserRepository {
     });
   }
 
+  @override
   Future<void> callUserDialer(String userPhoneNumber) async {
     await DialerService.openDialer(userPhoneNumber);
   }
 
+  @override
   Future<void> updateUserFavourites(List<String> updatedFavourites) async {
     final userId = userAuth.userId;
     await userFirestore.updateUserFavourites(userId, updatedFavourites);
   }
 
+  @override
   Stream<List<String>> getFavouriteListingsId() {
     final userId = userAuth.userId;
     return userFirestore.getUserFavourites(userId);
   }
 
+  @override
   Stream<List<ListingModel>> getUserFavouriteListings() async* {
     await for (final favouriteListingsId in getFavouriteListingsId()) {
       yield* listingFirestore.getUserFavouriteListings(favouriteListingsId);
