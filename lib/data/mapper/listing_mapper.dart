@@ -17,7 +17,7 @@ class ListingMapper {
       location: LocationEntity(
         latitude: listingModel.location['latitude'] ?? locationInitial.latitude,
         longitude:
-            listingModel.location['latitude'] ?? locationInitial.longitude,
+            listingModel.location['longitude'] ?? locationInitial.longitude,
       ),
       authorId: listingModel.authorId,
       authorFullName: listingModel.authorFullName,

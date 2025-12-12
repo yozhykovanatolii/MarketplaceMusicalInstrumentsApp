@@ -28,6 +28,8 @@ class AboutSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('Lat: ${location.latitude}');
+    print('Lon: ${location.longitude}');
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Column(

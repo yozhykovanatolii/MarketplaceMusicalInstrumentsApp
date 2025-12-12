@@ -18,11 +18,7 @@ class MiniGoogleMap extends StatelessWidget {
         BlocSelector<SaveListingCubit, SaveListingState, LocationEntity>(
           selector: (state) => state.currentLocation,
           builder: (context, userCurrentLocation) {
-            final locationKey =
-                '${userCurrentLocation.latitude.toStringAsFixed(6)}_'
-                '${userCurrentLocation.longitude.toStringAsFixed(6)}';
             return ListingMiniGoogleMap(
-              key: ValueKey(locationKey),
               currentLocation: LatLng(
                 userCurrentLocation.latitude,
                 userCurrentLocation.longitude,
