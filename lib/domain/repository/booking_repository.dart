@@ -8,7 +8,7 @@ abstract interface class BookingRepository {
     DateTime endDate,
     int totalPrice,
   );
-  Future<bool> checkIfInstrumentBooked(
+  Future<List<BookingEntity>> getBookingsByStartAndEndDate(
     String listingId,
     DateTime startDate,
     DateTime endDate,

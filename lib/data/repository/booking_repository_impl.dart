@@ -47,16 +47,19 @@ class BookingRepositoryImpl implements BookingRepository {
   }
 
   @override
-  Future<bool> checkIfInstrumentBooked(
+  Future<List<BookingEntity>> getBookingsByStartAndEndDate(
     String listingId,
     DateTime startDate,
     DateTime endDate,
   ) async {
-    return await bookingFirestore.checkIfInstrumentBooked(
+    final bookingsModel = await bookingFirestore.getBookingsByStartAndEndDate(
       listingId,
       startDate,
       endDate,
     );
+    return bookingsModel
+        .map((bookingModel) => BookingMapper.toEntity(bookingModel))
+        .toList();
   }
 
   @override

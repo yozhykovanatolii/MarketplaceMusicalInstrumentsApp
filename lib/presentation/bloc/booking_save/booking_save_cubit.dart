@@ -1,9 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/auth/user_not_found_exception.dart';
-import 'package:marketplace_musical_instruments_app/core/util/calculation_booking_price_util.dart';
 import 'package:marketplace_musical_instruments_app/domain/entity/listing_entity.dart';
 import 'package:marketplace_musical_instruments_app/domain/repository/booking_repository.dart';
 import 'package:marketplace_musical_instruments_app/domain/repository/user_repository.dart';
+import 'package:marketplace_musical_instruments_app/domain/usecase/calculate_booking_total_price.dart';
+import 'package:marketplace_musical_instruments_app/domain/usecase/check_instrument_availability_use_case.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_state.dart';
@@ -11,10 +12,14 @@ import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listi
 class BookingSaveCubit extends Cubit<BookingSaveState> {
   final BookingRepository bookingRepository;
   final UserRepository userRepository;
+  final CheckInstrumentAvailabilityUseCase checkInstrumentAvailabilityUseCase;
+  final CalculateBookingTotalPriceUseCase calculateBookingTotalPriceUseCase;
 
   BookingSaveCubit(
     this.bookingRepository,
     this.userRepository,
+    this.checkInstrumentAvailabilityUseCase,
+    this.calculateBookingTotalPriceUseCase,
   ) : super(BookingSaveState.initial());
 
   Future<void> calculateBookingTotalPrice(
@@ -24,12 +29,13 @@ class BookingSaveCubit extends Cubit<BookingSaveState> {
     int startingPrice,
   ) async {
     if (startDate == null || endDate == null) return;
-    final isInstrumentBooked = await bookingRepository.checkIfInstrumentBooked(
-      listingId,
-      startDate,
-      endDate,
-    );
-    if (isInstrumentBooked) {
+    final isAvailable = await checkInstrumentAvailabilityUseCase
+        .isInstrumentAvailable(
+          listingId,
+          startDate,
+          endDate,
+        );
+    if (!isAvailable) {
       emit(
         state.copyWith(
           buttonStatus: ButtonStatus.disabled,
@@ -40,7 +46,7 @@ class BookingSaveCubit extends Cubit<BookingSaveState> {
       );
       return;
     }
-    final totalPrice = CalculationBookingPriceUtil.calculateTotalPrice(
+    final totalPrice = calculateBookingTotalPriceUseCase.calculateTotalPrice(
       startDate,
       endDate,
       startingPrice,

@@ -13,6 +13,8 @@ import 'package:marketplace_musical_instruments_app/data/repository/listing_repo
 import 'package:marketplace_musical_instruments_app/data/repository/review_repository_impl.dart';
 import 'package:marketplace_musical_instruments_app/data/repository/settings_repository_impl.dart';
 import 'package:marketplace_musical_instruments_app/data/repository/user_repository_impl.dart';
+import 'package:marketplace_musical_instruments_app/domain/usecase/calculate_booking_total_price.dart';
+import 'package:marketplace_musical_instruments_app/domain/usecase/check_instrument_availability_use_case.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/app/app_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/author_listing/author_listing_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_overview/booking_overview_bloc.dart';
@@ -33,6 +35,7 @@ class Dependencies {
   static void setupDependencies() {
     _setupDataSources();
     _setupRepositories();
+    _setupUseCases();
     _setupBloc();
   }
 
@@ -97,12 +100,26 @@ class Dependencies {
     );
   }
 
+  static void _setupUseCases() {
+    final bookingRepository = _getIt<BookingRepositoryImpl>();
+    _getIt.registerFactory<CheckInstrumentAvailabilityUseCase>(
+      () => CheckInstrumentAvailabilityUseCase(bookingRepository),
+    );
+    _getIt.registerFactory<CalculateBookingTotalPriceUseCase>(
+      () => CalculateBookingTotalPriceUseCase(),
+    );
+  }
+
   static void _setupBloc() {
     final authRepository = _getIt<AuthRepositoryImpl>();
     final userRepository = _getIt<UserRepositoryImpl>();
     final bookingRepository = _getIt<BookingRepositoryImpl>();
     final listingRepository = _getIt<ListingRepositoryImpl>();
     final geolocationRepository = _getIt<GeolocationRepositoryImpl>();
+    final checkInstrumentAvailabilityUseCase =
+        _getIt<CheckInstrumentAvailabilityUseCase>();
+    final calculateBookingTotalPriceUseCase =
+        _getIt<CalculateBookingTotalPriceUseCase>();
     _getIt.registerFactory<SettingsCubit>(
       () => SettingsCubit(_getIt<SettingsRepositoryImpl>()),
     );
@@ -119,6 +136,8 @@ class Dependencies {
       () => BookingSaveCubit(
         bookingRepository,
         userRepository,
+        checkInstrumentAvailabilityUseCase,
+        calculateBookingTotalPriceUseCase,
       ),
     );
     _getIt.registerFactory<FavouriteListingsBloc>(

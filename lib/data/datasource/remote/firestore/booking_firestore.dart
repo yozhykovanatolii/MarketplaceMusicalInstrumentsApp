@@ -40,19 +40,19 @@ class BookingFirestore {
         });
   }
 
-  Future<bool> checkIfInstrumentBooked(
+  Future<List<BookingModel>> getBookingsByStartAndEndDate(
     String listingId,
     DateTime startDate,
     DateTime endDate,
   ) async {
-    final querySnapshot = await _firestore
-        .collection('bookings')
+    final collectionReference = _getBookingCollectionReference();
+    final querySnapshot = await collectionReference
         .where('listingId', isEqualTo: listingId)
         .where('startDate', isEqualTo: Timestamp.fromDate(startDate))
         .where('endDate', isEqualTo: Timestamp.fromDate(endDate))
         .limit(1)
         .get();
-    return querySnapshot.docs.isNotEmpty;
+    return querySnapshot.docs.map((document) => document.data()).toList();
   }
 
   CollectionReference<BookingModel> _getBookingCollectionReference() {
