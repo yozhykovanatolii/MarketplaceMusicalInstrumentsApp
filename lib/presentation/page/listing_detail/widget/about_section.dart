@@ -5,7 +5,7 @@ import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:marketplace_musical_instruments_app/core/theme/app_colors.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/listing_mini_google_map.dart';
 import 'package:marketplace_musical_instruments_app/domain/entity/location_entity.dart';
-import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
+import 'package:marketplace_musical_instruments_app/core/localization/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_cubit.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/listing_detail/widget/read_more_text.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/listing_detail/widget/user_avatar_and_full_name.dart';

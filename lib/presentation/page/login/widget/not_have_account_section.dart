@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:marketplace_musical_instruments_app/core/navigation/app_routes.dart';
-import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
+import 'package:marketplace_musical_instruments_app/core/localization/generated/l10n.dart';
 
 class NotHaveAccountSection extends StatelessWidget {
   const NotHaveAccountSection({super.key});

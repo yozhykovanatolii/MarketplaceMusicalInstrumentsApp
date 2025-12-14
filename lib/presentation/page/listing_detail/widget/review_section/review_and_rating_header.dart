@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:marketplace_musical_instruments_app/core/theme/app_colors.dart';
 import 'package:marketplace_musical_instruments_app/core/util/ui_helper.dart';
-import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
+import 'package:marketplace_musical_instruments_app/core/localization/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/add_review/add_review_page.dart';
 
 class ReviewAndRatingHeader extends StatelessWidget {

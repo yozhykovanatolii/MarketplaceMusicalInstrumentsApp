@@ -5,7 +5,6 @@ import 'package:marketplace_musical_instruments_app/core/exception/listing/listi
 import 'package:marketplace_musical_instruments_app/core/exception/listing/listing_searching_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/listing/user_listings_exception.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
-import 'package:marketplace_musical_instruments_app/data/service/geolocation_service.dart';
 
 class ListingFirestore {
   final _firestore = FirebaseFirestore.instance;
@@ -109,25 +108,7 @@ class ListingFirestore {
         'Listings weren\'t found matching the selected criteria',
       );
     }
-    final listings = querySnapshot.docs
-        .map((document) => document.data())
-        .toList();
-    final nearbyListings = listings.where((listing) {
-      final location = listing.location;
-      return GeolocationService.isListingExistInThisRadius(
-        radius,
-        userLat,
-        userLng,
-        location['latitude']!,
-        location['longitude']!,
-      );
-    }).toList();
-    if (nearbyListings.isEmpty) {
-      throw ListingFiltrationException(
-        'No listings found nearby',
-      );
-    }
-    return nearbyListings;
+    return querySnapshot.docs.map((document) => document.data()).toList();
   }
 
   Future<List<ListingModel>> searchListings(String searchText) async {

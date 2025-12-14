@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
+import 'package:marketplace_musical_instruments_app/core/localization/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/languages/widget/language_list_tile.dart';
 
 class LanguagesPage extends StatelessWidget {

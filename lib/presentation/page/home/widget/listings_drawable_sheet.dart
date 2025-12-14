@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_progress_indicator.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/listings_grid_view.dart';
-import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
+import 'package:marketplace_musical_instruments_app/core/localization/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/state/listing_state.dart';
 

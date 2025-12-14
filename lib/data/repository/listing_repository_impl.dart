@@ -1,3 +1,4 @@
+import 'package:marketplace_musical_instruments_app/core/exception/listing/listing_filtration_exception.dart';
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/firebase_auth/user_auth.dart';
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/firestore/listing_firestore.dart';
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/firestore/user_firestore.dart';
@@ -5,6 +6,7 @@ import 'package:marketplace_musical_instruments_app/data/datasource/remote/stora
 import 'package:marketplace_musical_instruments_app/data/mapper/listing_mapper.dart';
 import 'package:marketplace_musical_instruments_app/data/model/listing_model.dart';
 import 'package:marketplace_musical_instruments_app/data/service/camera_picker_service.dart';
+import 'package:marketplace_musical_instruments_app/data/service/geolocation_service.dart';
 import 'package:marketplace_musical_instruments_app/domain/entity/listing_entity.dart';
 import 'package:marketplace_musical_instruments_app/domain/entity/location_entity.dart';
 import 'package:marketplace_musical_instruments_app/domain/repository/listing_repository.dart';
@@ -93,7 +95,22 @@ class ListingRepositoryImpl implements ListingRepository {
       userLng,
       radius,
     );
-    return listingsModel
+    final nearbyListings = listingsModel.where((listing) {
+      final location = listing.location;
+      return GeolocationService.isListingExistInThisRadius(
+        radius,
+        userLat,
+        userLng,
+        location['latitude']!,
+        location['longitude']!,
+      );
+    }).toList();
+    if (nearbyListings.isEmpty) {
+      throw ListingFiltrationException(
+        'No listings found nearby',
+      );
+    }
+    return nearbyListings
         .map((listingModel) => ListingMapper.toEntity(listingModel))
         .toList();
   }

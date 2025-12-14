@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
+import 'package:marketplace_musical_instruments_app/core/localization/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/add_review/widget/add_review_action_button.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/add_review/widget/average_rating_bar.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/add_review/widget/review_text_field.dart';

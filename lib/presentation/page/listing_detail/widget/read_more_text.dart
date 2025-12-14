@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:marketplace_musical_instruments_app/core/theme/app_colors.dart';
-import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
+import 'package:marketplace_musical_instruments_app/core/localization/generated/l10n.dart';
 
 class ReadMoreText extends StatefulWidget {
   final String text;

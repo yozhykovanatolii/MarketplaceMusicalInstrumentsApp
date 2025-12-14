@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:marketplace_musical_instruments_app/core/util/ui_helper.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/information_dialog_box.dart';
-import 'package:marketplace_musical_instruments_app/generated/l10n.dart';
+import 'package:marketplace_musical_instruments_app/core/localization/generated/l10n.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/author_listing/author_listing_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/author_listing/author_listing_event.dart';
 

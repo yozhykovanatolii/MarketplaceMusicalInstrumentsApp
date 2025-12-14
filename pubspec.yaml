@@ -97,4 +97,7 @@ flutter:
       fonts:
         - asset: assets/fonts/Pacifico-Regular.ttf
 flutter_intl:
-  enabled: true
+  enabled: false
+  main_locale: en
+  arb_dir: lib/core/localization/l10n
+  output_dir: lib/core/localization/generated
