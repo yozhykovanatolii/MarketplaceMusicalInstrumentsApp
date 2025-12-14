@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:marketplace_musical_instruments_app/core/constants/app_constant.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_event.dart';
 
@@ -39,7 +40,7 @@ class _GoogleMapSectionState extends State<GoogleMapSection> {
   Future<void> _addCustomIconMarker() async {
     final icon = await BitmapDescriptor.asset(
       const ImageConfiguration(),
-      'assets/images/price_marker.png',
+      AppConstant.defaultMarker,
     );
     setState(() {
       customIcon = icon;

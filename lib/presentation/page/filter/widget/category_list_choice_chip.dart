@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:marketplace_musical_instruments_app/core/constants/app_constant.dart';
 import 'package:marketplace_musical_instruments_app/core/theme/app_colors.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_bloc.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/listing/listing_event.dart';
 
 class CategoryListFilterChip extends StatelessWidget {
-  static const List<String> categories = [
-    'Guitar',
-    'Micro',
-    'CAD',
-    'MultiFx',
-  ];
   const CategoryListFilterChip({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final categories = AppConstant.categories;
     return SizedBox(
       height: 100,
       child: GridView.count(

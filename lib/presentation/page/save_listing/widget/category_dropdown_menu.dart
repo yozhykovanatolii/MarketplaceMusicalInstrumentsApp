@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:marketplace_musical_instruments_app/core/constants/app_constant.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_cubit.dart';
 
 class CategoryDropdownMenu extends StatelessWidget {
-  static const List<String> categories = [
-    'Guitar',
-    'Micro',
-    'CAD',
-    'MultiFx',
-  ];
   const CategoryDropdownMenu({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final categories = AppConstant.categories;
     return DropdownMenu<String>(
       initialSelection: categories.first,
       onSelected: (category) => context

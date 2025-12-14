@@ -60,7 +60,7 @@ class _ListingMiniGoogleMapState extends State<ListingMiniGoogleMap> {
             Circle(
               circleId: const CircleId('listing_circle'),
               center: widget.currentLocation,
-              radius: 300, // в метрах
+              radius: 300,
               strokeWidth: 2,
               strokeColor: Colors.blue,
               fillColor: Colors.blue.withValues(alpha: 0.2),
