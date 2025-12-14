@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:marketplace_musical_instruments_app/core/helper/ui_helper.dart';
+import 'package:marketplace_musical_instruments_app/core/util/ui_helper.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_button.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/information_dialog_box.dart';
 import 'package:marketplace_musical_instruments_app/domain/entity/listing_entity.dart';

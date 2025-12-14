@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:marketplace_musical_instruments_app/core/helper/ui_helper.dart';
 import 'package:marketplace_musical_instruments_app/core/navigation/app_routes.dart';
+import 'package:marketplace_musical_instruments_app/core/util/ui_helper.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/common_progress_indicator.dart';
 import 'package:marketplace_musical_instruments_app/core/widget/listings_grid_view.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/app/app_bloc.dart';

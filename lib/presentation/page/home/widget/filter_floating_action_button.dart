@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:marketplace_musical_instruments_app/core/helper/ui_helper.dart';
 import 'package:marketplace_musical_instruments_app/core/theme/app_colors.dart';
+import 'package:marketplace_musical_instruments_app/core/util/ui_helper.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/filter/filter_page.dart';
 
 class FilterFloatingActionButton extends StatelessWidget {
