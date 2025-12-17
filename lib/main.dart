@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:marketplace_musical_instruments_app/core/constants/app_constant.dart';
 import 'package:marketplace_musical_instruments_app/core/navigation/app_router.dart';
 import 'package:marketplace_musical_instruments_app/core/theme/app_theme.dart';
 import 'package:marketplace_musical_instruments_app/core/di/dependencies.dart';
@@ -32,9 +33,8 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await Supabase.initialize(
-    url: 'https://xwgraskemxbhjtgqrjxn.supabase.co',
-    anonKey:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh3Z3Jhc2tlbXhiaGp0Z3FyanhuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgzNjI0MDIsImV4cCI6MjA3MzkzODQwMn0.8N39PRYkuu8vS0j69ucNSNblXDct7NBT7IrVqBpFK8c',
+    url: AppConstant.supabaseProjectUrl,
+    anonKey: AppConstant.supabaseProjectKey,
   );
   Dependencies.setupDependencies();
   runApp(

@@ -1,3 +1,4 @@
+import 'package:marketplace_musical_instruments_app/core/constants/app_constant.dart';
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/firebase_auth/user_auth.dart';
 import 'package:marketplace_musical_instruments_app/data/datasource/remote/firestore/user_firestore.dart';
 import 'package:marketplace_musical_instruments_app/data/model/user_model.dart';
@@ -32,8 +33,7 @@ class AuthRepositoryImpl implements AuthRepository {
       password: password,
       phoneNumber: phoneNumber,
       about: '',
-      avatar:
-          'https://xwgraskemxbhjtgqrjxn.supabase.co/storage/v1/object/public/images/uploads/1758373217886',
+      avatar: AppConstant.defaultAvatarUrl,
       favouriteListingsId: [],
     );
     await userFirestore.saveUser(userModel);
