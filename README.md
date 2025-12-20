@@ -1,16 +1,13 @@
-# marketplace_musical_instruments_app
+<div align="center">
 
-A new Flutter project.
+# 🎸 InstrumentRental App
 
-## Getting Started
+**Peer-to-Peer Marketplace for Musical Instruments & Equipment** 
 
-This project is a starting point for a Flutter application.
+</div>
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## 📄 About
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+InstrumentRental is a mobile app that solves the "equipment is too far away" problem for musicians and event organizers. Our interactive map with customizable radius filtering shows only instruments within your reach, updated in real-time. Users can list idle gear for local rentals or book nearby equipment with one-tap confirmation.
+
