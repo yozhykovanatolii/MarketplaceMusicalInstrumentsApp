@@ -25,3 +25,28 @@ InstrumentRental is a mobile app that solves the "equipment is too far away" pro
 🎨 **UI/UX** – Light/dark theme, multi-language support  
 💖 **Favorites** – Save and manage favorite listings
 
+## 🚀 Getting Started
+
+### Prerequisites
+- Flutter SDK (>= 3.x)
+- Dart
+- Android Studio or VS Code
+- Android emulator or physical Android device
+
+### Installation
+1. Clone the repository
+```
+git clone https://github.com/yozhykovanatolii/MarketplaceMusicalInstrumentsApp.git
+```
+
+2. Install dependencies
+```
+flutter pub get
+```
+3. Run the application
+```
+flutter run
+```
+
+
+
