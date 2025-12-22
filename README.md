@@ -6,7 +6,6 @@
 
 </div>
 
-
 ## 📄 About
 
 InstrumentRental is a mobile app that solves the "equipment is too far away" problem for musicians and event organizers. Our interactive map with customizable radius filtering shows only instruments within your reach, updated in real-time. Users can list idle gear for local rentals or book nearby equipment with one-tap confirmation.
@@ -24,6 +23,47 @@ InstrumentRental is a mobile app that solves the "equipment is too far away" pro
 📍 **Interactive Map** – Dynamic loading on pan/zoom (Airbnb-style), shows user location  
 🎨 **UI/UX** – Light/dark theme, multi-language support  
 💖 **Favorites** – Save and manage favorite listings
+
+## 🛠 Tech Stack
+
+**Core Framework**
+- **Flutter** – Cross-platform UI framework  
+- **Dart** – Programming language
+
+**State Management**
+- **BLoC**
+- **Cubit**
+
+**Dependency Injection**
+- **GetIt** – Service locator and dependency injection
+
+**Backend & Cloud Services**
+- **Firebase**
+  - **Firebase Auth** – User authentication
+  - **Cloud Firestore** – Real-time NoSQL database
+- **Supabase** – File storage for photo instruments and user's avatar
+
+**Navigation**
+- **GoRouter** – Navigation and routing
+
+**Maps & Geolocation**
+- **Google Maps Flutter** – Interactive maps
+- **Geolocator** – Location services
+- **Permission Handler** – Permission management
+
+**UI Components**
+- **Table Calendar** – Calendar widget for booking
+- **Flutter Rating Bar** – Star rating bar
+- **Grouped List** – Sectioned list views
+- **Iconsax** – Modern icon pack
+- **Another Flutter Splash Screen** – Custom splash screen
+
+**Media & Storage**
+- **Image Picker** – Image selection from gallery
+- **Shared Preferences** – Local data persistence (theme, language settings)
+
+**Utilities**
+- **UUID** – Unique ID generation
 
 ## 🚀 Getting Started
 
