@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:marketplace_musical_instruments_app/core/exception/auth/user_not_found_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/geolocation_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/listing/listing_filtration_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/listing/listing_searching_exception.dart';
@@ -50,6 +51,13 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
         state.listingFilters.distance,
       );
       emit(state.copyWith(listings: listings, status: ListingStatus.success));
+    } on UserNotFoundException catch (exception) {
+      emit(
+        state.copyWith(
+          errorMessage: exception.errorMessage,
+          status: ListingStatus.failure,
+        ),
+      );
     } on ListingFiltrationException catch (exception) {
       emit(
         state.copyWith(
@@ -93,6 +101,13 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
       final foundListings = await listingRepository.searchListings(searchText);
       emit(
         state.copyWith(listings: foundListings, status: ListingStatus.loading),
+      );
+    } on UserNotFoundException catch (exception) {
+      emit(
+        state.copyWith(
+          errorMessage: exception.errorMessage,
+          status: ListingStatus.failure,
+        ),
       );
     } on ListingSearchingException catch (exception) {
       emit(

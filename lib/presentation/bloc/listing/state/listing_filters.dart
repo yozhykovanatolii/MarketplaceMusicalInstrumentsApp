@@ -16,7 +16,7 @@ class ListingFilters {
   factory ListingFilters.initial() {
     return ListingFilters(
       selectedAverageRating: 0,
-      startPrice: 0,
+      startPrice: 1,
       endPrice: 500,
       selectedCategories: [],
       distance: 1,

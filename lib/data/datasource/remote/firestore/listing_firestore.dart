@@ -81,6 +81,7 @@ class ListingFirestore {
   }
 
   Future<List<ListingModel>> filterListings(
+    String authorId,
     List<String> categories,
     int startPrice,
     int endPrice,
@@ -91,6 +92,7 @@ class ListingFirestore {
   ) async {
     final collectionReference = _getListingCollectionReference();
     var query = collectionReference
+        .where('authorId', isEqualTo: authorId)
         .where('priceByHour', isGreaterThanOrEqualTo: startPrice)
         .where('priceByHour', isLessThanOrEqualTo: endPrice);
     if (categories.isNotEmpty) {
@@ -111,9 +113,13 @@ class ListingFirestore {
     return querySnapshot.docs.map((document) => document.data()).toList();
   }
 
-  Future<List<ListingModel>> searchListings(String searchText) async {
+  Future<List<ListingModel>> searchListings(
+    String searchText,
+    String authorId,
+  ) async {
     final collectionReference = _getListingCollectionReference();
     final titleQuery = collectionReference
+        .where('authorId', isEqualTo: authorId)
         .orderBy('title')
         .startAt([searchText])
         .endAt(['$searchText\uf8ff'])

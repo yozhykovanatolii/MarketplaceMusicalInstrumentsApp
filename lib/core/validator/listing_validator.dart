@@ -18,8 +18,8 @@ class ListingValidator {
       return "The price must not be empty or starts with -";
     }
     int price = int.parse(priceText);
-    if (price <= 0) {
-      return "The price must not be less than or equal to 0.";
+    if (price <= 0 || price > 500) {
+      return "Price must be greater than 0 and not exceed 500";
     }
     return null;
   }

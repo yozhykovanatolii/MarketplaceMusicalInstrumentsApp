@@ -86,7 +86,9 @@ class ListingRepositoryImpl implements ListingRepository {
     double userLng,
     int radius,
   ) async {
+    final authorId = userAuth.userId;
     final listingsModel = await listingFirestore.filterListings(
+      authorId,
       categories,
       startPrice,
       endPrice,
@@ -117,7 +119,11 @@ class ListingRepositoryImpl implements ListingRepository {
 
   @override
   Future<List<ListingEntity>> searchListings(String searchText) async {
-    final listingsModel = await listingFirestore.searchListings(searchText);
+    final authorId = userAuth.userId;
+    final listingsModel = await listingFirestore.searchListings(
+      searchText,
+      authorId,
+    );
     return listingsModel
         .map((listingModel) => ListingMapper.toEntity(listingModel))
         .toList();
