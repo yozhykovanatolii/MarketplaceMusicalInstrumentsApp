@@ -92,8 +92,8 @@ flutter run
 <details>
 <summary>🗺️ <strong>Discover & Explore</strong></summary>
 <div align="center">
-<img src="map.jpg" width="250" style="display: inline-block; margin: 10px;"> 
-<img src="details.jpg" width="250" style="display: inline-block; margin: 10px;">
+<img src="screenshots/map.jpg" width="250" style="display: inline-block; margin: 10px;"> 
+<img src="screenshots/details.jpg" width="250" style="display: inline-block; margin: 10px;">
 <br>
 Interactive Map • Instrument Details
 </div>
@@ -102,8 +102,8 @@ Interactive Map • Instrument Details
 <details>
 <summary>📅 <strong>Book & Reserve</strong></summary>
 <div align="center">
-<img src="calendar.jpg" width="250" style="display: inline-block; margin: 10px;">
-<img src="confirmation.jpg" width="250" style="display: inline-block; margin: 10px;">
+<img src="screenshots/calendar.jpg" width="250" style="display: inline-block; margin: 10px;">
+<img src="screenshots/confirmation.jpg" width="250" style="display: inline-block; margin: 10px;">
 <br>
 Availability Calendar • Booking Confirmation
 </div>
@@ -112,9 +112,9 @@ Availability Calendar • Booking Confirmation
 <details>
 <summary>👤 <strong>Manage & Track</strong></summary>
 <div align="center">
-<img src="my_listings.jpg" width="200" style="display: inline-block; margin: 10px;">
-<img src="booking_requests.jpg" width="200" style="display: inline-block; margin: 10px;">
-<img src="my_bookings.jpg" width="200" style="display: inline-block; margin: 10px;">
+<img src="screenshots/my_listings.jpg" width="200" style="display: inline-block; margin: 10px;">
+<img src="screenshots/booking_requests.jpg" width="200" style="display: inline-block; margin: 10px;">
+<img src="screenshots/my_bookings.jpg" width="200" style="display: inline-block; margin: 10px;">
 <br>
 My Listings • Incoming Requests • My Reservations
 </div>

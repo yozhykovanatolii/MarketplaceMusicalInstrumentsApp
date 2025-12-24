@@ -92,7 +92,7 @@ class ListingFirestore {
   ) async {
     final collectionReference = _getListingCollectionReference();
     var query = collectionReference
-        .where('authorId', isEqualTo: authorId)
+        .where('authorId', isNotEqualTo: authorId)
         .where('priceByHour', isGreaterThanOrEqualTo: startPrice)
         .where('priceByHour', isLessThanOrEqualTo: endPrice);
     if (categories.isNotEmpty) {
@@ -119,12 +119,13 @@ class ListingFirestore {
   ) async {
     final collectionReference = _getListingCollectionReference();
     final titleQuery = collectionReference
-        .where('authorId', isEqualTo: authorId)
+        .where('authorId', isNotEqualTo: authorId)
         .orderBy('title')
         .startAt([searchText])
         .endAt(['$searchText\uf8ff'])
         .get();
     final categoryQuery = collectionReference
+        .where('authorId', isNotEqualTo: authorId)
         .orderBy('category')
         .startAt([searchText])
         .endAt(['$searchText\uf8ff'])
