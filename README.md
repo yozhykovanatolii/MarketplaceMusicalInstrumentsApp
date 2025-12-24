@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🎸 InstrumentRental App
+# 🎸 InstrumentRental Mobile App
 
 **Peer-to-Peer Marketplace for Musical Instruments & Equipment** 
 
@@ -90,27 +90,33 @@ flutter run
 
 ## 📸 Screenshots
 <details>
-<summary>🔍 <strong>Search & Selection</strong> (2 screens)</summary>
+<summary>🗺️ <strong>Discover & Explore</strong></summary>
 <div align="center">
-<img src="1.jpg" width="250"><br>Map
-<img src="2.jpg" width="250"><br>Calendar
+<img src="map.jpg" width="250" style="display: inline-block; margin: 10px;"> 
+<img src="details.jpg" width="250" style="display: inline-block; margin: 10px;">
+<br>
+Interactive Map • Instrument Details
 </div>
 </details>
 
 <details>
-<summary>📅 <strong>Booking Process</strong> (2 screens)</summary>
+<summary>📅 <strong>Book & Reserve</strong></summary>
 <div align="center">
-<img src="3.jpg" width="250"><br>Date Selection  
-<img src="4.jpg" width="250"><br>Confirmation
+<img src="calendar.jpg" width="250" style="display: inline-block; margin: 10px;">
+<img src="confirmation.jpg" width="250" style="display: inline-block; margin: 10px;">
+<br>
+Availability Calendar • Booking Confirmation
 </div>
 </details>
 
 <details>
-<summary>👤 <strong>Account Management</strong> (3 screens)</summary>
+<summary>👤 <strong>Manage & Track</strong></summary>
 <div align="center">
-<img src="5.jpg" width="250"><br>My Listings
-<img src="6.jpg" width="250"><br>Booking Requests
-<img src="7.jpg" width="250"><br>My Bookings
+<img src="my_listings.jpg" width="200" style="display: inline-block; margin: 10px;">
+<img src="booking_requests.jpg" width="200" style="display: inline-block; margin: 10px;">
+<img src="my_bookings.jpg" width="200" style="display: inline-block; margin: 10px;">
+<br>
+My Listings • Incoming Requests • My Reservations
 </div>
 </details>
 
