@@ -88,5 +88,29 @@ flutter pub get
 flutter run
 ```
 
+## 📸 Screenshots
+<details>
+<summary>🔍 <strong>Search & Selection</strong> (2 screens)</summary>
+<div align="center">
+<img src="1.jpg" width="250"><br>Map
+<img src="2.jpg" width="250"><br>Calendar
+</div>
+</details>
 
+<details>
+<summary>📅 <strong>Booking Process</strong> (2 screens)</summary>
+<div align="center">
+<img src="3.jpg" width="250"><br>Date Selection  
+<img src="4.jpg" width="250"><br>Confirmation
+</div>
+</details>
+
+<details>
+<summary>👤 <strong>Account Management</strong> (3 screens)</summary>
+<div align="center">
+<img src="5.jpg" width="250"><br>My Listings
+<img src="6.jpg" width="250"><br>Booking Requests
+<img src="7.jpg" width="250"><br>My Bookings
+</div>
+</details>
 
