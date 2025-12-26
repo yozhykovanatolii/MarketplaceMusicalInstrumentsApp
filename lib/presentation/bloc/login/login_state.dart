@@ -1,6 +1,5 @@
+import 'package:marketplace_musical_instruments_app/core/state/form_status.dart';
 import 'package:marketplace_musical_instruments_app/core/validator/user_validator.dart';
-
-enum FormStatus { initial, loading, success, failure }
 
 class LoginState {
   final String email;

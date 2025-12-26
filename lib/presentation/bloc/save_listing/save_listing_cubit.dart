@@ -3,10 +3,10 @@ import 'package:marketplace_musical_instruments_app/core/exception/geolocation_e
 import 'package:marketplace_musical_instruments_app/core/exception/permission_denied_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/photo_not_selected_exception.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/auth/user_not_found_exception.dart';
+import 'package:marketplace_musical_instruments_app/core/state/form_status.dart';
 import 'package:marketplace_musical_instruments_app/domain/entity/listing_entity.dart';
 import 'package:marketplace_musical_instruments_app/domain/repository/geolocation_repository.dart';
 import 'package:marketplace_musical_instruments_app/domain/repository/listing_repository.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_state.dart';
 
 class SaveListingCubit extends Cubit<SaveListingState> {

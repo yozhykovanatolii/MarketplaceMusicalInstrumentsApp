@@ -1,5 +1,5 @@
+import 'package:marketplace_musical_instruments_app/core/state/form_status.dart';
 import 'package:marketplace_musical_instruments_app/core/validator/user_validator.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
 
 class RegisterState {
   final String fullName;

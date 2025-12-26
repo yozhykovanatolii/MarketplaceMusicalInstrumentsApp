@@ -1,8 +1,7 @@
+import 'package:marketplace_musical_instruments_app/core/state/button_status.dart';
+import 'package:marketplace_musical_instruments_app/core/state/form_status.dart';
 import 'package:marketplace_musical_instruments_app/core/validator/listing_validator.dart';
 import 'package:marketplace_musical_instruments_app/domain/entity/location_entity.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
-
-enum ButtonStatus { enabled, disabled }
 
 class SaveListingState {
   final List<String> photos;

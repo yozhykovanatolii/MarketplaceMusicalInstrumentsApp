@@ -1,6 +1,6 @@
+import 'package:marketplace_musical_instruments_app/core/state/form_status.dart';
 import 'package:marketplace_musical_instruments_app/core/validator/user_validator.dart';
 import 'package:marketplace_musical_instruments_app/domain/entity/user_entity.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
 
 class EditProfileState {
   final UserEntity user;

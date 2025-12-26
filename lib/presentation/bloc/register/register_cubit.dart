@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/auth/register_exception.dart';
+import 'package:marketplace_musical_instruments_app/core/state/form_status.dart';
 import 'package:marketplace_musical_instruments_app/domain/repository/auth_repository.dart';
 import 'package:marketplace_musical_instruments_app/domain/repository/user_repository.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/register/register_state.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {

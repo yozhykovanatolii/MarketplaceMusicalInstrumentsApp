@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace_musical_instruments_app/core/exception/auth/user_not_found_exception.dart';
+import 'package:marketplace_musical_instruments_app/core/state/form_status.dart';
 import 'package:marketplace_musical_instruments_app/domain/repository/review_repository.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/review/review_event.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/review/review_state.dart';
@@ -44,6 +45,7 @@ class ReviewBloc extends Bloc<ReviewEvent, ReviewState> {
     AddReviewEvent event,
     Emitter<ReviewState> emit,
   ) async {
+    emit(state.copyWith(formStatus: FormStatus.loading));
     try {
       await reviewRepository.saveReview(
         state.rating.toInt(),
@@ -52,6 +54,21 @@ class ReviewBloc extends Bloc<ReviewEvent, ReviewState> {
         event.reviewerCounter,
         event.listingId,
       );
-    } on UserNotFoundException catch (exception) {}
+      emit(state.copyWith(formStatus: FormStatus.success));
+    } on UserNotFoundException catch (exception) {
+      emit(
+        state.copyWith(
+          formStatus: FormStatus.failure,
+          errorText: exception.errorMessage,
+        ),
+      );
+    } finally {
+      emit(
+        state.copyWith(
+          formStatus: FormStatus.initial,
+          errorText: '',
+        ),
+      );
+    }
   }
 }

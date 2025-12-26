@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:marketplace_musical_instruments_app/core/navigation/app_routes.dart';
+import 'package:marketplace_musical_instruments_app/core/state/form_status.dart';
 import 'package:marketplace_musical_instruments_app/core/util/ui_helper.dart';
 import 'package:marketplace_musical_instruments_app/domain/entity/listing_entity.dart';
 import 'package:marketplace_musical_instruments_app/core/localization/generated/l10n.dart';
@@ -9,7 +10,6 @@ import 'package:marketplace_musical_instruments_app/presentation/bloc/app/app_bl
 import 'package:marketplace_musical_instruments_app/presentation/bloc/app/app_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_cubit.dart';
 import 'package:marketplace_musical_instruments_app/presentation/bloc/booking_save/booking_save_state.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/listing_detail/widget/about_section.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/listing_detail/widget/calendar_section.dart';
 import 'package:marketplace_musical_instruments_app/presentation/page/listing_detail/widget/category_and_average_rating_section.dart';
@@ -44,7 +44,7 @@ class ListingDetailPage extends StatelessWidget {
         BlocListener<BookingSaveCubit, BookingSaveState>(
           listener: (BuildContext context, BookingSaveState state) {
             final formStatus = state.formStatus;
-            if (state.formStatus == FormStatus.success) {
+            if (formStatus == FormStatus.success) {
               UiHelper.showSnackBar(
                 context: context,
                 message: S

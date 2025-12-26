@@ -1,5 +1,5 @@
-import 'package:marketplace_musical_instruments_app/presentation/bloc/login/login_state.dart';
-import 'package:marketplace_musical_instruments_app/presentation/bloc/save_listing/save_listing_state.dart';
+import 'package:marketplace_musical_instruments_app/core/state/button_status.dart';
+import 'package:marketplace_musical_instruments_app/core/state/form_status.dart';
 
 class BookingSaveState {
   final DateTime? startBookingDate;
