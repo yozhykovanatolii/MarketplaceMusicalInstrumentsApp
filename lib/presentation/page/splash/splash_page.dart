@@ -16,11 +16,11 @@ class SplashPage extends StatelessWidget {
       backgroundColor: const Color(0xFF007DFC),
       animationDuration: const Duration(milliseconds: 3000),
       childWidget: const Text(
-        'Rentify',
+        'Instrument Rentals',
         style: TextStyle(
           fontFamily: 'Pacifico',
           color: Colors.white,
-          fontSize: 50,
+          fontSize: 35,
           fontWeight: FontWeight.w600,
         ),
       ),
