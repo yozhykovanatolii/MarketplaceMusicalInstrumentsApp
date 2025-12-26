@@ -21,8 +21,6 @@ class UserFirestore {
   Future<UserModel> getUserModelById(String id) async {
     final docRef = _getUserDocumentReference(id);
     final snapshot = await docRef.get();
-    print('[DEBUG] Firestore exists: ${snapshot.exists}');
-    print('[DEBUG] Firestore data: ${snapshot.data()?.fullName}');
     final userModel = snapshot.data()!;
     return userModel;
   }

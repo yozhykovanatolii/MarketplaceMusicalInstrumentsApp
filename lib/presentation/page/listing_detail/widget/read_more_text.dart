@@ -33,7 +33,6 @@ class _ReadMoreTextState extends State<ReadMoreText> {
   }
 
   void _checkIfTextOverflow() {
-    print('It is work');
     final textSpan = TextSpan(
       text: widget.text,
       style: DefaultTextStyle.of(context).style,

@@ -52,8 +52,6 @@ class ReviewBloc extends Bloc<ReviewEvent, ReviewState> {
         event.reviewerCounter,
         event.listingId,
       );
-    } on UserNotFoundException catch (exception) {
-      print(exception.errorMessage);
-    }
+    } on UserNotFoundException catch (exception) {}
   }
 }

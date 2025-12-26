@@ -12,7 +12,6 @@ class MiniGoogleMap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('MiniGoogleMap rebuilt');
     return Stack(
       children: [
         BlocSelector<SaveListingCubit, SaveListingState, LocationEntity>(

@@ -82,12 +82,10 @@ class SaveListingCubit extends Cubit<SaveListingState> {
           category: listing.category,
         ),
       );
-      print('State: ${listing.location.latitude}');
     }
   }
 
   Future<void> onSaveListing(ListingEntity? listing) async {
-    print('Hello, listing');
     emit(state.copyWith(formStatus: FormStatus.loading));
     try {
       await listingRepository.saveListing(

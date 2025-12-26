@@ -59,7 +59,6 @@ class UserRepositoryImpl implements UserRepository {
   Stream<UserEntity> getUserModelCurrentData() {
     final userStream = userAuth.user;
     return userStream.asyncMap((user) async {
-      print('[DEBUG] Firebase user: $user');
       if (user == null) throw UserNotFoundException('User didn\'t find');
       final userModel = await userFirestore.getUserModelById(user.uid);
       return UserMapper.toEntity(userModel);
