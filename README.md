@@ -90,33 +90,45 @@ flutter run
 
 ## 📸 Screenshots
 <details>
-<summary>🗺️ <strong>Discover & Explore</strong></summary>
+<summary>🔍 <strong>Search & Filter</strong></summary>
 <div align="center">
-<img src="screenshots/map.jpg" width="250" style="display: inline-block; margin: 10px;"> 
-<img src="screenshots/details.jpg" width="250" style="display: inline-block; margin: 10px;">
+<img src="map.jpg" width="250" style="display: inline-block; margin: 10px;">
+<img src="filtration.jpg" width="250" style="display: inline-block; margin: 10px;">
 <br>
-Interactive Map • Instrument Details
+Interactive Map • Advanced Filters
 </div>
 </details>
 
 <details>
-<summary>📅 <strong>Book & Reserve</strong></summary>
+<summary>📋 <strong>Listing Details</strong></summary>
 <div align="center">
-<img src="screenshots/calendar.jpg" width="250" style="display: inline-block; margin: 10px;">
-<img src="screenshots/confirmation.jpg" width="250" style="display: inline-block; margin: 10px;">
+<img src="details.jpg" width="250" style="display: inline-block; margin: 10px;">
+<img src="about.jpg" width="250" style="display: inline-block; margin: 10px;">
+<img src="reviews.jpg" width="250" style="display: inline-block; margin: 10px;">
+<br>
+Listing Detail • About Tab • Reviews Tab
+</div>
+</details>
+
+<details>
+<summary>📅 <strong>Booking Flow</strong></summary>
+<div align="center">
+<img src="calendar.jpg" width="250" style="display: inline-block; margin: 10px;">
+<img src="confirmation.jpg" width="250" style="display: inline-block; margin: 10px;">
 <br>
 Availability Calendar • Booking Confirmation
 </div>
 </details>
 
 <details>
-<summary>👤 <strong>Manage & Track</strong></summary>
+<summary>👤 <strong>Account Management</strong></summary>
 <div align="center">
-<img src="screenshots/my_listings.jpg" width="200" style="display: inline-block; margin: 10px;">
-<img src="screenshots/booking_requests.jpg" width="200" style="display: inline-block; margin: 10px;">
-<img src="screenshots/my_bookings.jpg" width="200" style="display: inline-block; margin: 10px;">
+<img src="my_listings.jpg" width="180" style="display: inline-block; margin: 5px;">
+<img src="booking_requests.jpg" width="180" style="display: inline-block; margin: 5px;">
+<img src="my_bookings_unconfirmed.jpg" width="180" style="display: inline-block; margin: 5px;">
+<img src="my_bookings_confirmed.jpg" width="180" style="display: inline-block; margin: 5px;">
 <br>
-My Listings • Incoming Requests • My Reservations
+My Listings • Incoming Requests • Pending Bookings • Confirmed Bookings
 </div>
 </details>
 

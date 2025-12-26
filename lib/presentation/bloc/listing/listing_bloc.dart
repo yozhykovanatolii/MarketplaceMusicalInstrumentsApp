@@ -187,7 +187,7 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
     final newListingFilters = _updateFilters(
       selectedAverageRating: 0,
       startPrice: 0,
-      endPrice: 10000,
+      endPrice: 500,
       selectedCategories: [],
     );
     emit(state.copyWith(listingFilters: newListingFilters));
