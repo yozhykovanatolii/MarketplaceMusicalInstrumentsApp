@@ -8,7 +8,7 @@
 
 ## 📄 About
 
-InstrumentRental is a mobile app that solves the "equipment is too far away" problem for musicians and event organizers. Our interactive map with customizable radius filtering shows only instruments within your reach, updated in real-time. Users can list idle gear for local rentals or book nearby equipment with one-tap confirmation.
+InstrumentRental is a mobile app for equipment owners and rental studios to manage local rentals. It helps reduce idle gear time and simplify bookings, while allowing musicians and event organizers to find and reserve nearby instruments efficiently. Features include inventory tracking, availability calendars, location-based search, and booking management.
 
 ## ✨ Features
 
